@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles/styleNavBar.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item me-4">
+                <img src="./assets/logo.png" alt="logo" width="40" />
+              </li>
+              <li class="nav-item">
+                <a class="nav-link link" href="proveedores.html">Proveedores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link link" href="productos.html"
+                  >Productos/Servicios</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link link" href="ordenCompra.html"
+                  >Ordenes de compra</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- informacion de la pagina: Proveedores -> Nuevo Proveedor -->
+      <div class="container-fluid">
+        <p class="paginaInfo mt-2">Proveedores - Nuevo Proveedor</p>
+      </div>
+    </header>
+
+    <main class="container mt-5">
+        <form>
+            <h5 class="mt-5 mb-4">Info Proovedor</h5>
+            <div class="mb-3">
+                <label for="codigoInput" class="form-label">Código</label>
+                <input type="text" required id="codigoInput" class="form-control" placeholder="Ingrese su codigo">
+            </div>
+
+            <div class="mb-3">
+                <label for="razonSocialInput" class="form-label">Razón social</label>
+                <input type="text" required id="razonSocialInput" class="form-control" placeholder="Ingrese Razón social">
+            </div>
+        
+            <label for="rubroInput" class="form-label">Rubro</label>
+            <select id="rubroInput" required class="form-select mb-3" aria-label="Default select example">
+                <option value="Libreria">Artículos de librería</option>
+                <option value="Calzado">Calzado</option>
+                <option value="Indumentaria">Indumentaria</option>
+                <option value="Muebles">Muebles</option>
+                <option value="Libros">Libros</option>
+            </select>
+
+            <div class="mb-3">
+                <label for="emailInput" class="form-label">Email address</label>
+                <input type="email" required class="form-control" id="emailInput" aria-describedby="emailHelp"
+                placeholder="ejemplo@email.com">
+            </div>
+
+            <h5 class="mt-5 mb-4">Direccion</h5>
+            <div class="mb-3">
+                <label for="calleInput" class="form-label">Calle y nº</label>
+                <input type="text" required id="calleInput" class="form-control" placeholder="ejemplo 123">
+            </div>
+
+            <div class="mb-3">
+                <label for="cpInput" class="form-label">Código postal</label>
+                <input type="text" required id="cpInput" class="form-control" placeholder="E123">
+            </div>
+
+            <div class="mb-3">
+                <label for="localidadInput" class="form-label">Localidad</label>
+                <input type="text" required id="localidadInput" class="form-control" 
+                placeholder="Ingrese la localidad">
+            </div>
+
+            <div class="mb-3">
+                <label for="provinciaInput" class="form-label">Provincia</label>
+                <input type="text" required id="provinciaInput" class="form-control" 
+                placeholder="Ingrese la provincia">
+            </div>
+
+            <div class="mb-3">
+                <label for="paisInput" class="form-label">Pais</label>
+                <input type="text" required id="paisInput" class="form-control" 
+                placeholder="Ingrese el pais">
+            </div>
+
+            <h5 class="mt-5 mb-4">Datos fiscales</h5>
+            <div class="mb-3">
+                <label for="ciutInput" class="form-label">CUIT</label>
+                <input type="number" required id="ciutInput" class="form-control" 
+                placeholder="12-12345678-1">
+            </div>
+
+            <label for="condicionivaInput" class="form-label">Condición iva</label>
+            <select id="condicionivaInput" required class="form-select mb-3" aria-label="Default select example">
+                <option value="1">IVA Responsable Inscripto</option>
+                <option value="2">IVA Responsable no Inscripto</option>
+                <option value="3">IVA no Responsable</option>
+                <option value="4">IVA Sujeto Exento</option>
+                <option value="5">Responsable Monotributo</option>
+                <option value="6">Sujeto no Categorizado</option>
+                <option value="7">Proveedor del Exterior</option>
+            </select>
+
+            <h5 class="mt-5 mb-4">Datos de contacto</h5>
+            <div class="mb-3">
+                <label for="nombreInput" class="form-label">Nombre</label>
+                <input type="text" required id="nombreInput" class="form-control" 
+                placeholder="Ingrese su nombre">
+            </div>
+
+            <div class="mb-3">
+                <label for="apellidoInput" class="form-label">Apellido</label>
+                <input type="text" required id="apellidoInput" class="form-control" 
+                placeholder="Ingrese su apellido">
+            </div>
+
+            <div class="mb-3">
+                <label for="telefonoInput" class="form-label">Telefono</label>
+                <input type="number" required id="telefonoInput" class="form-control" 
+                placeholder="012 12345678">
+            </div>
+
+            <div class="mb-3">
+                <label for="emailContactoInput" class="form-label">Email address</label>
+                <input type="email" required class="form-control" id="emailContactoInput" aria-describedby="emailHelp"
+                placeholder="ejemplo@email.com">
+            </div>
+
+            <div class="mb-3">
+                <label for="rolInput" class="form-label">Rol</label>
+                <input type="text" required id="rolInput" class="form-control" 
+                placeholder="Ingrese su rol">
+            </div>
+        
+            <button onclick="submitProveeror()" class="btn btn-primary mt-2">Submit</button>
+        </form>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts/scriptProovedores.js"></script>
+  </body>
+</html>
