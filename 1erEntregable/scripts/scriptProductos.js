@@ -27,7 +27,7 @@ function cargarProducto(){
     let descripcion = document.getElementById("descInput").value; 
     let precio = document.getElementById("precioInput").value; 
 
-    let producto = crearProducto(proovedor, codigo, categoria, nombre, descripcion, precio);
+    let producto = crearProducto(proveedor, codigo, categoria, nombre, descripcion, precio);
 
     //obtener la info del LocalStorage "productos"
     let productos = JSON.parse(window.localStorage.getItem("productos"));
@@ -45,3 +45,5 @@ function cargarProducto(){
     window.localStorage.setItem("productos", JSON.stringify(productos));
     
 }
+
+console.log(JSON.parse(window.localStorage.getItem("productos")));
