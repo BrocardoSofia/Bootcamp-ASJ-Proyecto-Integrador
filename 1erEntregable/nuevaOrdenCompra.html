@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles/styleNavBar.css" />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd">
+        <div class="container-fluid">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item me-4">
+                <img src="./assets/logo.png" alt="logo" width="40" />
+              </li>
+              <li class="nav-item">
+                <a class="nav-link link" href="proveedores.html">Proveedores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link link" href="productos.html"
+                  >Productos/Servicios</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link link" href="ordenCompra.html"
+                  >Ordenes de compra</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- informacion de la pagina: Proveedores -> Nuevo Proveedor -->
+      <div class="container-fluid">
+        <p class="paginaInfo mt-2">Ordenes de compra - Nueva Orden de Compra</p>
+      </div>
+    </header>
+
+    <main class="container mt-5">
+        <form>
+            <div class="mb-3">
+                <label for="numInput" class="form-label">Número orden compra</label>
+                <input type="number" required id="numInput" class="form-control" 
+                placeholder="Ingrese el número de orden de compra">
+            </div>
+
+            <div class="mb-3">
+                <label for="fechaEmisionInput" class="form-label">Fecha emisión</label>
+                <input type="date" required id="fechaEmisionInput" class="form-control" 
+                placeholder="Ingrese la fecha de emision">
+            </div>
+
+            <div class="mb-3">
+                <label for="fechaEntregaInput" class="form-label">Fecha entrega esperada</label>
+                <input type="date" required id="fechaEntregaInput" class="form-control" 
+                placeholder="Ingrese la fecha de entrega esperada">
+            </div>
+
+            <div class="mb-3">
+                <label for="dirInput" class="form-label">Información de recepción (dirección)</label>
+                <input type="text" required id="dirInput" class="form-control" 
+                placeholder="Ingrese información adicional de recepción">
+            </div>
+
+            <label for="proveedorInput" class="form-label">Proveedor</label>
+            <select id="proveedorInput" required class="form-select mb-3" aria-label="Default select example">
+                <option value="Proveedor A">Proveedor A</option>
+                <option value="Proveedor B">Proveedor B</option>
+                <option value="Proveedor C">Proveedor C</option>
+                <option value="Proveedor D">Proveedor D</option>
+                <option value="Proveedor E">Proveedor E</option>
+            </select>
+
+            <label for="productoInput" class="form-label">Producto</label>
+            <select id="productoInput" required class="form-select mb-3" aria-label="Default select example">
+                <option value="Producto A">Producto A</option>
+                <option value="Producto B">Producto B</option>
+                <option value="Producto C">Producto C</option>
+                <option value="Producto D">Producto D</option>
+                <option value="Producto E">Producto E</option>
+            </select>
+
+            <div class="mb-3">
+                <label for="cantInput" class="form-label">Cantidad</label>
+                <input type="number" required id="cantInput" class="form-control" 
+                placeholder="Ingrese la cantidad">
+            </div>
+
+            <div class="mb-3">
+                <label for="precioInput" class="form-label">Precio</label>
+                <input type="number" required id="precioInput" class="form-control" 
+                placeholder="Ingrese el precio">
+            </div>
+        
+            <button onclick="submitOrden()" class="btn btn-primary mt-2">Submit</button>
+        </form>
+    </main>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script src="scripts/scriptOrdenCompra.js"></script>
+  </body>
+</html>
