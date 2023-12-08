@@ -7,7 +7,7 @@ function cargarProductosTabla(){
 
     for(let i=0; i<arrayProductos.length; i++){
         
-        let producto = crearTdProducto(arrayProductos[i]);
+        let producto = crearTdProducto(arrayProductos[i], i);
         if(contadorTD == 3)
         {
             //si el contador es igual a 3 tengo que cargar la fila anterior y crear una nueva
@@ -24,7 +24,7 @@ function cargarProductosTabla(){
 }
 
 //devuelve un td
-function crearTdProducto(producto){
+function crearTdProducto(producto, posicion){
     let col = document.createElement("div");
     col.className = "col-md-4";
 
@@ -58,6 +58,8 @@ function crearTdProducto(producto){
 
     let line = document.createElement("hr");
 
+    let boton = crearBoton(posicion);
+
     //agrego los elementos al card
     cardBody.appendChild(proveedor);
     cardBody.appendChild(line);
@@ -66,12 +68,47 @@ function crearTdProducto(producto){
     cardBody.appendChild(nombre);
     cardBody.appendChild(descripcion);
     cardBody.appendChild(precio);
-    
+    cardBody.appendChild(boton);    
 
     card.appendChild(cardBody);
     col.appendChild(card);
 
     return col;
+}
+
+function crearBoton(posicion){
+    let boton = document.createElement("button");
+    boton.type = "button";
+    boton.className = "btn btn-danger btn-sm";
+    boton.value = posicion;
+    boton.innerHTML = "Eliminar";
+
+    //agrego funcion para eliminar
+    boton.addEventListener("click", function() {
+        //elimino la orden del localStorage
+        eliminarItem(posicion);        
+    
+        //vuelvo a cargar la pagina para mostrar los cambios
+        location.href = "productos.html";
+    });
+
+    return boton;
+}
+
+function eliminarItem(posicion){
+    let arrayProductos = JSON.parse(window.localStorage.getItem("productos"));
+    let nuevoArray = [];
+
+    //guardo todos los elementos en un nuevo array menos el de la posicion a eliminar
+    for(let i=0; i<arrayProductos.length; i++){
+        if(i !== posicion)
+        {
+            nuevoArray.push(arrayProductos[i]);
+        }
+    }
+
+    //guardo el array en el localStorage
+    window.localStorage.setItem("productos", JSON.stringify(nuevoArray));
 }
 
 /*
