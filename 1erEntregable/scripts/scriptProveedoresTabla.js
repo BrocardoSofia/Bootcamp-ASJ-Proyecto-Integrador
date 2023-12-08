@@ -7,7 +7,7 @@ function cargarProveedoresTabla(){
 
     for(let i=0; i<arrayProveedores.length; i++){
         
-        let proovedor = crearTdProveedor(arrayProveedores[i]); console.log(proovedor);
+        let proovedor = crearTdProveedor(arrayProveedores[i], i); 
         if(contadorTD == 3)
         {
             //si el contador es igual a 3 tengo que cargar la fila anterior y crear una nueva
@@ -24,7 +24,7 @@ function cargarProveedoresTabla(){
 }
 
 //devuelve un td
-function crearTdProveedor(proveedor){
+function crearTdProveedor(proveedor, posicion){
     let col = document.createElement("div");
     col.className = "col-md-4";
 
@@ -98,6 +98,8 @@ function crearTdProveedor(proveedor){
     let rol = document.createElement("p");
     rol.appendChild(document.createTextNode("Rol: "+proveedor.datosContacto.rol));
 
+    let boton = crearBoton(posicion);
+
     //agrego los elementos al card
     cardBody.appendChild(titulo);
     cardBody.appendChild(line);
@@ -125,11 +127,47 @@ function crearTdProveedor(proveedor){
     cardBody.appendChild(telefono);
     cardBody.appendChild(emailC);
     cardBody.appendChild(rol);
+    cardBody.appendChild(boton);
 
     card.appendChild(cardBody);
     col.appendChild(card);
 
     return col;
+}
+
+function crearBoton(posicion){
+    let boton = document.createElement("button");
+    boton.type = "button";
+    boton.className = "btn btn-danger btn-sm";
+    boton.value = posicion;
+    boton.innerHTML = "Eliminar";
+
+    //agrego funcion para eliminar
+    boton.addEventListener("click", function() {
+        //elimino la orden del localStorage
+        eliminarItem(posicion);        
+    
+        //vuelvo a cargar la pagina para mostrar los cambios
+        location.href = "proveedores.html";
+    });
+
+    return boton;
+}
+
+function eliminarItem(posicion){
+    let arrayItems = JSON.parse(window.localStorage.getItem("proveedores"));
+    let nuevoArray = [];
+
+    //guardo todos los elementos en un nuevo array menos el de la posicion a eliminar
+    for(let i=0; i<arrayItems.length; i++){
+        if(i !== posicion)
+        {
+            nuevoArray.push(arrayItems[i]);
+        }
+    }
+
+    //guardo el array en el localStorage
+    window.localStorage.setItem("proveedores", JSON.stringify(nuevoArray));
 }
 
 function obtenerCondicionIva(num){
