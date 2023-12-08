@@ -7,7 +7,7 @@ function cargarOrdenesCompraTabla(){
 
     for(let i=0; i<arrayOrdenes.length; i++){
         
-        let orden = crearTdOrden(arrayOrdenes[i]);
+        let orden = crearTdOrden(arrayOrdenes[i], i);
         if(contadorTD == 3)
         {
             //si el contador es igual a 3 tengo que cargar la fila anterior y crear una nueva
@@ -24,7 +24,7 @@ function cargarOrdenesCompraTabla(){
 }
 
 //devuelve un td
-function crearTdOrden(orden){
+function crearTdOrden(orden, posicion){
     let col = document.createElement("div");
     col.className = "col-md-4";
 
@@ -62,6 +62,8 @@ function crearTdOrden(orden){
     let total = document.createElement("p");
     total.appendChild(document.createTextNode("Total: $"+orden.total));
 
+    let boton = crearBoton(posicion);
+
     let line = document.createElement("hr");
 
     //agrego los elementos al card
@@ -74,12 +76,48 @@ function crearTdOrden(orden){
     cardBody.appendChild(producto);
     cardBody.appendChild(cantidad);
     cardBody.appendChild(total);
+    cardBody.appendChild(boton);
     
 
     card.appendChild(cardBody);
     col.appendChild(card);
 
     return col;
+}
+
+function crearBoton(posicion){
+    let boton = document.createElement("button");
+    boton.type = "button";
+    boton.className = "btn btn-danger btn-sm";
+    boton.value = posicion;
+    boton.innerHTML = "Eliminar";
+
+    //agrego funcion para eliminar
+    boton.addEventListener("click", function() {
+        //elimino la orden del localStorage
+        eliminarOrdenCompra(posicion);        
+    
+        //vuelvo a cargar la pagina para mostrar los cambios
+        location.href = "ordenCompra.html";
+    });
+
+    return boton;
+}
+
+function eliminarOrdenCompra(posicion){
+    let arrayOrdenes = JSON.parse(window.localStorage.getItem("ordenesCompra"));
+    let nuevoArray = [];
+
+    //guardo todos los elementos en un nuevo array menos el de la posicion a eliminar
+    for(let i=0; i<arrayOrdenes.length; i++){
+        if(i !== posicion)
+        {
+            nuevoArray.push(arrayOrdenes[i]);
+        }
+    }
+
+    //guardo el array en el localStorage
+    window.localStorage.setItem("ordenesCompra", JSON.stringify(nuevoArray));
 }
 
 /*
