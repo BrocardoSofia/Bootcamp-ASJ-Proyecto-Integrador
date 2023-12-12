@@ -37,6 +37,7 @@ function crearTdOrden(orden, posicion){
 
     let cardBody = document.createElement("div");
     card.className = "card-body";
+    card.style.backgroundColor = "#fffdf8";
 
     let numero = document.createElement("h5");
     numero.appendChild(document.createTextNode("N° de orden: "+orden.numero));

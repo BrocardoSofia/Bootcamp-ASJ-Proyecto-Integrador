@@ -37,6 +37,7 @@ function crearTdProveedor(proveedor, posicion){
 
     let cardBody = document.createElement("div");
     card.className = "card-body";
+    card.style.backgroundColor = "#fffdf8";
 
     let titulo = document.createElement("h5");
     titulo.appendChild(document.createTextNode("Codigo: "+proveedor.codigo));

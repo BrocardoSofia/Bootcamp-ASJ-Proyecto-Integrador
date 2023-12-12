@@ -1,0 +1,10 @@
+main{
+    background-color: #f4e6cb;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
+
+header{
+    margin: 0;
+}
