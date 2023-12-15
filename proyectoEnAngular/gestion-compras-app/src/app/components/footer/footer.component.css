@@ -1,0 +1,14 @@
+#footer{
+    align-self: center;
+    width: 99%;
+    border-top: solid #8f8f93 0.01vh;
+    position: absolute;
+    bottom: 0;
+}
+
+.footer-info{
+    height: 10vh;
+    padding-top: 3.5vh;  
+    color: #828187;
+    text-align: center;
+}

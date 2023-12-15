@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenubarModule } from 'primeng/menubar';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
     ButtonModule,
     BrowserAnimationsModule,
     MenubarModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,0 +1,9 @@
+#suppliers-table{
+    margin-top: 4vh;
+}
+
+.tdModify{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
