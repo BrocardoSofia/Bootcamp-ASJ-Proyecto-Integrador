@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MenubarModule } from 'primeng/menubar';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { TableModule } from 'primeng/table';
+import { SuppliersCreateComponent } from './components/suppliers-create/suppliers-create.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TableModule } from 'primeng/table';
     SuppliersComponent,
     ProductsComponent,
     PurchaseOrdersComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    SuppliersCreateComponent
   ],
   imports: [
     BrowserModule,
