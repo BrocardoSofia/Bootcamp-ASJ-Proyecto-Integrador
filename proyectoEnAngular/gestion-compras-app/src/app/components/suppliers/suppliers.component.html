@@ -1,35 +1,23 @@
-<section id="new-supplier-btn">
-    <p-button label="Crear nuevo proveedor" severity="secondary" routerLink="./create"></p-button>
-</section>
-
-<article id="suppliers-table">
-    <p-table [value]="suppliers" [tableStyle]="{'min-width': '10vw', 'max-width': '100vw'}">
-        <ng-template pTemplate="header">
-            <tr>
-                <th>Código</th>
-                <th>Razón social</th>
-                <th>Rubro</th>
-                <th>Información de contacto</th>
-                <th>Dirección</th>
-                <th>Datos fiscales</th>
-                <th>Datos de contacto</th>
-                <th>Acciones</th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-supplier>
-            <tr>
-                <td>{{supplier.code}}</td>
-                <td>{{supplier.businessName}}</td>
-                <td>{{supplier.category}}</td>
-                <td><p-button label="Ver Información" severity="info"></p-button></td>
-                <td><p-button label="Ver Dirección" severity="info"></p-button></td>
-                <td><p-button label="Ver Datos" severity="info"></p-button></td>
-                <td><p-button label="Ver Contacto" severity="info"></p-button></td>
-                <td class="tdModify">
-                    <p-button icon="pi pi-pencil" [rounded]="true" severity="success"></p-button>
-                    <p-button icon="pi pi-trash" [rounded]="true" severity="danger"></p-button>
-                </td>
-            </tr>
-        </ng-template>
-    </p-table>
-</article>
+<div class="container">
+    <button type="button" class="btn btn-secondary mt-3" routerLink="./create">Agregar nuevo proveedor</button>
+    <table class="table mt-3">
+        <thead>
+          <tr class="table-secondary">
+            <th scope="col">Código</th>
+            <th scope="col">Razón social</th>
+            <th scope="col">Rubro</th>
+            <th scope="col">Web/email/telefono</th>
+            <th scope="col">Dirección</th>
+            <th scope="col">Datos fiscales</th>
+            <th scope="col">Datos de contacto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let supplier of suppliers">
+            <td>{{supplier.code}}</td>
+            <td>{{supplier.businessName}}</td>
+            <td>{{supplier.category}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>

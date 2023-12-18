@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Supplier } from '../../models/suppliers';
+import { SuppliersService } from '../../services/suppliers.service';
 
 @Component({
   selector: 'app-suppliers',
@@ -8,42 +10,9 @@ import { Component, OnInit } from '@angular/core';
 export class SuppliersComponent implements OnInit{
   suppliers: Supplier[] = [];
 
+  constructor(private suppliersService: SuppliersService){}
+
   ngOnInit() {
-    this.suppliers = [
-      {code: 2121, businessName: "CocaCola", category: "food"},
-      {code: 2121, businessName: "CocaCola", category: "food"},
-      {code: 2121, businessName: "CocaCola", category: "food"},
-      {code: 2121, businessName: "CocaCola", category: "food"},
-    ]
-}
-
-}
-
-type Supplier = {
-  code: number,
-  businessName: string,
-  category: string,
-  // businessContact: BusinessContact,
-  // address: Address,
-  // taxData: TaxData
-}
-
-type BusinessContact = {
-  webPage: string,
-  email: string,
-  phone: number
-}
-
-type Address = {
-  streetName: string,
-  number: number,
-  cp: string,
-  city: string,
-  province: string,
-  country: string
-}
-
-type TaxData = {
-  cuit: number,
-  ivaCondition: string
+    this.suppliers = this.suppliersService.getSupplier();
+  }
 }
