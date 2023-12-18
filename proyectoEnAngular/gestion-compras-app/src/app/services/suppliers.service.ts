@@ -5,7 +5,7 @@ import { Supplier } from '../models/suppliers';
   providedIn: 'root'
 })
 export class SuppliersService {
-  suppliers: Supplier[] = [];
+  private suppliers: Supplier[] = [];
 
   constructor() { }
 
