@@ -7,14 +7,18 @@ import { Supplier } from '../models/suppliers';
 export class SuppliersService {
   private suppliers: Supplier[] = [];
 
-  constructor() { }
-
-  addSupplier(supplier: Supplier){
-    this.suppliers.push(supplier);
-    console.log(this.suppliers);
+  constructor() { 
+    //inicializo el arreglo con los datos almacenados en el localStorage
+    this.suppliers = JSON.parse(localStorage.getItem('suppliers') || '[]');
   }
 
-  getSupplier(){
+  public addSupplier(supplier: Supplier){
+    this.suppliers.push(supplier);
+    //guardo el arreglo en el localStorage
+    window.localStorage.setItem('suppliers', JSON.stringify(this.suppliers));
+  }
+
+  public getSuppliers(){
     return this.suppliers;
   }
 }

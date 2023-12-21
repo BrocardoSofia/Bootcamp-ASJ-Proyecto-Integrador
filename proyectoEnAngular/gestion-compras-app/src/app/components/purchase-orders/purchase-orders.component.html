@@ -1,1 +1,27 @@
-<p>purchase-orders works!</p>
+<div class="container">
+    <button type="button" class="btn btn-secondary mt-3">Agregar nueva orden de compra</button>
+    <table class="table mt-3">
+        <thead>
+          <tr class="table-secondary">
+            <th scope="col">Número orden compra</th>
+            <th scope="col">Fecha emisión</th>
+            <th scope="col">Fecha entrega esperada</th>
+            <th scope="col">Información de recepción (dirección)</th>
+            <th scope="col">Proveedor</th>
+            <th scope="col">Productos</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let purchaseOrder of purchaseOrders">
+            <td>{{purchaseOrder.number}}</td>
+            <td>{{purchaseOrder.emissionDate | date}}</td>
+            <td>{{purchaseOrder.deliveryDate | date}}</td>
+            <td>{{purchaseOrder.receptionInfo}}</td>
+            <td> <button>Ver Proveedor</button> </td>
+            <td> <button>Ver Productos</button> </td>
+            <td>{{purchaseOrder.total}}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>
