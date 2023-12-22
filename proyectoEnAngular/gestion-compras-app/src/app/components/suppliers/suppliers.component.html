@@ -10,10 +10,11 @@
             <th scope="col">Dirección</th>
             <th scope="col">Datos fiscales</th>
             <th scope="col">Datos de contacto</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let supplier of suppliers">
+          <tr *ngFor="let supplier of suppliers; index as i">
             <td>{{supplier.code}}</td>
             <td>{{supplier.businessName}}</td>
             <td>{{supplier.category}}</td>
@@ -21,6 +22,10 @@
             <td><button>Ver Dirección</button></td>
             <td><button>Ver Datos fiscales</button></td>
             <td><button>Ver Datos de contacto</button></td>
+            <td>
+              <button>Editar</button>
+              <button (click)="deleteSupplier(supplier.code, supplier.businessName)">Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>

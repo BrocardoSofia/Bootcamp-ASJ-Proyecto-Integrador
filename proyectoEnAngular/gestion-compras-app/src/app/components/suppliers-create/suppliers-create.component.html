@@ -1,9 +1,13 @@
-<form class="container">
+<section class="container">
+  <button routerLink="/suppliers" class="btn btn-secondary mt-3">
+    Volver a Proveedores
+  </button>
+
   <h5 class="mt-4 mb-4">Info Proovedor</h5>
   <div class="mb-3">
     <label for="codeInput" class="form-label">Código</label>
     <input type="text" required id="codeInput" class="form-control"
-      placeholder="Ingrese su codigo" [(ngModel)] = 'code' name="code"
+      placeholder="Ingrese su codigo" [(ngModel)] = 'code'
     />
   </div>
 
@@ -24,6 +28,9 @@
     <option value="Indumentaria">Indumentaria</option>
     <option value="Muebles">Muebles</option>
     <option value="Libros">Libros</option>
+    <option value="Alimentos">Alimentos</option>
+    <option value="Informatica">Informatica</option>
+    <option value="Limpieza">Limpieza</option>
   </select>
 
   <div class="mb-3">
@@ -46,7 +53,7 @@
     <label for="businessPhoneInput" class="form-label">Telefono</label>
     <input type="number" id="businessPhoneInput"
       class="form-control" placeholder="012 12345678"  
-      name="buisnessphone" [(ngModel)] = 'buisnessphone'   
+      name="buisnessphone" [(ngModel)] = 'buisnessphone'
     />
   </div>
 
@@ -164,4 +171,4 @@
   <button (click)="submitSupplier()" class="btn btn-primary mt-2">
     Submit
   </button>
-</form>
+</section>

@@ -13,6 +13,25 @@ export class SuppliersComponent implements OnInit{
   constructor(private suppliersService: SuppliersService){}
 
   ngOnInit() {
+    this.updateSuppliers();
+  }
+
+  private updateSuppliers(){
+    //actualiza a los proveedores
     this.suppliers = this.suppliersService.getSuppliers();
+  }
+
+  deleteSupplier(code: string, businessName: string){
+    //pregunto si esta seguro de que quiere eliminar al proveedor
+    let confirmDelete = confirm("Esta seguro que desea eliminar al proovedor "+businessName);
+
+    if(confirmDelete){
+      //elimino al proveedor
+      this.suppliersService.deleteSupplier(code);
+
+      //recargo los suppliers
+      this.updateSuppliers();
+    }
+    
   }
 }
