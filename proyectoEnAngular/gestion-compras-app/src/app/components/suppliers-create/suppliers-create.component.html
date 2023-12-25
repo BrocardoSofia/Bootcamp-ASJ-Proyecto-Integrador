@@ -1,16 +1,26 @@
-<section class="container">
+<article class="container">
   <button routerLink="/suppliers" class="btn btn-secondary mt-3">
     Volver a Proveedores
   </button>
 
   <h5 class="mt-4 mb-4">Info Proovedor</h5>
-  <div class="mb-3">
-    <label for="codeInput" class="form-label">Código</label>
-    <input type="text" required id="codeInput" class="form-control"
-      placeholder="Ingrese su codigo" [(ngModel)] = 'code'
-    />
-  </div>
+  <section *ngIf="!validatedCode">
+    <div class="mb-3">
+      <label for="codeInput" class="form-label">Código</label>
+      <input type="text" required id="codeInput" class="form-control"
+        placeholder="Ingrese su codigo" [(ngModel)] = 'code'
+      />
+    </div>
+  
+    <button (click)="validateCode()" class="btn btn-primary mt-2">
+      Verificar
+    </button>
+  </section>
 
+  <!-- Primero confirmo el codigo, por si el proovedor ya existe
+  Si existe y esta eliminado, informo que esta eliminado y pregunto si lo quiere volver a incorporar -->
+
+  <section *ngIf="validatedCode">
   <div class="mb-3">
     <label for="businessNameInput" class="form-label">Razón social</label>
     <input type="text" required id="businessNameInput" class="form-control"
@@ -169,6 +179,7 @@
   </div>
 
   <button (click)="submitSupplier()" class="btn btn-primary mt-2">
-    Submit
+    Guardar
   </button>
-</section>
+  </section>
+</article>

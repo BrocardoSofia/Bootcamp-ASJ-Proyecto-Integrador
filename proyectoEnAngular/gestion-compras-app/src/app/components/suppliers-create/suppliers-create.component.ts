@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { Address, BusinessContact, ContactData, Supplier, TaxData } from '../../models/suppliers';
 import { SuppliersService } from '../../services/suppliers.service';
 import { Router } from '@angular/router';
@@ -30,28 +30,33 @@ export class SuppliersCreateComponent{
   contactEmail!:string;
   rol!:string;
 
+  validatedCode:boolean = false;
+
+
   constructor(private suppliersService: SuppliersService, private router: Router){}
 
   submitSupplier(){
     //validar datos
     if(this.validateInputs()){
-      //crear objeto supplier
-      let contactData:ContactData = new ContactData(this.name, this.lastName, this.contactPhone,
-        this.contactEmail, this.rol);
+      //crear el proveedor
+      let contactData:ContactData = this.suppliersService.createContactData(this.name, this.lastName, 
+        this.contactPhone, this.contactEmail, this.rol);
 
-      let taxData:TaxData = new TaxData(this.ciut, this.ivaCondition);
+      let taxData:TaxData = this.suppliersService.createTaxData(this.ciut, this.ivaCondition);
 
-      let address:Address = new Address(this.streetName, this.streetNumber, this.cp, 
+      let address:Address = this.suppliersService.createAddress(this.streetName, this.streetNumber, this.cp, 
         this.city, this.province, this.country);
 
-      let businessContact:BusinessContact = new BusinessContact(this.webPage, this.businessemail, 
-        this.buisnessphone);
+      let businessContact:BusinessContact = this.suppliersService.createBusinessContact(this.webPage, 
+        this.businessemail, this.buisnessphone);
 
-      let supplier:Supplier = new Supplier(this.code, this.businessName, this.category, businessContact,
-        address, taxData, contactData);
+      let supplier:Supplier = this.suppliersService.createSupplier(this.code, this.businessName, this.category, 
+        businessContact, address, taxData, contactData);
 
       //enviarlo a la base de datos
       this.suppliersService.addSupplier(supplier);
+
+      alert("Proveedor "+this.businessName+" agregado");//esto iria en el subscribe
 
       //lo redirijo a la ventana de proveedores
       this.router.navigate(['/suppliers']);
@@ -107,6 +112,35 @@ export class SuppliersCreateComponent{
     }
 
     return valid;
+  }
+
+  validateCode(){
+    //veo si existe el codigo
+    let codeExists = this.suppliersService.existsCode(this.code);
+
+    //si no existe habilito para seguir ingresando datos
+    if(!codeExists){
+      this.validatedCode = true;
+    }else if(this.suppliersService.verifyDeletedSupplier(this.code)){
+      //si ya existe veo si esta eliminado, y si lo esta pregunto si lo quiere reingresar
+      let reInsertSupplier = confirm(`El proveedor con el codigo ${this.code} ya existe \n¿desea reingresarlo?`)
+      
+      if(reInsertSupplier){
+        //si lo confirma reingresa el proveedor
+        if(this.suppliersService.reInsertSupplier(this.code)){
+          //informo al usuario que se reingreso el proveedor
+          alert(`Se reingreso el proveedor codigo: ${this.code}`);
+        }
+
+        //redirijo al usuario a proveedores
+        this.router.navigate(['/suppliers']);
+      }else{
+        //sino limpio el codigo
+        this.code = '';
+
+      }
+
+    }
   }
 
 }
