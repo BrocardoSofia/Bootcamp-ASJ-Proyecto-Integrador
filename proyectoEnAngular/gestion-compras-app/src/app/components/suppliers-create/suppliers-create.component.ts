@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  Address,
-  BusinessContact,
-  ContactData,
-  Supplier,
-  TaxData,
-} from '../../models/suppliers';
+import { Supplier } from '../../models/suppliers';
 import { SuppliersService } from '../../services/suppliers.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-suppliers-create',
@@ -16,17 +11,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SuppliersCreateComponent implements OnInit {
   supplier!: Supplier;
+  cuitForm!: FormGroup;
 
   validatedCUIT: boolean = false;
   editSupplier: boolean = false;
 
+  validCuit: boolean = false;
+
   constructor(
     private suppliersService: SuppliersService,
     private router: Router,
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.cuitForm = this.fb.group({
+      cuit: ['', [Validators.required, Validators.min(10000000000), Validators.max(99999999999)]],
+    });
+
     this.supplier = this.suppliersService.inicSupplier();
     let codeParam;
     this.activeRoute.queryParamMap.subscribe((params) => {
@@ -44,6 +47,14 @@ export class SuppliersCreateComponent implements OnInit {
     });
   }
 
+  onSubmit(form: FormGroup) {
+    console.log("Formulario valido: "+form.valid);
+    console.log("Cuit invalido: "+form.get('cuit')?.invalid);
+    if(form.valid){
+      //si el formulario del cuit es valido permito seguir con la carga de datos
+    }
+  }
+
   private fillSupplierForm(code: number) {
     let supplier = this.suppliersService.getSupplier(code);
 
@@ -53,15 +64,13 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   submitSupplier() {
-    //validar datos
-    //validar codigo con el servicio
     let valid = true;
-    if (this.suppliersService.existsCode(this.supplier.code)) {
-      valid = false;
-      alert('El codigo ya existe');
-    }
-
+    
+    //validar los inputs
     if (this.validateInputs() && valid === true) {
+      //agrego el codigo al supplier buscando el ultimo guardado
+      this.supplier.code = this.suppliersService.getLastCode()+1;
+
       //enviarlo a la base de datos
       this.suppliersService.addSupplier(this.supplier);
 
@@ -95,12 +104,6 @@ export class SuppliersCreateComponent implements OnInit {
       alert('El telefono debe tener mas de 8 digitos');
     }
 
-    //verificar que el cuit tenga 11 cifras
-    if (this.supplier.taxData.cuit.toString().length !== 11) {
-      valid = false;
-      alert('El CUIT debe tener 11 digitos');
-    }
-
     //validar que el telefono tenga como minimo 8 digitos
     if (this.supplier.contactData.phone.toString().length <= 8) {
       valid = false;
@@ -117,37 +120,45 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   validateCUIT() {
-    console.log(this.supplier.taxData.cuit);
-    if(this.supplier.taxData.cuit !== ''){
-      //veo si existe el codigo
-      let cuitExists = this.suppliersService.existsCUIT(
-        this.supplier.taxData.cuit
-      );
+    //verificar que no este vacio
+    if (this.supplier.taxData.cuit !== '') {
 
-      //si no existe habilito para seguir ingresando datos
-      if (!cuitExists) {
-        this.validatedCUIT = true;
-      } else if (
-        this.suppliersService.verifyDeletedSupplier(this.supplier.taxData.cuit)
-      ) {
-        //si ya existe veo si esta eliminado, y si lo esta pregunto si lo quiere reingresar
-        let reInsertSupplier = confirm(
-          `El proveedor con el codigo ${this.supplier.code} ya existe \n¿desea reingresarlo?`
+      //verificar que el cuit tenga 11 cifras
+      if (this.supplier.taxData.cuit.toString().length !== 11) {
+        alert('El CUIT debe tener 11 digitos');
+      } else {
+        //veo si existe el codigo
+        let cuitExists = this.suppliersService.existsCUIT(
+          this.supplier.taxData.cuit
         );
 
-        if (reInsertSupplier) {
-          //si lo confirma reingresa el proveedor
-          if (this.suppliersService.reInsertSupplier(this.supplier.code)) {
-            //informo al usuario que se reingreso el proveedor
-            alert(`Se reingreso el proveedor codigo: ${this.supplier.code}`);
-          }
+        //si no existe habilito para seguir ingresando datos
+        if (!cuitExists) {
+          this.validatedCUIT = true;
+        } else if (
+          this.suppliersService.verifyDeletedSupplier(
+            this.supplier.taxData.cuit
+          )
+        ) {
+          //si ya existe veo si esta eliminado, y si lo esta pregunto si lo quiere reingresar
+          let reInsertSupplier = confirm(
+            `El proveedor con el codigo ${this.supplier.code} ya existe \n¿desea reingresarlo?`
+          );
 
-          //redirijo al usuario a proveedores
-          this.router.navigate(['/suppliers']);
+          if (reInsertSupplier) {
+            //si lo confirma reingresa el proveedor
+            if (this.suppliersService.reInsertSupplier(this.supplier.code)) {
+              //informo al usuario que se reingreso el proveedor
+              alert(`Se reingreso el proveedor codigo: ${this.supplier.code}`);
+            }
+
+            //redirijo al usuario a proveedores
+            this.router.navigate(['/suppliers']);
+          }
         }
       }
-    }else{
-      alert("Debe ingresar un cuit!");
+    } else {
+      alert('Debe ingresar un cuit!');
     }
   }
 

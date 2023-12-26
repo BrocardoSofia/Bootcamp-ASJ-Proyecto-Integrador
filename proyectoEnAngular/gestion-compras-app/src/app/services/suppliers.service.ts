@@ -21,7 +21,7 @@ export class SuppliersService {
       },
       address: {
         streetName: '',
-        number: -1,
+        number: '',
         cp: '',
         city: '',
         province: '',
@@ -236,5 +236,16 @@ export class SuppliersService {
     window.localStorage.setItem('suppliers', JSON.stringify(suppliers));
 
     return modified;
+  }
+
+  public getLastCode(){
+    const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
+    let lastCode = 0;
+
+    if(suppliers.length !== 0){
+      lastCode = suppliers[suppliers.length].code;
+    }
+
+    return lastCode;
   }
 }

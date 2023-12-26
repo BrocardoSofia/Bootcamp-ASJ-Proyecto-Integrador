@@ -17,7 +17,7 @@ export interface BusinessContact{
 
 export interface Address{
     streetName: string,
-    number: number,
+    number: string,
     cp: string,
     city: string,
     province: string,

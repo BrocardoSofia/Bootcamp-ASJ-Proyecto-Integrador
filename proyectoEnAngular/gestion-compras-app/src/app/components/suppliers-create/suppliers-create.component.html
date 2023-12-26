@@ -5,18 +5,23 @@
 
   <h5 class="mt-4 mb-4">Info Proovedor</h5>
   <section *ngIf="!validatedCUIT && !editSupplier">
-    
-    <div class="mb-3">
-      <label for="ciutInput" class="form-label">CUIT</label>
-      <input type="number" required id="ciutInput" class="form-control"
-        placeholder="12-12345678-1" name="ciut" [(ngModel)] = 'supplier.taxData.cuit'
-      />
-    </div>
+    <form [formGroup]="cuitForm" (ngSubmit)="onSubmit(cuitForm)">
+      <div class="mb-3">
+        <label for="ciutInput" class="form-label">CUIT</label>
+        <input type="number" required id="ciutInput" class="form-control" formControlName="cuit"
+          placeholder="12-12345678-1" name="ciut" [(ngModel)] = 'supplier.taxData.cuit'
+        />
+        <div *ngIf="cuitForm.get('cuit')?.invalid && cuitForm.get('cuit')?.touched">
+          El cuit debe tener 11 digitos
+        </div>
+      </div>
   
-    <button (click)="validateCUIT()" class="btn btn-primary mt-2">
-      Verificar
-    </button>
+      <button type="submit" class="btn btn-primary mt-2">
+        Verificar
+      </button>
+    </form>
   </section>
+    
 
   <!-- Primero confirmo el CUIT, por si el proovedor ya existe
   Si existe y esta eliminado, informo que esta eliminado y pregunto si lo quiere volver a incorporar -->
