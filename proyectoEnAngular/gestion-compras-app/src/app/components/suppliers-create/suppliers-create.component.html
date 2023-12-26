@@ -4,7 +4,7 @@
   </button>
 
   <h5 class="mt-4 mb-4">Info Proovedor</h5>
-  <section *ngIf="!validatedCode">
+  <section *ngIf="!validatedCode && !editSupplier">
     <div class="mb-3">
       <label for="codeInput" class="form-label">Código</label>
       <input type="text" required id="codeInput" class="form-control"
@@ -20,7 +20,7 @@
   <!-- Primero confirmo el codigo, por si el proovedor ya existe
   Si existe y esta eliminado, informo que esta eliminado y pregunto si lo quiere volver a incorporar -->
 
-  <section *ngIf="validatedCode">
+  <section *ngIf="validatedCode || editSupplier">
   <div class="mb-3">
     <label for="businessNameInput" class="form-label">Razón social</label>
     <input type="text" required id="businessNameInput" class="form-control"
@@ -39,6 +39,7 @@
     <option value="Muebles">Muebles</option>
     <option value="Libros">Libros</option>
     <option value="Alimentos">Alimentos</option>
+    <option value="Bebidas">Bebidas</option>
     <option value="Informatica">Informatica</option>
     <option value="Limpieza">Limpieza</option>
   </select>
@@ -178,8 +179,12 @@
     />
   </div>
 
-  <button (click)="submitSupplier()" class="btn btn-primary mt-2">
-    Guardar
+  <button *ngIf="!editSupplier" (click)="submitSupplier()" class="btn btn-primary mt-2">
+    Crear Proveedor
+  </button>
+
+  <button *ngIf="editSupplier" (click)="modifySupplier()" class="btn btn-primary mt-2">
+    Modificar Proveedor
   </button>
   </section>
 </article>

@@ -155,7 +155,31 @@ export class SuppliersService {
     return deleted;
   }
 
-   /*
+  /*
+  devuelve el proveedor con el codigo recibido
+  
+  return Supplier
+  si esta retorna el proveedor
+  si no esta retorna null
+  */
+  public getSupplier(code: string){
+    const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
+
+    let supplier = null;
+    let i=0;
+
+    while(supplier===null && i<suppliers.length){
+      if(suppliers[i].code === code){
+        supplier = suppliers[i];
+      }
+      i++;
+    }
+
+    return supplier;
+  }
+
+
+  /*
   esta funcion analiza si el proveedor esta eliminado
   
   return boolean
@@ -203,5 +227,32 @@ export class SuppliersService {
     window.localStorage.setItem('suppliers', JSON.stringify(suppliers));
 
     return reInsert;
+  }
+
+  /*
+  Agrega un nuevo proveedor al localStorage
+  */
+  public modifySupplier(supplier: Supplier){
+    const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
+
+    //busco el proveedor y lo modifico en el arreglo
+    let modified = false;
+    let i=0;
+
+    while(modified===false && i<suppliers.length){
+      if(suppliers[i].code === supplier.code){
+        suppliers[i] = supplier;
+        modified = true;
+        console.log(suppliers[i]);
+      }
+      i++;
+    }
+
+    console.log(suppliers);
+
+    //guardo el arreglo en el localStorage
+    window.localStorage.setItem('suppliers', JSON.stringify(suppliers));
+
+    return modified;
   }
 }

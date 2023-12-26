@@ -1,14 +1,14 @@
-import { Component} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Address, BusinessContact, ContactData, Supplier, TaxData } from '../../models/suppliers';
 import { SuppliersService } from '../../services/suppliers.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-suppliers-create',
   templateUrl: './suppliers-create.component.html',
   styleUrl: './suppliers-create.component.css'
 })
-export class SuppliersCreateComponent{
+export class SuppliersCreateComponent implements OnInit{
 
   code!: string;
   businessName!: string;
@@ -31,27 +31,68 @@ export class SuppliersCreateComponent{
   rol!:string;
 
   validatedCode:boolean = false;
+  editSupplier:boolean = false;
 
+  constructor(private suppliersService: SuppliersService, private router: Router, 
+    private activeRoute:ActivatedRoute){}
 
-  constructor(private suppliersService: SuppliersService, private router: Router){}
+  ngOnInit(): void {
+    
+    let codeParam;
+    this.activeRoute.queryParamMap
+       .subscribe(params => {
+        codeParam = params.get('edit')||null;  
+        
+        if(codeParam !== null){
+          //la pagina pasa a modo edicion
+          this.editSupplier = true;
+
+          //lleno los parametros con los datos del proveedor
+          this.fillSupplierForm(codeParam);
+
+          this.code = codeParam;
+        }
+    });
+    
+  }
+
+  private fillSupplierForm(code: string){
+    let supplier = this.suppliersService.getSupplier(code);
+
+    if(supplier !== null){
+      this.businessName = supplier.businessName;
+      this.category = supplier.category;
+      this.businessemail = supplier.businessContact.email;
+      this.webPage = supplier.businessContact.webPage;
+      this.buisnessphone = supplier.businessContact.phone;
+      this.streetName = supplier.address.streetName;
+      this.streetNumber = supplier.address.number;
+      this.cp = supplier.address.cp;
+      this.city = supplier.address.city;
+      this.province = supplier.address.province;
+      this.country = supplier.address.country;
+      this.ciut = supplier.taxData.cuit;
+      this.ivaCondition = supplier.taxData.ivaCondition;
+      this.name = supplier.contactData.name;
+      this.lastName = supplier.contactData.lastName;
+      this.contactPhone = supplier.contactData.phone;
+      this.contactEmail = supplier.contactData.email;
+      this.rol = supplier.contactData.rol;
+    }
+  }
 
   submitSupplier(){
     //validar datos
-    if(this.validateInputs()){
+    //validar codigo con el servicio
+    let valid = true;
+    if(this.suppliersService.existsCode(this.code)){
+      valid = false;
+      alert("El codigo ya existe");
+    }
+
+    if(this.validateInputs() && valid === true){
       //crear el proveedor
-      let contactData:ContactData = this.suppliersService.createContactData(this.name, this.lastName, 
-        this.contactPhone, this.contactEmail, this.rol);
-
-      let taxData:TaxData = this.suppliersService.createTaxData(this.ciut, this.ivaCondition);
-
-      let address:Address = this.suppliersService.createAddress(this.streetName, this.streetNumber, this.cp, 
-        this.city, this.province, this.country);
-
-      let businessContact:BusinessContact = this.suppliersService.createBusinessContact(this.webPage, 
-        this.businessemail, this.buisnessphone);
-
-      let supplier:Supplier = this.suppliersService.createSupplier(this.code, this.businessName, this.category, 
-        businessContact, address, taxData, contactData);
+      let supplier:Supplier = this.createSupplier();
 
       //enviarlo a la base de datos
       this.suppliersService.addSupplier(supplier);
@@ -69,11 +110,6 @@ export class SuppliersCreateComponent{
 
   validateInputs(){
     let valid = true;
-    //validar codigo con el servicio
-    if(this.suppliersService.existsCode(this.code)){
-      valid = false;
-      alert("El codigo ya existe");
-    }
 
     //validar que el email termine con .com
     if(!this.businessemail.includes('.com')){
@@ -140,6 +176,43 @@ export class SuppliersCreateComponent{
 
       }
 
+    }
+  }
+
+  createSupplier(){
+    //crear el proveedor
+    let contactData:ContactData = this.suppliersService.createContactData(this.name, this.lastName, 
+      this.contactPhone, this.contactEmail, this.rol);
+
+    let taxData:TaxData = this.suppliersService.createTaxData(this.ciut, this.ivaCondition);
+
+    let address:Address = this.suppliersService.createAddress(this.streetName, this.streetNumber, this.cp, 
+      this.city, this.province, this.country);
+
+    let businessContact:BusinessContact = this.suppliersService.createBusinessContact(this.webPage, 
+      this.businessemail, this.buisnessphone);
+
+    let supplier:Supplier = this.suppliersService.createSupplier(this.code, this.businessName, this.category, 
+      businessContact, address, taxData, contactData);
+
+    return supplier;
+  }
+
+  modifySupplier(){
+    if(this.validateInputs()){
+      //crear el proveedor
+      let supplier:Supplier = this.createSupplier();
+
+      //enviarlo a la base de datos
+      this.suppliersService.modifySupplier(supplier);
+
+      alert("Proveedor "+this.businessName+" fue modificado");//esto iria en el subscribe
+
+      //lo redirijo a la ventana de proveedores
+      this.router.navigate(['/suppliers']);
+
+    }else{
+      alert("Datos invalidos");//esto despues es un toast
     }
   }
 
