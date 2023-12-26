@@ -11,7 +11,8 @@ const routes: Routes = [
   {path:'suppliers',
     children:[
       {path: '', component: SuppliersComponent},
-      {path: 'create', component: SuppliersCreateComponent}
+      {path: 'create', component: SuppliersCreateComponent},
+      {path: 'modify', component: SuppliersCreateComponent}
     ]
   },
   {path:'products', component: ProductsComponent},
