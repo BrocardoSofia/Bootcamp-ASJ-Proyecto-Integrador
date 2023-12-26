@@ -11,12 +11,14 @@
         <input type="number" required id="ciutInput" class="form-control" formControlName="cuit"
           placeholder="12-12345678-1" name="ciut" [(ngModel)] = 'supplier.taxData.cuit'
         />
-        <div *ngIf="cuitForm.get('cuit')?.invalid && cuitForm.get('cuit')?.touched">
-          El cuit debe tener 11 digitos
+        <div *ngIf="cuitForm.get('cuit')?.invalid && cuitForm.get('cuit')?.touched" 
+        class="fw-lighter text-danger">
+          El CUIT debe tener 11 dígitos
         </div>
       </div>
   
-      <button type="submit" class="btn btn-primary mt-2">
+      <button type="submit" [ngClass]="(cuitForm.get('cuit')?.invalid)?'disabled':''" 
+      class="btn btn-primary mt-2">
         Verificar
       </button>
     </form>
@@ -28,7 +30,7 @@
 
   <section *ngIf="validatedCUIT || editSupplier">
 
-    <h5 class="mt-5 mb-4">Datos fiscales</h5>
+  <h5 class="mt-5 mb-4">Datos fiscales</h5>
   <label for="ivaConditionInput" class="form-label">Condición iva</label>
   <select id="ivaConditionInput" required class="form-select mb-3"
     aria-label="Default select example" name="ivaCondition" [(ngModel)] = 'supplier.taxData.ivaCondition'

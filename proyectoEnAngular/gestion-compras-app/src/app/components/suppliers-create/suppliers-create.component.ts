@@ -52,6 +52,7 @@ export class SuppliersCreateComponent implements OnInit {
     console.log("Cuit invalido: "+form.get('cuit')?.invalid);
     if(form.valid){
       //si el formulario del cuit es valido permito seguir con la carga de datos
+      this.validatedCUIT = true;
     }
   }
 
