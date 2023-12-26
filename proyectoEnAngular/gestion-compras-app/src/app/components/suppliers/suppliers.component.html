@@ -18,9 +18,23 @@
             <td>{{supplier.code}}</td>
             <td>{{supplier.businessName}}</td>
             <td>{{supplier.category}}</td>
-            <td><button>Ver Datos</button></td>
-            <td><button>Ver Dirección</button></td>
-            <td><button>Ver Datos fiscales</button></td>
+            <td>
+              <p><strong>Web:</strong> {{supplier.businessContact.webPage}}</p>
+              <p><strong>Email:</strong> {{supplier.businessContact.email}}</p>
+              <p><strong>Telefono:</strong> {{supplier.businessContact.phone}}</p>
+            </td>
+            <td>
+              <p><strong>Calle:</strong> {{supplier.address.streetName}}</p>
+              <p><strong>Número:</strong> {{supplier.address.number}}</p>
+              <p><strong>Código Postal:</strong> {{supplier.address.cp}}</p>
+              <p><strong>Ciudad:</strong> {{supplier.address.city}}</p>
+              <p><strong>Provincia:</strong> {{supplier.address.province}}</p>
+              <p><strong>Pais:</strong> {{supplier.address.country}}</p>
+            </td>
+            <td>
+              <p><strong>CIUT:</strong> {{supplier.taxData.cuit}}</p>
+              <p><strong>Condición iva:</strong> {{supplier.taxData.ivaCondition}}</p>
+            </td>
             <td><button>Ver Datos de contacto</button></td>
             <td>
               <button [routerLink]="['./modify']" [queryParams]="{edit: supplier.code}">Editar</button>

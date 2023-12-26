@@ -8,83 +8,42 @@ export class SuppliersService {
 
   constructor() { }
 
-  /*
-  Funcion para creear un proveedor
-  */
-  public createSupplier(pCode: string, pBusinessName: string, pCategory: string, 
-    pBusinessContact: BusinessContact, pAddress: Address, pTaxData: TaxData, pContactData: ContactData){
-      const supplier:Supplier = {
-        code: pCode,
-        businessName: pBusinessName,
-        category: pCategory,
-        businessContact: pBusinessContact,
-        address: pAddress,
-        taxData: pTaxData,
-        contactData: pContactData,
-        deleted:false,
-      }
+  /*Inicializa un proveedor con datos en vacio*/
+  public inicSupplier(){
+    let supplier:Supplier = {
+      code: -1,
+      businessName: '',
+      category: '',
+      businessContact: {
+        webPage: '',
+        email: '',
+        phone: ''
+      },
+      address: {
+        streetName: '',
+        number: -1,
+        cp: '',
+        city: '',
+        province: '',
+        country: '',
+    },
+      taxData: {
+        cuit: '',
+        ivaCondition: '',
+    },
+      contactData: {
+        name: '',
+        lastName: '',
+        phone: '',
+        email: '',
+        rol: '',
+    },
+      deleted:false,
+    }
 
-      return supplier;
+    return supplier;
   }
-
-  /*
-  Funcion para crear un BusinessContact
- */
-  public createBusinessContact(pWebPage: string, pEmail: string, pPhone: number){
-    const businessContact:BusinessContact={
-      webPage: pWebPage,
-      email: pEmail,
-      phone: pPhone,
-    }
-
-    return businessContact;
-  }
-
-  /*
-  Funcion para crear un Address
- */
-  public createAddress(pStreetName: string, pNumber: number, pCp: string, pCity: string, 
-    pProvince: string, pCountry: string){
-      const address:Address={
-        streetName: pStreetName,
-        number: pNumber,
-        cp: pCp,
-        city: pCity,
-        province: pProvince,
-        country: pCountry,
-      }
-
-      return address;
-    }
-
-  /*
-  Funcion para crear un TaxData
- */
-  public createTaxData(pCuit: number, pIvaCondition: string){
-    const taxData:TaxData={
-      cuit: pCuit,
-      ivaCondition: pIvaCondition,
-    }
-
-    return taxData;
-  }
-
-  /*
-  Funcion para crear un ContactData
- */
-  public createContactData(pName: string, pLastName: string, pPhone: number, pEmail: string,
-    pRol: string){
-      const contactData:ContactData={
-        name: pName,
-        lastName: pLastName,
-        phone: pPhone,
-        email: pEmail,
-        rol: pRol,
-      }
-
-      return contactData;
-    }
-
+  
   /*
   Agrega un nuevo proveedor al localStorage
   */
@@ -111,7 +70,7 @@ export class SuppliersService {
   si existe retorna true
   si no existe retorna false
   */
-  public existsCode(code: string){
+  public existsCode(code: number){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     //verifico si existe el codigo
@@ -128,13 +87,36 @@ export class SuppliersService {
   }
 
   /*
+  Verifica si ya existe un CUIT
+
+  return boolean
+  si existe retorna true
+  si no existe retorna false
+  */
+  public existsCUIT(CUIT: string){
+    const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
+
+    //verifico si existe el codigo
+    let exist = false;
+    let i = 0;
+
+    while(exist===false && i<suppliers.length){
+      if(suppliers[i].taxData.cuit === CUIT){
+        exist = true;
+      }
+      i++;
+    }
+    return exist;
+  }
+
+  /*
   esta funcion elimina un proveedor a traves de su codigo
   
   return boolean
   si lo elimina devuelve true
   si no lo encuentra devuelve false
   */
-  public deleteSupplier(code: string){
+  public deleteSupplier(code: number){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     let deleted = false;
@@ -162,7 +144,7 @@ export class SuppliersService {
   si esta retorna el proveedor
   si no esta retorna null
   */
-  public getSupplier(code: string){
+  public getSupplier(code: number){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     let supplier = null;
@@ -186,14 +168,14 @@ export class SuppliersService {
   si esta eliminado true
   si no esta eliminado devuelve false
   */
-  public verifyDeletedSupplier(code: string){
+  public verifyDeletedSupplier(ciut: string){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     let deleted = false;
     let i=0;
 
     while(deleted===false && i<suppliers.length){
-      if(suppliers[i].code === code){
+      if(suppliers[i].taxData.cuit === ciut){
         deleted = suppliers[i].deleted;
       }
       i++;
@@ -209,7 +191,7 @@ export class SuppliersService {
   si lo reinserta devuelve true
   si no lo encuentra devuelve false
   */
-  public reInsertSupplier(code: string){
+  public reInsertSupplier(code: number){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     let reInsert = false;

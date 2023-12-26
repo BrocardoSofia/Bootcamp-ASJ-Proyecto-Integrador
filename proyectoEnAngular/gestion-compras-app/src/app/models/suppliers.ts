@@ -1,5 +1,5 @@
 export interface Supplier{
-    code: string,
+    code: number,
     businessName: string,
     category: string,
     businessContact: BusinessContact,
@@ -12,7 +12,7 @@ export interface Supplier{
 export interface BusinessContact{
     webPage: string,
     email: string,
-    phone: number,
+    phone: string,
 }
 
 export interface Address{
@@ -25,14 +25,14 @@ export interface Address{
 }
 
 export interface TaxData{
-    cuit: number,
+    cuit: string,
     ivaCondition: string,
 }
 
 export interface ContactData{
     name: string,
     lastName: string,
-    phone: number,
+    phone: string,
     email: string,
     rol: string,
 }

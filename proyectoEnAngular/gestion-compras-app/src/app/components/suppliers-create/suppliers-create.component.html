@@ -4,34 +4,51 @@
   </button>
 
   <h5 class="mt-4 mb-4">Info Proovedor</h5>
-  <section *ngIf="!validatedCode && !editSupplier">
+  <section *ngIf="!validatedCUIT && !editSupplier">
+    
     <div class="mb-3">
-      <label for="codeInput" class="form-label">Código</label>
-      <input type="text" required id="codeInput" class="form-control"
-        placeholder="Ingrese su codigo" [(ngModel)] = 'code'
+      <label for="ciutInput" class="form-label">CUIT</label>
+      <input type="number" required id="ciutInput" class="form-control"
+        placeholder="12-12345678-1" name="ciut" [(ngModel)] = 'supplier.taxData.cuit'
       />
     </div>
   
-    <button (click)="validateCode()" class="btn btn-primary mt-2">
+    <button (click)="validateCUIT()" class="btn btn-primary mt-2">
       Verificar
     </button>
   </section>
 
-  <!-- Primero confirmo el codigo, por si el proovedor ya existe
+  <!-- Primero confirmo el CUIT, por si el proovedor ya existe
   Si existe y esta eliminado, informo que esta eliminado y pregunto si lo quiere volver a incorporar -->
 
-  <section *ngIf="validatedCode || editSupplier">
+  <section *ngIf="validatedCUIT || editSupplier">
+
+    <h5 class="mt-5 mb-4">Datos fiscales</h5>
+  <label for="ivaConditionInput" class="form-label">Condición iva</label>
+  <select id="ivaConditionInput" required class="form-select mb-3"
+    aria-label="Default select example" name="ivaCondition" [(ngModel)] = 'supplier.taxData.ivaCondition'
+  >
+    <option value="IVA Responsable Inscripto">IVA Responsable Inscripto</option>
+    <option value="IVA Responsable no Inscripto">IVA Responsable no Inscripto</option>
+    <option value="IVA no Responsable">IVA no Responsable</option>
+    <option value="IVA Sujeto Exento">IVA Sujeto Exento</option>
+    <option value="Responsable Monotributo">Responsable Monotributo</option>
+    <option value="Sujeto no Categorizado">Sujeto no Categorizado</option>
+    <option value="Proveedor del Exterior">Proveedor del Exterior</option>
+  </select>
+
+  <h5 class="mt-5 mb-4">Datos del Proveedor</h5>
   <div class="mb-3">
     <label for="businessNameInput" class="form-label">Razón social</label>
     <input type="text" required id="businessNameInput" class="form-control"
-      placeholder="Ingrese Razón social" name="businessName" [(ngModel)] = 'businessName'
+      placeholder="Ingrese Razón social" name="businessName" [(ngModel)] = 'supplier.businessName'
     />
   </div>
 
   <label for="categoryInput" class="form-label">Rubro</label>
   <select id="categoryInput" required class="form-select mb-3"
     aria-label="Default select example" 
-    name="category" [(ngModel)] = 'category'
+    name="category" [(ngModel)] = 'supplier.category'
   >
     <option value="Libreria">Artículos de librería</option>
     <option value="Calzado">Calzado</option>
@@ -48,7 +65,7 @@
     <label for="emailInput" class="form-label">Email address</label>
     <input type="email" required class="form-control" id="emailInput" 
     aria-describedby="emailHelp" placeholder="ejemplo@email.com" 
-    name="businessemail" [(ngModel)] = 'businessemail'
+    name="businessemail" [(ngModel)] = 'supplier.businessContact.email'
     />
   </div>
 
@@ -56,7 +73,7 @@
     <label for="webInput" class="form-label">Web</label>
     <input type="text" id="webInput" class="form-control"
       placeholder="Ingrese su pagina web" 
-      name="webPage" [(ngModel)] = 'webPage'
+      name="webPage" [(ngModel)] = 'supplier.businessContact.webPage'
     />
   </div>
 
@@ -64,7 +81,7 @@
     <label for="businessPhoneInput" class="form-label">Telefono</label>
     <input type="number" id="businessPhoneInput"
       class="form-control" placeholder="012 12345678"  
-      name="buisnessphone" [(ngModel)] = 'buisnessphone'
+      name="buisnessphone" [(ngModel)] = 'supplier.businessContact.phone'
     />
   </div>
 
@@ -73,7 +90,7 @@
     <label for="addressInput" class="form-label">Calle</label>
     <input type="text" id="addressInput" class="form-control" required
       placeholder="Ingrese el nombre de la calle" 
-      name="streetName" [(ngModel)] = 'streetName'
+      name="streetName" [(ngModel)] = 'supplier.address.streetName'
     />
   </div>
 
@@ -81,7 +98,7 @@
     <label for="numberInput" class="form-label">Número de calle</label>
     <input type="number" id="numberInput" required
       class="form-control" placeholder="123" 
-      name="streetNumber" [(ngModel)] = 'streetNumber'
+      name="streetNumber" [(ngModel)] = 'supplier.address.number'
     />
   </div>
 
@@ -89,7 +106,7 @@
     <label for="cpInput" class="form-label">Código postal</label>
     <input type="text" required id="cpInput" class="form-control"
       placeholder="E123" 
-      name="cp" [(ngModel)] = 'cp'
+      name="cp" [(ngModel)] = 'supplier.address.cp'
     />
   </div>
 
@@ -97,7 +114,7 @@
     <label for="cityInput" class="form-label">Localidad</label>
     <input type="text" required id="cityInput"
       class="form-control" placeholder="Ingrese la localidad" 
-      name="city" [(ngModel)] = 'city'
+      name="city" [(ngModel)] = 'supplier.address.city'
     />
   </div>
 
@@ -105,7 +122,7 @@
     <label for="provinceInput" class="form-label">Provincia</label>
     <input type="text" required id="provinceInput" class="form-control"
       placeholder="Ingrese la provincia" 
-      name="province" [(ngModel)] = 'province'
+      name="province" [(ngModel)] = 'supplier.address.province'
     />
   </div>
 
@@ -113,37 +130,16 @@
     <label for="countryInput" class="form-label">Pais</label>
     <input type="text" required id="countryInput" class="form-control"
       placeholder="Ingrese el pais" 
-      name="country" [(ngModel)] = 'country'
+      name="country" [(ngModel)] = 'supplier.address.country'
     />
   </div>
-
-  <h5 class="mt-5 mb-4">Datos fiscales</h5>
-  <div class="mb-3">
-    <label for="ciutInput" class="form-label">CUIT</label>
-    <input type="number" required id="ciutInput" class="form-control"
-      placeholder="12-12345678-1" name="ciut" [(ngModel)] = 'ciut'
-    />
-  </div>
-
-  <label for="ivaConditionInput" class="form-label">Condición iva</label>
-  <select id="ivaConditionInput" required class="form-select mb-3"
-    aria-label="Default select example" name="ivaCondition" [(ngModel)] = 'ivaCondition'
-  >
-    <option value="1">IVA Responsable Inscripto</option>
-    <option value="2">IVA Responsable no Inscripto</option>
-    <option value="3">IVA no Responsable</option>
-    <option value="4">IVA Sujeto Exento</option>
-    <option value="5">Responsable Monotributo</option>
-    <option value="6">Sujeto no Categorizado</option>
-    <option value="7">Proveedor del Exterior</option>
-  </select>
 
   <h5 class="mt-5 mb-4">Datos de contacto</h5>
   <div class="mb-3">
     <label for="nameInput" class="form-label">Nombre</label>
     <input type="text" required id="nameInput" class="form-control"
       placeholder="Ingrese su nombre" 
-      name="name" [(ngModel)] = 'name'
+      name="name" [(ngModel)] = 'supplier.contactData.name'
     />
   </div>
 
@@ -151,14 +147,14 @@
     <label for="lastNameInput" class="form-label">Apellido</label>
     <input type="text" required id="lastNameInput" class="form-control"
       placeholder="Ingrese su apellido" 
-      name="lastName" [(ngModel)] = 'lastName'
+      name="lastName" [(ngModel)] = 'supplier.contactData.lastName'
     />
   </div>
 
   <div class="mb-3">
     <label for="contactPhoneInput" class="form-label">Telefono</label>
     <input type="number" required id="contactPhoneInput" class="form-control"
-      placeholder="012 12345678" name="contactPhone" [(ngModel)] = 'contactPhone'
+      placeholder="012 12345678" name="contactPhone" [(ngModel)] = 'supplier.contactData.phone'
     />
   </div>
 
@@ -166,7 +162,7 @@
     <label for="contactEmailInput" class="form-label">Email address</label>
     <input type="email" required class="form-control" id="contactEmailInput"
       aria-describedby="emailHelp" placeholder="ejemplo@email.com"
-      name="contactEmail" [(ngModel)] = 'contactEmail'
+      name="contactEmail" [(ngModel)] = 'supplier.contactData.email'
       
     />
   </div>
@@ -175,7 +171,7 @@
     <label for="rolInput" class="form-label">Rol</label>
     <input type="text" required id="rolInput" class="form-control"
       placeholder="Ingrese su rol" 
-      name="rol" [(ngModel)] = 'rol'
+      name="rol" [(ngModel)] = 'supplier.contactData.rol'
     />
   </div>
 

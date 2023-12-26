@@ -21,7 +21,11 @@ export class SuppliersComponent implements OnInit{
     this.suppliers = this.suppliersService.getSuppliers();
   }
 
-  deleteSupplier(code: string, businessName: string){
+  getID(id:string, i:number){
+    return (id+i);
+  }
+
+  deleteSupplier(code: number, businessName: string){
     //pregunto si esta seguro de que quiere eliminar al proveedor
     let confirmDelete = confirm("Esta seguro que desea eliminar al proovedor "+businessName);
 
