@@ -7,9 +7,8 @@
             <th scope="col">Razón social</th>
             <th scope="col">Rubro</th>
             <th scope="col">Web/email/telefono</th>
-            <th scope="col">Dirección</th>
-            <th scope="col">Datos fiscales</th>
-            <th scope="col">Datos de contacto</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
@@ -24,18 +23,11 @@
               <p><strong>Telefono:</strong> {{supplier.businessContact.phone}}</p>
             </td>
             <td>
-              <p><strong>Calle:</strong> {{supplier.address.streetName}}</p>
-              <p><strong>Número:</strong> {{supplier.address.number}}</p>
-              <p><strong>Código Postal:</strong> {{supplier.address.cp}}</p>
-              <p><strong>Ciudad:</strong> {{supplier.address.city}}</p>
-              <p><strong>Provincia:</strong> {{supplier.address.province}}</p>
-              <p><strong>Pais:</strong> {{supplier.address.country}}</p>
+              <p>{{supplier.contactData.name}}</p>
             </td>
             <td>
-              <p><strong>CIUT:</strong> {{supplier.taxData.cuit}}</p>
-              <p><strong>Condición iva:</strong> {{supplier.taxData.ivaCondition}}</p>
+              <p>{{supplier.contactData.lastName}}</p>
             </td>
-            <td><button>Ver Datos de contacto</button></td>
             <td>
               <button [routerLink]="['./modify']" [queryParams]="{edit: supplier.code}">Editar</button>
               <button (click)="deleteSupplier(supplier.code, supplier.businessName)">Eliminar</button>

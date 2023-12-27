@@ -110,6 +110,29 @@ export class SuppliersService {
   }
 
   /*
+  Verifica si ya existe una razon social
+
+  return boolean
+  si existe retorna true
+  si no existe retorna false
+  */
+  public existsbusinessName(businessName: string){
+    const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
+
+    //verifico si existe el codigo
+    let exist = false;
+    let i = 0;
+
+    while(exist===false && i<suppliers.length){
+      if(suppliers[i].businessName.toLowerCase() === businessName.toLowerCase()){
+        exist = true;
+      }
+      i++;
+    }
+    return exist;
+  }
+
+  /*
   esta funcion elimina un proveedor a traves de su codigo
   
   return boolean
@@ -185,13 +208,36 @@ export class SuppliersService {
   }
 
   /*
+  esta funcion devuelve un proveedor con el mismo cuit
+
+  return Supplier
+  si esta lo retorna
+  si no esta retorna null
+  */
+  public getSupplierByCuit(ciut: string){
+    const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
+
+    let supplier:Supplier|null = null;
+    let i=0;
+
+    while(supplier===null && i<suppliers.length){
+      if(suppliers[i].taxData.cuit === ciut){
+        supplier = suppliers[i];
+      }
+      i++;
+    }
+
+    return supplier;
+  }
+
+  /*
   esta funcion reinserta un proveedor a traves de su codigo
   
   return boolean
   si lo reinserta devuelve true
   si no lo encuentra devuelve false
   */
-  public reInsertSupplier(code: number){
+  public reInsertSupplier(code: number, supplier:Supplier){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     let reInsert = false;
@@ -199,6 +245,7 @@ export class SuppliersService {
 
     while(reInsert===false && i<suppliers.length){
       if(suppliers[i].code === code){
+        suppliers[i] = supplier;
         suppliers[i].deleted = false;
         reInsert = true;
       }

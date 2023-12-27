@@ -12,11 +12,18 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class SuppliersCreateComponent implements OnInit {
   supplier!: Supplier;
   cuitForm!: FormGroup;
+  submitForm!: FormGroup;
+
+  originalCuit:string = '';
+  originalBusinessName = '';
 
   validatedCUIT: boolean = false;
+  validatedSupplier: boolean = false;
   editSupplier: boolean = false;
+  reInsertSupplierMode: boolean = false;
 
-  validCuit: boolean = false;
+  validCuit: boolean = true;
+  validBusinessName: boolean = true;
 
   constructor(
     private suppliersService: SuppliersService,
@@ -26,8 +33,33 @@ export class SuppliersCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    let urlPattern = /^(https:\/\/www\.|www\.)[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.com$/;
+    let lettersNumbersPattern = /^[A-Za-z0-9]+$/;
+    let lettersPattern = /^[A-Za-z\s]+$/;
+    let phonePattern = /^[\d\-\+\(\)]+$/;
+
     this.cuitForm = this.fb.group({
       cuit: ['', [Validators.required, Validators.min(10000000000), Validators.max(99999999999)]],
+      businessName: ['', [Validators.required]]
+    });
+
+    this.submitForm = this.fb.group({
+      ivaCondition: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      businessemail: ['', [Validators.required, Validators.email]],
+      webPage: ['', [Validators.pattern(urlPattern)]],
+      buisnessphone: ['', [Validators.required, Validators.pattern(phonePattern)]],
+      streetName: ['', [Validators.required, Validators.pattern(lettersPattern)]],
+      streetNumber: ['', [Validators.required]],
+      cp: ['', [Validators.required, Validators.pattern(lettersNumbersPattern)]],
+      city: ['', [Validators.required, Validators.pattern(lettersPattern)]],
+      province: ['', [Validators.required, Validators.pattern(lettersPattern)]],
+      country: ['', [Validators.required, Validators.pattern(lettersPattern)]],
+      name: ['', [Validators.required, Validators.pattern(lettersPattern)]],
+      lastName: ['', [Validators.required, Validators.pattern(lettersPattern)]],
+      contactPhone: ['', [Validators.required, Validators.pattern(phonePattern)]],
+      contactEmail: ['', [Validators.required, Validators.email]],
+      rol: ['', [Validators.required, Validators.pattern(lettersNumbersPattern)]],
     });
 
     this.supplier = this.suppliersService.inicSupplier();
@@ -47,13 +79,71 @@ export class SuppliersCreateComponent implements OnInit {
     });
   }
 
-  onSubmit(form: FormGroup) {
+  verifyData(form: FormGroup) {
     console.log("Formulario valido: "+form.valid);
     console.log("Cuit invalido: "+form.get('cuit')?.invalid);
     if(form.valid){
-      //si el formulario del cuit es valido permito seguir con la carga de datos
-      this.validatedCUIT = true;
+
+      if(this.suppliersService.existsCUIT(this.supplier.taxData.cuit) && 
+        (this.originalCuit !== this.supplier.taxData.cuit)){
+        this.validCuit = false;
+      }
+      
+      if(this.suppliersService.existsbusinessName(this.supplier.businessName)&& 
+      (this.originalBusinessName !== this.supplier.businessName)){
+        this.validBusinessName = false;
+      }
+      
+      if(this.validCuit && this.validBusinessName){
+        this.validatedCUIT = true;
+      }else if(!this.editSupplier && 
+        this.suppliersService.verifyDeletedSupplier(this.supplier.taxData.cuit)){
+        //si el cuit y razon social son invalidos y si no estoy en modo edicion
+        //veo si el cuit es de un dato eliminado
+        //obtengo el dato
+        let deletedSupplier = this.suppliersService.getSupplierByCuit(this.supplier.taxData.cuit);
+
+        //y si es de un dato eliminado veo si la razon social coincide
+        if(deletedSupplier!=null){
+          if(deletedSupplier.businessName.toLowerCase() === this.supplier.businessName.toLowerCase()){
+            //cargo los datos del supplier e ingreso en modo reingresar proveedor
+            this.supplier = deletedSupplier;
+            this.reInsertSupplierMode = true;
+
+            this.validatedCUIT = true;
+            this.validCuit = true;
+            this.validBusinessName = true;
+          }
+        }
+        
+      }
+      
     }
+  }
+
+  onSubmit(form: FormGroup) {
+    console.log("Formulario valido: "+form.valid);
+    if(form.valid){
+      //si el formulario es valido guardo agrego el proveedor o lo guardo depende en cual modo estoy
+      this.validatedSupplier = true;
+
+      if(this.editSupplier){
+        this.modifySupplier();
+      }else if(this.reInsertSupplierMode){
+        this.reInsertSupplier();
+      }else{
+        this.submitSupplier();
+      }
+    }
+  }
+
+  private reInsertSupplier(){
+    this.suppliersService.reInsertSupplier(this.supplier.code, this.supplier);
+
+    alert('Proveedor ' + this.supplier.businessName + ' reingresado'); //esto iria en el subscribe
+
+    //lo redirijo a la ventana de proveedores
+    this.router.navigate(['/suppliers']);
   }
 
   private fillSupplierForm(code: number) {
@@ -61,6 +151,8 @@ export class SuppliersCreateComponent implements OnInit {
 
     if (supplier !== null) {
       this.supplier = supplier;
+      this.originalCuit = this.supplier.taxData.cuit;
+      this.originalBusinessName = this.supplier.businessName;
     }
   }
 
@@ -146,16 +238,6 @@ export class SuppliersCreateComponent implements OnInit {
             `El proveedor con el codigo ${this.supplier.code} ya existe \n¿desea reingresarlo?`
           );
 
-          if (reInsertSupplier) {
-            //si lo confirma reingresa el proveedor
-            if (this.suppliersService.reInsertSupplier(this.supplier.code)) {
-              //informo al usuario que se reingreso el proveedor
-              alert(`Se reingreso el proveedor codigo: ${this.supplier.code}`);
-            }
-
-            //redirijo al usuario a proveedores
-            this.router.navigate(['/suppliers']);
-          }
         }
       }
     } else {
