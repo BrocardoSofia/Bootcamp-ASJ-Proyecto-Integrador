@@ -33,10 +33,10 @@ export class SuppliersCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    let urlPattern = /^(https:\/\/www\.|www\.)[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.com$/;
-    let lettersNumbersPattern = /^[A-Za-z0-9]+$/;
-    let lettersPattern = /^[A-Za-z\s]+$/;
-    let phonePattern = /^[\d\-\+\(\)]+$/;
+    const urlPattern = /^(https:\/\/www\.|www\.)[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.com$/;
+    const lettersNumbersPattern = /^[A-Za-z0-9]+$/;
+    const lettersPattern = /^[A-Za-z\s]+$/;
+    const phonePattern = /^[\d\-\+\(\)]+$/;
 
     this.cuitForm = this.fb.group({
       cuit: ['', [Validators.required, Validators.min(10000000000), Validators.max(99999999999)]],
