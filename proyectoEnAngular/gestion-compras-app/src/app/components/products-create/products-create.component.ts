@@ -40,7 +40,13 @@ export class ProductsCreateComponent implements OnInit{
 
   verifyCode(form: FormGroup) {
     if(form.valid){
-
+      if(this.productsService.existCode(this.product.code)){
+        //si el codigo existe muestro un mensaje
+        this.validCode = false;
+      }else{
+        //si el codigo no existe paso al siguiente formulario
+        this.validatedCode = true;
+      }
     }
           
   }
