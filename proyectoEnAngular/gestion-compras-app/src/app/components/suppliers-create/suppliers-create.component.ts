@@ -160,7 +160,7 @@ export class SuppliersCreateComponent implements OnInit {
     let valid = true;
     
     //validar los inputs
-    if (this.validateInputs() && valid === true) {
+    if (valid === true) {
       //agrego el codigo al supplier buscando el ultimo guardado
       this.supplier.code = this.suppliersService.getLastCode()+1;
 
@@ -174,42 +174,6 @@ export class SuppliersCreateComponent implements OnInit {
     } else {
       alert('Datos invalidos'); //esto despues es un toast
     }
-  }
-
-  validateInputs() {
-    let valid = true;
-
-    //validar que el email termine con .com
-    if (!this.supplier.businessContact.email.includes('.com')) {
-      valid = false;
-      alert('El email debe contener un .com');
-    }
-
-    //validar que la pagina web termine con .com
-    if (!this.supplier.businessContact.webPage.includes('.com')) {
-      valid = false;
-      alert('La pagina debe contener un .com');
-    }
-
-    //validar que el telefono tenga como minimo 8 digitos
-    if (this.supplier.businessContact.phone.toString().length <= 8) {
-      valid = false;
-      alert('El telefono debe tener mas de 8 digitos');
-    }
-
-    //validar que el telefono tenga como minimo 8 digitos
-    if (this.supplier.contactData.phone.toString().length <= 8) {
-      valid = false;
-      alert('El telefono debe tener mas de 8 digitos');
-    }
-
-    //validar que el email termine con .com
-    if (!this.supplier.contactData.email.includes('.com')) {
-      valid = false;
-      alert('El email debe contener un .com');
-    }
-
-    return valid;
   }
 
   validateCUIT() {
@@ -246,16 +210,12 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   modifySupplier() {
-    if (this.validateInputs()) {
-      //enviarlo a la base de datos
-      this.suppliersService.modifySupplier(this.supplier);
+    //enviarlo a la base de datos
+    this.suppliersService.modifySupplier(this.supplier);
 
-      alert('Proveedor ' + this.supplier.businessName + ' fue modificado'); //esto iria en el subscribe
+    alert('Proveedor ' + this.supplier.businessName + ' fue modificado'); //esto iria en el subscribe
 
-      //lo redirijo a la ventana de proveedores
-      this.router.navigate(['/suppliers']);
-    } else {
-      alert('Datos invalidos'); //esto despues es un toast
-    }
+    //lo redirijo a la ventana de proveedores
+    this.router.navigate(['/suppliers']);
   }
 }

@@ -41,7 +41,7 @@ export class ProductsService {
   Retorna todos los productos actualizados con sus respectivos proveedores
   */
   public getProducts(){
-    let products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
+    const products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
 
     //actualizo todos los productos con su proveedor
     for(let product of products){
@@ -52,6 +52,53 @@ export class ProductsService {
     }
 
     return products.filter((product)=>product.deleted === false);
+  }
+
+  /*
+  Retorna todos el producto que coincida con el numero
+  */
+  public getProductById(code: string){
+    const products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
+    let product = null;
+    let i = 0;
+
+    //busco el producto con ese id
+    while(product === null && i<products.length){
+      if(products[i].code === code){
+        product = products[i];
+      }
+      i++;
+    }
+
+    return product;
+  }
+
+  /*
+  esta funcion reinserta un producto a traves de su codigo
+  
+  return boolean
+  si lo reinserta devuelve true
+  si no lo encuentra devuelve false
+  */
+  public reInsertProduct(product:Product){
+    let products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
+
+    let reInsert = false;
+    let i=0;
+
+    while(reInsert===false && i<products.length){
+      if(products[i].id === product.id){
+        products[i] = product;
+        products[i].deleted = false;
+        reInsert = true;
+      }
+      i++;
+    }
+
+    //actualizo el localStorage
+    window.localStorage.setItem('products', JSON.stringify(products));
+
+    return reInsert;
   }
 
   /*

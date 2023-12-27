@@ -63,8 +63,19 @@ export class ProductsCreateComponent implements OnInit{
   verifyCode(form: FormGroup) {
     if(form.valid){
       if(this.productsService.existCode(this.product.code)){
-        //si el codigo existe muestro un mensaje
-        this.validCode = false;
+        //si existe verifico que no este eliminado
+        //en caso de estar eliminado entra en reInsertProductMode
+        const product = this.productsService.getProductById(this.product.code);
+
+        if(product?.deleted === true){
+          this.reInsertProductMode = true;
+          this.product = product;
+          this.supplierCode = product.supplier.code;
+        }else{
+          //si el codigo existe y no es de un producto eliminado muestro un mensaje
+          this.validCode = false;
+        }
+        
       }else{
         //si el codigo no existe paso al siguiente formulario
         this.validatedCode = true;
@@ -81,14 +92,23 @@ export class ProductsCreateComponent implements OnInit{
       if(this.editProduct){
         //this.modifySupplier();
       }else if(this.reInsertProductMode){
-        //this.reInsertSupplier();
+        this.reInsertProduct();
       }else{
-        this.submitSupplier();
+        this.submitProduct();
       }
     }
   }
 
-  submitSupplier() {
+  private reInsertProduct(){
+    this.productsService.reInsertProduct(this.product);
+
+    alert('Producto ' + this.product.name + ' reingresado'); //esto iria en el subscribe
+
+    //lo redirijo a la ventana de proveedores
+    this.router.navigate(['/products']);
+  }
+
+  submitProduct() {
     //agrego el id al producto buscando el ultimo guardado
     this.product.id = this.productsService.getLastCode()+1;
     let supplier = this.suppliersService.getSupplier(this.supplierCode);

@@ -255,7 +255,7 @@ export class SuppliersService {
   si no lo encuentra devuelve false
   */
   public reInsertSupplier(code: number, supplier:Supplier){
-    const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
+    let suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     let reInsert = false;
     let i=0;

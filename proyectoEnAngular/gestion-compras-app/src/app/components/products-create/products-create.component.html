@@ -14,7 +14,7 @@
     </button>
   </section>
 
-  <section *ngIf="!validatedCode && !editProduct && existsSuppliers">
+  <section *ngIf="!validatedCode && !editProduct && existsSuppliers && !reInsertProductMode">
     <form [formGroup]="codeForm" (ngSubmit)="verifyCode(codeForm)">
       <div class="mt-3 mb-3">
         <label for="codeInput" class="form-label">Código / SKU</label>
@@ -38,7 +38,7 @@
   </section>
   <!-- Primero confirmo el Código, por si el producto ya existe
     Si existe y esta eliminado, lleno los datos del formulario con los datos del producto -->
-  <section *ngIf="validatedCode">
+  <section *ngIf="validatedCode || reInsertProductMode">
     <form [formGroup]="submitForm" (ngSubmit)="onSubmit(submitForm)">
       <div class="mt-3">
         <label for="supplierInput" class="form-label">Proveedor</label>
