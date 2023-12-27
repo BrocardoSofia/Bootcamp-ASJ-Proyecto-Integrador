@@ -12,6 +12,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { PurchaseOrdersComponent } from './components/purchase-orders/purchase-orders.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SuppliersCreateComponent } from './components/suppliers-create/suppliers-create.component';
+import { ProductsCreateComponent } from './components/products-create/products-create.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { SuppliersCreateComponent } from './components/suppliers-create/supplier
     ProductsComponent,
     PurchaseOrdersComponent,
     WelcomeComponent,
-    SuppliersCreateComponent
+    SuppliersCreateComponent,
+    ProductsCreateComponent
   ],
   imports: [
     BrowserModule,

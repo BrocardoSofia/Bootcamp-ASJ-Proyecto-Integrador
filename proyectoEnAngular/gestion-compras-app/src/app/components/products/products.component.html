@@ -1,24 +1,29 @@
 <div class="container">
-    <button type="button" class="btn btn-secondary mt-3">Agregar nuevo producto</button>
+    <button type="button" class="btn btn-secondary mt-3" routerLink="./create">
+      Agregar nuevo producto
+    </button>
     <table class="table mt-3">
         <thead>
           <tr class="table-secondary">
-            <th scope="col">Proveedor</th>
-            <th scope="col">Código / SKU</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Nombre</th>
             <th scope="col">Categoría</th>
-            <th scope="col">Nombre producto</th>
-            <th scope="col">Descripción</th>
+            <th scope="col">Proveedor</th>
             <th scope="col">Precio</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let product of products">
-            <td> <button>Ver proveedor</button></td>
-            <td>{{product.code}}</td>
-            <td>{{product.category}}</td>
+            <td><img src={{product.img}} alt={{product.name}}></td>
             <td>{{product.name}}</td>
-            <td>{{product.description}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.supplier.businessName}}</td>
             <td>{{product.price}}</td>
+            <td>
+              <button>Editar</button>
+              <button>Eliminar</button>
+            </td>
           </tr>
         </tbody>
       </table>
