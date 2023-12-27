@@ -6,7 +6,13 @@
     <h1 *ngIf="!editProduct" class="mt-4 mb-4">Creando Producto</h1>
     <h1 *ngIf="editProduct" class="mt-4 mb-4">Modificando Producto</h1>
 
-    <section *ngIf="!validatedCode && !editProduct">
+    <section *ngIf="!existsSuppliers">
+        <h2>No hay proveedores para agregar productos</h2>
+        <p>Para ingresar nuevos productos debe tener proveedores en el sistema</p>
+        <button routerLink="/suppliers/create">Ir a ingresar un nuevo proveedor</button>
+    </section>
+
+    <section *ngIf="!validatedCode && !editProduct && existsSuppliers">
         <form [formGroup]="codeForm" (ngSubmit)="verifyCode(codeForm)">
             <div class="mt-3 mb-3">
                 <label for="codeInput" class="form-label">Código / SKU</label>
@@ -28,5 +34,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         </form>
+
+        
     </section>
 </div>

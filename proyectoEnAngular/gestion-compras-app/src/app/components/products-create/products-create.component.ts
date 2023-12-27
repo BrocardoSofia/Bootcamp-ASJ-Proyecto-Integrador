@@ -3,6 +3,7 @@ import { Product } from '../../models/product';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SuppliersService } from '../../services/suppliers.service';
 
 @Component({
   selector: 'app-products-create',
@@ -20,9 +21,11 @@ export class ProductsCreateComponent implements OnInit{
   reInsertProductMode: boolean = false;
 
   validCode: boolean = true;
+  existsSuppliers : boolean = true;
 
   constructor(
     private productsService: ProductsService,
+    private suppliersService: SuppliersService,
     private router: Router,
     private activeRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -36,6 +39,10 @@ export class ProductsCreateComponent implements OnInit{
     });
 
     this.product = this.productsService.inicProduct();
+
+    if(this.suppliersService.cantSuppliers() === 0){
+      this.existsSuppliers = false;
+    }
   }
 
   verifyCode(form: FormGroup) {

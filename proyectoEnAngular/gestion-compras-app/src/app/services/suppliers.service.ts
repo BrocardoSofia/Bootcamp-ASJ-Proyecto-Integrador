@@ -64,6 +64,23 @@ export class SuppliersService {
   }
 
   /*
+  Retorna la cantidad de proveedores que hay almacenados
+  */
+  public cantSuppliers(){
+    const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
+
+    let cant = 0;
+
+    for(let supplier of suppliers){
+      if(supplier.deleted === false){
+        cant++;
+      }
+    }
+    
+    return cant;
+  }
+
+  /*
   Verifica si ya existe un codigo
 
   return boolean
