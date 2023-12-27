@@ -18,4 +18,22 @@ export class ProductsComponent implements OnInit{
     
   }
 
+  deleteProduct(id:number, name:string){
+    //pregunto si esta seguro de que quiere eliminar el producto
+    let confirmDelete = confirm("Esta seguro que desea eliminar al producto "+name);
+
+    if(confirmDelete){
+      //elimino el producto
+      this.productsService.deleteProduct(id);
+
+      //recargo los productos
+      this.updateProducts();
+    }
+  }
+
+  private updateProducts(){
+    //actualiza a los productos
+    this.products = this.productsService.getProducts();
+  }
+
 }

@@ -20,7 +20,7 @@
             <td>${{product.price}}</td>
             <td>
               <button>Editar</button>
-              <button>Eliminar</button>
+              <button (click)="deleteProduct(product.id, product.name)">Eliminar</button>
             </td>
           </tr>
         </tbody>

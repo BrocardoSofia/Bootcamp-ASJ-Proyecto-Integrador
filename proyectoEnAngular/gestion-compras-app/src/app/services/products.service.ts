@@ -51,7 +51,7 @@ export class ProductsService {
       }
     }
 
-    return products;
+    return products.filter((product)=>product.deleted === false);
   }
 
   /*
@@ -90,4 +90,32 @@ export class ProductsService {
     return lastId;
  }
 
+ /*
+  esta funcion elimina un producto a traves de su id
+  
+  return boolean
+  si lo elimina devuelve true
+  si no lo encuentra devuelve false
+  */
+  public deleteProduct(id: number){
+    const products: Product[] = JSON.parse(localStorage.getItem('products') || '[]');
+
+    let deleted = false;
+    let i=0;
+
+    while(deleted===false && i<products.length){
+      if(products[i].id === id){
+        products[i].deleted = true;
+        console.log("eliminado");
+        deleted = true;
+      }
+      i++;
+    }
+
+    //actualizo el localStorage
+    window.localStorage.setItem('products', JSON.stringify(products));
+
+    return deleted;
+  }
+ 
 }
