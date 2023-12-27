@@ -34,7 +34,7 @@ export class SuppliersCreateComponent implements OnInit {
 
   ngOnInit(): void {
     const urlPattern = /^(https:\/\/www\.|www\.)[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.com$/;
-    const lettersNumbersPattern = /^[A-Za-z0-9]+$/;
+    const lettersNumbersPattern = /^[A-Za-z0-9\s]+$/;
     const lettersPattern = /^[A-Za-z\s]+$/;
     const phonePattern = /^[\d\-\+\(\)]+$/;
 

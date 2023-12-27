@@ -46,7 +46,8 @@
   </section>
 
   <!-- Primero confirmo el CUIT, por si el proovedor ya existe
-  Si existe y esta eliminado, informo que esta eliminado y pregunto si lo quiere volver a incorporar -->
+  Si existe y esta eliminado, y el cuit y la razon social coinciden lleno los datos del formulario
+  con los datos del proveedor -->
 
   <section *ngIf="validatedCUIT">
     <form [formGroup]="submitForm" (ngSubmit)="onSubmit(submitForm)">
@@ -191,7 +192,7 @@
 
       <div class="mb-3">
         <label for="contactPhoneInput" class="form-label">Telefono</label>
-        <input type="number" required id="contactPhoneInput" class="form-control" placeholder="012 12345678" name="contactPhone" [(ngModel)]="supplier.contactData.phone" formControlName="contactPhone"/>
+        <input type="text" required id="contactPhoneInput" class="form-control" placeholder="012 12345678" name="contactPhone" [(ngModel)]="supplier.contactData.phone" formControlName="contactPhone"/>
       </div>
       <div *ngIf="submitForm.get('contactPhone')?.invalid && submitForm.get('contactPhone')?.touched" class="fw-lighter text-danger">
         Debe ingresar un teléfono válido
@@ -216,11 +217,11 @@
       </div>
 
       <button *ngIf="!editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-2">
-        Crear Proveedor
+        Agregar Proveedor
       </button>
 
       <button *ngIf="editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-2">
-        Modificar Proveedor
+        Guardar cambios
       </button>
     </form>
   </section>

@@ -5,7 +5,6 @@
     <table class="table mt-3">
         <thead>
           <tr class="table-secondary">
-            <th scope="col">Imagen</th>
             <th scope="col">Nombre</th>
             <th scope="col">Categoría</th>
             <th scope="col">Proveedor</th>
@@ -15,11 +14,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let product of products">
-            <td><img src={{product.img}} alt={{product.name}}></td>
             <td>{{product.name}}</td>
             <td>{{product.category}}</td>
             <td>{{product.supplier.businessName}}</td>
-            <td>{{product.price}}</td>
+            <td>${{product.price}}</td>
             <td>
               <button>Editar</button>
               <button>Eliminar</button>

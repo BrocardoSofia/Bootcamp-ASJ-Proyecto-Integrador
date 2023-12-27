@@ -191,7 +191,7 @@ export class SuppliersService {
     let i=0;
 
     while(supplier===null && i<suppliers.length){
-      if(suppliers[i].code === code){
+      if(suppliers[i].code == code){
         supplier = suppliers[i];
       }
       i++;
@@ -307,7 +307,7 @@ export class SuppliersService {
     let lastCode = 0;
 
     if(suppliers.length !== 0){
-      lastCode = suppliers[suppliers.length].code;
+      lastCode = suppliers[suppliers.length-1].code;
     }
 
     return lastCode;

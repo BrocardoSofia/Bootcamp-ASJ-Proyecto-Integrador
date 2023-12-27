@@ -19,7 +19,6 @@ export class ProductsService {
       category: '',
       name: '',
       description: '',
-      price: -1,
       deleted: false
     }
 
@@ -75,6 +74,20 @@ export class ProductsService {
     }
 
     return exist;
+ }
+
+ /*
+ Retorna el ultimo id, si no hay productos retorna 0
+ */
+ public getLastCode(){
+  const products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
+    let lastId = 0;
+    
+    if(products.length !== 0){
+      lastId = products[products.length-1].id;
+    }
+
+    return lastId;
  }
 
 }
