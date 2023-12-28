@@ -1,5 +1,6 @@
 <article class="container">
   <button routerLink="/suppliers" class="btn btn-secondary mt-3">
+    <i class="bi bi-arrow-left"></i>
     Volver a Proveedores
   </button>
 
@@ -216,11 +217,11 @@
         Debe ingresar un rol válido
       </div>
 
-      <button *ngIf="!editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-4">
+      <button *ngIf="!editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-4 mb-4">
         Agregar Proveedor
       </button>
 
-      <button *ngIf="editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-4">
+      <button *ngIf="editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-4 mb-4">
         Guardar cambios
       </button>
     </form>

@@ -1,5 +1,6 @@
 <div class="container">
     <button routerLink="/purchase-orders" class="btn btn-secondary mt-3">
+        <i class="bi bi-arrow-left"></i>
         Volver a Ordenes de Compra
     </button>
 
@@ -94,7 +95,7 @@
                     <p>No hay productos</p>
                 </article>
                 <article *ngIf="productsPurchase.length !== 0">
-                    <table class="table mt-3">
+                    <table class="table mt-3 table-radius">
                         <thead>
                             <tr class="table-secondary">
                                 <th scope="col">Código</th>
@@ -113,7 +114,10 @@
                                 <td>{{product.amount}}</td>
                                 <td>${{calculateProductPrice(product.amount, product.price)}}</td>
                                 <td>
-                                    <button (click)="deleteProduct(i)">Eliminar</button>
+                                    <button type="button" class="btn btn-danger rounded-circle btn-icon"
+                                    (click)="deleteProduct(i)">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
                                 </td>
                             </tr>
                             <tr>
@@ -123,7 +127,7 @@
                             </tr>
                         </tbody>
                     </table>
-                    <button (click)="submitProducts()" class="btn btn-primary mt-4">
+                    <button (click)="submitProducts()" class="btn btn-primary mt-4 mb-4">
                         Continuar
                     </button>
                 </article>
