@@ -6,6 +6,7 @@ import { PurchaseOrdersComponent } from './components/purchase-orders/purchase-o
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SuppliersCreateComponent } from './components/suppliers-create/suppliers-create.component';
 import { ProductsCreateComponent } from './components/products-create/products-create.component';
+import { PurchaseOrdersCreateComponent } from './components/purchase-orders-create/purchase-orders-create.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -23,7 +24,12 @@ const routes: Routes = [
       { path: 'modify', component: ProductsCreateComponent },
     ],
   },
-  { path: 'purchase-orders', component: PurchaseOrdersComponent },
+  { path: 'purchase-orders', 
+    children: [
+      { path: '', component: PurchaseOrdersComponent },
+      { path: 'create', component: PurchaseOrdersCreateComponent }
+    ],
+  },
 ];
 
 @NgModule({

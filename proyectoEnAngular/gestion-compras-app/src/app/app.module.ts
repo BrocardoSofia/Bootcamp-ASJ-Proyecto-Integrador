@@ -13,6 +13,7 @@ import { PurchaseOrdersComponent } from './components/purchase-orders/purchase-o
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SuppliersCreateComponent } from './components/suppliers-create/suppliers-create.component';
 import { ProductsCreateComponent } from './components/products-create/products-create.component';
+import { PurchaseOrdersCreateComponent } from './components/purchase-orders-create/purchase-orders-create.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductsCreateComponent } from './components/products-create/products-c
     PurchaseOrdersComponent,
     WelcomeComponent,
     SuppliersCreateComponent,
-    ProductsCreateComponent
+    ProductsCreateComponent,
+    PurchaseOrdersCreateComponent
   ],
   imports: [
     BrowserModule,
