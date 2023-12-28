@@ -65,7 +65,7 @@ export class SuppliersCreateComponent implements OnInit {
     this.supplier = this.suppliersService.inicSupplier();
     let codeParam;
     this.activeRoute.queryParamMap.subscribe((params) => {
-      codeParam = params.get('edit') || null;
+      codeParam = params.get('editSupplier') || null;
 
       if (codeParam !== null) {
         //la pagina pasa a modo edicion

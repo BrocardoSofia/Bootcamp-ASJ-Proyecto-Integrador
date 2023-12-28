@@ -182,7 +182,7 @@
         Debe ingresar un nombre válido
       </div>
 
-      <div class="mb-3">
+      <div class="mt-3">
         <label for="lastNameInput" class="form-label">Apellido</label>
         <input type="text" required id="lastNameInput" class="form-control" placeholder="Ingrese su apellido" name="lastName" [(ngModel)]="supplier.contactData.lastName" formControlName="lastName"/>
       </div>
@@ -190,7 +190,7 @@
         Debe ingresar un apellido válido
       </div>
 
-      <div class="mb-3">
+      <div class="mt-3">
         <label for="contactPhoneInput" class="form-label">Telefono</label>
         <input type="text" required id="contactPhoneInput" class="form-control" placeholder="012 12345678" name="contactPhone" [(ngModel)]="supplier.contactData.phone" formControlName="contactPhone"/>
       </div>
@@ -198,7 +198,7 @@
         Debe ingresar un teléfono válido
       </div>
 
-      <div class="mb-3">
+      <div class="mt-3">
         <label for="contactEmailInput" class="form-label">Email address</label>
         <input type="email" required class="form-control" id="contactEmailInput" aria-describedby="emailHelp"
           placeholder="ejemplo@email.com" name="contactEmail" [(ngModel)]="supplier.contactData.email" 
@@ -208,7 +208,7 @@
         Debe ingresar un email válido
       </div>
 
-      <div class="mb-3">
+      <div class="mt-3">
         <label for="rolInput" class="form-label">Rol</label>
         <input type="text" required id="rolInput" class="form-control" placeholder="Ingrese su rol" name="rol" [(ngModel)]="supplier.contactData.rol" formControlName="rol"/>
       </div>
@@ -216,11 +216,11 @@
         Debe ingresar un rol válido
       </div>
 
-      <button *ngIf="!editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-2">
+      <button *ngIf="!editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-4">
         Agregar Proveedor
       </button>
 
-      <button *ngIf="editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-2">
+      <button *ngIf="editSupplier" [disabled]="submitForm.invalid" class="btn btn-primary mt-4">
         Guardar cambios
       </button>
     </form>

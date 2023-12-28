@@ -29,7 +29,7 @@
               <p>{{supplier.contactData.lastName}}</p>
             </td>
             <td>
-              <button [routerLink]="['./modify']" [queryParams]="{edit: supplier.code}">Editar</button>
+              <button [routerLink]="['./modify']" [queryParams]="{editSupplier: supplier.code}">Editar</button>
               <button (click)="deleteSupplier(supplier.code, supplier.businessName)">Eliminar</button>
             </td>
           </tr>
