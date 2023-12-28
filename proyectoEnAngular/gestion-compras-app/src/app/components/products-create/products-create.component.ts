@@ -165,7 +165,7 @@ export class ProductsCreateComponent implements OnInit{
 
   submitProduct() {
     //agrego el id al producto buscando el ultimo guardado
-    this.product.id = this.productsService.getLastCode()+1;
+    this.product.id = this.productsService.getLastId()+1;
     let supplier = this.suppliersService.getSupplier(this.supplierCode);
 
     if(supplier !== null){

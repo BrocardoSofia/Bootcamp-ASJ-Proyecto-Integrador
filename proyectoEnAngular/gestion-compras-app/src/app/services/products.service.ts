@@ -55,7 +55,7 @@ export class ProductsService {
   }
 
   /*
-  Retorna todos el producto que coincida con el numero
+  Retorna el producto que coincida con el numero
   */
   public getProductByCode(code: string){
     const products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
@@ -126,7 +126,7 @@ export class ProductsService {
  /*
  Retorna el ultimo id, si no hay productos retorna 0
  */
- public getLastCode(){
+ public getLastId(){
   const products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
     let lastId = 0;
     
