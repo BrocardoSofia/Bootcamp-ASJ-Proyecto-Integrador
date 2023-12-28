@@ -153,6 +153,7 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   submitProducts() {
     //cargo los productos
     this.purchaseOrder.products = this.productsPurchase;
+    this.purchaseOrder.total = this.totalPrice();
 
     this.productsInserted = true;
 
@@ -163,8 +164,14 @@ export class PurchaseOrdersCreateComponent implements OnInit {
     if (form.valid) {
       this.validDeliveryDate = this.validateDeliveryDate()
 
-      if(this.validDeliveryDate){
+      if (this.validDeliveryDate) {
         //si tengo una fecha de entrega valida continuo
+        this.purchaseOrder.emissionDate = this.emissionDate;
+        this.purchaseOrder.deliveryDate = this.deliveryDate;
+        this.purchaseOrder.receptionInfo = this.receptionInfo;
+        this.purchaseOrder.id = this.purchaseOrdersService.getLastId()+1;
+
+        console.log(this.purchaseOrder);
       }
     }
   }
@@ -206,11 +213,19 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   validateDeliveryDate() {
     let valid = false;
-    let today = new Date();
+    let inputDateString = this.deliveryDate; // reemplaza esto con tu fecha de entrada
+    let inputDate = new Date(inputDateString + 'T00:00'); // agrega la hora a la fecha de entrada
 
-    if (this.deliveryDate > today) {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0); // establece la hora de la fecha actual a medianoche
+
+    if (inputDate > today) {
       valid = true;
-    } 
+      console.log('La fecha ingresada es mayor a la fecha actual.');
+    } else {
+      valid = false;
+      console.log('La fecha ingresada no es mayor a la fecha actual.');
+    }
 
     return valid
   }
