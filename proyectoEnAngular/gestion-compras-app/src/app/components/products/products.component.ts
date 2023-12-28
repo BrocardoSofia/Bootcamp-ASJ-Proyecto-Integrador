@@ -10,6 +10,7 @@ import { ProductsService } from '../../services/products.service';
 export class ProductsComponent implements OnInit{
 
   products: Product[] = [];
+  toDeleteProduct:Product = this.productsService.inicProduct();
 
   constructor(private productsService: ProductsService){}
 
@@ -18,17 +19,18 @@ export class ProductsComponent implements OnInit{
     
   }
 
-  deleteProduct(id:number, name:string){
-    //pregunto si esta seguro de que quiere eliminar el producto
-    let confirmDelete = confirm("Esta seguro que desea eliminar al producto "+name);
+  setToDeleteProduct(product: Product){
+    this.toDeleteProduct = product;
+    
+  }
 
-    if(confirmDelete){
-      //elimino el producto
-      this.productsService.deleteProduct(id);
+  deleteProduct(){
+    //elimino el producto
+    this.productsService.deleteProduct(this.toDeleteProduct.id);
 
-      //recargo los productos
-      this.updateProducts();
-    }
+    //recargo los productos
+    this.updateProducts();
+    
   }
 
   private updateProducts(){
