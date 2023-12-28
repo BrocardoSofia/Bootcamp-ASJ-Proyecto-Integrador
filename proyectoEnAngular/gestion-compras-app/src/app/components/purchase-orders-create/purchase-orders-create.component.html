@@ -40,11 +40,11 @@
                 <button routerLink="/products/create">
                     Ir a ingresar productos
                 </button>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" 
-                (click)="resetExistsProducts()" aria-label="Close"></button>
-              </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="resetExistsProducts()"
+                    aria-label="Close"></button>
+            </div>
             <section *ngIf="!existsProducts">
-                
+
             </section>
         </form>
     </section>
@@ -61,27 +61,25 @@
                 <form [formGroup]="addProductForm" (ngSubmit)="submitaddproduct(addProductForm)">
                     <div class="mt-3">
                         <label for="productInput" class="form-label">Producto</label>
-                        <select id="productInput" class="form-select" aria-label="Default select example"
-                            name="product" [(ngModel)]="productCode" formControlName="product">
+                        <select id="productInput" class="form-select" aria-label="Default select example" name="product"
+                            [(ngModel)]="productCode" formControlName="product">
                             <option option *ngFor="let product of productsList" value={{product.code}}>
                                 {{ product.name }}
                             </option>
                         </select>
                         <div *ngIf="addProductForm.get('supplier')?.invalid && 
-                        addProductForm.get('supplier')?.touched"
-                            class="fw-lighter text-danger">
+                        addProductForm.get('supplier')?.touched" class="fw-lighter text-danger">
                             Debe ingresar un proveedor
                         </div>
                     </div>
 
                     <div class="mt-3">
                         <label for="amountInput" class="form-label">Cantidad</label>
-                        <input type="number" id="amountInput" class="form-control" required 
-                        placeholder="0" name="amount" [(ngModel)]="amount" 
-                        formControlName="amount"/>
-                      </div>
-                      <div *ngIf="addProductForm.get('amount')?.invalid && addProductForm.get('amount')?.touched" 
-                      class="fw-lighter text-danger">
+                        <input type="number" id="amountInput" class="form-control" required placeholder="0"
+                            name="amount" [(ngModel)]="amount" formControlName="amount" />
+                    </div>
+                    <div *ngIf="addProductForm.get('amount')?.invalid && addProductForm.get('amount')?.touched"
+                        class="fw-lighter text-danger">
                         La cantidad debe ser igual o mayor a 1
                     </div>
 
@@ -99,31 +97,31 @@
                     <table class="table mt-3">
                         <thead>
                             <tr class="table-secondary">
-                              <th scope="col">Código</th>
-                              <th scope="col">Nombre</th>
-                              <th scope="col">Precio</th>
-                              <th scope="col">Cantidad</th>
-                              <th scope="col">Total</th>
-                              <th scope="col"></th>
+                                <th scope="col">Código</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Total</th>
+                                <th scope="col"></th>
                             </tr>
-                          </thead>
-                          <tbody>
+                        </thead>
+                        <tbody>
                             <tr *ngFor="let product of productsPurchase; index as i">
-                              <td>{{product.code}}</td>
-                              <td>{{product.name}}</td>
-                              <td>${{product.price}}</td>
-                              <td>{{product.amount}}</td>
-                              <td>${{calculateProductPrice(product.amount, product.price)}}</td>
-                              <td>
-                                <button (click)="deleteProduct(i)">Eliminar</button>
-                              </td>
+                                <td>{{product.code}}</td>
+                                <td>{{product.name}}</td>
+                                <td>${{product.price}}</td>
+                                <td>{{product.amount}}</td>
+                                <td>${{calculateProductPrice(product.amount, product.price)}}</td>
+                                <td>
+                                    <button (click)="deleteProduct(i)">Eliminar</button>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="4"><strong>Final</strong></td>
                                 <td>${{totalPrice()}}</td>
                                 <td></td>
                             </tr>
-                          </tbody>
+                        </tbody>
                     </table>
                     <button (click)="submitProducts()" class="btn btn-primary mt-4">
                         Continuar
@@ -136,28 +134,42 @@
     <!-- Ingreso la informacion de la orden de compra
     fecha de emision
     fecha de entrega
-    informacion de entrega
+    informacion de entrega 
     -->
-    <section *ngIf="productsInserted">
-        <form [formGroup]="supplierForm" (ngSubmit)="submitSupplier(supplierForm)">
-            <div class="mt-3" *ngIf="!supplierInserted">
-                <label for="supplierInput" class="form-label">Proveedor</label>
-                <select id="supplierInput" class="form-select" aria-label="Default select example" name="supplier"
-                    [(ngModel)]="supplierCode" formControlName="supplier">
-                    <option option *ngFor="let supplier of suppliers" value={{supplier.code}}>
-                        {{ supplier.businessName }}
-                    </option>
-                </select>
-                <div *ngIf="supplierForm.get('supplier')?.invalid && supplierForm.get('supplier')?.touched"
+    
+    <section *ngIf="productsInserted"> 
+        <div>{{inicEmissionDate()}}</div>
+        <div>{{setMinDeliveryDay()}}</div>
+        <form [formGroup]="submitForm" (ngSubmit)="submitInformation(submitForm)">
+            <div class="mt-3">
+                <label for="emissionDateInput" class="form-label">Fecha de emisión</label>
+                <input id="emissionDateInput" class="form-control" type="date" disabled/>
+            </div>
+
+            <div class="mt-3">
+                <label for="deliveryDateInput" class="form-label">Fecha de entrega esperada</label>
+                <input id="deliveryDateInput" class="form-control" type="date" 
+                    [(ngModel)]="deliveryDate" formControlName="deliveryDate"/>
+                <div *ngIf="submitForm.get('deliveryDate')?.invalid && submitForm.get('deliveryDate')?.touched"
                     class="fw-lighter text-danger">
-                    Debe ingresar un proveedor
+                    Debe ingresar una fecha de entrega
                 </div>
             </div>
 
-            <button type="submit" [disabled]="supplierForm.invalid" class="btn btn-primary mt-4">
+            <div class="mt-3">
+                <label for="receptionInfoInput" class="form-label">Información de recepción (dirección)</label>
+                <input id="receptionInfoInput" class="form-control" type="text" 
+                    [(ngModel)]="receptionInfo" formControlName="receptionInfo"/>
+                <div *ngIf="submitForm.get('receptionInfo')?.invalid && submitForm.get('receptionInfo')?.touched"
+                    class="fw-lighter text-danger">
+                    Debe ingresar la información de recepción (dirección)
+                </div>
+            </div>
+
+            <button type="submit" [disabled]="submitForm.invalid" class="btn btn-primary mt-4">
                 Continuar
             </button>
-            
+
         </form>
     </section>
 

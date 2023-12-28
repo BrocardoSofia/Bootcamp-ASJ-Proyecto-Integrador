@@ -14,27 +14,32 @@ import { Product } from '../../models/product';
   templateUrl: './purchase-orders-create.component.html',
   styleUrl: './purchase-orders-create.component.css'
 })
-export class PurchaseOrdersCreateComponent implements OnInit{
+export class PurchaseOrdersCreateComponent implements OnInit {
   purchaseOrder!: PurchaseOrder;
   suppliers!: Supplier[];
   products!: ProductPurchase[];
   productsPurchase: ProductPurchase[] = [];
-  productCode!:string;
-  amount!:number;
-  productsList!:Product[];
+  productCode!: string;
+  amount!: number;
+  productsList!: Product[];
 
   supplierForm!: FormGroup;
   addProductForm!: FormGroup;
   productsForm!: FormGroup;
   submitForm!: FormGroup;
-  
-  supplierCode!:number;
+
+  supplierCode!: number;
   supplierInserted: boolean = false;
   productsInserted: boolean = false;
-  existsSuppliers:boolean = true;
-  existsProducts:boolean = true;
+  existsSuppliers: boolean = true;
+  existsProducts: boolean = true;
 
-  exist:boolean = true;
+  exist: boolean = true;
+
+  emissionDate!: Date;
+  deliveryDate!: Date;
+  receptionInfo!: string;
+  validDeliveryDate: boolean = true;
 
   constructor(
     private suppliersService: SuppliersService,
@@ -43,29 +48,31 @@ export class PurchaseOrdersCreateComponent implements OnInit{
     private router: Router,
     private activeRoute: ActivatedRoute,
     private fb: FormBuilder
-  ){}
+  ) { }
 
   ngOnInit(): void {
+    this.emissionDate = new Date();
     this.suppliers = this.suppliersService.getSuppliers();
     this.purchaseOrder = this.purchaseOrdersService.inicPurchaseOrder();
 
-    if(this.suppliers.length === 0){
+    if (this.suppliers.length === 0) {
       this.existsSuppliers = false;
     }
 
     this.supplierForm = this.fb.group({
       supplier: ['', [Validators.required]]
     });
+
   }
 
   submitSupplier(form: FormGroup) {
-    if(form.valid){
+    if (form.valid) {
       //agregar el proveedor a la orden de compra
-      const supplier:Supplier|null = this.suppliersService.getSupplier(this.supplierCode);
+      const supplier: Supplier | null = this.suppliersService.getSupplier(this.supplierCode);
 
       this.productsList = this.productsService.getProductsBySupplierCode(this.supplierCode);
 
-      if(supplier != null && this.productsList.length !== 0){
+      if (supplier != null && this.productsList.length !== 0) {
         this.existsProducts = true;
         this.purchaseOrder.supplier = supplier;
         this.supplierInserted = true;
@@ -75,36 +82,36 @@ export class PurchaseOrdersCreateComponent implements OnInit{
           product: ['', [Validators.required]],
           amount: ['', [Validators.required, Validators.min(1)]]
         });
-      }else{
+      } else {
         this.existsProducts = false;
       }
     }
   }
 
   submitaddproduct(form: FormGroup) {
-    if(form.valid){
+    if (form.valid) {
       //buscar el producto
-      const product:Product|null = this.productsService.getProductByCode(this.productCode);
+      const product: Product | null = this.productsService.getProductByCode(this.productCode);
 
-      if(product != null){
+      if (product != null) {
         //convierto el producto en un producto de orden de compra con su respectiva cantidad
         const productPO = this.purchaseOrdersService.createProductPurchase(product, this.amount);
-        
+
         //agrego el producto al arreglo de productos de orden de compra
-        if(!this.addPurchase(productPO)){
+        if (!this.addPurchase(productPO)) {
           this.productsPurchase.push(productPO);
         }
 
         form.reset();
-      } 
+      }
     }
   }
 
-  addPurchase(productPO: ProductPurchase){
-    let i=0; 
+  addPurchase(productPO: ProductPurchase) {
+    let i = 0;
     let added = false;
-    while(i<this.productsPurchase.length && added === false){
-      if(this.productsPurchase[i].code === productPO.code){
+    while (i < this.productsPurchase.length && added === false) {
+      if (this.productsPurchase[i].code === productPO.code) {
         this.productsPurchase[i].amount += productPO.amount;
         added = true;
       }
@@ -114,30 +121,30 @@ export class PurchaseOrdersCreateComponent implements OnInit{
     return added;
   }
 
-  calculateProductPrice(amount:number, price:number | undefined){
+  calculateProductPrice(amount: number, price: number | undefined) {
     let total = 0;
-    if(price !== undefined){
+    if (price !== undefined) {
       total = (amount * price);
     }
     return total;
   }
 
-  resetExistsProducts(){
+  resetExistsProducts() {
     this.existsProducts = true;
   }
 
-  deleteProduct(index: number){
-    this.productsPurchase.splice(index,1);
+  deleteProduct(index: number) {
+    this.productsPurchase.splice(index, 1);
   }
 
-  totalPrice(){
+  totalPrice() {
     let total = 0;
 
-    for(let product of this.productsPurchase){
-      if(product.price !== undefined){
+    for (let product of this.productsPurchase) {
+      if (product.price !== undefined) {
         total += (product.amount * product.price);
       }
-      
+
     }
 
     return total;
@@ -148,6 +155,64 @@ export class PurchaseOrdersCreateComponent implements OnInit{
     this.purchaseOrder.products = this.productsPurchase;
 
     this.productsInserted = true;
+
+    this.inicSubmitForm();
+  }
+
+  submitInformation(form: FormGroup) {
+    if (form.valid) {
+      this.validDeliveryDate = this.validateDeliveryDate()
+
+      if(this.validDeliveryDate){
+        //si tengo una fecha de entrega valida continuo
+      }
+    }
+  }
+
+  inicSubmitForm() {
+    //inicializo el siguiente formulario
+    this.submitForm = this.fb.group({
+      deliveryDate: ['', [Validators.required]],
+      receptionInfo: ['', [Validators.required]]
+    });
+  }
+
+  inicEmissionDate() {
+    let datePicker = <HTMLInputElement>document.getElementById('emissionDateInput');
+    this.emissionDate = new Date();
+
+    let day = ("0" + this.emissionDate.getDate()).slice(-2);
+    let month = ("0" + (this.emissionDate.getMonth() + 1)).slice(-2);
+    let year = this.emissionDate.getFullYear();
+
+    datePicker.value = `${year}-${month}-${day}`;
+  }
+
+  setMinDeliveryDay() {
+    let datePicker = <HTMLInputElement>document.getElementById('deliveryDateInput');
+
+    datePicker.min = this.getMinDeliveryDay();
+  }
+
+  getMinDeliveryDay() {
+    let today = new Date();
+
+    let day = ("0" + today.getDate()).slice(-2);
+    let month = ("0" + (today.getMonth() + 1)).slice(-2);
+    let year = today.getFullYear();
+
+    return `${year}-${month}-${day}`;
+  }
+
+  validateDeliveryDate() {
+    let valid = false;
+    let today = new Date();
+
+    if (this.deliveryDate > today) {
+      valid = true;
+    } 
+
+    return valid
   }
 
 }
