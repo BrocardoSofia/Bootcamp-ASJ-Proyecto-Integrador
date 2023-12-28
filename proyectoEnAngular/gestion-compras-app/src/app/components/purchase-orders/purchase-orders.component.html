@@ -1,8 +1,8 @@
 <div class="container">
-    <button type="button" class="btn btn-secondary mt-3" routerLink="./create">
+    <button type="button" class="btn btn-primary mt-3" routerLink="./create">
       Agregar nueva orden de compra
     </button>
-    <table class="table mt-3">
+    <table class="table mt-3 table-radius">
         <thead>
           <tr class="table-secondary">
             <th scope="col">Número orden compra</th>
@@ -23,8 +23,15 @@
             <td>${{purchaseOrder.total}}</td>
             <td>{{getStatus(purchaseOrder.cancelled)}}</td>
             <td>
-              <button [routerLink]="['./detail']" [queryParams]="{detailPurchaseOrder: purchaseOrder.id}">Ver detalle</button>
-              <button (click)="cancelOrder(purchaseOrder.id)">Cancelar</button>
+              <button type="button" class="btn btn-primary rounded-circle btn-icon me-3 "
+              [routerLink]="['./detail']" [queryParams]="{detailPurchaseOrder: purchaseOrder.id}">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+
+              <button type="button" class="btn btn-danger rounded-circle btn-icon"
+              (click)="cancelOrder(purchaseOrder.id)">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
             </td>
           </tr>
         </tbody>

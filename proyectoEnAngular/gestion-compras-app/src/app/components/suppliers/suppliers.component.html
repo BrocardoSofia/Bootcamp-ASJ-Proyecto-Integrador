@@ -1,6 +1,8 @@
 <div class="container">
-    <button type="button" class="btn btn-secondary mt-3" routerLink="./create">Agregar nuevo proveedor</button>
-    <table class="table mt-3">
+    <button type="button" class="btn btn-primary mt-3" routerLink="./create">
+      Agregar nuevo proveedor
+    </button>
+    <table class="table mt-3 table-radius">
         <thead>
           <tr class="table-secondary">
             <th scope="col">Código</th>
@@ -29,8 +31,15 @@
               <p>{{supplier.contactData.lastName}}</p>
             </td>
             <td>
-              <button [routerLink]="['./modify']" [queryParams]="{editSupplier: supplier.code}">Editar</button>
-              <button (click)="deleteSupplier(supplier.code, supplier.businessName)">Eliminar</button>
+              <button type="button" class="btn btn-primary rounded-circle btn-icon me-3 "
+              [routerLink]="['./modify']" [queryParams]="{editSupplier: supplier.code}">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+
+              <button type="button" class="btn btn-danger rounded-circle btn-icon"
+              (click)="deleteSupplier(supplier.code, supplier.businessName)">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
             </td>
           </tr>
         </tbody>

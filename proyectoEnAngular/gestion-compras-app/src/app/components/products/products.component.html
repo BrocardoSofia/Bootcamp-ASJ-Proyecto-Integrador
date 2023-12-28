@@ -1,8 +1,8 @@
 <div class="container">
-    <button type="button" class="btn btn-secondary mt-3" routerLink="./create">
+    <button type="button" class="btn btn-primary mt-3" routerLink="./create">
       Agregar nuevo producto
     </button>
-    <table class="table mt-3">
+    <table class="table mt-3 table-radius">
         <thead>
           <tr class="table-secondary">
             <th scope="col">Nombre</th>
@@ -19,8 +19,15 @@
             <td>{{product.supplier.businessName}}</td>
             <td>${{product.price}}</td>
             <td>
-              <button [routerLink]="['./modify']" [queryParams]="{editProduct: product.code}">Editar</button>
-              <button (click)="deleteProduct(product.id, product.name)">Eliminar</button>
+              <button type="button" class="btn btn-primary rounded-circle btn-icon me-3 "
+              [routerLink]="['./modify']" [queryParams]="{editProduct: product.code}">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+
+              <button type="button" class="btn btn-danger rounded-circle btn-icon"
+              (click)="deleteProduct(product.id, product.name)">
+                <i class="bi bi-trash3-fill"></i>
+              </button>
             </td>
           </tr>
         </tbody>

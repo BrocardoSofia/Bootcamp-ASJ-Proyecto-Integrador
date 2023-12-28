@@ -1,0 +1,4 @@
+.table-radius {
+    border-radius: 1vh;
+    overflow: hidden; /* Para evitar que el contenido de la tabla se salga de los bordes */
+}
