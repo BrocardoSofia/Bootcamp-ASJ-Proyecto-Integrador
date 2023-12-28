@@ -9,8 +9,8 @@
 
     <p class="h5"><strong>Estado: </strong>{{getStatus()}}</p>
 
-    <p class="h5 mt-4"><strong>Fecha de emisión: </strong>{{purchaseOrder?.emissionDate}}</p>
-    <p class="h5"><strong>Fecha de entrega: </strong>{{purchaseOrder?.deliveryDate}}</p>
+    <p class="h5 mt-4"><strong>Fecha de emisión: </strong>{{purchaseOrder?.emissionDate | date:"dd/MM/yy"}}</p>
+    <p class="h5"><strong>Fecha de entrega: </strong>{{purchaseOrder?.deliveryDate | date:"dd/MM/yy"}}</p>
 
     <p class="h5 mt-4"><strong>Información de recepción (dirección): </strong>
         {{purchaseOrder?.receptionInfo}}

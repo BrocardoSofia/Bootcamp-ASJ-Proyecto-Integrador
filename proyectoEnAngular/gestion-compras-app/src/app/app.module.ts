@@ -33,7 +33,7 @@ import { SupplierDetailComponent } from './components/supplier-detail/supplier-d
     PurchaseOrdersCreateComponent,
     PurchaseOrderDetailComponent,
     ProductDetailComponent,
-    SupplierDetailComponent
+    SupplierDetailComponent,
   ],
   imports: [
     BrowserModule,
