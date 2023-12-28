@@ -10,6 +10,8 @@
             <th scope="col">Fecha entrega esperada</th>
             <th scope="col">Proveedor</th>
             <th scope="col">Total</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -18,7 +20,12 @@
             <td>{{purchaseOrder.emissionDate | date}}</td>
             <td>{{purchaseOrder.deliveryDate | date}}</td>
             <td>{{purchaseOrder.supplier.businessName}}</td>
-            <td>{{purchaseOrder.total}}</td>
+            <td>${{purchaseOrder.total}}</td>
+            <td>{{getStatus(purchaseOrder.cancelled)}}</td>
+            <td>
+              <button [routerLink]="['./detail']" [queryParams]="{detailPurchaseOrder: purchaseOrder.id}">Ver detalle</button>
+              <button (click)="cancelOrder(purchaseOrder.id)">Cancelar</button>
+            </td>
           </tr>
         </tbody>
       </table>

@@ -172,6 +172,13 @@ export class PurchaseOrdersCreateComponent implements OnInit {
         this.purchaseOrder.id = this.purchaseOrdersService.getLastId()+1;
 
         console.log(this.purchaseOrder);
+
+        this.purchaseOrdersService.addPurchaseOrder(this.purchaseOrder);
+
+        alert('La Orden de compra se creo correctamente'); //esto iria en el subscribe
+
+        //lo redirijo a la ventana de proveedores
+        this.router.navigate(['/purchase-orders']);
       }
     }
   }

@@ -15,4 +15,26 @@ export class PurchaseOrdersComponent implements OnInit{
   ngOnInit() {
     this.purchaseOrders = this.purchaseOrderService.getPurchaseOrders();
   }
+
+  cancelOrder(id: number){
+    let cancel = confirm("Esta seguro que desea cancelar la orden n°"+id+" ?");
+
+    if(cancel){
+      this.purchaseOrderService.cancelPurchaseOrder(id);
+      this.purchaseOrders = this.purchaseOrderService.getPurchaseOrders();
+    }
+    
+  }
+
+  getStatus(cancel: boolean){
+    let status;
+
+    if(cancel){
+      status = 'Cancelado';
+    }else{
+      status = 'Aprobado';
+    }
+
+    return status;
+  }
 }

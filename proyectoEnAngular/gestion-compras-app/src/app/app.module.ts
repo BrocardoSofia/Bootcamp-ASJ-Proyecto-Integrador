@@ -14,6 +14,9 @@ import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SuppliersCreateComponent } from './components/suppliers-create/suppliers-create.component';
 import { ProductsCreateComponent } from './components/products-create/products-create.component';
 import { PurchaseOrdersCreateComponent } from './components/purchase-orders-create/purchase-orders-create.component';
+import { PurchaseOrderDetailComponent } from './components/purchase-order-detail/purchase-order-detail.component';
+import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import { SupplierDetailComponent } from './components/supplier-detail/supplier-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { PurchaseOrdersCreateComponent } from './components/purchase-orders-crea
     WelcomeComponent,
     SuppliersCreateComponent,
     ProductsCreateComponent,
-    PurchaseOrdersCreateComponent
+    PurchaseOrdersCreateComponent,
+    PurchaseOrderDetailComponent,
+    ProductDetailComponent,
+    SupplierDetailComponent
   ],
   imports: [
     BrowserModule,

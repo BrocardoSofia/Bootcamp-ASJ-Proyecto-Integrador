@@ -1,0 +1,51 @@
+<section class="container">
+    <button routerLink="/purchase-orders" class="btn btn-secondary mt-3">
+        Volver a Ordenes de Compra
+    </button>
+
+    <h1 class="mt-4">Mostrando Orden de compra n° {{purchaseOrder?.id}}</h1>
+    <hr>
+
+    <p class="h5"><strong>Estado: </strong>{{getStatus()}}</p>
+
+    <p class="h5 mt-4"><strong>Fecha de emisión: </strong>{{purchaseOrder?.emissionDate}}</p>
+    <p class="h5"><strong>Fecha de entrega: </strong>{{purchaseOrder?.deliveryDate}}</p>
+
+    <p class="h5 mt-4"><strong>Información de recepción (dirección): </strong>
+        {{purchaseOrder?.receptionInfo}}
+    </p>
+
+    <p class="h5 mt-4"><strong>Fecha de entrega: </strong>{{purchaseOrder?.deliveryDate}}</p>
+    <button>Ver Proveedor</button>
+
+    <p class="h5 mt-4"><strong>Productos</strong></p>
+    <table class="table mt-3">
+        <thead>
+            <tr class="table-secondary">
+                <th scope="col">Código</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of purchaseOrder?.products; index as i">
+                <td>{{product.code}}</td>
+                <td>{{product.name}}</td>
+                <td>${{product.price}}</td>
+                <td>{{product.amount}}</td>
+                <td>${{calculateProductPrice(product.amount, product.price)}}</td>
+                <td>
+                    <button>Ver detalle</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4"><strong>Final</strong></td>
+                <td>${{purchaseOrder?.total}}</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
