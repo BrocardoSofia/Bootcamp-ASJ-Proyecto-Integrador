@@ -9,6 +9,7 @@ import { SuppliersService } from '../../services/suppliers.service';
 })
 export class SuppliersComponent implements OnInit{
   suppliers: Supplier[] = [];
+  toDeleteSupplier:Supplier = this.suppliersService.inicSupplier();
 
   constructor(private suppliersService: SuppliersService){}
 
@@ -25,17 +26,17 @@ export class SuppliersComponent implements OnInit{
     return (id+i);
   }
 
-  deleteSupplier(code: number, businessName: string){
-    //pregunto si esta seguro de que quiere eliminar al proveedor
-    let confirmDelete = confirm("Esta seguro que desea eliminar al proovedor "+businessName);
+  setToDeleteSupplier(supplier: Supplier){
+    this.toDeleteSupplier = supplier;
+    
+  }
 
-    if(confirmDelete){
-      //elimino al proveedor
-      this.suppliersService.deleteSupplier(code);
+  deleteSupplier(){
+    //elimino al proveedor
+    this.suppliersService.deleteSupplier(this.toDeleteSupplier.code);
 
-      //recargo los suppliers
-      this.updateSuppliers();
-    }
+    //recargo los suppliers
+    this.updateSuppliers();
     
   }
 }
