@@ -9,6 +9,7 @@ import { PurchaseOrdersService } from '../../services/purchase-orders.service';
 })
 export class PurchaseOrdersComponent implements OnInit{
   purchaseOrders: PurchaseOrder[] = [];
+  toDeletepurchaseOrder:PurchaseOrder = this.purchaseOrderService.inicPurchaseOrder();
 
   constructor(private purchaseOrderService: PurchaseOrdersService){}
 
@@ -16,13 +17,15 @@ export class PurchaseOrdersComponent implements OnInit{
     this.purchaseOrders = this.purchaseOrderService.getPurchaseOrders();
   }
 
-  cancelOrder(id: number){
-    let cancel = confirm("Esta seguro que desea cancelar la orden n°"+id+" ?");
+  setToCancelOrder(purchaseOrder: PurchaseOrder){
+    this.toDeletepurchaseOrder = purchaseOrder;
+    
+  }
 
-    if(cancel){
-      this.purchaseOrderService.cancelPurchaseOrder(id);
-      this.purchaseOrders = this.purchaseOrderService.getPurchaseOrders();
-    }
+  cancelOrder(){
+    this.purchaseOrderService.cancelPurchaseOrder(this.toDeletepurchaseOrder.id);
+    
+    this.purchaseOrders = this.purchaseOrderService.getPurchaseOrders();
     
   }
 
