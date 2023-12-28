@@ -17,7 +17,7 @@
             <td>{{product.name}}</td>
             <td>{{product.category}}</td>
             <td>{{product.supplier.businessName}}</td>
-            <td>${{product.price}}</td>
+            <td>{{product.price | currency}}</td>
             <td>
               <button type="button" class="btn btn-primary rounded-circle btn-icon me-3 "
               [routerLink]="['./modify']" [queryParams]="{editProduct: product.code}">

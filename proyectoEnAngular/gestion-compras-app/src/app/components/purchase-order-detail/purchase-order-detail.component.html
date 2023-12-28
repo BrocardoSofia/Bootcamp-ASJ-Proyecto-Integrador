@@ -35,14 +35,14 @@
             <tr *ngFor="let product of purchaseOrder?.products; index as i">
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>
-                <td>${{product.price}}</td>
+                <td>{{product.price | currency}}</td>
                 <td>{{product.amount}}</td>
-                <td>${{calculateProductPrice(product.amount, product.price)}}</td>
+                <td>{{calculateProductPrice(product.amount, product.price) | currency}}</td>
                 
             </tr>
             <tr>
                 <td colspan="4"><strong>Final</strong></td>
-                <td><strong>${{purchaseOrder?.total}}</strong></td>
+                <td><strong>{{purchaseOrder?.total | currency}}</strong></td>
                 
             </tr>
         </tbody>

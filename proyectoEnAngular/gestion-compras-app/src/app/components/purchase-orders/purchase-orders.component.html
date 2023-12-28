@@ -20,7 +20,7 @@
             <td>{{purchaseOrder.emissionDate | date}}</td>
             <td>{{purchaseOrder.deliveryDate | date}}</td>
             <td>{{purchaseOrder.supplier.businessName}}</td>
-            <td>${{purchaseOrder.total}}</td>
+            <td>{{purchaseOrder.total | currency}}</td>
             <td>
               <span class="badge rounded-pill" 
               [ngClass]="purchaseOrder.cancelled? 'bg-danger' : 'bg-success'">
