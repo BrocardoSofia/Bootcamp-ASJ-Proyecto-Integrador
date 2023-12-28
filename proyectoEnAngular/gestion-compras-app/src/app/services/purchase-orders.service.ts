@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { PurchaseOrder } from '../models/purchase-order';
 import { SuppliersService } from './suppliers.service';
+import { Product } from '../models/product';
+import { ProductPurchase } from '../models/product-po';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,18 @@ export class PurchaseOrdersService {
   }
 
     return purchaseOrder;
+  }
+
+  public createProductPurchase(product:Product, amount:number){
+    const productPO: ProductPurchase = {
+      code: product.code,
+      category: product.category,
+      name: product.name,
+      price: product.price,
+      amount: amount
+    }
+
+    return productPO;
   }
 
   /*

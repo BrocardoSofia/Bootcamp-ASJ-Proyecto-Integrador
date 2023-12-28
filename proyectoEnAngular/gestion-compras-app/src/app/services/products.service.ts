@@ -55,6 +55,23 @@ export class ProductsService {
   }
 
   /*
+  Retorna todos los productos de un proveedor
+  */
+  public getProductsBySupplierCode(code:number){
+    const products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
+
+    //actualizo todos los productos con su proveedor
+    for(let product of products){
+      const supplier = this.suppliersService.getSupplier(product.supplier.code);
+      if(supplier != null){
+        product.supplier = supplier;
+      }
+    }
+
+    return products.filter((product)=>product.supplier.code == code);
+  }
+
+  /*
   Retorna el producto que coincida con el numero
   */
   public getProductByCode(code: string){
