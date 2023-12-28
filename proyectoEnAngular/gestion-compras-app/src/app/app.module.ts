@@ -39,7 +39,7 @@ import { SupplierDetailComponent } from './components/supplier-detail/supplier-d
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,7 +16,7 @@
     </p>
 
     <p class="h5 mt-4"><strong>Fecha de entrega: </strong>{{purchaseOrder?.deliveryDate}}</p>
-    <button>Ver Proveedor</button>
+    <!-- <button>Ver Proveedor</button> -->
 
     <p class="h5 mt-4"><strong>Productos</strong></p>
     <table class="table mt-3">
@@ -27,7 +27,7 @@
                 <th scope="col">Precio</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Total</th>
-                <th scope="col"></th>
+        
             </tr>
         </thead>
         <tbody>
@@ -37,14 +37,12 @@
                 <td>${{product.price}}</td>
                 <td>{{product.amount}}</td>
                 <td>${{calculateProductPrice(product.amount, product.price)}}</td>
-                <td>
-                    <button>Ver detalle</button>
-                </td>
+                
             </tr>
             <tr>
                 <td colspan="4"><strong>Final</strong></td>
-                <td>${{purchaseOrder?.total}}</td>
-                <td></td>
+                <td><strong>${{purchaseOrder?.total}}</strong></td>
+                
             </tr>
         </tbody>
     </table>
