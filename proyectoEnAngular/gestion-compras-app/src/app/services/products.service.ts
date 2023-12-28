@@ -57,7 +57,7 @@ export class ProductsService {
   /*
   Retorna todos el producto que coincida con el numero
   */
-  public getProductById(code: string){
+  public getProductByCode(code: string){
     const products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
     let product = null;
     let i = 0;
@@ -163,6 +163,30 @@ export class ProductsService {
     window.localStorage.setItem('products', JSON.stringify(products));
 
     return deleted;
+  }
+
+  /*
+  Modifica el producto
+  */
+  public modifyProduct(product: Product){
+    const products: Product[] = JSON.parse(localStorage.getItem('products') || '[]');
+
+    //busco el proveedor y lo modifico en el arreglo
+    let modified = false;
+    let i=0;
+
+    while(modified===false && i<products.length){
+      if(products[i].id === product.id){
+        products[i] = product;
+        modified = true;
+      }
+      i++;
+    }
+
+    //guardo el arreglo en el localStorage
+    window.localStorage.setItem('products', JSON.stringify(products));
+
+    return modified;
   }
  
 }

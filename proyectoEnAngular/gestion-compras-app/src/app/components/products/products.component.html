@@ -19,7 +19,7 @@
             <td>{{product.supplier.businessName}}</td>
             <td>${{product.price}}</td>
             <td>
-              <button [routerLink]="['./modify']" [queryParams]="{editProduct: product.id}">Editar</button>
+              <button [routerLink]="['./modify']" [queryParams]="{editProduct: product.code}">Editar</button>
               <button (click)="deleteProduct(product.id, product.name)">Eliminar</button>
             </td>
           </tr>

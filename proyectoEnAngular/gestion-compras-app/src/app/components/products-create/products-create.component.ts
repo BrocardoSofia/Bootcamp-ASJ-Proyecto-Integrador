@@ -50,7 +50,34 @@ export class ProductsCreateComponent implements OnInit{
       this.existsSuppliers = false;
     }
 
+    let codeParam;
+    this.activeRoute.queryParamMap.subscribe((params) => {
+      codeParam = params.get('editProduct') || null;
+
+      if (codeParam !== null) {
+        //la pagina pasa a modo edicion
+        this.editProduct = true;
+        this.validatedCode = true;
+
+        //lleno los parametros con los datos del proveedor
+        this.fillProductForm(codeParam);
+
+        this.product.code = codeParam;
+      }
+    });
+
     console.log(this.suppliers);
+  }
+
+  private fillProductForm(code: string) {
+    let product = this.productsService.getProductByCode(code);
+
+    if (product !== null) {
+      this.product = product;
+      this.initFormEdit(product.supplier);
+      this.supplierCode = this.product.supplier.code;
+      this.supplierName = this.product.supplier.businessName;
+    }
   }
 
   initForm(){
@@ -80,7 +107,7 @@ export class ProductsCreateComponent implements OnInit{
       if(this.productsService.existCode(this.product.code)){
         //si existe verifico que no este eliminado
         //en caso de estar eliminado entra en reInsertProductMode
-        const product = this.productsService.getProductById(this.product.code);
+        const product = this.productsService.getProductByCode(this.product.code);
 
         if(product?.deleted === true){
           this.reInsertProductMode = true;
@@ -108,7 +135,7 @@ export class ProductsCreateComponent implements OnInit{
       this.validatedProduct = true;
 
       if(this.editProduct){
-        //this.modifySupplier();
+        this.modifyProduct();
       }else if(this.reInsertProductMode){
         this.reInsertProduct();
       }else{
@@ -117,12 +144,22 @@ export class ProductsCreateComponent implements OnInit{
     }
   }
 
+  private modifyProduct(){
+    //enviarlo a la base de datos
+    this.productsService.modifyProduct(this.product);
+
+    alert('El producto ' + this.product.name + ' fue modificado'); //esto iria en el subscribe
+
+    //lo redirijo a la ventana de productos
+    this.router.navigate(['/products']);
+  }
+
   private reInsertProduct(){
     this.productsService.reInsertProduct(this.product);
 
     alert('Producto ' + this.product.name + ' reingresado'); //esto iria en el subscribe
 
-    //lo redirijo a la ventana de proveedores
+    //lo redirijo a la ventana de productos
     this.router.navigate(['/products']);
   }
 

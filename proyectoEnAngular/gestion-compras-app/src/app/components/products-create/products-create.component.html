@@ -38,9 +38,9 @@
   </section>
   <!-- Primero confirmo el Código, por si el producto ya existe
     Si existe y esta eliminado, lleno los datos del formulario con los datos del producto -->
-  <section *ngIf="validatedCode || reInsertProductMode">
+  <section *ngIf="validatedCode || reInsertProductMode || editProduct">
     <form [formGroup]="submitForm" (ngSubmit)="onSubmit(submitForm)">
-      <div class="mt-3" *ngIf="!reInsertProductMode">
+      <div class="mt-3" *ngIf="!reInsertProductMode && !editProduct">
         <label for="supplierInput" class="form-label">Proveedor</label>
         <select id="supplierInput" class="form-select" aria-label="Default select example" 
         name="supplier" [(ngModel)]="supplierCode" formControlName="supplier"> 
@@ -54,7 +54,7 @@
         </div>
       </div>
 
-      <div class="mt-3" *ngIf="reInsertProductMode">
+      <div class="mt-3" *ngIf="reInsertProductMode || editProduct">
         <label for="supplierInput" class="form-label">Proveedor</label>
         <select id="supplierInput" class="form-select" aria-label="Default select example" 
         name="supplier" disabled> 

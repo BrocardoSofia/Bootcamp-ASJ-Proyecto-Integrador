@@ -276,7 +276,7 @@ export class SuppliersService {
   }
 
   /*
-  Agrega un nuevo proveedor al localStorage
+  Modifica el proveedor
   */
   public modifySupplier(supplier: Supplier){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
