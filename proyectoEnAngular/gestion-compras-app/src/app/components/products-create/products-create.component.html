@@ -40,10 +40,10 @@
     Si existe y esta eliminado, lleno los datos del formulario con los datos del producto -->
   <section *ngIf="validatedCode || reInsertProductMode">
     <form [formGroup]="submitForm" (ngSubmit)="onSubmit(submitForm)">
-      <div class="mt-3">
+      <div class="mt-3" *ngIf="!reInsertProductMode">
         <label for="supplierInput" class="form-label">Proveedor</label>
-        <select id="supplierInput" required class="form-select" aria-label="Default select example" name="supplier"
-          [(ngModel)]="supplierCode" formControlName="supplier">
+        <select id="supplierInput" class="form-select" aria-label="Default select example" 
+        name="supplier" [(ngModel)]="supplierCode" formControlName="supplier"> 
           <option option *ngFor="let supplier of suppliers" value= {{supplier.code}} >
             {{ supplier.businessName }}
           </option>
@@ -52,6 +52,16 @@
         class="fw-lighter text-danger">
           Debe ingresar un proveedor
         </div>
+      </div>
+
+      <div class="mt-3" *ngIf="reInsertProductMode">
+        <label for="supplierInput" class="form-label">Proveedor</label>
+        <select id="supplierInput" class="form-select" aria-label="Default select example" 
+        name="supplier" disabled> 
+          <option option value= {{product.supplier.code}} selected>
+            {{ supplierName }}
+          </option>
+        </select>
       </div>
 
       <div class="mt-3">

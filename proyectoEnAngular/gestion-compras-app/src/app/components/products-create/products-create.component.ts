@@ -26,6 +26,7 @@ export class ProductsCreateComponent implements OnInit{
   existsSuppliers: boolean = true;
 
   supplierCode!:number;
+  supplierName!:string;
 
   constructor(
     private productsService: ProductsService,
@@ -43,14 +44,6 @@ export class ProductsCreateComponent implements OnInit{
       code: ['', [Validators.required, Validators.pattern(lettersNumbersPattern)]]
     });
 
-    this.submitForm = this.fb.group({
-      supplier: ['', [Validators.required]],
-      category: ['', [Validators.required]],
-      name: ['', [Validators.required, Validators.pattern(lettersNumbersPattern)]],
-      description: ['', [Validators.required]],
-      price: ['', [Validators.required, Validators.min(0.01)]],
-    });
-
     this.product = this.productsService.inicProduct();
 
     if(this.suppliers.length === 0){
@@ -58,6 +51,28 @@ export class ProductsCreateComponent implements OnInit{
     }
 
     console.log(this.suppliers);
+  }
+
+  initForm(){
+    const lettersNumbersPattern = /^[A-Za-z0-9\s]+$/;
+    this.submitForm = this.fb.group({
+      supplier: ['', [Validators.required]],
+      category: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern(lettersNumbersPattern)]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(0.01)]],
+    });
+  }
+
+  initFormEdit(supplier:Supplier){
+    const lettersNumbersPattern = /^[A-Za-z0-9\s]+$/;
+    this.submitForm = this.fb.group({
+      supplier: [supplier],
+      category: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern(lettersNumbersPattern)]],
+      description: ['', [Validators.required]],
+      price: ['', [Validators.required, Validators.min(0.01)]],
+    });
   }
 
   verifyCode(form: FormGroup) {
@@ -71,6 +86,8 @@ export class ProductsCreateComponent implements OnInit{
           this.reInsertProductMode = true;
           this.product = product;
           this.supplierCode = product.supplier.code;
+          this.supplierName = product.supplier.businessName;
+          this.initFormEdit(product.supplier);
         }else{
           //si el codigo existe y no es de un producto eliminado muestro un mensaje
           this.validCode = false;
@@ -78,6 +95,7 @@ export class ProductsCreateComponent implements OnInit{
         
       }else{
         //si el codigo no existe paso al siguiente formulario
+        this.initForm();
         this.validatedCode = true;
       }
     }      
