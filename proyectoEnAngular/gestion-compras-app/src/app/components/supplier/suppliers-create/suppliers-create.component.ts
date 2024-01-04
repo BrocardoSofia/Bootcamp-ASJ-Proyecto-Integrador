@@ -156,6 +156,14 @@ export class SuppliersCreateComponent implements OnInit {
     }
   }
 
+  resetCuitForm(cuitForm: FormGroup){
+    this.validCuit = true;
+    this.validBusinessName = true;
+    this.supplier.taxData.cuit = '';
+    this.supplier.businessName = '';
+    cuitForm.reset();
+  }
+
   submitSupplier() {
     let valid = true;
     

@@ -36,12 +36,14 @@
       <div class="alert alert-danger alert-dismissible fade show mt-4" 
         role="alert" *ngIf="!validCuit">
         <strong>El CUIT que intenta ingresar ya se encuentra registrado!</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"
+        (click)="resetCuitForm(cuitForm)" aria-label="Close"></button>
       </div>
       <div class="alert alert-danger alert-dismissible fade show mt-4" 
         role="alert" *ngIf="!validBusinessName">
         <strong>La razón social que intenta ingresar ya se encuentra registrada!</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"
+        (click)="resetCuitForm(cuitForm)" aria-label="Close"></button>
       </div>
     </form>
   </section>
