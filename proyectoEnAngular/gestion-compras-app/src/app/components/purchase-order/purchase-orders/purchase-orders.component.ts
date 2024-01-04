@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PurchaseOrder } from '../../models/purchase-order';
-import { PurchaseOrdersService } from '../../services/purchase-orders.service';
+import { PurchaseOrder } from '../../../models/purchase-order';
+import { PurchaseOrdersService } from '../../../services/purchase-orders.service';
 
 @Component({
   selector: 'app-purchase-orders',

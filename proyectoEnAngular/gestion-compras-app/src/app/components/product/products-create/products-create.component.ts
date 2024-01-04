@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../models/product';
+import { Product } from '../../../models/product';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductsService } from '../../services/products.service';
+import { ProductsService } from '../../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SuppliersService } from '../../services/suppliers.service';
-import { Supplier } from '../../models/suppliers';
+import { SuppliersService } from '../../../services/suppliers.service';
+import { Supplier } from '../../../models/suppliers';
 
 @Component({
   selector: 'app-products-create',

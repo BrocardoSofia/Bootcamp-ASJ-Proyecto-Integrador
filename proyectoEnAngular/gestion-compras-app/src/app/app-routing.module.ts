@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SuppliersComponent } from './components/suppliers/suppliers.component';
-import { ProductsComponent } from './components/products/products.component';
-import { PurchaseOrdersComponent } from './components/purchase-orders/purchase-orders.component';
+import { SuppliersComponent } from './components/supplier/suppliers/suppliers.component';
+import { ProductsComponent } from './components/product/products/products.component';
+import { PurchaseOrdersComponent } from './components/purchase-order/purchase-orders/purchase-orders.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
-import { SuppliersCreateComponent } from './components/suppliers-create/suppliers-create.component';
-import { ProductsCreateComponent } from './components/products-create/products-create.component';
-import { PurchaseOrdersCreateComponent } from './components/purchase-orders-create/purchase-orders-create.component';
-import { SupplierDetailComponent } from './components/supplier-detail/supplier-detail.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
-import { PurchaseOrderDetailComponent } from './components/purchase-order-detail/purchase-order-detail.component';
+import { SuppliersCreateComponent } from './components/supplier/suppliers-create/suppliers-create.component';
+import { ProductsCreateComponent } from './components/product/products-create/products-create.component';
+import { PurchaseOrdersCreateComponent } from './components/purchase-order/purchase-orders-create/purchase-orders-create.component';
+import { SupplierDetailComponent } from './components/supplier/supplier-detail/supplier-detail.component';
+import { ProductDetailComponent } from './components/product/product-detail/product-detail.component';
+import { PurchaseOrderDetailComponent } from './components/purchase-order/purchase-order-detail/purchase-order-detail.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },

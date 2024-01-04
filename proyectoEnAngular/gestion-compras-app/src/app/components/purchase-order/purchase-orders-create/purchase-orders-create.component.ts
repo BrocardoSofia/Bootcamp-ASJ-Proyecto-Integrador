@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { PurchaseOrder } from '../../models/purchase-order';
+import { PurchaseOrder } from '../../../models/purchase-order';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Supplier } from '../../models/suppliers';
-import { PurchaseOrdersService } from '../../services/purchase-orders.service';
-import { ProductsService } from '../../services/products.service';
+import { Supplier } from '../../../models/suppliers';
+import { PurchaseOrdersService } from '../../../services/purchase-orders.service';
+import { ProductsService } from '../../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SuppliersService } from '../../services/suppliers.service';
-import { ProductPurchase } from '../../models/product-po';
-import { Product } from '../../models/product';
+import { SuppliersService } from '../../../services/suppliers.service';
+import { ProductPurchase } from '../../../models/product-po';
+import { Product } from '../../../models/product';
 
 @Component({
   selector: 'app-purchase-orders-create',
