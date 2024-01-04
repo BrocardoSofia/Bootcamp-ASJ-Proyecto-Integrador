@@ -91,6 +91,12 @@ export class ProductsCreateComponent implements OnInit{
     });
   }
 
+  resetCuitForm(codeForm: FormGroup){
+    this.validCode = true;
+    this.product.code = '';
+    codeForm.reset();
+  }
+
   initFormEdit(supplier:Supplier){
     const lettersNumbersPattern = /^[A-Za-z0-9\s]+$/;
     this.submitForm = this.fb.group({
