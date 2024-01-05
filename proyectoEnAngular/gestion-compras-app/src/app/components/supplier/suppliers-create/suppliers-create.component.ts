@@ -91,7 +91,7 @@ export class SuppliersCreateComponent implements OnInit {
         this.validCuit = false;
       }
       
-      if(this.suppliersService.existsbusinessName(this.supplier.businessName)&& 
+      if(this.suppliersService.existsBusinessName(this.supplier.businessName)&& 
       (this.originalBusinessName !== this.supplier.businessName)){
         this.validBusinessName = false;
       }
@@ -99,7 +99,7 @@ export class SuppliersCreateComponent implements OnInit {
       if(this.validCuit && this.validBusinessName){
         this.validatedCUIT = true;
       }else if(!this.editSupplier && 
-        this.suppliersService.verifyDeletedSupplier(this.supplier.taxData.cuit)){
+        this.suppliersService.verifyDeletedSupplierByCUIT(this.supplier.taxData.cuit)){
         //si el cuit y razon social son invalidos y si no estoy en modo edicion
         //veo si el cuit es de un dato eliminado
         //obtengo el dato
@@ -156,7 +156,7 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   private fillSupplierForm(code: number) {
-    let supplier = this.suppliersService.getSupplier(code);
+    let supplier = this.suppliersService.getSupplierByCode(code);
 
     if (supplier !== null) {
       this.supplier = supplier;
@@ -210,7 +210,7 @@ export class SuppliersCreateComponent implements OnInit {
         if (!cuitExists) {
           this.validatedCUIT = true;
         } else if (
-          this.suppliersService.verifyDeletedSupplier(
+          this.suppliersService.verifyDeletedSupplierByCUIT(
             this.supplier.taxData.cuit
           )
         ) {

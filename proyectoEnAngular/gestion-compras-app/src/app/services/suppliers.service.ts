@@ -11,7 +11,7 @@ export class SuppliersService {
   /*Inicializa un proveedor con datos en vacio*/
   public inicSupplier(){
     let supplier:Supplier = {
-      code: -1,
+      code: 0,
       businessName: '',
       category: '',
       businessContact: {
@@ -55,29 +55,38 @@ export class SuppliersService {
   }
 
   /*
-  Retorna todos los proveedores que no esten eliminados
+  Retorna todos los proveedores activos que no esten eliminados
   */
-  public getSuppliers(){
+  public getActiveSuppliers(){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
     
     return suppliers.filter((supplier)=>supplier.deleted === false);
   }
 
+   /*
+  Retorna todos los proveedores inactivos que no esten eliminados
+  */
+  public getInactiveSuppliers(){
+    const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
+    
+    return suppliers.filter((supplier)=>supplier.deleted === true);
+  }
+
   /*
   Retorna la cantidad de proveedores que hay almacenados
   */
-  public cantSuppliers(){
+  public amountOfSuppliers(){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
-    let cant = 0;
+    let amount = 0;
 
     for(let supplier of suppliers){
       if(supplier.deleted === false){
-        cant++;
+        amount++;
       }
     }
     
-    return cant;
+    return amount;
   }
 
   /*
@@ -133,7 +142,7 @@ export class SuppliersService {
   si existe retorna true
   si no existe retorna false
   */
-  public existsbusinessName(businessName: string){
+  public existsBusinessName(businessName: string){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     //verifico si existe el codigo
@@ -156,7 +165,7 @@ export class SuppliersService {
   si lo elimina devuelve true
   si no lo encuentra devuelve false
   */
-  public deleteSupplier(code: number){
+  public deleteSupplierByCode(code: number){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     let deleted = false;
@@ -184,7 +193,7 @@ export class SuppliersService {
   si esta retorna el proveedor
   si no esta retorna null
   */
-  public getSupplier(code: number){
+  public getSupplierByCode(code: number){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     let supplier = null;
@@ -208,7 +217,7 @@ export class SuppliersService {
   si esta eliminado true
   si no esta eliminado devuelve false
   */
-  public verifyDeletedSupplier(ciut: string){
+  public verifyDeletedSupplierByCUIT(ciut: string){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
 
     let deleted = false;

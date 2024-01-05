@@ -24,7 +24,7 @@ export class PurchaseOrdersComponent implements OnInit{
   }
 
   cancelOrder(){
-    this.purchaseOrderService.cancelPurchaseOrder(this.toDeletepurchaseOrder.id);
+    this.purchaseOrderService.cancelPurchaseOrderById(this.toDeletepurchaseOrder.id);
     
     this.purchaseOrders = this.purchaseOrderService.getPurchaseOrders();
 

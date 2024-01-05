@@ -54,7 +54,7 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.emissionDate = new Date();
-    this.suppliers = this.suppliersService.getSuppliers();
+    this.suppliers = this.suppliersService.getActiveSuppliers();
     this.purchaseOrder = this.purchaseOrdersService.inicPurchaseOrder();
 
     if (this.suppliers.length === 0) {
@@ -70,7 +70,7 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   submitSupplier(form: FormGroup) {
     if (form.valid) {
       //agregar el proveedor a la orden de compra
-      const supplier: Supplier | null = this.suppliersService.getSupplier(this.supplierCode);
+      const supplier: Supplier | null = this.suppliersService.getSupplierByCode(this.supplierCode);
 
       this.productsList = this.productsService.getProductsBySupplierCode(this.supplierCode);
 

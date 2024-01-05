@@ -20,7 +20,7 @@ export class SuppliersComponent implements OnInit{
 
   private updateSuppliers(){
     //actualiza a los proveedores
-    this.suppliers = this.suppliersService.getSuppliers();
+    this.suppliers = this.suppliersService.getActiveSuppliers();
   }
 
   getID(id:string, i:number){
@@ -34,7 +34,7 @@ export class SuppliersComponent implements OnInit{
 
   deleteSupplier(){
     //elimino al proveedor
-    this.suppliersService.deleteSupplier(this.toDeleteSupplier.code);
+    this.suppliersService.deleteSupplierByCode(this.toDeleteSupplier.code);
 
     //recargo los suppliers
     this.updateSuppliers();

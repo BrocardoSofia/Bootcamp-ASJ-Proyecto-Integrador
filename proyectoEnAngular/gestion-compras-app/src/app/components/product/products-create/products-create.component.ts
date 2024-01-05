@@ -40,7 +40,7 @@ export class ProductsCreateComponent implements OnInit{
 
   ngOnInit(): void {
     const lettersNumbersPattern = /^[A-Za-z0-9\s]+$/;
-    this.suppliers = this.suppliersService.getSuppliers();
+    this.suppliers = this.suppliersService.getActiveSuppliers();
 
     this.codeForm = this.fb.group({
       code: ['', [Validators.required, Validators.pattern(lettersNumbersPattern)]]
@@ -187,7 +187,7 @@ export class ProductsCreateComponent implements OnInit{
   submitProduct() {
     //agrego el id al producto buscando el ultimo guardado
     this.product.id = this.productsService.getLastId()+1;
-    let supplier = this.suppliersService.getSupplier(this.supplierCode);
+    let supplier = this.suppliersService.getSupplierByCode(this.supplierCode);
 
     if(supplier !== null){
       this.product.supplier = supplier;

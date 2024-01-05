@@ -12,7 +12,7 @@ export class ProductsService {
 
   public inicProduct(){
     const product:Product = {
-      id: -1,
+      id: 0,
       code: '',
       supplier: this.suppliersService.inicSupplier(),
       img: '',
@@ -38,20 +38,37 @@ export class ProductsService {
   }
 
   /*
-  Retorna todos los productos actualizados con sus respectivos proveedores
+  Retorna todos los productos no eliminados actualizados con sus respectivos proveedores
   */
-  public getProducts(){
+  public getActiveProducts(){
     const products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
 
     //actualizo todos los productos con su proveedor
     for(let product of products){
-      const supplier = this.suppliersService.getSupplier(product.supplier.code);
+      const supplier = this.suppliersService.getSupplierByCode(product.supplier.code);
       if(supplier != null){
         product.supplier = supplier;
       }
     }
 
     return products.filter((product)=>product.deleted === false);
+  }
+
+  /*
+  Retorna todos los productos eliminados actualizados con sus respectivos proveedores
+  */
+  public getInactiveProducts(){
+    const products:Product[] = JSON.parse(localStorage.getItem('products') || '[]');
+
+    //actualizo todos los productos con su proveedor
+    for(let product of products){
+      const supplier = this.suppliersService.getSupplierByCode(product.supplier.code);
+      if(supplier != null){
+        product.supplier = supplier;
+      }
+    }
+
+    return products.filter((product)=>product.deleted === true);
   }
 
   /*
@@ -62,7 +79,7 @@ export class ProductsService {
 
     //actualizo todos los productos con su proveedor
     for(let product of products){
-      const supplier = this.suppliersService.getSupplier(product.supplier.code);
+      const supplier = this.suppliersService.getSupplierByCode(product.supplier.code);
       if(supplier != null){
         product.supplier = supplier;
       }
@@ -161,7 +178,7 @@ export class ProductsService {
   si lo elimina devuelve true
   si no lo encuentra devuelve false
   */
-  public deleteProduct(id: number){
+  public deleteProductById(id: number){
     const products: Product[] = JSON.parse(localStorage.getItem('products') || '[]');
 
     let deleted = false;

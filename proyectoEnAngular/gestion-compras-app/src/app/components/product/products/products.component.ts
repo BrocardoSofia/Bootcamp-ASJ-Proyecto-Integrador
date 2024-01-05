@@ -16,7 +16,7 @@ export class ProductsComponent implements OnInit{
   constructor(private productsService: ProductsService){}
 
   ngOnInit() {
-    this.products = this.productsService.getProducts();
+    this.products = this.productsService.getActiveProducts();
     
   }
 
@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit{
 
   deleteProduct(){
     //elimino el producto
-    this.productsService.deleteProduct(this.toDeleteProduct.id);
+    this.productsService.deleteProductById(this.toDeleteProduct.id);
 
     //recargo los productos
     this.updateProducts();
@@ -52,7 +52,7 @@ export class ProductsComponent implements OnInit{
 
   private updateProducts(){
     //actualiza a los productos
-    this.products = this.productsService.getProducts();
+    this.products = this.productsService.getActiveProducts();
   }
 
 }

@@ -13,7 +13,7 @@ export class PurchaseOrdersService {
 
   public inicPurchaseOrder(){
     const purchaseOrder:PurchaseOrder = {
-      id: -1,
+      id: 0,
       receptionInfo: '',
       supplier: this.suppliersService.inicSupplier(),
       products: [],
@@ -96,7 +96,7 @@ export class PurchaseOrdersService {
   si lo elimina devuelve true
   si no lo encuentra devuelve false
   */
-  public cancelPurchaseOrder(id: number){
+  public cancelPurchaseOrderById(id: number){
     const purchaseOrders: PurchaseOrder[] = JSON.parse(localStorage.getItem('purchaseOrders') || '[]');
 
     let cancelled = false;

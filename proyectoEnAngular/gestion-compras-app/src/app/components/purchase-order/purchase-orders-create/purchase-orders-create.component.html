@@ -162,8 +162,8 @@
 
             <div class="mt-3">
                 <label for="receptionInfoInput" class="form-label">Información de recepción (dirección)*</label>
-                <input id="receptionInfoInput" class="form-control" type="text" 
-                    [(ngModel)]="receptionInfo" formControlName="receptionInfo"/>
+                <textarea id="receptionInfoInput" class="form-control" 
+                    [(ngModel)]="receptionInfo" formControlName="receptionInfo"></textarea>
                 <div *ngIf="submitForm.get('receptionInfo')?.invalid && submitForm.get('receptionInfo')?.touched"
                     class="fw-lighter text-danger">
                     Debe ingresar la información de recepción (dirección)
