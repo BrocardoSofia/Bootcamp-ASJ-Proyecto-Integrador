@@ -9,7 +9,7 @@
   <section *ngIf="!validatedCUIT">
     <form [formGroup]="cuitForm" (ngSubmit)="verifyData(cuitForm)">
       <div class="mb-3">
-        <label for="ciutInput" class="form-label">CUIT</label>
+        <label for="ciutInput" class="form-label">CUIT*</label>
         <input type="number" required id="ciutInput" class="form-control" formControlName="cuit"
           placeholder="12-12345678-1" name="ciut" [(ngModel)]="supplier.taxData.cuit" />
         <div *ngIf="cuitForm.get('cuit')?.invalid && cuitForm.get('cuit')?.touched" class="fw-lighter text-danger">
@@ -18,7 +18,7 @@
       </div>
 
       <div class="mt-3 mb-3">
-        <label for="businessNameInput" class="form-label">Razón social</label>
+        <label for="businessNameInput" class="form-label">Razón social*</label>
         <input type="text" required id="businessNameInput" class="form-control" formControlName="businessName"
           placeholder="Ingrese Razón social" name="businessName" [(ngModel)]="supplier.businessName" />
         <div *ngIf="
@@ -56,7 +56,7 @@
     <form [formGroup]="submitForm" (ngSubmit)="onSubmit(submitForm)">
       <h4 class="mt-5 mb-2">Datos fiscales</h4>
 
-      <label for="ivaConditionInput" class="form-label">Condición iva</label>
+      <label for="ivaConditionInput" class="form-label">Condición iva*</label>
       <select id="ivaConditionInput" required class="form-select" aria-label="Default select example"
         name="ivaCondition" [(ngModel)]="supplier.taxData.ivaCondition" formControlName="ivaCondition">
         <option value="IVA Responsable Inscripto">
@@ -78,7 +78,7 @@
 
       <h4 class="mt-5 mb-2">Datos del Proveedor</h4>
 
-      <label for="categoryInput" class="form-label">Rubro</label>
+      <label for="categoryInput" class="form-label">Rubro*</label>
       <select id="categoryInput" required class="form-select" aria-label="Default select example" name="category" [(ngModel)]="supplier.category" formControlName="category">
         <option value="Libreria">Artículos de librería</option>
         <option value="Calzado">Calzado</option>
@@ -95,7 +95,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="emailInput" class="form-label">Email address</label>
+        <label for="emailInput" class="form-label">Email address*</label>
         <input type="email" required class="form-control" id="emailInput" aria-describedby="emailHelp"
           placeholder="ejemplo@email.com" name="businessemail" formControlName="businessemail"
           [(ngModel)]="supplier.businessContact.email" />
@@ -113,7 +113,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="businessPhoneInput" class="form-label">Teléfono</label>
+        <label for="businessPhoneInput" class="form-label">Teléfono*</label>
         <input type="text" id="businessPhoneInput" class="form-control" placeholder="012 12345678"
           name="buisnessphone" [(ngModel)]="supplier.businessContact.phone" formControlName="buisnessphone"/>
       </div>
@@ -125,7 +125,7 @@
       <h4 class="mt-5 mb-2">Dirección</h4>
       
       <div class="mt-3">
-        <label for="addressInput" class="form-label">Calle</label>
+        <label for="addressInput" class="form-label">Calle*</label>
         <input type="text" id="addressInput" class="form-control" required placeholder="Ingrese el nombre de la calle" name="streetName" [(ngModel)]="supplier.address.streetName" 
         formControlName="streetName"/>
       </div>
@@ -134,7 +134,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="numberInput" class="form-label">Número de calle</label>
+        <label for="numberInput" class="form-label">Número de calle*</label>
         <input type="number" id="numberInput" required class="form-control" placeholder="123" name="streetNumber" [(ngModel)]="supplier.address.number" formControlName="streetNumber"/>
       </div>
       <div *ngIf="submitForm.get('streetNumber')?.invalid && submitForm.get('streetNumber')?.touched" class="fw-lighter text-danger">
@@ -142,7 +142,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="cpInput" class="form-label">Código postal</label>
+        <label for="cpInput" class="form-label">Código postal*</label>
         <input type="text" required id="cpInput" class="form-control" placeholder="E123" name="cp"
           [(ngModel)]="supplier.address.cp" formControlName="cp"/>
       </div>
@@ -151,15 +151,15 @@
       </div>
 
       <div class="mt-3">
-        <label for="cityInput" class="form-label">Localidad</label>
-        <input type="text" required id="cityInput" class="form-control" placeholder="Ingrese la localidad" name="city" [(ngModel)]="supplier.address.city" formControlName="city"/>
+        <label for="countryInput" class="form-label">Pais*</label>
+        <input type="text" required id="countryInput" class="form-control" placeholder="Ingrese el pais" name="country" [(ngModel)]="supplier.address.country" formControlName="country"/>
       </div>
-      <div *ngIf="submitForm.get('city')?.invalid && submitForm.get('city')?.touched" class="fw-lighter text-danger">
-        Debe ingresar una ciudad válido
+      <div *ngIf="submitForm.get('country')?.invalid && submitForm.get('country')?.touched" class="fw-lighter text-danger">
+        Debe ingresar un pais válido
       </div>
 
       <div class="mt-3">
-        <label for="provinceInput" class="form-label">Provincia</label>
+        <label for="provinceInput" class="form-label">Provincia*</label>
         <input type="text" required id="provinceInput" class="form-control" placeholder="Ingrese la provincia" name="province" [(ngModel)]="supplier.address.province" formControlName="province"/>
       </div>
       <div *ngIf="submitForm.get('province')?.invalid && submitForm.get('province')?.touched" class="fw-lighter text-danger">
@@ -167,18 +167,18 @@
       </div>
 
       <div class="mt-3">
-        <label for="countryInput" class="form-label">Pais</label>
-        <input type="text" required id="countryInput" class="form-control" placeholder="Ingrese el pais" name="country" [(ngModel)]="supplier.address.country" formControlName="country"/>
+        <label for="cityInput" class="form-label">Localidad*</label>
+        <input type="text" required id="cityInput" class="form-control" placeholder="Ingrese la localidad" name="city" [(ngModel)]="supplier.address.city" formControlName="city"/>
       </div>
-      <div *ngIf="submitForm.get('country')?.invalid && submitForm.get('country')?.touched" class="fw-lighter text-danger">
-        Debe ingresar un pais válido
+      <div *ngIf="submitForm.get('city')?.invalid && submitForm.get('city')?.touched" class="fw-lighter text-danger">
+        Debe ingresar una ciudad válido
       </div>
 
 
       <h4 class="mt-5 mb-2">Datos de contacto</h4>
 
       <div class="mt-3">
-        <label for="nameInput" class="form-label">Nombre</label>
+        <label for="nameInput" class="form-label">Nombre*</label>
         <input type="text" required id="nameInput" class="form-control" placeholder="Ingrese su nombre" name="name" [(ngModel)]="supplier.contactData.name" formControlName="name"/>
       </div>
       <div *ngIf="submitForm.get('name')?.invalid && submitForm.get('name')?.touched" class="fw-lighter text-danger">
@@ -186,7 +186,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="lastNameInput" class="form-label">Apellido</label>
+        <label for="lastNameInput" class="form-label">Apellido*</label>
         <input type="text" required id="lastNameInput" class="form-control" placeholder="Ingrese su apellido" name="lastName" [(ngModel)]="supplier.contactData.lastName" formControlName="lastName"/>
       </div>
       <div *ngIf="submitForm.get('name')?.invalid && submitForm.get('name')?.touched" class="fw-lighter text-danger">
@@ -194,7 +194,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="contactPhoneInput" class="form-label">Telefono</label>
+        <label for="contactPhoneInput" class="form-label">Telefono*</label>
         <input type="text" required id="contactPhoneInput" class="form-control" placeholder="012 12345678" name="contactPhone" [(ngModel)]="supplier.contactData.phone" formControlName="contactPhone"/>
       </div>
       <div *ngIf="submitForm.get('contactPhone')?.invalid && submitForm.get('contactPhone')?.touched" class="fw-lighter text-danger">
@@ -202,7 +202,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="contactEmailInput" class="form-label">Email address</label>
+        <label for="contactEmailInput" class="form-label">Email address*</label>
         <input type="email" required class="form-control" id="contactEmailInput" aria-describedby="emailHelp"
           placeholder="ejemplo@email.com" name="contactEmail" [(ngModel)]="supplier.contactData.email" 
           formControlName="contactEmail"/>
@@ -212,7 +212,7 @@
       </div>
 
       <div class="mt-3">
-        <label for="rolInput" class="form-label">Rol</label>
+        <label for="rolInput" class="form-label">Rol*</label>
         <input type="text" required id="rolInput" class="form-control" placeholder="Ingrese su rol" name="rol" [(ngModel)]="supplier.contactData.rol" formControlName="rol"/>
       </div>
       <div *ngIf="submitForm.get('rol')?.invalid && submitForm.get('rol')?.touched" class="fw-lighter text-danger">

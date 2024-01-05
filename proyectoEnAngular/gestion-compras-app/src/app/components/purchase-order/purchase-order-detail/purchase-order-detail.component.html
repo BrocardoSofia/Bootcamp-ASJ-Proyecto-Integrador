@@ -10,23 +10,29 @@
     <p class="p m-0"><strong>N° Orden: </strong>{{purchaseOrder?.id}}</p>
     <p class="p m-0"><strong>Fecha de emisión: </strong>{{purchaseOrder?.emissionDate | date:"dd/MM/yy"}}</p>
     <p class="p m-0"><strong>Estado: </strong>{{getStatus()}}</p>
-    
-    <h4 class="mt-4"><strong>Enviar a</strong></h4>
-    <p class="p m-0"><strong>Fecha de entrega: </strong>
-        {{purchaseOrder?.deliveryDate | date:"dd/MM/yy"}}
-    </p>
-    <p class="p m-0"><strong>Información de recepción (dirección): </strong>
-        {{purchaseOrder?.receptionInfo}}
-    </p>
 
-    <h4 class="mt-4"><strong>Proveedor</strong></h4>
-    <p class="p m-0"><strong>Razon social: </strong>{{purchaseOrder?.supplier?.businessName}}</p>
-    <!-- <button>Ver Proveedor</button> -->
+    <div class="row">
+        <div class="col-md-6 vertical-line">
+            <h4 class="mt-4 title-detail"><strong>Enviar a</strong></h4>
+            <p class="p m-0"><strong>Fecha de entrega: </strong>
+                {{purchaseOrder?.deliveryDate | date:"dd/MM/yy"}}
+            </p>
+            <p class="p m-0"><strong>Información de recepción (dirección): </strong>
+                {{purchaseOrder?.receptionInfo}}
+            </p>
+        </div>
+        <div class="col-md-6">
+            <h4 class="mt-4 title-detail"><strong>Proveedor</strong></h4>
+            <p class="p m-0"><strong>Razon social: </strong>{{purchaseOrder?.supplier?.businessName}}</p>
+            <p class="p m-0"><strong>CUIT: </strong>{{purchaseOrder?.supplier?.taxData?.cuit}}</p>
+            <!-- <button>Ver Proveedor</button> -->
+        </div>
+      </div>
 
-    <h4 class="mt-4"><strong>Productos</strong></h4>
-    <table class="table mt-3 table-radius">
+    <h4 class="mt-4 title-detail"><strong>Productos</strong></h4>
+    <table class="table table-light mt-3 table-radius">
         <thead>
-            <tr class="table-secondary">
+            <tr>
                 <th scope="col">Código</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Precio</th>
@@ -35,7 +41,7 @@
         
             </tr>
         </thead>
-        <tbody>
+        <tbody class="table-group-divider">
             <tr *ngFor="let product of purchaseOrder?.products; index as i">
                 <td>{{product.code}}</td>
                 <td>{{product.name}}</td>

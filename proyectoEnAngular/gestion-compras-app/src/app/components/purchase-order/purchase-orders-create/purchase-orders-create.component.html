@@ -18,7 +18,7 @@
     <section *ngIf="existsSuppliers && !supplierInserted">
         <form [formGroup]="supplierForm" (ngSubmit)="submitSupplier(supplierForm)">
             <div class="mt-3" *ngIf="!supplierInserted">
-                <label for="supplierInput" class="form-label">Proveedor</label>
+                <label for="supplierInput" class="form-label">Proveedor*</label>
                 <select id="supplierInput" class="form-select" aria-label="Default select example" name="supplier"
                     [(ngModel)]="supplierCode" formControlName="supplier">
                     <option option *ngFor="let supplier of suppliers" value={{supplier.code}}>
@@ -90,7 +90,7 @@
                 </form>
             </div>
             <div class="col-md-6">
-                <h3>Productos agregados</h3>
+                <h3>Productos agregados*</h3>
                 <article *ngIf="productsPurchase.length === 0">
                     <p>No hay productos</p>
                 </article>
@@ -146,12 +146,12 @@
         <div>{{setMinDeliveryDay()}}</div>
         <form [formGroup]="submitForm" (ngSubmit)="submitInformation(submitForm)">
             <div class="mt-3">
-                <label for="emissionDateInput" class="form-label">Fecha de emisión</label>
+                <label for="emissionDateInput" class="form-label">Fecha de emisión*</label>
                 <input id="emissionDateInput" class="form-control" type="date" disabled/>
             </div>
 
             <div class="mt-3">
-                <label for="deliveryDateInput" class="form-label">Fecha de entrega esperada</label>
+                <label for="deliveryDateInput" class="form-label">Fecha de entrega esperada*</label>
                 <input id="deliveryDateInput" class="form-control" type="date" 
                     [(ngModel)]="deliveryDate" formControlName="deliveryDate"/>
                 <div *ngIf="submitForm.get('deliveryDate')?.invalid && submitForm.get('deliveryDate')?.touched"
@@ -161,7 +161,7 @@
             </div>
 
             <div class="mt-3">
-                <label for="receptionInfoInput" class="form-label">Información de recepción (dirección)</label>
+                <label for="receptionInfoInput" class="form-label">Información de recepción (dirección)*</label>
                 <input id="receptionInfoInput" class="form-control" type="text" 
                     [(ngModel)]="receptionInfo" formControlName="receptionInfo"/>
                 <div *ngIf="submitForm.get('receptionInfo')?.invalid && submitForm.get('receptionInfo')?.touched"

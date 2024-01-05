@@ -88,7 +88,6 @@ export class ProductsCreateComponent implements OnInit{
       supplier: ['', [Validators.required]],
       category: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.pattern(lettersNumbersPattern)]],
-      description: ['', [Validators.required]],
       price: ['', [Validators.required, Validators.min(0.01)]],
     });
   }
