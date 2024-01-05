@@ -4,22 +4,26 @@
         Volver a Ordenes de Compra
     </button>
 
-    <h1 class="mt-4">Mostrando Orden de compra n° {{purchaseOrder?.id}}</h1>
+    <h1 class="mt-4">Mostrando Orden de compra</h1>
     <hr>
 
-    <p class="h5"><strong>Estado: </strong>{{getStatus()}}</p>
-
-    <p class="h5 mt-4"><strong>Fecha de emisión: </strong>{{purchaseOrder?.emissionDate | date:"dd/MM/yy"}}</p>
-    <p class="h5"><strong>Fecha de entrega: </strong>{{purchaseOrder?.deliveryDate | date:"dd/MM/yy"}}</p>
-
-    <p class="h5 mt-4"><strong>Información de recepción (dirección): </strong>
+    <p class="p m-0"><strong>N° Orden: </strong>{{purchaseOrder?.id}}</p>
+    <p class="p m-0"><strong>Fecha de emisión: </strong>{{purchaseOrder?.emissionDate | date:"dd/MM/yy"}}</p>
+    <p class="p m-0"><strong>Estado: </strong>{{getStatus()}}</p>
+    
+    <h4 class="mt-4"><strong>Enviar a</strong></h4>
+    <p class="p m-0"><strong>Fecha de entrega: </strong>
+        {{purchaseOrder?.deliveryDate | date:"dd/MM/yy"}}
+    </p>
+    <p class="p m-0"><strong>Información de recepción (dirección): </strong>
         {{purchaseOrder?.receptionInfo}}
     </p>
 
-    <p class="h5 mt-4"><strong>Fecha de entrega: </strong>{{purchaseOrder?.deliveryDate}}</p>
+    <h4 class="mt-4"><strong>Proveedor</strong></h4>
+    <p class="p m-0"><strong>Razon social: </strong>{{purchaseOrder?.supplier?.businessName}}</p>
     <!-- <button>Ver Proveedor</button> -->
 
-    <p class="h5 mt-4"><strong>Productos</strong></p>
+    <h4 class="mt-4"><strong>Productos</strong></h4>
     <table class="table mt-3 table-radius">
         <thead>
             <tr class="table-secondary">

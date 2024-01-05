@@ -100,9 +100,9 @@
 
       <div class="mt-3">
         <label for="descriptionInput" class="form-label">Descripción</label>
-        <input type="text" id="descriptionInput" class="form-control" required 
+        <textarea id="descriptionInput" class="form-control" required 
         placeholder="Ingrese el nombre del producto" name="description" [(ngModel)]="product.description" 
-        formControlName="description"/>
+        formControlName="description"></textarea>
       </div>
       <div *ngIf="submitForm.get('description')?.invalid && submitForm.get('description')?.touched" 
       class="fw-lighter text-danger">
