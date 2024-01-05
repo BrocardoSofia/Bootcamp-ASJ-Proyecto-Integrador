@@ -1,64 +1,101 @@
 <div class="container">
-    <button type="button" class="btn btn-primary mt-3" routerLink="./create">
-      Agregar nueva orden de compra
-    </button>
-    <table class="table mt-3 table-radius">
-        <thead>
-          <tr class="table-secondary">
-            <th scope="col">n°</th>
-            <th scope="col">Fecha emisión</th>
-            <th scope="col">Fecha entrega esperada</th>
-            <th scope="col">Proveedor</th>
-            <th scope="col">Total</th>
-            <th scope="col">Estado</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let purchaseOrder of purchaseOrders">
-            <td>{{purchaseOrder.id}}</td>
-            <td>{{purchaseOrder.emissionDate | date}}</td>
-            <td>{{purchaseOrder.deliveryDate | date}}</td>
-            <td>{{purchaseOrder.supplier.businessName}}</td>
-            <td>{{purchaseOrder.total | currency}}</td>
-            <td>
-              <span class="badge rounded-pill" 
-              [ngClass]="purchaseOrder.cancelled? 'bg-danger' : 'bg-success'">
-                {{getStatus(purchaseOrder.cancelled)}}
-              </span>
-              
-            </td>
-            <td>
-              <button type="button" class="btn btn-success rounded-circle btn-icon me-3 "
-              [routerLink]="['./detail']" [queryParams]="{detailPurchaseOrder: purchaseOrder.id}">
-                <i class="bi bi-eye-fill"></i>
-              </button>
+  <h1 class="pt-4 text-center">Ordenes de compra</h1>
 
-              <button [disabled]="purchaseOrder.cancelled" type="button" class="btn btn-danger rounded-circle btn-icon"
-              (click)="setToCancelOrder(purchaseOrder)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="bi bi-trash3-fill"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <button type="button" class="btn btn-primary mt-2" routerLink="./create">
+    Agregar nueva orden de compra
+  </button>
+  <table class="table mt-3 table-radius">
+    <thead>
+      <tr class="table-secondary">
+        <th scope="col">n°</th>
+        <th scope="col">Fecha emisión</th>
+        <th scope="col">Fecha entrega esperada</th>
+        <th scope="col">Proveedor</th>
+        <th scope="col">Total</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let purchaseOrder of purchaseOrders">
+        <td>{{ purchaseOrder.id }}</td>
+        <td>{{ purchaseOrder.emissionDate | date }}</td>
+        <td>{{ purchaseOrder.deliveryDate | date }}</td>
+        <td>{{ purchaseOrder.supplier.businessName }}</td>
+        <td>{{ purchaseOrder.total | currency }}</td>
+        <td>
+          <span
+            class="badge rounded-pill"
+            [ngClass]="purchaseOrder.cancelled ? 'bg-danger' : 'bg-success'"
+          >
+            {{ getStatus(purchaseOrder.cancelled) }}
+          </span>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-success rounded-circle btn-icon me-3"
+            [routerLink]="['./detail']"
+            [queryParams]="{ detailPurchaseOrder: purchaseOrder.id }"
+          >
+            <i class="bi bi-eye-fill"></i>
+          </button>
+
+          <button
+            [disabled]="purchaseOrder.cancelled"
+            type="button"
+            class="btn btn-danger rounded-circle btn-icon"
+            (click)="setToCancelOrder(purchaseOrder)"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <i class="bi bi-trash3-fill"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Cancelando orden de compra</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h2 class="modal-title fs-5" id="exampleModalLabel">
+          Cancelando orden de compra
+        </h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
-        ¿Esta seguro que desea cancelar la orden de compra n°{{toDeletepurchaseOrder.id}} ?
+        ¿Esta seguro que desea cancelar la orden de compra n°{{
+          toDeletepurchaseOrder.id
+        }}
+        ?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
-        <button type="button" class="btn btn-danger" (click)="cancelOrder()" 
-        data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Volver
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="cancelOrder()"
+          data-bs-dismiss="modal"
+        >
+          Cancelar
+        </button>
       </div>
     </div>
   </div>

@@ -1,54 +1,86 @@
 <div class="container">
-    <button type="button" class="btn btn-primary mt-3" routerLink="./create">
-      Agregar nuevo producto
-    </button>
-    <table class="table mt-3 table-radius">
-        <thead>
-          <tr class="table-secondary">
-            <th scope="col">Nombre</th>
-            <th scope="col">Categoría</th>
-            <th scope="col">Proveedor</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let product of products">
-            <td>{{product.name}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.supplier.businessName}}</td>
-            <td>{{product.price | currency}}</td>
-            <td>
-              <button type="button" class="btn btn-primary rounded-circle btn-icon me-3 "
-              [routerLink]="['./modify']" [queryParams]="{editProduct: product.code}">
-                <i class="bi bi-pencil-fill"></i>
-              </button>
+  <h1 class="pt-4 text-center">Productos</h1>
 
-              <button type="button" class="btn btn-danger rounded-circle btn-icon"
-              (click)="setToDeleteProduct(product)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <i class="bi bi-trash3-fill"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <button type="button" class="btn btn-primary mt-2" routerLink="./create">
+    Agregar nuevo producto
+  </button>
+  <table class="table mt-3 table-radius">
+    <thead>
+      <tr class="table-secondary">
+        <th scope="col">Nombre</th>
+        <th scope="col">Categoría</th>
+        <th scope="col">Proveedor</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>{{ product.category }}</td>
+        <td>{{ product.supplier.businessName }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary rounded-circle btn-icon me-3"
+            [routerLink]="['./modify']"
+            [queryParams]="{ editProduct: product.code }"
+          >
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-danger rounded-circle btn-icon"
+            (click)="setToDeleteProduct(product)"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <i class="bi bi-trash3-fill"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminando producto</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h2 class="modal-title fs-5" id="exampleModalLabel">
+          Eliminando producto
+        </h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
-        ¿Esta seguro que desea eliminar el producto {{toDeleteProduct.name}} ?
+        ¿Esta seguro que desea eliminar el producto {{ toDeleteProduct.name }} ?
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
-        <button type="button" class="btn btn-danger" (click)="deleteProduct()" 
-        data-bs-dismiss="modal">Eliminar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Volver
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          (click)="deleteProduct()"
+          data-bs-dismiss="modal"
+        >
+          Eliminar
+        </button>
       </div>
     </div>
   </div>
