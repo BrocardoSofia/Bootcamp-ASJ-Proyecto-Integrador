@@ -3,6 +3,8 @@ import { Supplier } from '../../../models/suppliers';
 import { SuppliersService } from '../../../services/suppliers.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+import { auto } from '@popperjs/core';
 
 @Component({
   selector: 'app-suppliers-create',
@@ -140,7 +142,14 @@ export class SuppliersCreateComponent implements OnInit {
   private reInsertSupplier(){
     this.suppliersService.reInsertSupplier(this.supplier.code, this.supplier);
 
-    alert('Proveedor ' + this.supplier.businessName + ' reingresado'); //esto iria en el subscribe
+    Swal.fire({
+      text: 'Se reingreso correctamente el proveedor: ' + this.supplier.businessName,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+    //esto iria en el subscribe
 
     //lo redirijo a la ventana de proveedores
     this.router.navigate(['/suppliers']);
@@ -165,23 +174,23 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   submitSupplier() {
-    let valid = true;
-    
-    //validar los inputs
-    if (valid === true) {
-      //agrego el codigo al supplier buscando el ultimo guardado
-      this.supplier.code = this.suppliersService.getLastCode()+1;
+    //agrego el codigo al supplier buscando el ultimo guardado
+    this.supplier.code = this.suppliersService.getLastCode()+1;
 
-      //enviarlo a la base de datos
-      this.suppliersService.addSupplier(this.supplier);
+    //enviarlo a la base de datos
+    this.suppliersService.addSupplier(this.supplier);
 
-      alert('Proveedor ' + this.supplier.businessName + ' agregado'); //esto iria en el subscribe
+    Swal.fire({
+      text: 'Se agrego correctamente el proveedor: ' + this.supplier.businessName,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+    //esto iria en el subscribe
 
-      //lo redirijo a la ventana de proveedores
-      this.router.navigate(['/suppliers']);
-    } else {
-      alert('Datos invalidos'); //esto despues es un toast
-    }
+    //lo redirijo a la ventana de proveedores
+    this.router.navigate(['/suppliers']);
   }
 
   validateCUIT() {
@@ -221,7 +230,14 @@ export class SuppliersCreateComponent implements OnInit {
     //enviarlo a la base de datos
     this.suppliersService.modifySupplier(this.supplier);
 
-    alert('Proveedor ' + this.supplier.businessName + ' fue modificado'); //esto iria en el subscribe
+    Swal.fire({
+      text: 'Se modifico correctamente el proveedor: ' + this.supplier.businessName,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+    //esto iria en el subscribe
 
     //lo redirijo a la ventana de proveedores
     this.router.navigate(['/suppliers']);

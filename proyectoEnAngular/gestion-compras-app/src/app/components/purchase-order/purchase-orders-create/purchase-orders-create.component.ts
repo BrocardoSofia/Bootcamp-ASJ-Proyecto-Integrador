@@ -8,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SuppliersService } from '../../../services/suppliers.service';
 import { ProductPurchase } from '../../../models/product-po';
 import { Product } from '../../../models/product';
+import Swal from 'sweetalert2';
+import { auto } from '@popperjs/core';
 
 @Component({
   selector: 'app-purchase-orders-create',
@@ -175,7 +177,14 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
         this.purchaseOrdersService.addPurchaseOrder(this.purchaseOrder);
 
-        alert('La Orden de compra se creo correctamente'); //esto iria en el subscribe
+        Swal.fire({
+          text: 'Se agrego correctamente la orden de compra n°: ' + this.purchaseOrder.id,
+          imageUrl: "./assets/succesImg.jpg",
+          imageWidth: 400,
+          imageHeight: auto,
+          imageAlt: "Custom image"
+        });
+        //esto iria en el subscribe
 
         //lo redirijo a la ventana de proveedores
         this.router.navigate(['/purchase-orders']);

@@ -5,6 +5,8 @@ import { ProductsService } from '../../../services/products.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SuppliersService } from '../../../services/suppliers.service';
 import { Supplier } from '../../../models/suppliers';
+import Swal from 'sweetalert2';
+import { auto } from '@popperjs/core';
 
 @Component({
   selector: 'app-products-create',
@@ -154,7 +156,14 @@ export class ProductsCreateComponent implements OnInit{
     //enviarlo a la base de datos
     this.productsService.modifyProduct(this.product);
 
-    alert('El producto ' + this.product.name + ' fue modificado'); //esto iria en el subscribe
+    Swal.fire({
+      text: 'Se modifico correctamente el producto: ' + this.product.name,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+    //esto iria en el subscribe
 
     //lo redirijo a la ventana de productos
     this.router.navigate(['/products']);
@@ -163,7 +172,14 @@ export class ProductsCreateComponent implements OnInit{
   private reInsertProduct(){
     this.productsService.reInsertProduct(this.product);
 
-    alert('Producto ' + this.product.name + ' reingresado'); //esto iria en el subscribe
+    Swal.fire({
+      text: 'Se reingreso correctamente el producto: ' + this.product.name,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+    //esto iria en el subscribe
 
     //lo redirijo a la ventana de productos
     this.router.navigate(['/products']);
@@ -181,7 +197,14 @@ export class ProductsCreateComponent implements OnInit{
     //enviarlo a la base de datos
     this.productsService.addProduct(this.product);
 
-    alert('Producto ' + this.product.name + ' agregado'); //esto iria en el subscribe
+    Swal.fire({
+      text: 'Se agrego correctamente el producto: ' + this.product.name,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+    //esto iria en el subscribe
 
     //lo redirijo a la ventana de proveedores
     this.router.navigate(['/products']);
