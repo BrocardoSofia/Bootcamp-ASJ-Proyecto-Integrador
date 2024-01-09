@@ -1,3 +1,5 @@
+import { DatesInfo } from "./dates-info";
+
 export interface Supplier{
     code: number,
     businessName: string,
@@ -6,7 +8,7 @@ export interface Supplier{
     address: Address,
     taxData: TaxData,
     contactData: ContactData,
-    deleted:boolean,
+    datesInfo: DatesInfo
 }
 
 export interface BusinessContact{

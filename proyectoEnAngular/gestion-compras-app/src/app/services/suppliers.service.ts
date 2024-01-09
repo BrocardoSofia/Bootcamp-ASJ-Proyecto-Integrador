@@ -38,7 +38,11 @@ export class SuppliersService {
         email: '',
         rol: '',
     },
-      deleted:false,
+      datesInfo: {
+        createdAt: null,
+        updatedAt: null,
+        deletedAt: null
+      }
     }
 
     return supplier;
@@ -60,7 +64,7 @@ export class SuppliersService {
   public getActiveSuppliers(){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
     
-    return suppliers.filter((supplier)=>supplier.deleted === false);
+    return suppliers.filter((supplier)=>supplier.datesInfo?.deletedAt === null);
   }
 
    /*
@@ -69,7 +73,7 @@ export class SuppliersService {
   public getInactiveSuppliers(){
     const suppliers: Supplier[] = JSON.parse(localStorage.getItem('suppliers') || '[]');
     
-    return suppliers.filter((supplier)=>supplier.deleted === true);
+    return suppliers.filter((supplier)=>supplier.datesInfo?.deletedAt !== null);
   }
 
   /*
@@ -81,7 +85,7 @@ export class SuppliersService {
     let amount = 0;
 
     for(let supplier of suppliers){
-      if(supplier.deleted === false){
+      if(supplier.datesInfo?.deletedAt === null){
         amount++;
       }
     }
@@ -173,7 +177,7 @@ export class SuppliersService {
 
     while(deleted===false && i<suppliers.length){
       if(suppliers[i].code === code){
-        suppliers[i].deleted = true;
+        suppliers[i].datesInfo.deletedAt = new Date();
         console.log("eliminado");
         deleted = true;
       }
@@ -225,7 +229,7 @@ export class SuppliersService {
 
     while(deleted===false && i<suppliers.length){
       if(suppliers[i].taxData.cuit === ciut){
-        deleted = suppliers[i].deleted;
+        deleted = (suppliers[i].datesInfo?.deletedAt !== null);
       }
       i++;
     }
@@ -272,7 +276,7 @@ export class SuppliersService {
     while(reInsert===false && i<suppliers.length){
       if(suppliers[i].code === code){
         suppliers[i] = supplier;
-        suppliers[i].deleted = false;
+        suppliers[i].datesInfo.deletedAt = null;
         reInsert = true;
       }
       i++;

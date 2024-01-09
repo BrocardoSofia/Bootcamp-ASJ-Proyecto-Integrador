@@ -10,9 +10,11 @@ import { PurchaseOrdersCreateComponent } from './components/purchase-order/purch
 import { SupplierDetailComponent } from './components/supplier/supplier-detail/supplier-detail.component';
 import { ProductDetailComponent } from './components/product/product-detail/product-detail.component';
 import { PurchaseOrderDetailComponent } from './components/purchase-order/purchase-order-detail/purchase-order-detail.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
+  { path: '', component: LoginComponent },
+  { path: 'index', component: WelcomeComponent },
   { path: 'suppliers',
     children: [
       { path: '', component: SuppliersComponent },

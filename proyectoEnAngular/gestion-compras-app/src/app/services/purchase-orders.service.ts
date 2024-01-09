@@ -17,7 +17,7 @@ export class PurchaseOrdersService {
       receptionInfo: '',
       supplier: this.suppliersService.inicSupplier(),
       products: [],
-      total: -1,
+      total: 0,
       cancelled: false
   }
 

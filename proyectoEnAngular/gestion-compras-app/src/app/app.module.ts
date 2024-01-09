@@ -17,6 +17,7 @@ import { PurchaseOrdersCreateComponent } from './components/purchase-order/purch
 import { PurchaseOrderDetailComponent } from './components/purchase-order/purchase-order-detail/purchase-order-detail.component';
 import { ProductDetailComponent } from './components/product/product-detail/product-detail.component';
 import { SupplierDetailComponent } from './components/supplier/supplier-detail/supplier-detail.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { SupplierDetailComponent } from './components/supplier/supplier-detail/s
     PurchaseOrderDetailComponent,
     ProductDetailComponent,
     SupplierDetailComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

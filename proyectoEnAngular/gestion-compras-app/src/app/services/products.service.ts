@@ -19,6 +19,8 @@ export class ProductsService {
       category: '',
       name: '',
       description: '',
+      price:0,
+      stock: 0,
       deleted: false
     }
 
