@@ -51,16 +51,34 @@ FROM Suppliers AS s
 	INNER JOIN Provinces as p
 		ON s.province_id = p.id
 	WHERE (s.buisness_phone LIKE '351%')
-		OR p.id IN ( SELECT TOP 3 s.province_id
+		OR (p.id IN ( SELECT TOP 3 s.province_id
 								FROM Suppliers AS s
 								GROUP BY s.province_id
 								ORDER BY COUNT(s.id) DESC
-								);
+								));
 
 /*
 5. Traer un listado de todos los proveedores que no hayan sido eliminados , y ordenados por razon social, codigo proveedor y 
 	fecha en que se dió de alta ASC. De este listado mostrar los datos que correspondan con su tabla del front.
 */
 --primero elimino un proveedor
-SELECT s.business_name
+UPDATE Suppliers
+SET deleted_at = '2024-01-09'
+WHERE id = 3;
+
+SELECT s.business_name AS 'Razon social', 
+		s.id AS 'Codigo', 
+		s.created_at AS 'Fecha', 
+		sc.category AS 'Rubro',
+		s.buisness_webpage AS 'Web',
+		s.buisness_email AS 'Email',
+		s.buisness_phone AS 'Telefono'
 FROM Suppliers AS s 
+	INNER JOIN Supplier_categories AS sc
+		ON s.supplier_category_id = sc.id
+WHERE s.deleted_at IS NULL
+ORDER BY s.business_name ASC, s.id ASC, s.created_at ASC;
+
+/*
+6. Obtener razon social, codigo proveedor, imagen, web, email, teléfono y los datos del contacto del proveedor con más ordenes de compra cargadas.
+*/
