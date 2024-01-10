@@ -425,7 +425,7 @@ INSERT INTO Suppliers(supplier_category_id,created_by_id,updated_by_id,province_
 			'https://www.47street.com.ar/','ventas@47-street.com.ar','0800-555-9174','Sarmiento',2153,'Buenos Aires',
 			'B1200','30707528458','2020-08-10'),
 			(3,2,2,1,1,'Levi’s','https://static.vecteezy.com/system/resources/previews/023/871/601/original/levis-brand-logo-symbol-white-design-clothes-fashion-illustration-with-red-background-free-vector.jpg',
-			'www.levi.com.ar','ventas@levi.com.ar','+54 11 70780855','Guemes',1823,'Mar del Plata',
+			'www.levi.com.ar','ventas@levi.com.ar','11 70780855','Guemes',1823,'Mar del Plata',
 			'B7600','30-68310835-5','2020-10-10'),
 			(8,3,3,1,1,'Infinit','https://quieroynecesito.files.wordpress.com/2013/07/infinit-logo.jpg',
 			'https://infinit.la/','ventas@infinit.com','0800-555-9174','Hidalgo',1743,'Buenos Aires',
@@ -437,13 +437,13 @@ INSERT INTO Suppliers(supplier_category_id,created_by_id,updated_by_id,province_
 			'https://www.47street.com.ar/','libreriapalito@gmail.com.ar','2266-451684','Av. Luro',3454,'Mar del Plata',
 			'B7600','33715559299','2022-11-04'),
 			(4,1,1,6,1,'farmalife','https://farmalife.vteximg.com.br/arquivos/logo-farmalife-checkout.png',
-			'https://www.farmalife.com.ar/','farmalife@gmail.com.ar','0379-451684','Pellegrini',645,'Corrientes',
+			'https://www.farmalife.com.ar/','farmalife@gmail.com.ar','379-451684','Pellegrini',645,'Corrientes',
 			'W3400','30714896047','2023-11-04');
 
 INSERT INTO Suppliers(supplier_category_id,created_by_id,updated_by_id,province_id,
 						iva_condition_id,business_name,buisness_email,
 						buisness_phone,street_name,street_number,city,cp,cuit,created_at)
-	VALUES  (4,1,1,6,1,'Soho','soho@gmail.com.ar','0379-452685','Av. Raúl Alfonsín',3402,'Corrientes',
+	VALUES  (4,1,1,6,1,'Soho','soho@gmail.com.ar','379-452685','Av. Raúl Alfonsín',3402,'Corrientes',
 			'W3400','30768596047','2023-11-04'),
 			(4,1,1,10,1,'Musas','musas@gmail.com.ar','299-453685','Rivadavia',418,'Santa Rosa',
 			'W3400','30768595647','2023-11-04'),
