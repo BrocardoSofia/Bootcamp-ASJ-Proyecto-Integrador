@@ -97,4 +97,19 @@ FROM Suppliers AS s
 WHERE s.id = (SELECT TOP 1 po.supplier_id
 				FROM Purchase_orders as po
 				GROUP BY po.supplier_id
-				ORDER BY COUNT(po.id)DESC)
+				ORDER BY COUNT(po.id)DESC);
+
+/*
+7. Mostrar la fecha emisión, nº de orden, razon social y codigo de proveedor, y la cantidad de productos de cada orden.
+*/
+SELECT po.emission_date AS 'Fecha de emisión', 
+		po.id AS 'N° de orden',
+		s.business_name AS 'Razon social',
+		s.id AS 'Codigo de proveedor',
+		COUNT(pop.id) AS 'Cantidad de productos'
+FROM Purchase_orders AS po
+	INNER JOIN Suppliers AS s
+		ON po.supplier_id = s.id
+	INNER JOIN Purchase_orders_products AS pop
+		ON po.id = pop.purchase_order_id
+GROUP BY po.emission_date, po.id, s.business_name, s.id
