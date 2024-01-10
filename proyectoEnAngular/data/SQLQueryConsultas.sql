@@ -82,3 +82,19 @@ ORDER BY s.business_name ASC, s.id ASC, s.created_at ASC;
 /*
 6. Obtener razon social, codigo proveedor, imagen, web, email, teléfono y los datos del contacto del proveedor con más ordenes de compra cargadas.
 */
+SELECT s.business_name AS 'Razon social', 
+		s.id AS 'Codigo', 
+		s.created_at AS 'Fecha', 
+		s.image_url AS 'Imagen',
+		s.buisness_webpage AS 'Web',
+		s.buisness_email AS 'Email',
+		s.buisness_phone AS 'Telefono',
+		sc.contact_name AS 'Nombre de contacto',
+		sc.contact_lastname AS 'Apellido de contacto'
+FROM Suppliers AS s
+	LEFT JOIN Suppliers_contacts as sc
+		ON s.id = sc.supplier_id
+WHERE s.id = (SELECT TOP 1 po.supplier_id
+				FROM Purchase_orders as po
+				GROUP BY po.supplier_id
+				ORDER BY COUNT(po.id)DESC)
