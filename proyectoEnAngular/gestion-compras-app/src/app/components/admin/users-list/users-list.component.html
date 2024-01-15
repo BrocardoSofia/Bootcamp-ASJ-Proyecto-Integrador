@@ -1,0 +1,23 @@
+<div class="container">
+    <h1 class="pt-4 text-center">Usuarios</h1>
+
+    <button type="button" class="btn btn-primary mt-2" routerLink="./new-user">
+        Agregar nuevo usuario
+    </button>
+    <table class="table mt-3 mb-0 pb-4 table-radius" *ngIf="users.length !== 0">
+        <thead>
+          <tr class="table-secondary">
+            <th scope="col">Usuario</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="users.length === 0">
+        <h2 class="text-center mb-4">No hay usuarios cargados en el sistema</h2>
+        <img src="/assets/userVectorImg.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+    </div>
+</div>

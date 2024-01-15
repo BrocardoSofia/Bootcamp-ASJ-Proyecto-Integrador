@@ -9,17 +9,19 @@
         />
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-        <form>
-          <!-- Email input -->
+        <form [formGroup]="submitForm" (ngSubmit)="validateUser()">
+          <!-- Text input -->
           <div class="form-outline mb-4">
             <label class="form-label" for="form3Example3"
               >Nombre de usuario</label
             >
             <input
-              type="email"
+              type="text"
               id="form3Example3"
               class="form-control form-control-lg"
               placeholder="Ingrese su nombre de usuario"
+              formControlName="user"
+              [(ngModel)]="user"
             />
           </div>
 
@@ -31,6 +33,8 @@
               id="form3Example4"
               class="form-control form-control-lg"
               placeholder="Ingrese su contraseña"
+              formControlName="password"
+              [(ngModel)]="password"
             />
           </div>
 
@@ -39,7 +43,7 @@
               type="button"
               class="btn btn-primary btn-lg"
               style="padding-left: 2.5rem; padding-right: 2.5rem"
-              routerLink="/index"
+              (click)="validateUser()"
             >
               Ingresar
             </button>

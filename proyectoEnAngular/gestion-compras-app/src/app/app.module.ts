@@ -18,6 +18,8 @@ import { PurchaseOrderDetailComponent } from './components/purchase-order/purcha
 import { ProductDetailComponent } from './components/product/product-detail/product-detail.component';
 import { SupplierDetailComponent } from './components/supplier/supplier-detail/supplier-detail.component';
 import { LoginComponent } from './components/login/login.component';
+import { UsersListComponent } from './components/admin/users-list/users-list.component';
+import { NewUserComponent } from './components/admin/new-user/new-user.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { LoginComponent } from './components/login/login.component';
     ProductDetailComponent,
     SupplierDetailComponent,
     LoginComponent,
+    UsersListComponent,
+    NewUserComponent,
   ],
   imports: [
     BrowserModule,

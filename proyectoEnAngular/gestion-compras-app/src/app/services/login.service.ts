@@ -10,22 +10,22 @@ export class LoginService {
 
   constructor() { }
 
-  public inicUser(){
-    let user: User = {
-      userName: '',
-      password: '',
-      dateInfo: {
-        createdAt: null,
-        updatedAt: null,
-        deletedAt: null
-      }
-    }
-
-    return user;
-  }
-
   public getLoggedStatus(){
     return this.loggedIn;
+  }
+
+  public validAdmin(password: string){
+    let valid: boolean = false;
+
+    if(password === 'admin'){
+      valid = true;
+    }
+
+    return valid;
+  }
+
+  public validUser(){
+
   }
 
 

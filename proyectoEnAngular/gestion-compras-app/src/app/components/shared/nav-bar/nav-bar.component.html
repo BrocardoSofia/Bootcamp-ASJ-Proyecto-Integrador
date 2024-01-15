@@ -1,5 +1,5 @@
 <nav class="navbar bg-dark fixed-top navbar-expand-lg bg-primary-subtle" 
-data-bs-theme="dark" *ngIf="!selectedPath('/')">
+data-bs-theme="dark" *ngIf="!selectedPath('/') && !selectedPath('/admin') && !selectedPath('/admin/new-user')">
     <div class="container-fluid">
         <img src="https://cdn.pixabay.com/photo/2017/03/29/04/09/shopping-icon-2184065_1280.png" 
         alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
@@ -36,7 +36,8 @@ data-bs-theme="dark" *ngIf="!selectedPath('/')">
       </div>
     </div>
 </nav>
+
 <nav class="navbar bg-dark fixed-top navbar-expand-lg bg-primary-subtle" 
-data-bs-theme="dark" *ngIf="selectedPath('/')">
+data-bs-theme="dark" *ngIf="selectedPath('/')||selectedPath('/admin')||selectedPath('/admin/new-user')">
 
 </nav>

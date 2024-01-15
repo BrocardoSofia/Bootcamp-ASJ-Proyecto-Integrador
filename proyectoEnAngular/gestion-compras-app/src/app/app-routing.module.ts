@@ -11,9 +11,16 @@ import { SupplierDetailComponent } from './components/supplier/supplier-detail/s
 import { ProductDetailComponent } from './components/product/product-detail/product-detail.component';
 import { PurchaseOrderDetailComponent } from './components/purchase-order/purchase-order-detail/purchase-order-detail.component';
 import { LoginComponent } from './components/login/login.component';
+import { UsersListComponent } from './components/admin/users-list/users-list.component';
+import { NewUserComponent } from './components/admin/new-user/new-user.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
+  { path: 'admin',
+    children: [
+      { path: '', component: UsersListComponent },
+      { path: 'new-user', component: NewUserComponent }
+  ],},
   { path: 'index', component: WelcomeComponent },
   { path: 'suppliers',
     children: [
