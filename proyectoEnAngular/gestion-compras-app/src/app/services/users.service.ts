@@ -43,15 +43,5 @@ export class UsersService {
     return of(users);
   }
 
-  public validPassword(user_name: string, password: string): Observable<boolean>{
-    let valid = false;
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    let found = users.find((user) => user.userName === user_name);
-
-    if (found && found.password === password) {
-      valid = true;
-    }
-
-    return of(valid);
-  }
+  
 }

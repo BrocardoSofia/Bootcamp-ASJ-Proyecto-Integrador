@@ -11,8 +11,8 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit{
 
-  user?: string;
-  password?: string;
+  user: string = '';
+  password: string = '';
   submitForm!: FormGroup;
 
   constructor(private router: Router,
@@ -42,6 +42,39 @@ export class LoginComponent implements OnInit{
       }
     }else{
       //sino valido para user
+      this.loginService.validPassword(this.user, this.password).subscribe((result) => {
+        valid = result;
+
+        if(valid){
+          //si es valido lo mando a la pagina principal
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Ingreso exitoso"
+          });
+          
+          this.router.navigate(['/index']);
+        }else{
+          //si no le aviso
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: 'Usuario y/o contraseña invalidos',
+          });
+          this.submitForm.reset();
+        }
+      });
+      
     }
   }
 
