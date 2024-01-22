@@ -8,15 +8,27 @@
 
     <form [formGroup]="submitForm" (ngSubmit)="submitUser()">
         <div class="mt-3 mb-3">
-            <label for="userInput" class="form-label">Nombre de usuario</label>
+            <label for="userInput" class="form-label">Nombre de usuario*</label>
             <input type="text" required id="userInput" class="form-control" formControlName="user_name"
-              placeholder="Ingrese el nombre de usuario" name="user_name" [(ngModel)]="user.userName" />
+              placeholder="nombre_apellido_numeroDeEmpleado" name="user_name" [(ngModel)]="user.userName" 
+              oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"/>
+            <div *ngIf="submitForm.get('user_name')?.invalid && submitForm.get('user_name')?.touched" 
+            class="fw-lighter text-danger">
+                El nombre de usuario debe tener entre 5 y 50 caracteres
+            </div>
+            <div *ngIf="submitForm.get('user_name')?.invalid && submitForm.get('user_name')?.touched && submitForm.get('user_name')?.errors?.['pattern']" class="fw-lighter text-danger">
+                El nombre de usuario debe tener el siguiente formato: nombre_apellido_numeroDeEmpleado
+            </div>
         </div>
 
         <div class="mt-3 mb-3">
-            <label for="passwordInput" class="form-label">Contraseña</label>
+            <label for="passwordInput" class="form-label">Contraseña*</label>
             <input type="text" required id="passwordInput" class="form-control" formControlName="password"
               placeholder="**********" name="password" [(ngModel)]="user.password" />
+            <div *ngIf="submitForm.get('password')?.invalid && submitForm.get('password')?.touched" 
+            class="fw-lighter text-danger">
+                La contraseña debe tener entre 9 y 20 caracteres
+            </div>
         </div>
     
         <button type="submit" [disabled]="submitForm.invalid" class="btn btn-primary mt-2">

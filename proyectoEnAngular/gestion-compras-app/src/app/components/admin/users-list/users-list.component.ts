@@ -12,7 +12,14 @@ export class UsersListComponent implements OnInit{
   users:User[] = [];
   
   constructor(private userService: UsersService){}
+
   ngOnInit(): void {
-    this.userService.userExists('user');
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+    });
+  }
+
+  getEstado(user: User){
+    return (user.deleted)?'Inactivo':'Activo';
   }
 }
