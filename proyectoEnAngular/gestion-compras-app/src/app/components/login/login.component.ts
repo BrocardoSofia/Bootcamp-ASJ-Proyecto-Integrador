@@ -3,6 +3,7 @@ import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { NavBarService } from '../../services/nav-bar.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit{
 
   constructor(private router: Router,
               private loginService: LoginService,
-              private fb: FormBuilder)
+              private fb: FormBuilder,
+              private navBarService: NavBarService)
   {}
 
   ngOnInit(): void {
@@ -25,6 +27,8 @@ export class LoginComponent implements OnInit{
       user: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
+    this.navBarService.setAdmin(false);
+    localStorage.removeItem("token");
   }
 
   public validateUser(){
@@ -35,6 +39,9 @@ export class LoginComponent implements OnInit{
 
       if(valid){
         //si es valido lo redirigo a el component admin/user-list
+        localStorage.setItem('token', 'token') //guardo token para guards
+        this.navBarService.setAdmin(true);
+        this.toastSuccessfulLogin();
         this.router.navigate(['/admin']);
       }else{
         //si no es valido le mando un alert de error
@@ -47,23 +54,10 @@ export class LoginComponent implements OnInit{
 
         if(valid){
           //si es valido lo mando a la pagina principal
-          const Toast = Swal.mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.onmouseenter = Swal.stopTimer;
-              toast.onmouseleave = Swal.resumeTimer;
-            }
-          });
-          Toast.fire({
-            icon: "success",
-            title: "Ingreso exitoso"
-          });
+          this.toastSuccessfulLogin();
           
-          this.router.navigate(['/index']);
+          localStorage.setItem('token', 'token') //guardo token para guards
+          this.router.navigate(['/home']);
         }else{
           //si no le aviso
           Swal.fire({
@@ -88,6 +82,24 @@ export class LoginComponent implements OnInit{
     this.submitForm.reset();
     this.user = '';
     this.password = '';
+  }
+
+  toastSuccessfulLogin(){
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+      }
+    });
+    Toast.fire({
+      icon: "success",
+      title: "Ingreso exitoso"
+    });
   }
 
 }

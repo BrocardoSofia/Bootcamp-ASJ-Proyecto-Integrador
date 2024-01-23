@@ -13,36 +13,38 @@ import { PurchaseOrderDetailComponent } from './components/purchase-order/purcha
 import { LoginComponent } from './components/login/login.component';
 import { UsersListComponent } from './components/admin/users-list/users-list.component';
 import { NewUserComponent } from './components/admin/new-user/new-user.component';
+import { loginGuard } from './guards/login.guard';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'index'},
+  { path: 'index', component: LoginComponent },
   { path: 'admin',
     children: [
-      { path: '', component: UsersListComponent },
-      { path: 'new-user', component: NewUserComponent }
+      { path: '', component: UsersListComponent, canActivate : [loginGuard]},
+      { path: 'new-user', component: NewUserComponent, canActivate : [loginGuard]}
   ],},
-  { path: 'index', component: WelcomeComponent },
+  { path: 'home', component: WelcomeComponent, canActivate : [loginGuard]},
   { path: 'suppliers',
     children: [
-      { path: '', component: SuppliersComponent },
-      { path: 'create', component: SuppliersCreateComponent },
-      { path: 'modify', component: SuppliersCreateComponent },
-      { path: 'detail', component: SupplierDetailComponent },
+      { path: '', component: SuppliersComponent, canActivate : [loginGuard]},
+      { path: 'create', component: SuppliersCreateComponent, canActivate : [loginGuard]},
+      { path: 'modify', component: SuppliersCreateComponent, canActivate : [loginGuard]},
+      { path: 'detail', component: SupplierDetailComponent, canActivate : [loginGuard]},
     ],
   },
   { path: 'products',
     children: [
-      { path: '', component: ProductsComponent },
-      { path: 'create', component: ProductsCreateComponent },
-      { path: 'modify', component: ProductsCreateComponent },
-      { path: 'detail', component: ProductDetailComponent },
+      { path: '', component: ProductsComponent, canActivate : [loginGuard]},
+      { path: 'create', component: ProductsCreateComponent, canActivate : [loginGuard]},
+      { path: 'modify', component: ProductsCreateComponent, canActivate : [loginGuard]},
+      { path: 'detail', component: ProductDetailComponent, canActivate : [loginGuard]},
     ],
   },
   { path: 'purchase-orders', 
     children: [
-      { path: '', component: PurchaseOrdersComponent },
-      { path: 'create', component: PurchaseOrdersCreateComponent },
-      { path: 'detail', component: PurchaseOrderDetailComponent },
+      { path: '', component: PurchaseOrdersComponent, canActivate : [loginGuard]},
+      { path: 'create', component: PurchaseOrdersCreateComponent, canActivate : [loginGuard]},
+      { path: 'detail', component: PurchaseOrderDetailComponent, canActivate : [loginGuard]},
       
     ],
   },
