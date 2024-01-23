@@ -14,15 +14,14 @@ import { LoginComponent } from './components/login/login.component';
 import { UsersListComponent } from './components/admin/users-list/users-list.component';
 import { NewUserComponent } from './components/admin/new-user/new-user.component';
 import { loginGuard } from './guards/login.guard';
+import { ConfigCategoiresComponent } from './components/admin/config-categoires/config-categoires.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'index'},
   { path: 'index', component: LoginComponent },
-  { path: 'admin',
-    children: [
-      { path: '', component: UsersListComponent, canActivate : [loginGuard]},
-      { path: 'new-user', component: NewUserComponent, canActivate : [loginGuard]}
-  ],},
+  { path: 'users', component: UsersListComponent, canActivate : [loginGuard]},
+  { path: 'new-user', component: NewUserComponent, canActivate : [loginGuard]},
+  { path: 'config-categories', component: ConfigCategoiresComponent, canActivate : [loginGuard]},
   { path: 'home', component: WelcomeComponent, canActivate : [loginGuard]},
   { path: 'suppliers',
     children: [

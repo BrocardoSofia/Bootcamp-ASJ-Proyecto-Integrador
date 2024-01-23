@@ -65,6 +65,10 @@ nav{
     transition: 0.5s ease-out;
 }
 
+.imgLogo {
+    transition: 0.5s ease-out;
+}
+
 #loginBtn:hover {
     background-position: left;
 }

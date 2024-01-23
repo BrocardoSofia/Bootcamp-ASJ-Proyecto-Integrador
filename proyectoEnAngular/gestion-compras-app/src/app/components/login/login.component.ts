@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit{
         localStorage.setItem('token', 'token') //guardo token para guards
         this.navBarService.setAdmin(true);
         this.toastSuccessfulLogin();
-        this.router.navigate(['/admin']);
+        this.router.navigate(['/home']);
       }else{
         //si no es valido le mando un alert de error
         this.loginError();
