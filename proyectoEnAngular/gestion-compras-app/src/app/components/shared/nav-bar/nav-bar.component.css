@@ -1,5 +1,5 @@
-nav{
-    height: 10vh;
+nav, navbar{
+    min-height: 10vh;
 }
 
 .changeWidth {

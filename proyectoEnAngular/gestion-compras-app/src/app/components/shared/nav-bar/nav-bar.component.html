@@ -47,7 +47,8 @@
                         </a>
                     </li>
                     <li class="nav-item me-4 pt-2" [ngClass]="(!selectedPath('/purchase-orders')?'iconChange':'')">
-                        <a routerLink="/purchase-orders" class="nav-link text-center p-0">
+                        <a routerLink="/purchase-orders" class="nav-link text-center p-0"
+                        (click)="getPaths()">
                             <div class=" d-flex align-items-center overflow-hidden changeWidth mx-auto">
                                 <i *ngIf="!selectedPath('/purchase-orders')" class="bi bi-cart-dash iconHeight mx-2"></i>
                                 <i class="bi bi-cart-dash-fill iconHeight mx-2" [ngClass]="(selectedPath('/purchase-orders')?'Blue':'')"></i>
@@ -56,9 +57,6 @@
                         </a>
                     </li>
                 </ul>
-            </div>
-            <div id="iconContainer" class="d-flex justify-content-center align-items-center rounded-5 bg-light d-xl-none">
-                <img src="/static_files/svgs2/search.svg" alt="search"/>
             </div>
             <button id="loginBtn" (click)="logout()" class="btn btn-sm m-sm-2 m-1 bg-primary text-white rounded-5 px-sm-3 px-2">
                 <i class="bi bi-box-arrow-left me-1 "></i>
@@ -74,3 +72,15 @@
         <span class="h1" style="font-size: 4vh; color: #fff;">ASJ COMPRAS</span>
     </section>
 </nav>
+
+<section *ngIf="breadcrumb[0] !=='index'"
+style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb" class="ms-3 mt-2">
+    <ol class="breadcrumb">
+        <li *ngFor="let path of breadcrumb, index as i" class="breadcrumb-item" 
+        ngClass="(i === breadcrumb.length)? 'active':''">
+            <a href="/{{path}}" *ngIf="i !== breadcrumb.length-1"
+            style="text-decoration: none;">{{getName(path)}}</a>
+            <span *ngIf="i === breadcrumb.length-1">{{getName(path)}}</span>
+        </li>
+    </ol>
+</section>

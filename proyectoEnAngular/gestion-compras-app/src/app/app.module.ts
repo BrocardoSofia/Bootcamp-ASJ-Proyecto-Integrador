@@ -21,6 +21,7 @@ import { LoginComponent } from './components/login/login.component';
 import { UsersListComponent } from './components/admin/users-list/users-list.component';
 import { NewUserComponent } from './components/admin/new-user/new-user.component';
 import { ConfigCategoiresComponent } from './components/admin/config-categoires/config-categoires.component';
+import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ConfigCategoiresComponent } from './components/admin/config-categoires/
     UsersListComponent,
     NewUserComponent,
     ConfigCategoiresComponent,
+    UserDetailComponent,
   ],
   imports: [
     BrowserModule,

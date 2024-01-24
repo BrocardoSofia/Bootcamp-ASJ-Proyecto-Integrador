@@ -1,7 +1,7 @@
 <div class="container">
   <h1 class="pt-4 text-center">Productos</h1>
 
-  <button type="button" class="btn btn-primary mt-2" routerLink="./create">
+  <button type="button" class="btn btn-primary mt-2" routerLink="./new">
     Agregar nuevo producto
   </button>
   <table class="table mt-3 mb-0 pb-4 table-radius">
@@ -24,7 +24,7 @@
           <button
             type="button"
             class="btn btn-primary rounded-circle btn-icon me-3"
-            [routerLink]="['./modify']"
+            [routerLink]="['./edit']"
             [queryParams]="{ editProduct: product.code }"
           >
             <i class="bi bi-pencil-fill"></i>

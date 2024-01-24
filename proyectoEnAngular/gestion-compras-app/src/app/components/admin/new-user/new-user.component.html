@@ -1,10 +1,9 @@
 <div class="container">
-    <button routerLink="/users" class="btn btn-secondary mt-3">
-        <i class="bi bi-arrow-left"></i>
-        Volver a Usuarios
-    </button>
 
-    <h1 class="mt-4 mb-4">Creando nuevo Usuario</h1>
+    <h1 class="mt-4 mb-4">
+        <img src="/assets/person-fill-add.svg" alt="icono user" class="icono">
+        Creando nuevo Usuario
+    </h1>
 
     <form [formGroup]="submitForm" (ngSubmit)="submitUser()">
         <div class="mt-3 mb-3">

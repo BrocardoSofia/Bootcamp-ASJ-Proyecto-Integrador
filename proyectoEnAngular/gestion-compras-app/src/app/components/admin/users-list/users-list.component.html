@@ -1,8 +1,14 @@
 <div class="container">
-    <h1 class="pt-4 text-center">Usuarios</h1>
+  <div style="display: flex; align-items: center;">
+    
+    <h1 class="pt-1 pb-2 text-start" style="margin-left: 10px;">
+      <img src="/assets/people-fill.svg" alt="icono user" class="icono">
+      Usuarios</h1>
+  </div>
 
-    <button type="button" class="btn btn-primary mt-2" routerLink="/new-user">
-        Agregar nuevo usuario
+    <button type="button" class="btn btn-primary mt-2" routerLink="./new">
+        <i class="bi bi-person-fill-add"></i>
+        Nuevo usuario
     </button>
     <table class="table mt-3 mb-0 pb-4 table-radius" *ngIf="users.length !== 0">
         <thead>
@@ -10,7 +16,7 @@
             <th scope="col">Nombre de usuario</th>
             <th scope="col">Fecha de alta</th>
             <th scope="col">Estado</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" class="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -25,11 +31,11 @@
                 {{getEstado(user)}}
               </span>
             </td>
-            <td>
+            <td class="text-center">
               <button
                 type="button"
                 class="btn btn-success rounded-circle btn-icon me-3"
-                
+                routerLink="./detail"
               >
                 <i class="bi bi-search"></i>
               </button>
@@ -37,7 +43,7 @@
               <button
                 type="button"
                 class="btn btn-primary rounded-circle btn-icon me-3"
-                
+                routerLink="./edit"
               >
                 <i class="bi bi-pencil-fill"></i>
               </button>
