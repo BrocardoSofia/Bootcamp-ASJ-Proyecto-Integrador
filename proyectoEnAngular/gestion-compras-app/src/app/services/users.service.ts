@@ -13,7 +13,8 @@ export class UsersService {
     let user: User = {
       userName: '',
       password: '',
-      deleted: false
+      createdAt: new Date,
+      deletedAt: null
     }
 
     return user;

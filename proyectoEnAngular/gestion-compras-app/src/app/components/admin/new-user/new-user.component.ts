@@ -46,7 +46,7 @@ export class NewUserComponent implements OnInit{
               });
             
               //lo redirijo a la pagina anterior
-              this.router.navigate(['/admin']);
+              this.router.navigate(['/users']);
             },
             error => {
               console.error('Error al agregar usuario:', error);

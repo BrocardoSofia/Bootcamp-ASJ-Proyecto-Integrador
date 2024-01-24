@@ -20,6 +20,6 @@ export class UsersListComponent implements OnInit{
   }
 
   getEstado(user: User){
-    return (user.deleted)?'Inactivo':'Activo';
+    return (user.deletedAt !== null)?'Inactivo':'Activo';
   }
 }
