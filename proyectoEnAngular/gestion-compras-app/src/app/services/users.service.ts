@@ -7,7 +7,7 @@ import { Observable , Observer, of } from 'rxjs';
 })
 export class UsersService {
   private pages: number = 0;
-  private usersPerPage: number = 5;
+  private usersPerPage: number = 10;
   constructor() { }
 
   public inicUser(){

@@ -104,4 +104,14 @@ export class UsersListComponent implements OnInit{
     this.currentPage = page;
     
   }
+
+  nextPage(){
+    this.currentPage++;
+    this.selectPage(this.currentPage);
+  }
+
+  prevPage(){
+    this.currentPage--;
+    this.selectPage(this.currentPage);
+  }
 }
