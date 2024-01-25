@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PurchaseOrder } from '../../../models/purchase-order';
 import { PurchaseOrdersService } from '../../../services/purchase-orders.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-purchase-order-detail',
@@ -13,7 +13,6 @@ export class PurchaseOrderDetailComponent implements OnInit{
 
   constructor(
     private purchaseOrdersService: PurchaseOrdersService,
-    private router: Router,
     private activeRoute: ActivatedRoute,
   ){}
 
@@ -26,7 +25,6 @@ export class PurchaseOrderDetailComponent implements OnInit{
         this.purchaseOrder = this.purchaseOrdersService.getPurchaseOrderByCode(parseInt(codeParam));
       }
 
-      console.log(this.purchaseOrder);
     });
   }
 

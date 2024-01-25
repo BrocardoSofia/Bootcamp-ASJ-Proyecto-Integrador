@@ -1,1 +1,68 @@
-<p>user-detail works!</p>
+<section class="bg-light ">
+    <div class="container" >
+        <div style="display: flex; align-content: center;">
+            <h1 class="pt-4 pb-2 text-center " style="margin-left: 10px;">
+              <img src="/assets/person-bounding-box.svg" alt="icono user" class="icono">
+              Detalle del usuario {{idParam}}</h1>
+          </div>
+    
+        <ul class="list-group mt-2 mb-2 ">
+            <li class="list-group-item">
+                <strong>Nombre de usuario</strong> 
+                <article>
+                    {{user.userName}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Contraseña</strong>
+                
+                <article>
+                    <button id="toggle-password" type="button" 
+                    class="btn btn-secondary  rounded-circle btn-icon btn-sm ml-2" 
+                    (click)="togglePassword()">
+                    <i *ngIf="seePassword" class="bi bi-eye-fill"></i>
+                    <i *ngIf="!seePassword" class="bi bi-eye-slash-fill"></i>
+                    </button>
+                    <span id="password"> *******</span>
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Fecha de creación</strong> 
+                <article>{{user.createdAt | date}}</article>
+            </li>
+            <li *ngIf="user.deletedAt" class="list-group-item">
+                <strong>Fecha de eliminación</strong>
+                <article>{{user.deletedAt | date}}</article>
+            </li>
+        </ul>
+    
+        <section class="mt-5">
+            <h3>Estadisticas</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-group mt-2 mb-2 ">
+                        <li class="list-group-item">
+                            <article><strong>Proveedores creados: </strong> No creo proveedores</article>
+                            <article><strong>Última fecha de creacion: </strong> No creo proveedores</article>
+                        </li>
+                        <li class="list-group-item">
+                            <article><strong>Productos creados: </strong> No creo Productos</article>
+                            <article><strong>Última fecha de creacion: </strong> No creo Productos</article>
+                        </li>
+                        <li class="list-group-item">
+                            <article><strong>Ordenes de compra creados: </strong> No creo Ordenes de compra</article>
+                            <article><strong>Última fecha de creacion: </strong> No creo Ordenes de compra</article>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6" style="height: 50vh;" >
+                    <canvas id="chart">{{ chart }}</canvas>
+                </div>
+            </div>
+                
+                
+            
+        </section>
+    
+    </div>
+</section>

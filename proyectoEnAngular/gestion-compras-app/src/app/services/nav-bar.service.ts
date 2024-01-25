@@ -11,7 +11,11 @@ export class NavBarService {
   constructor() { }
 
   public setAdmin(value: boolean): void {
+    localStorage.setItem('admin',JSON.stringify(value));
     this.adminSubject.next(value);
-    console.log("cambio");
+  }
+
+  public getAdmin(){
+    return localStorage.getItem('admin');
   }
 }

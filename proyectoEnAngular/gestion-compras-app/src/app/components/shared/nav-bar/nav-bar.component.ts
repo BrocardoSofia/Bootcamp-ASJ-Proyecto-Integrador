@@ -17,17 +17,17 @@ export class NavBarComponent implements OnInit{
 
   ngOnInit(): void {
     this.nabBarService.admin$.subscribe(admin => {
-      this.admin = admin;
+      this.admin = JSON.parse(this.nabBarService.getAdmin()||'false');
       // Do something with the updated value of admin
     });
     
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        // Actualiza el breadcrumb
-        this.updateBreadcrumb();
-        this.path = '';
-      }
-    });
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationEnd) {
+    //     // Actualiza el breadcrumb
+    //     this.updateBreadcrumb();
+    //     this.path = '';
+    //   }
+    // });
   }
 
   getPath(path: String){
@@ -52,14 +52,17 @@ export class NavBarComponent implements OnInit{
   }
 
   getName(routeName: String){
-    let name = routeName;
+    let name = routeName.split('?')[0];
 
-    switch(routeName){
+    switch(name){
       case 'suppliers': 
         name = 'Proveedores';
         break;
       case 'new': 
         name = 'Nuevo';
+        break;
+      case 'detail': 
+        name = 'Detalle';
         break;
       case 'edit': 
         name = 'Edición';
@@ -91,6 +94,7 @@ export class NavBarComponent implements OnInit{
   
   logout(){
     localStorage.removeItem("token");
+    this.nabBarService.setAdmin(false);
     this.router.navigate(['/']);
   }
 
