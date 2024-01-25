@@ -1,5 +1,6 @@
-<nav class="navbar align-items-center border-bottom">
-    <div class="container-fluid">
+<nav class="navbar align-items-center bg-light fixed-top nav-config"
+*ngIf="!selectedPath('/index')">
+    <div class="container-fluid border-bottom">
         <div class="d-flex align-items-center ">
             <a routerLink="/home" class="navbar-brand m-0 textColor fw-bold brand"
             [ngClass]="(selectedPath('/home')?'Blue':'') || (selectedPath('/admin')?'Blue':'')">
@@ -64,23 +65,27 @@
             </button>
         </div>
     </div>
+
+    <section *ngIf="breadcrumb[0] !== 'index'"
+    style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" 
+    aria-label="breadcrumb" 
+    class="container bg-light breadcrumb-section">
+        <ol class="breadcrumb ps-2 pt-1  mb-2">
+            <li *ngFor="let path of breadcrumb, index as i" class="breadcrumb-item" 
+            ngClass="(i === breadcrumb.length)? 'active':''">
+                <a routerLink={{getPath(path)}} *ngIf="i !== breadcrumb.length-1"
+                style="text-decoration: none;">{{getName(path)}}</a>
+                <span *ngIf="i === breadcrumb.length-1">{{getName(path)}}</span>
+            </li>
+        </ol>
+    </section>
 </nav>
 
-<nav class="navbar bg-dark fixed-top navbar-expand-lg bg-primary-subtle" data-bs-theme="dark" *ngIf="selectedPath('/index')">
+<nav class="navbar bg-dark bg-light fixed-top navbar-expand-lg bg-primary-subtle" 
+data-bs-theme="dark" *ngIf="selectedPath('/index')">
     <section class="ps-3 d-flex align-items-center">
         <img src="/assets/logo.png" alt="logo" style="height: 5vh;" class="me-3">
         <span class="h1" style="font-size: 4vh; color: #fff;">ASJ COMPRAS</span>
     </section>
 </nav>
 
-<section *ngIf="breadcrumb[0] !=='index'"
-style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb" class="ms-3 mt-2">
-    <ol class="breadcrumb">
-        <li *ngFor="let path of breadcrumb, index as i" class="breadcrumb-item" 
-        ngClass="(i === breadcrumb.length)? 'active':''">
-            <a href="/{{path}}" *ngIf="i !== breadcrumb.length-1"
-            style="text-decoration: none;">{{getName(path)}}</a>
-            <span *ngIf="i === breadcrumb.length-1">{{getName(path)}}</span>
-        </li>
-    </ol>
-</section>

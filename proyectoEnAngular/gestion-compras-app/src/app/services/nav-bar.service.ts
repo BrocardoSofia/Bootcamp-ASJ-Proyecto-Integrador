@@ -12,5 +12,6 @@ export class NavBarService {
 
   public setAdmin(value: boolean): void {
     this.adminSubject.next(value);
+    console.log("cambio");
   }
 }

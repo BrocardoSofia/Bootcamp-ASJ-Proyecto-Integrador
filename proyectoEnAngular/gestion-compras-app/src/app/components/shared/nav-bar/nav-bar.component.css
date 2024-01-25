@@ -2,6 +2,10 @@ nav, navbar{
     min-height: 10vh;
 }
 
+.nav-config{
+    height: 10vh;
+}
+
 .changeWidth {
     width: 2.5vw;
 }
@@ -80,4 +84,16 @@ nav, navbar{
 .extraSmallFont {
     font-size: 3vh;
     border-bottom: 2px solid transparent;
+}
+
+.breadcrumb-section{
+    display: flex;
+    width: 100vw; 
+    height: 100%;
+    /* background-color: #dddddd4f; */
+    /* border-radius: 0.8em; */
+    
+    color: #757575 ;
+    align-content: center;
+    border-bottom: #c2c2c28f solid 1px;
 }

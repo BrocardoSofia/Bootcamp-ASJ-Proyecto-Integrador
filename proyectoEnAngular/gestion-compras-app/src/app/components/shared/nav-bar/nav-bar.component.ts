@@ -10,6 +10,7 @@ import { NavBarService } from '../../../services/nav-bar.service';
 export class NavBarComponent implements OnInit{
   private admin: boolean = false;
   breadcrumb: String[] = [];
+  path!: String;
 
   constructor(private router: Router,
               private nabBarService: NavBarService ) { }
@@ -24,8 +25,21 @@ export class NavBarComponent implements OnInit{
       if (event instanceof NavigationEnd) {
         // Actualiza el breadcrumb
         this.updateBreadcrumb();
+        this.path = '';
       }
     });
+  }
+
+  getPath(path: String){
+    let currentPath:string = '';
+
+    if(this.path !== ''){
+      currentPath = '/'+this.path.valueOf();
+    }
+
+    currentPath = currentPath +'/'+path.valueOf();
+    console.log('path actual'+currentPath);
+    return currentPath;
   }
 
   updateBreadcrumb() {
