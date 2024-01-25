@@ -44,6 +44,7 @@
                 type="button"
                 class="btn btn-primary rounded-circle btn-icon me-3"
                 routerLink="./edit"
+                [queryParams]="{ editUser: user.id}"
               >
                 <i class="bi bi-pencil-fill"></i>
               </button>

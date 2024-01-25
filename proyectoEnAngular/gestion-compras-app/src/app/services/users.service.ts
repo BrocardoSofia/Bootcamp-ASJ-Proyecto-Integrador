@@ -55,5 +55,26 @@ export class UsersService {
     return of(userById);
   }
 
+  public modifyUser(user: User):Observable<boolean>{
+    const users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
+
+    //busco el proveedor y lo modifico en el arreglo
+    let modified = false;
+    let i=0;
+
+    while(modified===false && i<users.length){
+      if(users[i].id === user.id){
+        users[i] = user;
+        modified = true;
+      }
+      i++;
+    }
+
+    //guardo el arreglo en el localStorage
+    window.localStorage.setItem('users', JSON.stringify(users));
+
+    return of(modified);
+  }
+
   
 }

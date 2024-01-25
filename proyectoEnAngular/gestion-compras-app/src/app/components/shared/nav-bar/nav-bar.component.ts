@@ -21,13 +21,13 @@ export class NavBarComponent implements OnInit{
       // Do something with the updated value of admin
     });
     
-    // this.router.events.subscribe(event => {
-    //   if (event instanceof NavigationEnd) {
-    //     // Actualiza el breadcrumb
-    //     this.updateBreadcrumb();
-    //     this.path = '';
-    //   }
-    // });
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Actualiza el breadcrumb
+        this.updateBreadcrumb();
+        this.path = '';
+      }
+    });
   }
 
   getPath(path: String){
@@ -38,7 +38,7 @@ export class NavBarComponent implements OnInit{
     }
 
     currentPath = currentPath +'/'+path.valueOf();
-    console.log('path actual'+currentPath);
+    
     return currentPath;
   }
 
