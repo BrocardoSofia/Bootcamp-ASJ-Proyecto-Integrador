@@ -49,6 +49,16 @@ export class UsersService {
     return of(users);
   }
 
+  public getActiveUsers(): Observable<User[]> {
+    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
+    return of(users.filter((user)=>user.deletedAt === null));
+  }
+
+  public getDeletedUsers(): Observable<User[]> {
+    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
+    return of(users.filter((user)=>user.deletedAt !== null));
+  }
+
   public getUserById(id: number): Observable<User|undefined> {
     let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
     let userById = users.find((user)=>user.id === id);

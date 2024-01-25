@@ -6,13 +6,30 @@
     height: 5vh;
 }
 
-.btn-warning{
-    background-color: #ea8c00!important;
-    border-color: #ea8c00!important;
+.btn-outline-warning{
+    
+    border-color: #e78b00!important;
+    color: #e78b00;
+}
+
+.btn-outline-warning:hover{
+    background-color: #ca6201!important;
+    border-color: #ca6201!important;
     color: #fff;
 }
 
-.btn-warning:hover{
-    background-color: #ca6201!important;
-    border-color: #ca6201!important;
+.title{
+    align-items: center;
+}
+
+.table-header{
+    background-color: #9ab7d1;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    color: #fff;
+    align-items: center;
+}
+
+.filterItems{
+    height: 5vh;
 }

@@ -1,82 +1,135 @@
 <div class="container">
-  <div style="display: flex; align-content: center;">
-    <h1 class="pt-3 pb-2 text-center " style="margin-left: 10px;">
-      <img src="/assets/people-fill.svg" alt="icono user" class="icono">
-      Usuarios</h1>
-  </div>
 
-    <button type="button" class="btn btn-primary mt-2" routerLink="./new">
-        <i class="bi bi-person-fill-add"></i>
-        Nuevo usuario
-    </button>
-    <table class="table mt-3 mb-0 pb-4 table-radius" *ngIf="users.length !== 0">
-        <thead>
-          <tr class="table-secondary">
-            <th scope="col">Nombre de usuario</th>
-            <th scope="col">Fecha de alta</th>
-            <th scope="col">Estado</th>
-            <th scope="col" class="text-center">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{ user.userName}}</td>
-            <td>{{ user.createdAt | date}}</td>
-            <td>
-              <span
-                class="badge rounded-pill"
-                [ngClass]="(user.deletedAt !== null) ? 'bg-danger' : 'bg-success'"
-              >
-                {{getEstado(user)}}
-              </span>
-            </td>
-            <td class="text-center">
-              <button
-                type="button"
-                class="btn btn-primary rounded-circle btn-icon me-3"
-                routerLink="./detail"
-                [queryParams]="{ editUser: user.id}"
-              >
-                <i class="bi bi-search"></i>
-              </button>
-
-              <button
-                type="button"
-                class="btn btn-success rounded-circle btn-icon me-3"
-                routerLink="./edit"
-                [queryParams]="{ editUser: user.id}"
-              >
-                <i class="bi bi-pencil-fill"></i>
-              </button>
-    
-              <button
-              *ngIf="user.deletedAt === null"
-                type="button"
-                class="btn btn-danger rounded-circle btn-icon"
-                (click)="deleteUser(user)"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                <i class="bi bi-person-dash-fill"></i>
-              </button>
-
-              <button
-              *ngIf="user.deletedAt !== null"
-                type="button"
-                class="btn btn-warning rounded-circle btn-icon"
-                (click)="reInsertUser(user)"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-              >
-                <i class="bi bi-person-plus-fill"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-    </table>
-
-    <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="users.length === 0">
-        <h2 class="text-center mb-4">No hay usuarios cargados en el sistema</h2>
-        <img src="/assets/userVectorImg.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+  <section class="m-0 d-flex title">
+    <div class="col-md-10 ps-0 ">
+      <div style="display: flex; align-content: center;">
+        <h1 class="pt-4 pb-2 text-center " style="margin-left: 10px; color:#2f2f2f;">
+          <img src="/assets/people-fill.svg" alt="icono user" class="icono">
+          Usuarios</h1>
+      </div>
     </div>
+    <div class="col-md-2">
+      <div class="input-group justify-content-end input-group-append pt-2 ">
+        <button type="button" class="btn btn-outline-primary ml-auto" routerLink="./new">
+          <i class="bi bi-person-fill-add"></i>
+          Nuevo usuario
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="m-0 p-2 table-header d-flex">
+    <div class="col-md-9 ps-2">
+      <h2 class="text-left">Tabla de usuarios</h2>
+    </div>
+    <div class="col-md-3 p-2 ">
+      <div class="input-group input-group-append">
+        <input type="text" class="form-control" placeholder="Buscar usuario" aria-label="Search">
+      </div>
+    </div>
+  </section>
+  <section style="background-color: #fff; height: 6vh;" 
+  class="m-0 p-2 pb-4 container-fluid filterItems">
+    <article class="row">
+      
+  
+      <div class="col-md-4 d-flex justify-content-center filterItems">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>Ver todos</option>
+          <option value="1">Ver Activos</option>
+          <option value="2">Ver Eliminados</option>
+        </select>
+      </div>
+  
+      <nav class="col-md-3 d-flex justify-content-end filterItems" aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+  
+    </article>
+  </section>
+  
+  <table class="table mt-0 mb-0 pt-4 pb-4" *ngIf="users.length !== 0">
+      <thead>
+        <tr class="table">
+          <th scope="col">Nombre de usuario</th>
+          <th scope="col">Fecha de alta</th>
+          <th scope="col" class="text-center">Estado</th>
+          <th scope="col" class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.userName}}</td>
+          <td>{{ user.createdAt | date}}</td>
+          <td class="text-center">
+            <span
+              class="badge rounded-pill"
+              [ngClass]="(user.deletedAt !== null) ? 'bg-danger' : 'bg-success'"
+            >
+              {{getEstado(user)}}
+            </span>
+          </td>
+          <td class="text-center">
+            <button
+              type="button"
+              class="btn btn-outline-primary rounded-circle btn-icon me-3"
+              routerLink="./detail"
+              [queryParams]="{ editUser: user.id}"
+            >
+              <i class="bi bi-search"></i>
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-outline-success rounded-circle btn-icon me-3"
+              routerLink="./edit"
+              [queryParams]="{ editUser: user.id}"
+            >
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+  
+            <button
+            *ngIf="user.deletedAt === null"
+              type="button"
+              class="btn btn-outline-danger rounded-circle btn-icon"
+              (click)="deleteUser(user)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <i class="bi bi-person-dash-fill"></i>
+            </button>
+
+            <button
+            *ngIf="user.deletedAt !== null"
+              type="button"
+              class="btn btn-outline-warning rounded-circle btn-icon"
+              (click)="reInsertUser(user)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <i class="bi bi-person-plus-fill"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+
+  <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="users.length === 0">
+      <h2 class="text-center mb-4">No hay usuarios cargados en el sistema</h2>
+      <img src="/assets/userVectorImg.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+  </div>
 </div>
