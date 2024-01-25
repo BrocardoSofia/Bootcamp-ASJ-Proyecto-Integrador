@@ -27,8 +27,10 @@
         <input type="text" class="form-control" placeholder="Buscar usuario" aria-label="Search">
       </div> -->
       <div class="input-group input-group-append">
-        <input type="text" class="form-control" placeholder="Buscar usuario">
-        <button class="btn btn-search btn-icon" type="button" id="button-addon2">
+        <input type="text" class="form-control" placeholder="Buscar usuario" 
+        name="userName" [(ngModel)]="searchUserName">
+        <button class="btn btn-search btn-icon" type="button" id="button-addon2"
+        (click)="searchByUserName()">
           <i class="bi bi-search"></i>
         </button>
       </div>

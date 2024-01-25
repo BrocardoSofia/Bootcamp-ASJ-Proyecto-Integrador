@@ -16,6 +16,8 @@ export class UsersListComponent implements OnInit{
   maxPages: number = 5;
   nextFive: boolean = false;
   previous: boolean = false;
+  searchUserName: string = '';
+  searchOn:boolean = false;
   
   constructor(private userService: UsersService){}
 
@@ -113,5 +115,17 @@ export class UsersListComponent implements OnInit{
   prevPage(){
     this.currentPage--;
     this.selectPage(this.currentPage);
+  }
+
+  searchByUserName(){
+    this.searchOn = true;
+
+    if(this.searchUserName !== ''){
+      this.userService.getUsersByUserName(this.searchUserName).subscribe((data)=>{
+        this.users = data;
+        this.searchUserName = '';
+        
+      })
+    }
   }
 }

@@ -146,5 +146,16 @@ export class UsersService {
     return of(users);
   }
 
+  getUsersByUserName(userName: string):Observable<User[]>{
+    const users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
+    return of(users.filter((user)=>user.userName.match(userName)));
+  }
+
+  getAmountPagesByUserName(userName: string):Observable<number>{
+    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
+    const usersFilter = users.filter((user)=>user.userName.match(userName));
+
+    return of(Math.ceil((usersFilter.length/this.usersPerPage)));
+  }
   
 }
