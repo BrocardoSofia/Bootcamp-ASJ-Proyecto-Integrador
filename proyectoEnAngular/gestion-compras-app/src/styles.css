@@ -1,2 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
 @import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* Glosario de clases */
+.bg-blue-1{
+    background-color: #d2e0eb;
+}
+
+.bg-blue-2{
+    background-color: #85aece;
+}
+
+.bg-blue-3{
+    background-color: #4a7eab;
+}
+
+.bg-blue-4{
+    background-color: #34597a;
+}
+
+.text-blue-1{
+    color: #d2e0eb;
+}
+
+.text-blue-2{
+    color: #85aece;
+}
+
+.text-blue-3{
+    color: #4a7eab;
+}
+
+.text-blue-4{
+    color: #34597a;
+}

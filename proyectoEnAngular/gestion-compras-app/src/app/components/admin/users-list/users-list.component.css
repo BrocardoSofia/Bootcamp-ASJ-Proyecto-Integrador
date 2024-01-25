@@ -30,6 +30,15 @@
     align-items: center;
 }
 
+.btn-search{
+    background-color: #4a7eab;
+    color: #fff;
+}
+
+.btn-search:hover{
+    background-color: #346894;
+}
+
 .filterItems{
     height: 5vh;
 }

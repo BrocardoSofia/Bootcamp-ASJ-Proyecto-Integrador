@@ -1,7 +1,7 @@
 <nav class="navbar align-items-center bg-light fixed-top nav-config"
 *ngIf="!selectedPath('/index')">
-    <div class="container-fluid border-bottom" style="background-color: #d2e0eb;">
-        <div class="d-flex align-items-center ">
+    <div class="container-fluid border-bottom bg-blue-1" >
+        <div class="d-flex align-items-center">
             <a routerLink="/home" class="navbar-brand m-0 textColor fw-bold brand logo-title"
             [ngClass]="(selectedPath('/home')?'Blue':'') || (selectedPath('/admin')?'Blue':'')">
                 <img *ngIf="selectedPath('/home')" 
