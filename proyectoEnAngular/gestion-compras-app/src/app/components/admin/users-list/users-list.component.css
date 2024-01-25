@@ -33,3 +33,7 @@
 .filterItems{
     height: 5vh;
 }
+
+.select-filter{
+    width: 50%;
+}

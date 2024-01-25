@@ -2,11 +2,18 @@
 *ngIf="!selectedPath('/index')">
     <div class="container-fluid border-bottom" style="background-color: #d2e0eb;">
         <div class="d-flex align-items-center ">
-            <a routerLink="/home" class="navbar-brand m-0 textColor fw-bold brand"
+            <a routerLink="/home" class="navbar-brand m-0 textColor fw-bold brand logo-title"
             [ngClass]="(selectedPath('/home')?'Blue':'') || (selectedPath('/admin')?'Blue':'')">
-            <img *ngIf="selectedPath('/home')" src="/assets/logo.png" alt="logo" style="height: 4vh;" class="me-2 imgLogo">
-            <img *ngIf="!selectedPath('/home')" src="/assets/logo-dark.png" alt="logo" style="height: 4vh;" class="me-2 imgLogo">
-            ASJ COMPRAS</a>
+                <img *ngIf="selectedPath('/home')" 
+                    src="/assets/logo.png" alt="logo" 
+                    style="height: 4vh;" class="me-2 imgLogo iconHeight mx-2"
+                >
+                <img *ngIf="!selectedPath('/home')" 
+                    src="/assets/logo-dark.png" alt="logo" 
+                    style="height: 4vh;" class="me-2 imgLogo iconHeight mx-2"
+                >
+                ASJ COMPRAS
+            </a>
         </div>
         <div class="d-flex align-items-center">
             <div class="d-none d-lg-block">

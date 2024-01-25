@@ -1,4 +1,4 @@
-nav, navbar{
+nav, .navbar{
     min-height: 10vh;
 }
 
@@ -96,4 +96,12 @@ nav, navbar{
     color: #757575 ;
     align-content: center;
     border-bottom: #c2c2c28f solid 1px;
+}
+
+.logo-title{
+    color: #353738;
+}
+
+.logo-title:hover{
+    color: #0471a8;
 }

@@ -28,20 +28,20 @@
       </div>
     </div>
   </section>
-  <section style="background-color: #fff; height: 6vh;" 
-  class="m-0 p-2 pb-4 container-fluid filterItems">
+
+  <section style="background-color: #fff; height: 9vh;" 
+  class="m-0 p-2 container-fluid filterItems border-bottom">
     <article class="row">
-      
-  
-      <div class="col-md-4 d-flex justify-content-center filterItems">
-        <select class="form-select" aria-label="Default select example">
-          <option selected>Ver todos</option>
-          <option value="1">Ver Activos</option>
-          <option value="2">Ver Eliminados</option>
+      <div class="col-md-9 d-flex justify-content-start filterItems">
+        <select class="form-select select-filter" aria-label="Default select example">
+          <option selected>Todos</option>
+          <option value="1">Activos</option>
+          <option value="2">Eliminados</option>
         </select>
       </div>
   
-      <nav class="col-md-3 d-flex justify-content-end filterItems" aria-label="Page navigation example">
+      <nav class="col-md-3 d-flex justify-content-end filterItems pe-3" 
+      aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item">
             <a class="page-link" href="#" aria-label="Previous">
@@ -62,7 +62,7 @@
     </article>
   </section>
   
-  <table class="table mt-0 mb-0 pt-4 pb-4" *ngIf="users.length !== 0">
+  <table class="table m-0 p-4" *ngIf="users.length !== 0">
       <thead>
         <tr class="table">
           <th scope="col">Nombre de usuario</th>
