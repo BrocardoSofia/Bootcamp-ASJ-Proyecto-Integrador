@@ -15,6 +15,7 @@ export class UsersService {
       userName: '',
       password: '',
       createdAt: new Date,
+      updatedAt: null,
       deletedAt: null
     }
 
@@ -65,6 +66,7 @@ export class UsersService {
     while(modified===false && i<users.length){
       if(users[i].id === user.id){
         users[i] = user;
+        users[i].updatedAt = new Date();
         modified = true;
       }
       i++;
@@ -74,6 +76,50 @@ export class UsersService {
     window.localStorage.setItem('users', JSON.stringify(users));
 
     return of(modified);
+  }
+
+  public deleteUser(user: User):Observable<User[]>{
+    const users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
+
+    //busco el proveedor y lo modifico en el arreglo
+    let deleted = false;
+    let i=0;
+
+    while(deleted===false && i<users.length){
+      if(users[i].id === user.id){
+        users[i].deletedAt = new Date();
+        users[i].updatedAt = new Date();
+        deleted = true;
+      }
+      i++;
+    }
+
+    //guardo el arreglo en el localStorage
+    window.localStorage.setItem('users', JSON.stringify(users));
+
+    return of(users);
+  }
+
+  public reInsertUser(user: User):Observable<User[]>{
+    const users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
+
+    //busco el proveedor y lo modifico en el arreglo
+    let deleted = false;
+    let i=0;
+
+    while(deleted===false && i<users.length){
+      if(users[i].id === user.id){
+        users[i].deletedAt = null;
+        users[i].updatedAt = new Date();
+        deleted = true;
+      }
+      i++;
+    }
+
+    //guardo el arreglo en el localStorage
+    window.localStorage.setItem('users', JSON.stringify(users));
+
+    return of(users);
   }
 
   

@@ -33,7 +33,7 @@
             <td class="text-center">
               <button
                 type="button"
-                class="btn btn-success rounded-circle btn-icon me-3"
+                class="btn btn-primary rounded-circle btn-icon me-3"
                 routerLink="./detail"
                 [queryParams]="{ editUser: user.id}"
               >
@@ -42,7 +42,7 @@
 
               <button
                 type="button"
-                class="btn btn-primary rounded-circle btn-icon me-3"
+                class="btn btn-success rounded-circle btn-icon me-3"
                 routerLink="./edit"
                 [queryParams]="{ editUser: user.id}"
               >
@@ -50,13 +50,25 @@
               </button>
     
               <button
+              *ngIf="user.deletedAt === null"
                 type="button"
                 class="btn btn-danger rounded-circle btn-icon"
-                
+                (click)="deleteUser(user)"
                 data-bs-toggle="modal"
                 data-bs-target="#exampleModal"
               >
-                <i class="bi bi-trash3-fill"></i>
+                <i class="bi bi-person-dash-fill"></i>
+              </button>
+
+              <button
+              *ngIf="user.deletedAt !== null"
+                type="button"
+                class="btn btn-warning rounded-circle btn-icon"
+                (click)="reInsertUser(user)"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <i class="bi bi-person-plus-fill"></i>
               </button>
             </td>
           </tr>

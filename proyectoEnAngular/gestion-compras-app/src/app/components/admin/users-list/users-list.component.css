@@ -5,3 +5,14 @@
 .icono{
     height: 5vh;
 }
+
+.btn-warning{
+    background-color: #ea8c00!important;
+    border-color: #ea8c00!important;
+    color: #fff;
+}
+
+.btn-warning:hover{
+    background-color: #ca6201!important;
+    border-color: #ca6201!important;
+}
