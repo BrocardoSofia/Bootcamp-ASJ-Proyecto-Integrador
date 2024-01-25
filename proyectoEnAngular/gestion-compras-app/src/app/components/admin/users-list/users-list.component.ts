@@ -11,12 +11,24 @@ import Swal from 'sweetalert2';
 export class UsersListComponent implements OnInit{
 
   users:User[] = [];
+  currentPage: number = 1;
+  pages:number = 1;
+  maxPages: number = 5;
+  nextFive: boolean = false;
+  previous: boolean = false;
   
   constructor(private userService: UsersService){}
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe(users => {
+    this.userService.getFirstUsers().subscribe(users => {
       this.users = users;
+
+      this.userService.getAmountPages().subscribe((data)=>{
+        this.pages = data;
+        if(this.pages > 5){
+          this.nextFive = true;
+        }
+      })
     });
   }
 
@@ -68,5 +80,22 @@ export class UsersListComponent implements OnInit{
         })  
       }
     });
+  }
+
+  getPages(): number[] {
+    let startPage = Math.max(1, this.currentPage - Math.floor(this.maxPages / 2));
+    let endPage = Math.min(this.pages, startPage + this.maxPages - 1);
+  
+    let pages = Array.from(Array(endPage - startPage + 1), (_, i) => startPage + i);
+  
+    return pages;
+  }
+
+  selectPage(page: number){
+    this.userService.getPageUsers(page).subscribe((data)=>{
+      this.users = data;
+    })
+    this.currentPage = page;
+    
   }
 }
