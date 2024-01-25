@@ -7,6 +7,7 @@ import { Observable , Observer, of } from 'rxjs';
 })
 export class UsersService {
   private pages: number = 0;
+  private usersPerPage: number = 5;
   constructor() { }
 
   public inicUser(){
@@ -46,21 +47,20 @@ export class UsersService {
 
   public getAmountPages(): Observable<number>{
     let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    return of(Math.ceil((users.length/10)));
+    return of(Math.ceil((users.length/this.usersPerPage)));
   }
 
   public getFirstUsers(): Observable<User[]> {
     let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    this.pages = Math.ceil((users.length/10));
-    //validar el tope
-    return of(users.slice(0, 10));
+  
+    return of(users.slice(0, this.usersPerPage));
   }
 
   public getPageUsers(page: number): Observable<User[]> {
     let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    let searchPage = (page-1) * 10;
+    let searchPage = (page-1) * this.usersPerPage;
     
-    return of(users.slice(searchPage, searchPage+10));
+    return of(users.slice(searchPage, searchPage+this.usersPerPage));
   }
 
   public getActiveUsers(): Observable<User[]> {

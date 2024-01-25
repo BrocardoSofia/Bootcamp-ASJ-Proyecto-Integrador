@@ -83,12 +83,18 @@ export class UsersListComponent implements OnInit{
   }
 
   getPages(): number[] {
+    this.pages;
     let startPage = Math.max(1, this.currentPage - Math.floor(this.maxPages / 2));
     let endPage = Math.min(this.pages, startPage + this.maxPages - 1);
   
-    let pages = Array.from(Array(endPage - startPage + 1), (_, i) => startPage + i);
+    if(this.pages > 5){
+      if(endPage-startPage != 4){
+        startPage = endPage-4;
+      }
+    }
+    let returnPages = Array.from(Array(Math.min(5, endPage - startPage + 1)), (_, i) => startPage + i);
   
-    return pages;
+    return returnPages;
   }
 
   selectPage(page: number){

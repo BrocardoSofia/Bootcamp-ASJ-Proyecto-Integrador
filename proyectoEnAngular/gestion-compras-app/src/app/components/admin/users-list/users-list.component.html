@@ -42,7 +42,7 @@
   
       <nav class="col-md-3 d-flex justify-content-end filterItems pe-3" aria-label="Page navigation example">
         <ul class="pagination">
-          <li class="page-item" *ngIf="nextFive">
+          <li class="page-item" *ngIf="previous">
             <a class="page-link" 
                 aria-label="Previous" 
                 style="cursor: pointer;"
@@ -57,7 +57,7 @@
                 (click)="selectPage(page)">{{page}}
           </a>
           </li>
-          <li class="page-item" *ngIf="previous">
+          <li class="page-item" *ngIf="(pages !== 1) && (currentPage !== pages)">
             <a class="page-link" 
               aria-label="Next"
               style="cursor: pointer;">
