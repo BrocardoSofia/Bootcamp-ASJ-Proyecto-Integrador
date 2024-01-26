@@ -32,15 +32,25 @@ public class UserService {
   	//obtener usuarios activos
   	public Page<UserModel> getActiveUsers(Pageable pageable, String userAlias){
   		Page<UserModel> page;
-  		
-  		return userRepository.findAll(pageable);
+  		if(userAlias == "") {
+  			//no envio userAlias
+  			page = userRepository.findAllByDeletedAtIsNull(pageable);
+  		}else {
+  			page = userRepository.findAllByDeletedAtIsNullAndUserAliasContainingIgnoreCase(userAlias, pageable);	
+  		}
+  		return page;
   	}
   	
-  	//obtener usuarios activos
+  	//obtener usuarios eliminados
   	public Page<UserModel> getDeletedUsers(Pageable pageable, String userAlias){
   		Page<UserModel> page;
-  		
-  		return userRepository.findAll(pageable);
+  		if(userAlias == "") {
+  			//no envio userAlias
+  			page = userRepository.findAllByDeletedAtIsNotNull(pageable);
+  		}else {
+  			page = userRepository.findAllByDeletedAtIsNotNullAndUserAliasContainingIgnoreCase(userAlias, pageable);	
+  		}
+  		return page;
   	}
 
     //obtener un usuario segun su id

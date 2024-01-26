@@ -9,7 +9,9 @@ import com.bootcamp.integrador.models.UserModel;
 public interface UserRepositoriy extends JpaRepository<UserModel, Integer>
 {
 	Page<UserModel> findAll(Pageable pageable);
+	Page<UserModel> findAllByDeletedAtIsNull(Pageable pageable);
 	Page<UserModel> findAllByDeletedAtIsNullAndUserAliasContainingIgnoreCase(String userAlias, Pageable pageable);
+	Page<UserModel> findAllByDeletedAtIsNotNull(Pageable pageable);
     Page<UserModel> findAllByDeletedAtIsNotNullAndUserAliasContainingIgnoreCase(String userAlias, Pageable pageable);
     Page<UserModel> findAllByUserAliasContainingIgnoreCase(String userAlias, Pageable pageable);
 }
