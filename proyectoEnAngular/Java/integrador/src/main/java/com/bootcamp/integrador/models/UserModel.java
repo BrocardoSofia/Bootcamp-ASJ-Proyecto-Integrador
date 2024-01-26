@@ -24,7 +24,7 @@ public class UserModel {
     @NotNull(message = "user name cannot be null")
     @NotBlank(message = "user name cannot be empty")
     @Size(min = 5, max = 50, message = "user name must be between 1 and 50 characters")
-    private String user_name;
+    private String userAlias;
 
     @NotNull(message = "password cannot be null")
     @NotBlank(message = "password cannot be empty")
@@ -33,34 +33,34 @@ public class UserModel {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private LocalDateTime created_at = LocalDateTime.now();
+    private LocalDateTime createdAt = LocalDateTime.now();
     
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime updated_at;
+    private LocalDateTime updatedAt;
     
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime deleted_at;
+    private LocalDateTime deletedAt;
 
     public UserModel() {
 
     }
 
-    public UserModel(int id, String user_name, String password) {
+    public UserModel(int id, String userAlias, String password) {
         super();
         this.id = id;
-        this.user_name = user_name;
+        this.userAlias = userAlias;
         this.password = password;
-        this.created_at = LocalDateTime.now();
-        this.updated_at = null;
-        this.deleted_at = null;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = null;
+        this.deletedAt = null;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getUserAlias() {
+        return userAlias;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUserAlias(String user_name) {
+        this.userAlias = user_name;
     }
 
     public String getPassword() {
@@ -71,27 +71,27 @@ public class UserModel {
         this.password = password;
     }
 
-    public LocalDateTime getUpdated_at() {
-        return updated_at;
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setUpdated_at(LocalDateTime updated_at) {
-        this.updated_at = updated_at;
+    public void setUpdatedAt(LocalDateTime updated_at) {
+        this.updatedAt = updated_at;
     }
 
-    public LocalDateTime getDeleted_at() {
-        return deleted_at;
+    public LocalDateTime getDeletedAt() {
+        return deletedAt;
     }
 
-    public void setDeleted_at(LocalDateTime deleted_at) {
-        this.deleted_at = deleted_at;
+    public void setDeletedAt(LocalDateTime deleted_at) {
+        this.deletedAt = deleted_at;
     }
 
     public int getId() {
         return id;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 }

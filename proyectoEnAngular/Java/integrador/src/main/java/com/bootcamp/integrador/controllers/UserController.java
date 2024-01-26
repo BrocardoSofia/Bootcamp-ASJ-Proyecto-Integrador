@@ -4,7 +4,6 @@ package com.bootcamp.integrador.controllers;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
-import org.apache.el.stream.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,18 +27,27 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    //obtener todos los usuarios
     @GetMapping()
 	public Page<UserModel> getUsers(Pageable pageable) {
 		
 		return userService.getUsers(pageable);
 	}
+    
+    //obtener usuario por estado: eliminado, no eliminado
+    
+    //obtener usuario por userAlias que coincidan con el parametro
+    
+    //obtener usuario por userAlias que coincidan con el parametro y por estado: eliminado, no eliminado
 
+    //cargar nuevo usuario
     @PostMapping()
     public ResponseEntity<UserModel> addUser(@RequestBody UserModel user) {
         UserModel userAdded = userService.addUser(user);
         return new ResponseEntity<>(userAdded, HttpStatus.CREATED);
     }
 
+    //eliminar usuario
     @DeleteMapping("/{id}")
     public ResponseEntity<UserModel> deleteUser(@PathVariable int id) {
         UserModel deletedUsers = userService.deleteUser(id);
@@ -47,16 +55,7 @@ public class UserController {
         return new ResponseEntity<>(deletedUsers, HttpStatus.OK);
     }
 
-//    @GetMapping("/name/{name}")
-//    public ResponseEntity<List<UserModel>> findUsesByName(@PathVariable String name, @RequestParam(defaultValue = "0") int initPage) {
-//        List<UserModel> users = userService.findUsesByName(name, initPage);
-//        if (users.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        } else {
-//            return new ResponseEntity<>(users, HttpStatus.OK);
-//        }
-//    }
-
+    //modificar usuario
     @PutMapping
     public ResponseEntity<UserModel> updateUser(@RequestBody UserModel user) {
         UserModel updatedUser = userService.updateUser(user);

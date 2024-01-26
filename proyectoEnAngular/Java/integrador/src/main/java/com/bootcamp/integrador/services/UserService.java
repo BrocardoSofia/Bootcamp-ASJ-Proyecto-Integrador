@@ -37,7 +37,7 @@ public class UserService {
     public UserModel deleteUser(int id) {
         UserModel user = userRepository.findById(id).get();
         if(user != null) {
-            user.setDeleted_at(LocalDateTime.now());
+            user.setDeletedAt(LocalDateTime.now());
             userRepository.save(user);
         }
         return user;
@@ -47,9 +47,9 @@ public class UserService {
     public UserModel updateUser(UserModel user) {
         UserModel existingUser = userRepository.findById(user.getId()).orElse(null);
         if(existingUser != null) {
-            existingUser.setUser_name(user.getUser_name());
+            existingUser.setUserAlias(user.getUserAlias());
             existingUser.setPassword(user.getPassword());
-            existingUser.setUpdated_at(LocalDateTime.now());
+            existingUser.setUpdatedAt(LocalDateTime.now());
             userRepository.save(existingUser);
         }
         return existingUser;
