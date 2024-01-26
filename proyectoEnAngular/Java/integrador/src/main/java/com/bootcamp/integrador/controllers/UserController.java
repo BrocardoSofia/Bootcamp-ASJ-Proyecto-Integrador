@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcamp.integrador.models.UserModel;
@@ -29,16 +30,28 @@ public class UserController {
 
     //obtener todos los usuarios
     @GetMapping()
-	public Page<UserModel> getUsers(Pageable pageable) {
+	public Page<UserModel> getUsers(Pageable pageable, 
+									@RequestParam(required = false, defaultValue = "") String userAlias) {		
 		
-		return userService.getUsers(pageable);
+		return userService.getUsers(pageable, userAlias);
 	}
     
-    //obtener usuario por estado: eliminado, no eliminado
+    //obtener usuarios eliminados
+    @GetMapping("/active")
+	public Page<UserModel> getActiveUsers(Pageable pageable, 
+											@RequestParam(required = false, defaultValue = "") String userAlias) {		
+		
+		return userService.getActiveUsers(pageable, userAlias);
+	}
     
-    //obtener usuario por userAlias que coincidan con el parametro
+    //obtener usuario activos
+    @GetMapping("/deleted")
+	public Page<UserModel> getDeletedUsers(Pageable pageable, 
+											@RequestParam(required = false, defaultValue = "") String userAlias) {		
+		
+		return userService.getDeletedUsers(pageable, userAlias);
+	}
     
-    //obtener usuario por userAlias que coincidan con el parametro y por estado: eliminado, no eliminado
 
     //cargar nuevo usuario
     @PostMapping()

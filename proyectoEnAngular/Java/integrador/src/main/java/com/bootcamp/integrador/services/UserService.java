@@ -18,7 +18,28 @@ public class UserService {
     
     
     //obtener usuarios
-  	public Page<UserModel> getUsers(Pageable pageable){
+  	public Page<UserModel> getUsers(Pageable pageable, String userAlias){
+  		Page<UserModel> page;
+  		if(userAlias == "") {
+  			//no envio userAlias
+  			page = userRepository.findAll(pageable);
+  		}else {
+  			page = userRepository.findAllByUserAliasContainingIgnoreCase(userAlias, pageable);	
+  		}
+  		return page;
+  	}
+  	
+  	//obtener usuarios activos
+  	public Page<UserModel> getActiveUsers(Pageable pageable, String userAlias){
+  		Page<UserModel> page;
+  		
+  		return userRepository.findAll(pageable);
+  	}
+  	
+  	//obtener usuarios activos
+  	public Page<UserModel> getDeletedUsers(Pageable pageable, String userAlias){
+  		Page<UserModel> page;
+  		
   		return userRepository.findAll(pageable);
   	}
 
