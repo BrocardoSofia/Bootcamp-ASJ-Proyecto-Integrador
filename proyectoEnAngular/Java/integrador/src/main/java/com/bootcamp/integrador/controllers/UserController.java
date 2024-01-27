@@ -4,6 +4,8 @@ package com.bootcamp.integrador.controllers;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,6 +54,17 @@ public class UserController {
 		return userService.getDeletedUsers(pageable, userAlias);
 	}
     
+    //get por Id
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<UserModel>> getUserById(@PathVariable int id){
+    	Optional<UserModel> foundUser = userService.getUserById(id);
+    	
+    	if(foundUser.isEmpty()) {
+    		return new ResponseEntity<>(foundUser, HttpStatus.NOT_FOUND);
+    	}else {
+    		return new ResponseEntity<>(foundUser, HttpStatus.FOUND);
+    	}    	
+    }
 
     //cargar nuevo usuario
     @PostMapping()
@@ -69,7 +82,7 @@ public class UserController {
     }
 
     //modificar usuario
-    @PutMapping
+    @PutMapping()
     public ResponseEntity<UserModel> updateUser(@RequestBody UserModel user) {
         UserModel updatedUser = userService.updateUser(user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);

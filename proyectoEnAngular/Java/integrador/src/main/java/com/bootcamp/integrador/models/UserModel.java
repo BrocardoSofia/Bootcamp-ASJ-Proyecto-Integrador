@@ -21,9 +21,9 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull(message = "user name cannot be null")
-    @NotBlank(message = "user name cannot be empty")
-    @Size(min = 5, max = 50, message = "user name must be between 1 and 50 characters")
+    @NotNull(message = "user alias cannot be null")
+    @NotBlank(message = "user alias cannot be empty")
+    @Size(min = 5, max = 50, message = "user alias must be between 1 and 50 characters")
     private String userAlias;
 
     @NotNull(message = "password cannot be null")
