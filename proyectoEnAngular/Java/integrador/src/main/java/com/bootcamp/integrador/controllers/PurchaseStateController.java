@@ -18,7 +18,7 @@ import com.bootcamp.integrador.models.PurchaseStateModel;
 import com.bootcamp.integrador.services.PurchaseStateService;
 
 @RestController
-@RequestMapping("/purchase-state") //localhost:8080/purchase-state
+@RequestMapping("/purchase-states") //localhost:8080/purchase-state
 @CrossOrigin(origins = "http://localhost:4200")
 public class PurchaseStateController {
 	@Autowired
