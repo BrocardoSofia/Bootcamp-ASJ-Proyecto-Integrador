@@ -1,5 +1,6 @@
 package com.bootcamp.integrador.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +23,7 @@ public class ProvinceModel {
     @NotNull(message = "province cannot be null")
     @NotBlank(message = "province cannot be empty")
     @Size(min = 2, max = 50, message = "province must be between 2 and 50 characters")
+    @Column(unique = true)
     private String province;
 
     @ManyToOne(fetch = FetchType.LAZY)

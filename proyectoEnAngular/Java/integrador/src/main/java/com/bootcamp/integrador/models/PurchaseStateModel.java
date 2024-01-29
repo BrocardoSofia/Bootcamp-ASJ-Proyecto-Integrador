@@ -1,5 +1,6 @@
 package com.bootcamp.integrador.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,7 @@ public class PurchaseStateModel {
     @NotNull(message = "purchase state cannot be null")
     @NotBlank(message = "purchase state cannot be empty")
     @Size(min = 2, max = 50, message = "purchase state must be between 2 and 50 characters")
+    @Column(unique = true)
     private String purchaseState;
 
     public PurchaseStateModel(int id, String purchaseState) {

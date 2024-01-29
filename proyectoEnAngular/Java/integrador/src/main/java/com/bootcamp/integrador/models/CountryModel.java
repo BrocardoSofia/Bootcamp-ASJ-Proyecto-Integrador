@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class CountryModel {
     @NotNull(message = "country cannot be null")
     @NotBlank(message = "country cannot be empty")
     @Size(min = 2, max = 50, message = "country must be between 2 and 50 characters")
+    @Column(unique = true)
     private String country;
 
     @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
