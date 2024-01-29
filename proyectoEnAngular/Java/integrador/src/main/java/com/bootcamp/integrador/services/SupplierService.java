@@ -1,5 +1,6 @@
 package com.bootcamp.integrador.services;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,19 +69,30 @@ public class SupplierService {
 	}
 	
 	//eliminar proveedor
+	public SupplierModel deleteSupplier(int id) {
+		SupplierModel supplier = supplierRepository.findById(id).get();
+		if(supplier != null) {
+			supplier.setDeletedAt(LocalDateTime.now());
+			supplierRepository.save(supplier);
+		}
+		return supplier;
+	}
+	
+	//reingresar proveedor
+	public SupplierModel reInsertSupplier(int id) {
+		SupplierModel supplier = supplierRepository.findById(id).get();
+		if(supplier != null) {
+			supplier.setDeletedAt(null);
+			supplierRepository.save(supplier);
+		}
+		return supplier;
+	}
+	
+	//modificar proveedor
+	
 	
 	/*
 	 *   	
-    //eliminar usuario
-    public UserModel deleteUser(int id) {
-        UserModel user = userRepository.findById(id).get();
-        if(user != null) {
-            user.setDeletedAt(LocalDateTime.now());
-            userRepository.save(user);
-        }
-        return user;
-    }
-
     //modificar usuario
     public UserModel updateUser(UserModel user) {
         UserModel existingUser = userRepository.findById(user.getId()).orElse(null);

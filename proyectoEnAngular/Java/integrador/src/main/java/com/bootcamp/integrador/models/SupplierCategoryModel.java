@@ -1,5 +1,6 @@
 package com.bootcamp.integrador.models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -33,13 +36,14 @@ public class SupplierCategoryModel {
     @Column(unique = true)
     private String category;
 
-    @CreationTimestamp
-    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    private Date updatedAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime updatedAt;
 
-    private Date deletedAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime deletedAt;
 
     @OneToMany(mappedBy = "supplierCategory", fetch = FetchType.LAZY)
     private List<ProductCategoryModel> productCategories = new ArrayList<>();
@@ -48,6 +52,7 @@ public class SupplierCategoryModel {
     private List<SupplierModel> suppliers;
 
     public SupplierCategoryModel(int id, String category) {
+    	this.createdAt = LocalDateTime.now();
         this.id = id;
         this.category = category;
     }
@@ -67,27 +72,27 @@ public class SupplierCategoryModel {
         return id;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public Date getDeletedAt() {
+    public LocalDateTime getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Date deletedAt) {
+    public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
     }
 

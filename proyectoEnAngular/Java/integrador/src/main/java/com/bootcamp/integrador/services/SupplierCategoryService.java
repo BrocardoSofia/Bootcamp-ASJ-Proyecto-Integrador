@@ -1,5 +1,6 @@
 package com.bootcamp.integrador.services;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -42,7 +43,7 @@ public class SupplierCategoryService {
         if (foundSupplierCategory.isPresent()) {
             SupplierCategoryModel updatedSupplierCategory = foundSupplierCategory.get();
             updatedSupplierCategory.setCategory(supplierCategory.getCategory());
-            updatedSupplierCategory.setUpdatedAt(new Date());
+            updatedSupplierCategory.setUpdatedAt(LocalDateTime.now());
             return supplierCategoryRepository.save(updatedSupplierCategory);
         } else {
             return null;
@@ -54,7 +55,7 @@ public class SupplierCategoryService {
 
         if (foundSupplierCategory.isPresent()) {
             SupplierCategoryModel deletedSupplierCategory = foundSupplierCategory.get();
-            deletedSupplierCategory.setDeletedAt(new Date());
+            deletedSupplierCategory.setDeletedAt(LocalDateTime.now());
             supplierCategoryRepository.save(deletedSupplierCategory);
             return true;
         } else {

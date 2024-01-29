@@ -1,5 +1,6 @@
 package com.bootcamp.integrador.models;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +15,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -97,19 +100,22 @@ public class SupplierModel {
     @Size(min = 2, max = 50, message = "cuit must be between 2 and 50 characters")
     private String cuit;
 
-    @CreationTimestamp
-    private Date createdAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime createdAt;
 
-    @UpdateTimestamp
-    private Date updatedAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime updatedAt;
 
-    private Date deletedAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDateTime deletedAt;
 
     public SupplierModel(int id, SupplierCategoryModel supplierCategory, 
     					UserModel createdBy, UserModel updatedBy, ProvinceModel province, 
     					IvaConditionModel ivaCondition, String supplierCode, String businessName, 
     					String imageUrl, String buisnessWebpage, String buisnessEmail, String buisnessPhone, 
-    					String streetName, int streetNumber, String city, String cp, String cuit) {
+    					String streetName, int streetNumber, String city, String cp, String cuit) 
+    {
+    	this.createdAt = LocalDateTime.now();
         this.id = id;
         this.supplierCategory = supplierCategory;
         this.createdBy = createdBy;
@@ -245,19 +251,19 @@ public class SupplierModel {
 		this.cuit = cuit;
 	}
 
-	public Date getUpdatedAt() {
+	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(LocalDateTime updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
-	public Date getDeletedAt() {
+	public LocalDateTime getDeletedAt() {
 		return deletedAt;
 	}
 
-	public void setDeletedAt(Date deletedAt) {
+	public void setDeletedAt(LocalDateTime deletedAt) {
 		this.deletedAt = deletedAt;
 	}
 
@@ -273,7 +279,7 @@ public class SupplierModel {
 		return supplierCode;
 	}
 
-	public Date getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
     

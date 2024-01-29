@@ -81,6 +81,16 @@ public class UserService {
         }
         return user;
     }
+    
+    //reinsertar usuario
+    public UserModel reInserUser(int id) {
+        UserModel user = userRepository.findById(id).get();
+        if(user != null) {
+            user.setDeletedAt(null);
+            userRepository.save(user);
+        }
+        return user;
+    }
 
     //modificar usuario
     public UserModel updateUser(UserModel user) {
