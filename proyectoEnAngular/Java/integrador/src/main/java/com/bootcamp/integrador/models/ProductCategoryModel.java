@@ -1,27 +1,26 @@
 package com.bootcamp.integrador.models;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "supplier_categories")
-public class SupplierCategoryModel {
+@Table(name = "product_categories")
+public class ProductCategoryModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -40,15 +39,17 @@ public class SupplierCategoryModel {
 
     private Date deletedAt;
 
-    @OneToMany(mappedBy = "supplierCategory", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductCategoryModel> productCategories = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supplier_category_id", nullable = false)
+    private SupplierCategoryModel supplierCategory;
 
-    public SupplierCategoryModel(int id, String category) {
+    public ProductCategoryModel(int id, String category, SupplierCategoryModel supplierCategory) {
         this.id = id;
         this.category = category;
+        this.supplierCategory = supplierCategory;
     }
 
-    public SupplierCategoryModel() {
+    public ProductCategoryModel() {
     }
 
     public String getCategory() {
@@ -87,11 +88,11 @@ public class SupplierCategoryModel {
         this.deletedAt = deletedAt;
     }
 
-    public List<ProductCategoryModel> getProductCategories() {
-        return productCategories;
+    public SupplierCategoryModel getSupplierCategory() {
+        return supplierCategory;
     }
 
-    public void setProductCategories(List<ProductCategoryModel> productCategories) {
-        this.productCategories = productCategories;
+    public void setSupplierCategory(SupplierCategoryModel supplierCategory) {
+        this.supplierCategory = supplierCategory;
     }
 }
