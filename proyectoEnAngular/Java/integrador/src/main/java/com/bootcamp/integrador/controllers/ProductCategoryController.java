@@ -73,10 +73,10 @@ public class ProductCategoryController {
         }
     }
 
-    @PostMapping("/{id}/undelete")
-    public ResponseEntity<Boolean> undeleteProductCategory(@PathVariable int id) {
-        boolean undeleted = productCategoryService.undeleteProductCategory(id);
-        if (undeleted) {
+    @PutMapping("/{id}/reInsert")
+    public ResponseEntity<Boolean> reInsertProductCategory(@PathVariable int id) {
+        boolean reInsert = productCategoryService.reInsertProductCategory(id);
+        if (reInsert) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);

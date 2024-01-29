@@ -84,6 +84,17 @@ public class UserController {
         
         return new ResponseEntity<>(deletedUsers, HttpStatus.OK);
     }
+    
+    //reinsertar usuario
+    @PutMapping("/{id}/reInsert")
+    public ResponseEntity<Boolean> reInsertUser(@RequestBody int id) {
+    	boolean reInsert = userService.reInserUser(id);
+        if (reInsert) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+    }
 
     //modificar usuario
     @PutMapping()

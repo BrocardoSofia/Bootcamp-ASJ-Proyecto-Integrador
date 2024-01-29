@@ -73,9 +73,9 @@ public class SupplierCategoryController {
         }
     }
 
-    @PostMapping("/{id}/undelete")
-    public ResponseEntity<Boolean> undeleteSupplierCategory(@PathVariable int id) {
-        boolean undeleted = supplierCategoryService.undeleteSupplierCategory(id);
+    @PutMapping("/{id}/reInsert")
+    public ResponseEntity<Boolean> reInsertSupplierCategory(@PathVariable int id) {
+        boolean undeleted = supplierCategoryService.reInsertSupplierCategory(id);
         if (undeleted) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {

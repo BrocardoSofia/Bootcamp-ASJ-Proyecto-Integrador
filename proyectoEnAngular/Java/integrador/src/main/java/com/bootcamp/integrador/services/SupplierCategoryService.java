@@ -63,7 +63,7 @@ public class SupplierCategoryService {
         }
     }
 
-    public boolean undeleteSupplierCategory(int id) {
+    public boolean reInsertSupplierCategory(int id) {
         Optional<SupplierCategoryModel> foundSupplierCategory = supplierCategoryRepository.findById(id);
 
         if (foundSupplierCategory.isPresent()) {

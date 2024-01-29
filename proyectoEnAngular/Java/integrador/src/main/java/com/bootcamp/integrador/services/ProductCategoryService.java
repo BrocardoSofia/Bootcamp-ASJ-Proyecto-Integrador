@@ -64,7 +64,7 @@ public class ProductCategoryService {
         }
     }
 
-    public boolean undeleteProductCategory(int id) {
+    public boolean reInsertProductCategory(int id) {
         Optional<ProductCategoryModel> foundProductCategory = productCategoryRepository.findById(id);
 
         if (foundProductCategory.isPresent()) {

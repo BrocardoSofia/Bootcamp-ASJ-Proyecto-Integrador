@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bootcamp.integrador.models.ProductCategoryModel;
 import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.UserRepositoriy;
 
@@ -83,13 +84,17 @@ public class UserService {
     }
     
     //reinsertar usuario
-    public UserModel reInserUser(int id) {
-        UserModel user = userRepository.findById(id).get();
-        if(user != null) {
-            user.setDeletedAt(null);
-            userRepository.save(user);
+    public boolean reInserUser(int id) {
+    	Optional<UserModel> foundUser = userRepository.findById(id);
+
+        if (foundUser.isPresent()) {
+        	UserModel undeletedUser = foundUser.get();
+        	undeletedUser.setDeletedAt(null);
+            userRepository.save(undeletedUser);
+            return true;
+        } else {
+            return false;
         }
-        return user;
     }
 
     //modificar usuario
