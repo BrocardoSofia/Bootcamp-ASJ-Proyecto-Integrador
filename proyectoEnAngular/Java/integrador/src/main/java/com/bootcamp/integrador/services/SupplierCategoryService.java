@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.SupplierCategoryModel;
 import com.bootcamp.integrador.repositories.SupplierCategoryRepository;
+import com.bootcamp.integrador.repositories.SupplierRepository;
 
 @Service
 public class SupplierCategoryService {
@@ -39,8 +40,9 @@ public class SupplierCategoryService {
 
     public SupplierCategoryModel updateSupplierCategory(int id, SupplierCategoryModel supplierCategory) {
         Optional<SupplierCategoryModel> foundSupplierCategory = supplierCategoryRepository.findById(id);
+        SupplierCategoryModel foundByCategory = supplierCategoryRepository.findByCategory(supplierCategory.getCategory());
 
-        if (foundSupplierCategory.isPresent()) {
+        if (foundSupplierCategory.isPresent() && (foundByCategory == null)) {
             SupplierCategoryModel updatedSupplierCategory = foundSupplierCategory.get();
             updatedSupplierCategory.setCategory(supplierCategory.getCategory());
             updatedSupplierCategory.setUpdatedAt(LocalDateTime.now());

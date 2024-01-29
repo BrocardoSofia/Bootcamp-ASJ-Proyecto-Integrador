@@ -6,4 +6,6 @@ import com.bootcamp.integrador.models.ProductCategoryModel;
 
 public interface ProductCategoryRepository extends JpaRepository<ProductCategoryModel, Integer> {
     ProductCategoryModel findByCategory(String category);
+
+	ProductCategoryModel getByCategory(String category);
 }

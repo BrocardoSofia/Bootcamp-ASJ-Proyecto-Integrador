@@ -39,8 +39,9 @@ public class ProductCategoryService {
 
     public ProductCategoryModel updateProductCategory(int id, ProductCategoryModel productCategory) {
         Optional<ProductCategoryModel> foundProductCategory = productCategoryRepository.findById(id);
+        ProductCategoryModel foundByCategory = productCategoryRepository.getByCategory(productCategory.getCategory());
 
-        if (foundProductCategory.isPresent()) {
+        if (foundProductCategory.isPresent() && (foundByCategory == null)) {
             ProductCategoryModel updatedProductCategory = foundProductCategory.get();
             updatedProductCategory.setCategory(productCategory.getCategory());
             updatedProductCategory.setSupplierCategory(productCategory.getSupplierCategory());
