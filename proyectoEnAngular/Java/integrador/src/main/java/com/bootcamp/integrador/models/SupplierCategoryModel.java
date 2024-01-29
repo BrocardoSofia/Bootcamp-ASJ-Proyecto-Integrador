@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -40,8 +41,11 @@ public class SupplierCategoryModel {
 
     private Date deletedAt;
 
-    @OneToMany(mappedBy = "supplierCategory", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "supplierCategory", fetch = FetchType.LAZY)
     private List<ProductCategoryModel> productCategories = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "supplierCategory", fetch = FetchType.LAZY)
+    private List<SupplierModel> suppliers;
 
     public SupplierCategoryModel(int id, String category) {
         this.id = id;
@@ -94,4 +98,14 @@ public class SupplierCategoryModel {
     public void setProductCategories(List<ProductCategoryModel> productCategories) {
         this.productCategories = productCategories;
     }
+
+	public List<SupplierModel> getSuppliers() {
+		return suppliers;
+	}
+
+	public void setSuppliers(List<SupplierModel> suppliers) {
+		this.suppliers = suppliers;
+	}
+    
+    
 }

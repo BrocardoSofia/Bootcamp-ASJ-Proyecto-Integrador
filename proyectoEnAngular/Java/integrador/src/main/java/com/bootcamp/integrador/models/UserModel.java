@@ -1,12 +1,15 @@
 package com.bootcamp.integrador.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -41,6 +44,12 @@ public class UserModel {
     
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
+    
+    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    private List<SupplierModel> createdSuppliers;
+
+    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
+    private List<SupplierModel> updatedSuppliers;
 
     public UserModel() {
 
@@ -95,4 +104,20 @@ public class UserModel {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+	public List<SupplierModel> getCreatedSuppliers() {
+		return createdSuppliers;
+	}
+
+	public void setCreatedSuppliers(List<SupplierModel> createdSuppliers) {
+		this.createdSuppliers = createdSuppliers;
+	}
+
+	public List<SupplierModel> getUpdatedSuppliers() {
+		return updatedSuppliers;
+	}
+
+	public void setUpdatedSuppliers(List<SupplierModel> updatedSuppliers) {
+		this.updatedSuppliers = updatedSuppliers;
+	}
 }

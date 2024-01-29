@@ -1,10 +1,14 @@
 package com.bootcamp.integrador.models;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +26,9 @@ public class IvaConditionModel {
     @Size(min = 2, max = 50, message = "purchase state must be between 2 and 50 characters")
 	@Column(unique = true)
 	private String ivaCondition;
+	
+	 @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
+	    private List<SupplierModel> suppliers;
 
 	public IvaConditionModel(int id, String ivaCondition) {
 		this.id = id;
@@ -42,5 +49,12 @@ public class IvaConditionModel {
 	public int getId() {
 		return id;
 	}
-	
+
+	public List<SupplierModel> getSuppliers() {
+		return suppliers;
+	}
+
+	public void setSuppliers(List<SupplierModel> suppliers) {
+		this.suppliers = suppliers;
+	}
 }
