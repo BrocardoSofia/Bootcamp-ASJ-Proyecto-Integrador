@@ -62,19 +62,19 @@ public class SupplierModel {
 
     private String imageUrl;
 
-    private String buisnessWebpage;
+    private String businessWebpage;
 
     @NotNull(message = "buisnessEmail cannot be null")
     @NotBlank(message = "buisnessEmail cannot be empty")
     @Size(min = 2, max = 50, message = "buisnessEmail must be between 2 and 50 characters")
     @Column(unique = true)
-    private String buisnessEmail;
+    private String businessEmail;
 
     @NotNull(message = "buisnessPhone cannot be null")
     @NotBlank(message = "buisnessPhone cannot be empty")
     @Size(min = 2, max = 50, message = "buisnessPhone must be between 2 and 50 characters")
     @Column(unique = true)
-    private String buisnessPhone;
+    private String businessPhone;
 
     @NotNull(message = "streetName cannot be null")
     @NotBlank(message = "streetName cannot be empty")
@@ -126,9 +126,9 @@ public class SupplierModel {
         this.supplierCode = supplierCode;
         this.businessName = businessName;
         this.imageUrl = imageUrl;
-        this.buisnessWebpage = buisnessWebpage;
-        this.buisnessEmail = buisnessEmail;
-        this.buisnessPhone = buisnessPhone;
+        this.businessWebpage = buisnessWebpage;
+        this.businessEmail = buisnessEmail;
+        this.businessPhone = buisnessPhone;
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.city = city;
@@ -187,28 +187,28 @@ public class SupplierModel {
 		this.imageUrl = imageUrl;
 	}
 
-	public String getBuisnessWebpage() {
-		return buisnessWebpage;
+	public String getBusinessWebpage() {
+		return businessWebpage;
 	}
 
-	public void setBuisnessWebpage(String buisnessWebpage) {
-		this.buisnessWebpage = buisnessWebpage;
+	public void setBusinessWebpage(String buisnessWebpage) {
+		this.businessWebpage = buisnessWebpage;
 	}
 
-	public String getBuisnessEmail() {
-		return buisnessEmail;
+	public String getBusinessEmail() {
+		return businessEmail;
 	}
 
-	public void setBuisnessEmail(String buisnessEmail) {
-		this.buisnessEmail = buisnessEmail;
+	public void setBusinessEmail(String buisnessEmail) {
+		this.businessEmail = buisnessEmail;
 	}
 
-	public String getBuisnessPhone() {
-		return buisnessPhone;
+	public String getBusinessPhone() {
+		return businessPhone;
 	}
 
-	public void setBuisnessPhone(String buisnessPhone) {
-		this.buisnessPhone = buisnessPhone;
+	public void setBusinessPhone(String buisnessPhone) {
+		this.businessPhone = buisnessPhone;
 	}
 
 	public String getStreetName() {

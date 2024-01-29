@@ -95,7 +95,7 @@ public class SupplierService {
 	//modificar proveedor
 	public SupplierModel updateSupplier(SupplierModel supplier) {
 		SupplierModel existingSupplier = supplierRepository.findById(supplier.getId()).orElse(null);
-		String oldBusinessName = existingSupplier.getBuisnessEmail();
+		String oldBusinessName = existingSupplier.getBusinessEmail();
 		SupplierModel existBusinessName	= supplierRepository.findAllBybusinessName(supplier.getBusinessName());
 		
 		if(existingSupplier != null && ((existBusinessName == null)||(oldBusinessName == supplier.getBusinessName()))) {
@@ -105,9 +105,9 @@ public class SupplierService {
 			existingSupplier.setIvaCondition(supplier.getIvaCondition());
 			existingSupplier.setBusinessName(supplier.getBusinessName());
 			existingSupplier.setImageUrl(supplier.getImageUrl());
-			existingSupplier.setBuisnessWebpage(supplier.getBuisnessWebpage());
-			existingSupplier.setBuisnessEmail(supplier.getBuisnessEmail());
-			existingSupplier.setBuisnessPhone(supplier.getBuisnessPhone());
+			existingSupplier.setBusinessWebpage(supplier.getBusinessWebpage());
+			existingSupplier.setBusinessEmail(supplier.getBusinessEmail());
+			existingSupplier.setBusinessPhone(supplier.getBusinessPhone());
 			existingSupplier.setStreetName(supplier.getStreetName());
 			existingSupplier.setStreetNumber(supplier.getStreetNumber());
 			existingSupplier.setCity(supplier.getCity());
