@@ -13,4 +13,6 @@ public interface SupplierRepository extends JpaRepository<SupplierModel, Integer
     Page<SupplierModel> findAllByDeletedAtIsNotNull(Pageable pageable);
     Page<SupplierModel> findAllByDeletedAtIsNotNullAndBusinessNameContainingIgnoreCase(String businessName, Pageable pageable);
     Page<SupplierModel> findAllByBusinessNameContainingIgnoreCase(String businessName, Pageable pageable);
+    SupplierModel findAllBybusinessName(String businessName);
+    SupplierModel findAllBySupplierCode(String supplierCode);
 }

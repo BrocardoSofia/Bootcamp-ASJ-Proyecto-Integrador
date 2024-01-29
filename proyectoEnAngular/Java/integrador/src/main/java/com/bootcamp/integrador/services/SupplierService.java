@@ -1,6 +1,5 @@
 package com.bootcamp.integrador.services;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.SupplierModel;
-import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.SupplierRepository;
 
 @Service
@@ -40,37 +38,39 @@ public class SupplierService {
 	}
 	
 	//obtener proveedores eliminados
-		public Page<SupplierModel> getDeletedSuppliers(Pageable pageable, String businessName){
-			Page<SupplierModel> page;
-			if(businessName == "") {
-				page = supplierRepository.findAllByDeletedAtIsNotNull(pageable);
-			}else {
-				page = supplierRepository.findAllByDeletedAtIsNotNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
-			}
-			return page;
+	public Page<SupplierModel> getDeletedSuppliers(Pageable pageable, String businessName){
+		Page<SupplierModel> page;
+		if(businessName == "") {
+			page = supplierRepository.findAllByDeletedAtIsNotNull(pageable);
+		}else {
+			page = supplierRepository.findAllByDeletedAtIsNotNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
 		}
+		return page;
+	}
+	
+	//obtener un proveedor segun su id
+	public Optional<SupplierModel> getSupplierById(int id){
+		return supplierRepository.findById(id);
+	}
+	
+	//insertar proveedor
+	public SupplierModel addSupplier(SupplierModel supplier) {
+		SupplierModel findSupplierByName = supplierRepository.findAllBybusinessName(supplier.getBusinessName());
+		SupplierModel findSupplierByCode = supplierRepository.findAllBySupplierCode(supplier.getSupplierCode());
+		SupplierModel supplierAdded = null;
+		
+		if((findSupplierByName == null) && (findSupplierByCode == null)) {
+			supplierRepository.save(supplier);
+			supplierAdded = supplierRepository.findAllBybusinessName(supplier.getBusinessName()); 
+		}
+		
+		return supplierAdded;
+	}
+	
+	//eliminar proveedor
 	
 	/*
 	 *   	
-    //obtener un usuario segun su id
-    public Optional<UserModel> getUserById(int id) {
-        return userRepository.findById(id);
-    }
-
-    //insertar usuario
-    public UserModel addUser(UserModel user) {
-    	UserModel findUser = userRepository.findByUserAlias(user.getUserAlias());
-    	
-    	if(findUser == null){
-    		userRepository.save(user);
-    		findUser = userRepository.findByUserAlias(user.getUserAlias());
-    	}else{
-    		findUser = null;
-    	}
-    	
-        return findUser;
-    }
-
     //eliminar usuario
     public UserModel deleteUser(int id) {
         UserModel user = userRepository.findById(id).get();

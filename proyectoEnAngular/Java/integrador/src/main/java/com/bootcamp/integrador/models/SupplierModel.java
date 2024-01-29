@@ -95,7 +95,6 @@ public class SupplierModel {
     @NotNull(message = "cuit cannot be null")
     @NotBlank(message = "cuit cannot be empty")
     @Size(min = 2, max = 50, message = "cuit must be between 2 and 50 characters")
-    @Column(unique = true)
     private String cuit;
 
     @CreationTimestamp
