@@ -106,11 +106,16 @@ public class SupplierModel {
 
     private Date deletedAt;
 
-    public SupplierModel(int id, SupplierCategoryModel supplierCategory, UserModel createdBy, UserModel updatedBy, ProvinceModel province, IvaConditionModel ivaCondition, String supplierCode, String businessName, String imageUrl, String buisnessWebpage, String buisnessEmail, String buisnessPhone, String streetName, int streetNumber, String city, String cp, String cuit) {
+    public SupplierModel(int id, SupplierCategoryModel supplierCategory, 
+    					UserModel createdBy, UserModel updatedBy, ProvinceModel province, 
+    					IvaConditionModel ivaCondition, String supplierCode, String businessName, 
+    					String imageUrl, String buisnessWebpage, String buisnessEmail, String buisnessPhone, 
+    					String streetName, int streetNumber, String city, String cp, String cuit) {
         this.id = id;
         this.supplierCategory = supplierCategory;
         this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
+        this.updatedBy = null;
+        this.deletedAt = null;
         this.province = province;
         this.ivaCondition = ivaCondition;
         this.supplierCode = supplierCode;
@@ -128,4 +133,150 @@ public class SupplierModel {
 
     public SupplierModel() {
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public UserModel getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public void setUpdatedBy(UserModel updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+
+	public ProvinceModel getProvince() {
+		return province;
+	}
+
+	public void setProvince(ProvinceModel province) {
+		this.province = province;
+	}
+
+	public IvaConditionModel getIvaCondition() {
+		return ivaCondition;
+	}
+
+	public void setIvaCondition(IvaConditionModel ivaCondition) {
+		this.ivaCondition = ivaCondition;
+	}
+
+	public String getBusinessName() {
+		return businessName;
+	}
+
+	public void setBusinessName(String businessName) {
+		this.businessName = businessName;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getBuisnessWebpage() {
+		return buisnessWebpage;
+	}
+
+	public void setBuisnessWebpage(String buisnessWebpage) {
+		this.buisnessWebpage = buisnessWebpage;
+	}
+
+	public String getBuisnessEmail() {
+		return buisnessEmail;
+	}
+
+	public void setBuisnessEmail(String buisnessEmail) {
+		this.buisnessEmail = buisnessEmail;
+	}
+
+	public String getBuisnessPhone() {
+		return buisnessPhone;
+	}
+
+	public void setBuisnessPhone(String buisnessPhone) {
+		this.buisnessPhone = buisnessPhone;
+	}
+
+	public String getStreetName() {
+		return streetName;
+	}
+
+	public void setStreetName(String streetName) {
+		this.streetName = streetName;
+	}
+
+	public int getStreetNumber() {
+		return streetNumber;
+	}
+
+	public void setStreetNumber(int streetNumber) {
+		this.streetNumber = streetNumber;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCp() {
+		return cp;
+	}
+
+	public void setCp(String cp) {
+		this.cp = cp;
+	}
+
+	public String getCuit() {
+		return cuit;
+	}
+
+	public void setCuit(String cuit) {
+		this.cuit = cuit;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public Date getDeletedAt() {
+		return deletedAt;
+	}
+
+	public void setDeletedAt(Date deletedAt) {
+		this.deletedAt = deletedAt;
+	}
+
+	public SupplierCategoryModel getSupplierCategory() {
+		return supplierCategory;
+	}
+
+	public UserModel getCreatedBy() {
+		return createdBy;
+	}
+
+	public String getSupplierCode() {
+		return supplierCode;
+	}
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+    
+    
 }
