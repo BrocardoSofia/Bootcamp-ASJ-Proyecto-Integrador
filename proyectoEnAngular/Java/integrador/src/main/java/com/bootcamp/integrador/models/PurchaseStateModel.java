@@ -10,35 +10,34 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "PurchaseStates")
+@Table(name = "purchase_states")
 public class PurchaseStateModel {
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-	
-	@NotNull(message = "purchase state cannot be null")
+
+    @NotNull(message = "purchase state cannot be null")
     @NotBlank(message = "purchase state cannot be empty")
     @Size(min = 2, max = 50, message = "purchase state must be between 2 and 50 characters")
-	private String purchaseState;
+    private String purchaseState;
 
-	public PurchaseStateModel(int id, String purchaseState) {
-		this.id = id;
-		this.purchaseState = purchaseState;
-	}
-	
-	public PurchaseStateModel() {
-	}
+    public PurchaseStateModel(int id, String purchaseState) {
+        this.id = id;
+        this.purchaseState = purchaseState;
+    }
 
-	public String getPurchaseState() {
-		return purchaseState;
-	}
+    public PurchaseStateModel() {
+    }
 
-	public void setPurchaseState(String purchaseState) {
-		this.purchaseState = purchaseState;
-	}
+    public String getPurchaseState() {
+        return purchaseState;
+    }
 
-	public int getId() {
-		return id;
-	}	
+    public void setPurchaseState(String purchaseState) {
+        this.purchaseState = purchaseState;
+    }
 
+    public int getId() {
+        return id;
+    }
 }

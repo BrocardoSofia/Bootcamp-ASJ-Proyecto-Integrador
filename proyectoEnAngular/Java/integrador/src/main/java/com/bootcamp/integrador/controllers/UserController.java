@@ -70,7 +70,11 @@ public class UserController {
     @PostMapping()
     public ResponseEntity<UserModel> addUser(@RequestBody UserModel user) {
         UserModel userAdded = userService.addUser(user);
-        return new ResponseEntity<>(userAdded, HttpStatus.CREATED);
+        if(userAdded == null) {
+        	return new ResponseEntity<>(userAdded, HttpStatus.CONFLICT);
+        }else{
+        	return new ResponseEntity<>(userAdded, HttpStatus.CREATED);
+        }
     }
 
     //eliminar usuario

@@ -60,8 +60,16 @@ public class UserService {
 
     //insertar usuario
     public UserModel addUser(UserModel user) {
-        userRepository.save(user);
-        return user;
+    	UserModel findUser = userRepository.findByUserAlias(user.getUserAlias());
+    	
+    	if(findUser == null){
+    		userRepository.save(user);
+    		findUser = userRepository.findByUserAlias(user.getUserAlias());
+    	}else{
+    		findUser = null;
+    	}
+    	
+        return findUser;
     }
 
     //eliminar usuario

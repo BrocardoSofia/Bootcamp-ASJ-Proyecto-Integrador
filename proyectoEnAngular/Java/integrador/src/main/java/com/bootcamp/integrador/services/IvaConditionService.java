@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.IvaConditionModel;
+import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.IvaConditionRepository;
 
 @Service
@@ -25,8 +26,16 @@ public class IvaConditionService {
 	}
 	
 	//cargar estado de compra
-	public IvaConditionModel addIvaCondition(IvaConditionModel IvaCondition){
-		ivaConditionRepository.save(IvaCondition);
-		return IvaCondition;
+	public IvaConditionModel addIvaCondition(IvaConditionModel ivaCondition){
+		IvaConditionModel findIvaCondition = ivaConditionRepository.findByIvaCondition(ivaCondition.getIvaCondition());
+		
+		if(findIvaCondition == null) {
+			ivaConditionRepository.save(ivaCondition);
+			findIvaCondition = ivaConditionRepository.findByIvaCondition(ivaCondition.getIvaCondition());
+		}else {
+			findIvaCondition = null;
+		}
+		
+		return ivaCondition;
 	}
 }

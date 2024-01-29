@@ -18,34 +18,35 @@ import com.bootcamp.integrador.models.PurchaseStateModel;
 import com.bootcamp.integrador.services.PurchaseStateService;
 
 @RestController
-@RequestMapping("/purchase-states") //localhost:8080/purchase-state
+@RequestMapping("/purchase-states")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PurchaseStateController {
-	@Autowired
-	PurchaseStateService purchaseStateService;
-	
-	//obtener estados de compra
-	@GetMapping()
-	public List<PurchaseStateModel> getPurchaseStates() {
-		return purchaseStateService.getPurchaseStates();
-	}
-	
-	//obtener estado de compra por Id
-    @GetMapping("/{id}")
-    public ResponseEntity<Optional<PurchaseStateModel>> getPurchaseStateById(@PathVariable int id){
-    	Optional<PurchaseStateModel> foundPurchaseState = purchaseStateService.getPurchaseStateById(id);
-    	
-    	if(foundPurchaseState.isEmpty()) {
-    		return new ResponseEntity<>(foundPurchaseState, HttpStatus.NOT_FOUND);
-    	}else {
-    		return new ResponseEntity<>(foundPurchaseState, HttpStatus.FOUND);
-    	}    	
+    @Autowired
+    PurchaseStateService purchaseStateService;
+
+    @GetMapping()
+    public List<PurchaseStateModel> getPurchaseStates() {
+        return purchaseStateService.getPurchaseStates();
     }
-	
-	//cargar estado de compra
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<PurchaseStateModel>> getPurchaseStateById(@PathVariable int id) {
+        Optional<PurchaseStateModel> foundPurchaseState = purchaseStateService.getPurchaseStateById(id);
+
+        if (foundPurchaseState.isEmpty()) {
+            return new ResponseEntity<>(foundPurchaseState, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(foundPurchaseState, HttpStatus.FOUND);
+        }
+    }
+
     @PostMapping()
     public ResponseEntity<PurchaseStateModel> addPurchaseState(@RequestBody PurchaseStateModel purchaseState) {
-    	PurchaseStateModel purchaseStateAdded = purchaseStateService.addPurchaseState(purchaseState);
-        return new ResponseEntity<>(purchaseStateAdded, HttpStatus.CREATED);
+        PurchaseStateModel purchaseStateAdded = purchaseStateService.addPurchaseState(purchaseState);
+        if (purchaseStateAdded == null) {
+            return new ResponseEntity<>(purchaseStateAdded, HttpStatus.CONFLICT);
+        } else {
+            return new ResponseEntity<>(purchaseStateAdded, HttpStatus.CREATED);
+        }
     }
 }

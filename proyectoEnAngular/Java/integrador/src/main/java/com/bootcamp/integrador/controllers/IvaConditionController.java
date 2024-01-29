@@ -46,6 +46,10 @@ public class IvaConditionController {
     @PostMapping()
     public ResponseEntity<IvaConditionModel> addIvaCondition(@RequestBody IvaConditionModel ivaCondition) {
     	IvaConditionModel ivaConditionAdded = ivaConditionService.addIvaCondition(ivaCondition);
-        return new ResponseEntity<>(ivaConditionAdded, HttpStatus.CREATED);
+        if(ivaConditionAdded == null) {
+        	return new ResponseEntity<>(ivaConditionAdded, HttpStatus.CONFLICT);
+        }else {
+        	return new ResponseEntity<>(ivaConditionAdded, HttpStatus.CREATED);
+        }
     }
 }
