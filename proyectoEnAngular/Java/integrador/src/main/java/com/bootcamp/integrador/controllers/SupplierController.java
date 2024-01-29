@@ -96,6 +96,11 @@ public class SupplierController {
     @PutMapping()
     public ResponseEntity<SupplierModel> updateSupplier(@RequestBody SupplierModel supplier) {
     	SupplierModel updatedSupplier = supplierService.updateSupplier(supplier);
-        return new ResponseEntity<>(updatedSupplier, HttpStatus.OK);
+
+    	if(updatedSupplier == null) {
+    		return new ResponseEntity<>(updatedSupplier, HttpStatus.CONFLICT);
+    	}else {
+    		return new ResponseEntity<>(updatedSupplier, HttpStatus.CREATED);
+    	}
     }
 }

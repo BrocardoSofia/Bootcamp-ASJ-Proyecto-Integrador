@@ -100,12 +100,18 @@ public class UserService {
     //modificar usuario
     public UserModel updateUser(UserModel user) {
         UserModel existingUser = userRepository.findById(user.getId()).orElse(null);
-        if(existingUser != null) {
+        String oldUserAlias = existingUser.getUserAlias();
+        UserModel validUserAlias = userRepository.findByUserAlias(user.getUserAlias());
+        
+        if((existingUser != null) && ((validUserAlias == null)||(oldUserAlias == user.getUserAlias()))) {
             existingUser.setUserAlias(user.getUserAlias());
             existingUser.setPassword(user.getPassword());
             existingUser.setUpdatedAt(LocalDateTime.now());
             userRepository.save(existingUser);
+        }else {
+        	existingUser = null;
         }
+        
         return existingUser;
     }
 

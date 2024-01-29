@@ -100,6 +100,11 @@ public class UserController {
     @PutMapping()
     public ResponseEntity<UserModel> updateUser(@RequestBody UserModel user) {
         UserModel updatedUser = userService.updateUser(user);
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+
+        if(updatedUser == null) {
+        	return new ResponseEntity<>(updatedUser, HttpStatus.CONFLICT);
+        }else{
+        	return new ResponseEntity<>(updatedUser, HttpStatus.CREATED);
+        }
     }
 }

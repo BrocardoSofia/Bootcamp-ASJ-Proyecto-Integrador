@@ -95,7 +95,10 @@ public class SupplierService {
 	//modificar proveedor
 	public SupplierModel updateSupplier(SupplierModel supplier) {
 		SupplierModel existingSupplier = supplierRepository.findById(supplier.getId()).orElse(null);
-		if(existingSupplier != null) {
+		String oldBusinessName = existingSupplier.getBuisnessEmail();
+		SupplierModel existBusinessName	= supplierRepository.findAllBybusinessName(supplier.getBusinessName());
+		
+		if(existingSupplier != null && ((existBusinessName == null)||(oldBusinessName == supplier.getBusinessName()))) {
 			existingSupplier.setUpdatedBy(supplier.getUpdatedBy());
 			existingSupplier.setUpdatedAt(LocalDateTime.now());
 			existingSupplier.setProvince(supplier.getProvince());
