@@ -8,7 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.bootcamp.integrador.models.IvaConditionModel;
+import com.bootcamp.integrador.models.ProvinceModel;
+import com.bootcamp.integrador.models.SupplierCategoryModel;
 import com.bootcamp.integrador.models.SupplierModel;
+import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.SupplierRepository;
 
 @Service
@@ -89,20 +93,27 @@ public class SupplierService {
 	}
 	
 	//modificar proveedor
-	
-	
-	/*
-	 *   	
-    //modificar usuario
-    public UserModel updateUser(UserModel user) {
-        UserModel existingUser = userRepository.findById(user.getId()).orElse(null);
-        if(existingUser != null) {
-            existingUser.setUserAlias(user.getUserAlias());
-            existingUser.setPassword(user.getPassword());
-            existingUser.setUpdatedAt(LocalDateTime.now());
-            userRepository.save(existingUser);
-        }
-        return existingUser;
-    }
-	*/
+	public SupplierModel updateSupplier(SupplierModel supplier) {
+		SupplierModel existingSupplier = supplierRepository.findById(supplier.getId()).orElse(null);
+		if(existingSupplier != null) {
+			existingSupplier.setUpdatedBy(supplier.getUpdatedBy());
+			existingSupplier.setUpdatedAt(LocalDateTime.now());
+			existingSupplier.setProvince(supplier.getProvince());
+			existingSupplier.setIvaCondition(supplier.getIvaCondition());
+			existingSupplier.setBusinessName(supplier.getBusinessName());
+			existingSupplier.setImageUrl(supplier.getImageUrl());
+			existingSupplier.setBuisnessWebpage(supplier.getBuisnessWebpage());
+			existingSupplier.setBuisnessEmail(supplier.getBuisnessEmail());
+			existingSupplier.setBuisnessPhone(supplier.getBuisnessPhone());
+			existingSupplier.setStreetName(supplier.getStreetName());
+			existingSupplier.setStreetNumber(supplier.getStreetNumber());
+			existingSupplier.setCity(supplier.getCity());
+			existingSupplier.setCp(supplier.getCp());
+			existingSupplier.setCuit(supplier.getCuit());
+			
+			supplierRepository.save(existingSupplier);
+		}
+		
+		return existingSupplier;
+	}
 }
