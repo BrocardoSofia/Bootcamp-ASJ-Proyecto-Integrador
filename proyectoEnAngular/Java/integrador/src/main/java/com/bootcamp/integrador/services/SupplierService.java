@@ -8,11 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.bootcamp.integrador.models.IvaConditionModel;
-import com.bootcamp.integrador.models.ProvinceModel;
-import com.bootcamp.integrador.models.SupplierCategoryModel;
 import com.bootcamp.integrador.models.SupplierModel;
-import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.SupplierRepository;
 
 @Service
@@ -83,13 +79,17 @@ public class SupplierService {
 	}
 	
 	//reingresar proveedor
-	public SupplierModel reInsertSupplier(int id) {
-		SupplierModel supplier = supplierRepository.findById(id).get();
-		if(supplier != null) {
-			supplier.setDeletedAt(null);
-			supplierRepository.save(supplier);
-		}
-		return supplier;
+	public boolean reInsertSupplier(int id) {
+		Optional<SupplierModel> foundSupplier = supplierRepository.findById(id);
+
+        if (foundSupplier.isPresent()) {
+        	SupplierModel undeletedSupplier = foundSupplier.get();
+        	undeletedSupplier.setDeletedAt(null);
+        	supplierRepository.save(undeletedSupplier);
+            return true;
+        } else {
+            return false;
+        }
 	}
 	
 	//modificar proveedor
