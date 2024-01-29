@@ -38,7 +38,7 @@ public class UserController {
 		return userService.getUsers(pageable, userAlias);
 	}
     
-    //obtener usuarios eliminados
+    //obtener usuarios activos
     @GetMapping("/active")
 	public Page<UserModel> getActiveUsers(Pageable pageable, 
 											@RequestParam(required = false, defaultValue = "") String userAlias) {		
@@ -46,7 +46,7 @@ public class UserController {
 		return userService.getActiveUsers(pageable, userAlias);
 	}
     
-    //obtener usuario activos
+    //obtener usuario eliminados
     @GetMapping("/deleted")
 	public Page<UserModel> getDeletedUsers(Pageable pageable, 
 											@RequestParam(required = false, defaultValue = "") String userAlias) {		
