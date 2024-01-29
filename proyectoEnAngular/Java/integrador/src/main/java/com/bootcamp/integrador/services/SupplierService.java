@@ -29,33 +29,29 @@ public class SupplierService {
 	}
 	
 	//obtener proveedores activos
+	public Page<SupplierModel> getActiveSuppliers(Pageable pageable, String businessName){
+		Page<SupplierModel> page;
+		if(businessName == "") {
+			page = supplierRepository.findAllByDeletedAtIsNull(pageable);
+		}else {
+			page = supplierRepository.findAllByDeletedAtIsNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
+		}
+		return page;
+	}
+	
+	//obtener proveedores eliminados
+		public Page<SupplierModel> getDeletedSuppliers(Pageable pageable, String businessName){
+			Page<SupplierModel> page;
+			if(businessName == "") {
+				page = supplierRepository.findAllByDeletedAtIsNotNull(pageable);
+			}else {
+				page = supplierRepository.findAllByDeletedAtIsNotNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
+			}
+			return page;
+		}
 	
 	/*
-	 * 
-  	//obtener usuarios activos
-  	public Page<UserModel> getActiveUsers(Pageable pageable, String userAlias){
-  		Page<UserModel> page;
-  		if(userAlias == "") {
-  			//no envio userAlias
-  			page = userRepository.findAllByDeletedAtIsNull(pageable);
-  		}else {
-  			page = userRepository.findAllByDeletedAtIsNullAndUserAliasContainingIgnoreCase(userAlias, pageable);	
-  		}
-  		return page;
-  	}
-  	
-  	//obtener usuarios eliminados
-  	public Page<UserModel> getDeletedUsers(Pageable pageable, String userAlias){
-  		Page<UserModel> page;
-  		if(userAlias == "") {
-  			//no envio userAlias
-  			page = userRepository.findAllByDeletedAtIsNotNull(pageable);
-  		}else {
-  			page = userRepository.findAllByDeletedAtIsNotNullAndUserAliasContainingIgnoreCase(userAlias, pageable);	
-  		}
-  		return page;
-  	}
-
+	 *   	
     //obtener un usuario segun su id
     public Optional<UserModel> getUserById(int id) {
         return userRepository.findById(id);
