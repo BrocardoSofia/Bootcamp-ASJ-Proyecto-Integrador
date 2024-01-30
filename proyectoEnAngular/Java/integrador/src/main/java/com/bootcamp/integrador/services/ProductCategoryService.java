@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.bootcamp.integrador.models.ProductCategoryModel;
 import com.bootcamp.integrador.repositories.ProductCategoryRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ProductCategoryService {
     @Autowired
@@ -24,6 +26,7 @@ public class ProductCategoryService {
         return productCategoryRepository.findById(id);
     }
 
+    @Transactional
     public ProductCategoryModel addProductCategory(ProductCategoryModel productCategory) {
         ProductCategoryModel findProductCategory = productCategoryRepository.findByCategory(productCategory.getCategory());
 

@@ -31,19 +31,19 @@ public class SupplierModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "supplier_category_id", nullable = false)
     private SupplierCategoryModel supplierCategory;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "created_by_id", nullable = false)
     private UserModel createdBy;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "province_id", nullable = false)
     private ProvinceModel province;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "iva_condition_id", nullable = false)
     private IvaConditionModel ivaCondition;
 
@@ -108,8 +108,8 @@ public class SupplierModel {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
     
-    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-    private List<ProductModel> products;
+//    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+//    private List<ProductModel> products;
 
     public SupplierModel(int id, SupplierCategoryModel supplierCategory, 
     					UserModel createdBy, UserModel updatedBy, ProvinceModel province, 
@@ -285,9 +285,4 @@ public class SupplierModel {
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
-
-	public List<ProductModel> getProducts() {
-		return products;
-	}
-
 }

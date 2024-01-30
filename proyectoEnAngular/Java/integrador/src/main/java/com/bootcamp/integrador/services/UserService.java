@@ -12,6 +12,8 @@ import com.bootcamp.integrador.models.ProductCategoryModel;
 import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.UserRepositoriy;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UserService {
     @Autowired
@@ -60,6 +62,7 @@ public class UserService {
     }
 
     //insertar usuario
+    @Transactional
     public UserModel addUser(UserModel user) {
     	UserModel findUser = userRepository.findByUserAlias(user.getUserAlias());
     	

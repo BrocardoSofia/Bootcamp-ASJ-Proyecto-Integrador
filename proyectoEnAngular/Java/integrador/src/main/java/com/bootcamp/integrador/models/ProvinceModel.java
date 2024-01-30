@@ -1,5 +1,7 @@
 package com.bootcamp.integrador.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,6 +28,7 @@ public class ProvinceModel {
     @Column(unique = true)
     private String province;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
     private CountryModel country;

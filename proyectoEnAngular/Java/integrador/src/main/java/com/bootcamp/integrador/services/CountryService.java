@@ -10,6 +10,8 @@ import com.bootcamp.integrador.models.CountryModel;
 import com.bootcamp.integrador.models.ProvinceModel;
 import com.bootcamp.integrador.repositories.CountryRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CountryService {
     @Autowired
@@ -23,6 +25,7 @@ public class CountryService {
         return countryRepository.findById(id);
     }
 
+    @Transactional
     public CountryModel addCountry(CountryModel country) {
         CountryModel findCountry = countryRepository.findByCountry(country.getCountry());
 

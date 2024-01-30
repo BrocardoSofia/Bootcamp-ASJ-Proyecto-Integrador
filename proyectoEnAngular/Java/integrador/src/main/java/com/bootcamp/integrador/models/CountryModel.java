@@ -1,10 +1,18 @@
 package com.bootcamp.integrador.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,9 +30,10 @@ public class CountryModel {
     @Size(min = 2, max = 50, message = "country must be between 2 and 50 characters")
     @Column(unique = true)
     private String country;
-
-//    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
-//    private List<ProvinceModel> provinces = new ArrayList<>();
+ 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+    private List<ProvinceModel> provinces = new ArrayList<>();
 
     public CountryModel(int id, String country) {
         this.id = id;

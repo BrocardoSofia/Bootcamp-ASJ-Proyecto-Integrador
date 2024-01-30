@@ -40,8 +40,7 @@ public class CountryController {
         } else {
             return new ResponseEntity<>(foundCountry, HttpStatus.FOUND);
         }
-    }
-    
+    }    
 
     @PostMapping()
     public ResponseEntity<CountryModel> addCountry(@RequestBody CountryModel country) {

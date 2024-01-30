@@ -12,6 +12,8 @@ import com.bootcamp.integrador.models.SupplierCategoryModel;
 import com.bootcamp.integrador.repositories.SupplierCategoryRepository;
 import com.bootcamp.integrador.repositories.SupplierRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class SupplierCategoryService {
     @Autowired
@@ -25,6 +27,7 @@ public class SupplierCategoryService {
         return supplierCategoryRepository.findById(id);
     }
 
+    @Transactional
     public SupplierCategoryModel addSupplierCategory(SupplierCategoryModel supplierCategory) {
         SupplierCategoryModel findSupplierCategory = supplierCategoryRepository.findByCategory(supplierCategory.getCategory());
 
