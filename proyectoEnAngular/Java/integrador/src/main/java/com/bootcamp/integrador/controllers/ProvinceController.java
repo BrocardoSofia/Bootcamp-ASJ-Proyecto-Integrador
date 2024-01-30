@@ -40,17 +40,6 @@ public class ProvinceController {
             return new ResponseEntity<>(foundProvince, HttpStatus.FOUND);
         }
     }
-    
-    @PutMapping()
-    public ResponseEntity<ProvinceModel> updateProvince(@RequestBody ProvinceModel province) {
-        ProvinceModel provinceUpdated = provinceService.updateProvince(province);
-        
-        if (provinceUpdated == null) {
-            return new ResponseEntity<>(provinceUpdated, HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(provinceUpdated, HttpStatus.OK);
-        }
-    }
 
     @PostMapping()
     public ResponseEntity<ProvinceModel> addProvince(@RequestBody ProvinceModel province) {

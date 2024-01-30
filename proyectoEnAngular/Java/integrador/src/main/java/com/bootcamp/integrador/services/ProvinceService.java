@@ -48,16 +48,4 @@ public class ProvinceService {
         return findProvince;
     }
     
-    public ProvinceModel updateProvince(ProvinceModel province) {
-        ProvinceModel findProvince = provinceRepository.findByProvince(province.getProvince());
-
-        if (findProvince == null) {
-            //findProvince.setProvince(province.getProvince());
-            provinceRepository.save(province);
-        } else {
-            findProvince = null;
-        }
-
-        return province;
-    }
 }

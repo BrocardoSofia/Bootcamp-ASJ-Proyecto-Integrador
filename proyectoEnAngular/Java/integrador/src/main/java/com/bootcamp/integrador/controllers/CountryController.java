@@ -53,14 +53,5 @@ public class CountryController {
         }
     }
     
-    @PutMapping()
-    public ResponseEntity<CountryModel> updateCountry(@RequestBody CountryModel country) {
-        CountryModel countryUpdated = countryService.addCountry(country);
-        
-        if (countryUpdated == null) {
-            return new ResponseEntity<>(countryUpdated, HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(countryUpdated, HttpStatus.OK);
-        }
-    }
+   
 }
