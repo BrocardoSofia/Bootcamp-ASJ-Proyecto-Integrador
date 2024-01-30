@@ -2,10 +2,12 @@ package com.bootcamp.integrador.models;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -33,12 +36,8 @@ public class SupplierModel {
     private SupplierCategoryModel supplierCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", nullable = false)
+    @JoinColumn(name = "created_by_id", nullable = false)
     private UserModel createdBy;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "updated_by", nullable = false)
-    private UserModel updatedBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "province_id", nullable = false)
@@ -108,6 +107,9 @@ public class SupplierModel {
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
+    
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+    private List<ProductModel> products;
 
     public SupplierModel(int id, SupplierCategoryModel supplierCategory, 
     					UserModel createdBy, UserModel updatedBy, ProvinceModel province, 
@@ -119,7 +121,8 @@ public class SupplierModel {
         this.id = id;
         this.supplierCategory = supplierCategory;
         this.createdBy = createdBy;
-        this.updatedBy = null;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = null;
         this.deletedAt = null;
         this.province = province;
         this.ivaCondition = ivaCondition;
@@ -145,14 +148,6 @@ public class SupplierModel {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public UserModel getUpdatedBy() {
-		return updatedBy;
-	}
-
-	public void setUpdatedBy(UserModel updatedBy) {
-		this.updatedBy = updatedBy;
 	}
 
 	public ProvinceModel getProvince() {
@@ -270,6 +265,10 @@ public class SupplierModel {
 	public SupplierCategoryModel getSupplierCategory() {
 		return supplierCategory;
 	}
+	
+	public void setSupplierCategory(SupplierCategoryModel supplierCategory) {
+		this.supplierCategory = supplierCategory;
+	}
 
 	public UserModel getCreatedBy() {
 		return createdBy;
@@ -278,10 +277,17 @@ public class SupplierModel {
 	public String getSupplierCode() {
 		return supplierCode;
 	}
+	
+	public void setSupplierCode(String supplierCode) {
+		this.supplierCode = supplierCode;
+	}
 
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
-    
-    
+
+	public List<ProductModel> getProducts() {
+		return products;
+	}
+
 }

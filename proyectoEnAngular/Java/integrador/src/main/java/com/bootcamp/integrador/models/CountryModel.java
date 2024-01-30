@@ -28,7 +28,7 @@ public class CountryModel {
     @Column(unique = true)
     private String country;
 
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
     private List<ProvinceModel> provinces = new ArrayList<>();
 
     public CountryModel(int id, String country) {
@@ -53,9 +53,5 @@ public class CountryModel {
 
     public List<ProvinceModel> getProvinces() {
         return provinces;
-    }
-
-    public void setProvinces(List<ProvinceModel> provinces) {
-        this.provinces = provinces;
     }
 }

@@ -45,14 +45,16 @@ public class SupplierCategoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
 
-    @OneToMany(mappedBy = "supplierCategory", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "supplierCategory", cascade = CascadeType.ALL)
     private List<ProductCategoryModel> productCategories = new ArrayList<>();
     
-    @OneToMany(mappedBy = "supplierCategory", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "supplierCategory", cascade = CascadeType.ALL)
     private List<SupplierModel> suppliers;
 
     public SupplierCategoryModel(int id, String category) {
     	this.createdAt = LocalDateTime.now();
+    	this.updatedAt = null;
+    	this.deletedAt = null;
         this.id = id;
         this.category = category;
     }
@@ -100,17 +102,8 @@ public class SupplierCategoryModel {
         return productCategories;
     }
 
-    public void setProductCategories(List<ProductCategoryModel> productCategories) {
-        this.productCategories = productCategories;
-    }
-
 	public List<SupplierModel> getSuppliers() {
 		return suppliers;
 	}
-
-	public void setSuppliers(List<SupplierModel> suppliers) {
-		this.suppliers = suppliers;
-	}
-    
-    
+ 
 }

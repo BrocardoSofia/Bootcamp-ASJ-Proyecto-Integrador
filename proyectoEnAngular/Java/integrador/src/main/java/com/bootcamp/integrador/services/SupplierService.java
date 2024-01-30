@@ -69,22 +69,24 @@ public class SupplierService {
 	}
 	
 	//eliminar proveedor
-	public SupplierModel deleteSupplier(int id) {
-		SupplierModel supplier = supplierRepository.findById(id).get();
-		if(supplier != null) {
-			supplier.setDeletedAt(LocalDateTime.now());
-			supplierRepository.save(supplier);
+	public SupplierModel deleteSupplier(SupplierModel supplier) {
+		SupplierModel supplierDeleted = supplierRepository.findById(supplier.getId()).get();
+		if(supplierDeleted != null) {
+			supplierDeleted.setDeletedAt(LocalDateTime.now());
+			
+			supplierRepository.save(supplierDeleted);
 		}
 		return supplier;
 	}
 	
 	//reingresar proveedor
-	public boolean reInsertSupplier(int id) {
-		Optional<SupplierModel> foundSupplier = supplierRepository.findById(id);
+	public boolean reInsertSupplier(SupplierModel supplier) {
+		Optional<SupplierModel> foundSupplier = supplierRepository.findById(supplier.getId());
 
         if (foundSupplier.isPresent()) {
         	SupplierModel undeletedSupplier = foundSupplier.get();
         	undeletedSupplier.setDeletedAt(null);
+        	
         	supplierRepository.save(undeletedSupplier);
             return true;
         } else {
@@ -99,7 +101,7 @@ public class SupplierService {
 		SupplierModel existBusinessName	= supplierRepository.findAllBybusinessName(supplier.getBusinessName());
 		
 		if(existingSupplier != null && ((existBusinessName == null)||(oldBusinessName == supplier.getBusinessName()))) {
-			existingSupplier.setUpdatedBy(supplier.getUpdatedBy());
+			existingSupplier.setSupplierCode(supplier.getSupplierCode());
 			existingSupplier.setUpdatedAt(LocalDateTime.now());
 			existingSupplier.setProvince(supplier.getProvince());
 			existingSupplier.setIvaCondition(supplier.getIvaCondition());

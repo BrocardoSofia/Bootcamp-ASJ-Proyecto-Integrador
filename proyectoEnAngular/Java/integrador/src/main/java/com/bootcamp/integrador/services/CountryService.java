@@ -34,4 +34,17 @@ public class CountryService {
 
         return country;
     }
+    
+    public CountryModel updateCountry(CountryModel country) {
+        Optional<CountryModel> findCountry = countryRepository.findById(country.getId());
+
+        if (findCountry.isPresent()) {
+        	findCountry.get().setCountry(country.getCountry());
+            countryRepository.save(country);
+        } else {
+            findCountry = null;
+        }
+
+        return country;
+    }
 }

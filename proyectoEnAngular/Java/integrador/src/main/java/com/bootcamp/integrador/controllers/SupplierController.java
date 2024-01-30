@@ -74,17 +74,17 @@ public class SupplierController {
     }
     
     //eliminar proveedor
-    @DeleteMapping("/{id}")
-    public ResponseEntity<SupplierModel> deleteSupplier(@PathVariable int id) {
-    	SupplierModel deletedSupplier = supplierService.deleteSupplier(id);
+    @DeleteMapping()
+    public ResponseEntity<SupplierModel> deleteSupplier(@RequestBody SupplierModel supplier) {
+    	SupplierModel deletedSupplier = supplierService.deleteSupplier(supplier);
         
         return new ResponseEntity<>(deletedSupplier, HttpStatus.OK);
     }
     
     //reinsertar proveedor
-    @PutMapping("/{id}/reInsert")
-    public ResponseEntity<Boolean> reInsertSupplier(@RequestBody int id) {
-    	boolean reInsert = supplierService.reInsertSupplier(id);
+    @PutMapping("/reInsert")
+    public ResponseEntity<Boolean> reInsertSupplier(@RequestBody SupplierModel supplier) {
+    	boolean reInsert = supplierService.reInsertSupplier(supplier);
         if (reInsert) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {

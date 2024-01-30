@@ -2,6 +2,7 @@ package com.bootcamp.integrador.models;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -33,7 +34,7 @@ public class ProvinceModel {
     @JoinColumn(name = "country_id", nullable = false)
     private CountryModel country;
     
-    @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
     private List<SupplierModel> suppliers;
 
     public ProvinceModel(int id, String province, CountryModel country) {
@@ -68,10 +69,5 @@ public class ProvinceModel {
 	public List<SupplierModel> getSuppliers() {
 		return suppliers;
 	}
-
-	public void setSuppliers(List<SupplierModel> suppliers) {
-		this.suppliers = suppliers;
-	}
-    
     
 }

@@ -2,10 +2,12 @@ package com.bootcamp.integrador.models;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -14,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -46,6 +49,9 @@ public class ProductCategoryModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supplier_category_id", nullable = false)
     private SupplierCategoryModel supplierCategory;
+    
+    @OneToMany(mappedBy = "productCategory", cascade = CascadeType.ALL)
+    private List<ProductModel> products;
 
     public ProductCategoryModel(int id, String category, SupplierCategoryModel supplierCategory) {
         this.id = id;
@@ -100,4 +106,10 @@ public class ProductCategoryModel {
     public void setSupplierCategory(SupplierCategoryModel supplierCategory) {
         this.supplierCategory = supplierCategory;
     }
+
+	public List<ProductModel> getProducts() {
+		return products;
+	}
+    
+    
 }

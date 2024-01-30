@@ -2,6 +2,7 @@ package com.bootcamp.integrador.models;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -27,7 +28,7 @@ public class IvaConditionModel {
 	@Column(unique = true)
 	private String ivaCondition;
 	
-	 @OneToMany(mappedBy = "province", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
 	    private List<SupplierModel> suppliers;
 
 	public IvaConditionModel(int id, String ivaCondition) {
@@ -52,9 +53,5 @@ public class IvaConditionModel {
 
 	public List<SupplierModel> getSuppliers() {
 		return suppliers;
-	}
-
-	public void setSuppliers(List<SupplierModel> suppliers) {
-		this.suppliers = suppliers;
 	}
 }

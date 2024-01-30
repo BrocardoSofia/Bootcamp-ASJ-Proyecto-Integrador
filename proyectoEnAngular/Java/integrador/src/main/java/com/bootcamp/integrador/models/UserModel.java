@@ -3,6 +3,7 @@ package com.bootcamp.integrador.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -26,7 +27,7 @@ public class UserModel {
 
     @NotNull(message = "user alias cannot be null")
     @NotBlank(message = "user alias cannot be empty")
-    @Size(min = 5, max = 50, message = "user alias must be between 1 and 50 characters")
+    @Size(min = 5, max = 50, message = "user alias must be between 5 and 50 characters")
     @Column(unique = true)
     private String userAlias;
 
@@ -45,11 +46,11 @@ public class UserModel {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
     
-    @OneToMany(mappedBy = "createdBy", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
     private List<SupplierModel> createdSuppliers;
-
-    @OneToMany(mappedBy = "updatedBy", fetch = FetchType.LAZY)
-    private List<SupplierModel> updatedSuppliers;
+    
+    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
+    private List<ProductModel> createdProduct;
 
     public UserModel() {
 
@@ -109,15 +110,8 @@ public class UserModel {
 		return createdSuppliers;
 	}
 
-	public void setCreatedSuppliers(List<SupplierModel> createdSuppliers) {
-		this.createdSuppliers = createdSuppliers;
-	}
-
-	public List<SupplierModel> getUpdatedSuppliers() {
-		return updatedSuppliers;
-	}
-
-	public void setUpdatedSuppliers(List<SupplierModel> updatedSuppliers) {
-		this.updatedSuppliers = updatedSuppliers;
-	}
+	public List<ProductModel> getCreatedProduct() {
+		return createdProduct;
+	}	
+	
 }
