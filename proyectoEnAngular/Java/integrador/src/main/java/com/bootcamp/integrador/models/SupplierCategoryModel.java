@@ -45,12 +45,6 @@ public class SupplierCategoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
 
-    @OneToMany(mappedBy = "supplierCategory", cascade = CascadeType.ALL)
-    private List<ProductCategoryModel> productCategories = new ArrayList<>();
-    
-    @OneToMany(mappedBy = "supplierCategory", cascade = CascadeType.ALL)
-    private List<SupplierModel> suppliers;
-
     public SupplierCategoryModel(int id, String category) {
     	this.createdAt = LocalDateTime.now();
     	this.updatedAt = null;
@@ -98,12 +92,5 @@ public class SupplierCategoryModel {
         this.deletedAt = deletedAt;
     }
 
-    public List<ProductCategoryModel> getProductCategories() {
-        return productCategories;
-    }
-
-	public List<SupplierModel> getSuppliers() {
-		return suppliers;
-	}
  
 }

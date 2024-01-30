@@ -46,12 +46,9 @@ public class ProductCategoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "supplier_category_id", nullable = false)
     private SupplierCategoryModel supplierCategory;
-    
-    @OneToMany(mappedBy = "productCategory", cascade = CascadeType.ALL)
-    private List<ProductModel> products;
 
     public ProductCategoryModel(int id, String category, SupplierCategoryModel supplierCategory) {
         this.id = id;
@@ -106,10 +103,6 @@ public class ProductCategoryModel {
     public void setSupplierCategory(SupplierCategoryModel supplierCategory) {
         this.supplierCategory = supplierCategory;
     }
-
-	public List<ProductModel> getProducts() {
-		return products;
-	}
     
     
 }
