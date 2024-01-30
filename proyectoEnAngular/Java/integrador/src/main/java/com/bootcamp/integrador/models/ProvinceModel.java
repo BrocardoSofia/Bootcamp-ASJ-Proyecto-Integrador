@@ -58,9 +58,5 @@ public class ProvinceModel {
     public void setCountry(CountryModel country) {
         this.country = country;
     }
-
-//	public List<SupplierModel> getSuppliers() {
-//		return suppliers;
-//	}
     
 }

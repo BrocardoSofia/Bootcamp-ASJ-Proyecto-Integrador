@@ -48,4 +48,8 @@ public class ProvinceService {
         return findProvince;
     }
     
+    public List<ProvinceModel> getProvincesByCountryId(int countryId) {
+        return provinceRepository.findByCountryId(countryId);
+    }
+    
 }
