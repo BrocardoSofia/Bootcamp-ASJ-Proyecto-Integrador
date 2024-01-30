@@ -3,6 +3,8 @@ package com.bootcamp.integrador.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,12 +47,6 @@ public class UserModel {
     
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
-    
-    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
-    private List<SupplierModel> createdSuppliers;
-    
-    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
-    private List<ProductModel> createdProduct;
 
     public UserModel() {
 
@@ -105,13 +101,5 @@ public class UserModel {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-
-	public List<SupplierModel> getCreatedSuppliers() {
-		return createdSuppliers;
-	}
-
-	public List<ProductModel> getCreatedProduct() {
-		return createdProduct;
-	}	
 	
 }

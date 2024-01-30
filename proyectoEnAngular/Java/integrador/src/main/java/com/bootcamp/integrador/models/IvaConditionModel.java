@@ -1,11 +1,17 @@
 package com.bootcamp.integrador.models;
 
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,9 +29,6 @@ public class IvaConditionModel {
     @Size(min = 2, max = 50, message = "purchase state must be between 2 and 50 characters")
 	@Column(unique = true)
 	private String ivaCondition;
-	
-//	@OneToMany(mappedBy = "ivaCondition", cascade = CascadeType.ALL)
-//	private List<SupplierModel> suppliers;
 
 	public IvaConditionModel(int id, String ivaCondition) {
 		this.id = id;
