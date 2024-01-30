@@ -28,8 +28,8 @@ public class IvaConditionModel {
 	@Column(unique = true)
 	private String ivaCondition;
 	
-	@OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
-	    private List<SupplierModel> suppliers;
+//	@OneToMany(mappedBy = "ivaCondition", cascade = CascadeType.ALL)
+//	private List<SupplierModel> suppliers;
 
 	public IvaConditionModel(int id, String ivaCondition) {
 		this.id = id;
@@ -49,9 +49,5 @@ public class IvaConditionModel {
 
 	public int getId() {
 		return id;
-	}
-
-	public List<SupplierModel> getSuppliers() {
-		return suppliers;
 	}
 }

@@ -42,16 +42,6 @@ public class CountryController {
         }
     }
     
-    @GetMapping("/{id}/provinces")
-    public ResponseEntity<List<ProvinceModel>> getCountryProvincesById(@PathVariable int id) {
-    	List<ProvinceModel> provinces = countryService.getProvinces(id);
-
-        if (provinces == null) {
-            return new ResponseEntity<>(provinces, HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>(provinces, HttpStatus.FOUND);
-        }
-    }
 
     @PostMapping()
     public ResponseEntity<CountryModel> addCountry(@RequestBody CountryModel country) {

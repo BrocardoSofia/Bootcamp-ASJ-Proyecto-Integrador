@@ -1,15 +1,10 @@
 package com.bootcamp.integrador.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -28,8 +23,8 @@ public class CountryModel {
     @Column(unique = true)
     private String country;
 
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
-    private List<ProvinceModel> provinces = new ArrayList<>();
+//    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+//    private List<ProvinceModel> provinces = new ArrayList<>();
 
     public CountryModel(int id, String country) {
         this.id = id;
@@ -49,9 +44,5 @@ public class CountryModel {
 
     public int getId() {
         return id;
-    }
-
-    public List<ProvinceModel> getProvinces() {
-        return provinces;
     }
 }

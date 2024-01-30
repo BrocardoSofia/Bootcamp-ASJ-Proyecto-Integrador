@@ -49,13 +49,5 @@ public class CountryService {
         return country;
     }
     
-    public List<ProvinceModel> getProvinces(int id){
-    	 Optional<CountryModel> findCountry = countryRepository.findById(id);
-    	 
-    	 if (findCountry.isPresent()) {
-         	return findCountry.get().getProvinces();
-         } else {
-             return null;
-         }
-    }
+    
 }
