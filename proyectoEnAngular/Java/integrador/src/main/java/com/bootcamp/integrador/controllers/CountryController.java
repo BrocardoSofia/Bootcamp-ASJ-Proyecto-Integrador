@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcamp.integrador.models.CountryModel;
+import com.bootcamp.integrador.models.ProvinceModel;
 import com.bootcamp.integrador.services.CountryService;
 
 @RestController
@@ -40,6 +41,17 @@ public class CountryController {
             return new ResponseEntity<>(foundCountry, HttpStatus.FOUND);
         }
     }
+    
+    @GetMapping("/{id}/provinces")
+    public ResponseEntity<List<ProvinceModel>> getCountryProvincesById(@PathVariable int id) {
+    	List<ProvinceModel> provinces = countryService.getProvinces(id);
+
+        if (provinces == null) {
+            return new ResponseEntity<>(provinces, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(provinces, HttpStatus.FOUND);
+        }
+    }
 
     @PostMapping()
     public ResponseEntity<CountryModel> addCountry(@RequestBody CountryModel country) {
@@ -53,11 +65,12 @@ public class CountryController {
     
     @PutMapping()
     public ResponseEntity<CountryModel> updateCountry(@RequestBody CountryModel country) {
-        CountryModel countryAdded = countryService.addCountry(country);
-        if (countryAdded == null) {
-            return new ResponseEntity<>(countryAdded, HttpStatus.NOT_FOUND);
+        CountryModel countryUpdated = countryService.addCountry(country);
+        
+        if (countryUpdated == null) {
+            return new ResponseEntity<>(countryUpdated, HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<>(countryAdded, HttpStatus.OK);
+            return new ResponseEntity<>(countryUpdated, HttpStatus.OK);
         }
     }
 }

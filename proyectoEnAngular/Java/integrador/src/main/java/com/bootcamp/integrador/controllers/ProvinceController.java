@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +38,17 @@ public class ProvinceController {
             return new ResponseEntity<>(foundProvince, HttpStatus.NOT_FOUND);
         } else {
             return new ResponseEntity<>(foundProvince, HttpStatus.FOUND);
+        }
+    }
+    
+    @PutMapping()
+    public ResponseEntity<ProvinceModel> updateProvince(@RequestBody ProvinceModel province) {
+        ProvinceModel provinceUpdated = provinceService.updateProvince(province);
+        
+        if (provinceUpdated == null) {
+            return new ResponseEntity<>(provinceUpdated, HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(provinceUpdated, HttpStatus.OK);
         }
     }
 

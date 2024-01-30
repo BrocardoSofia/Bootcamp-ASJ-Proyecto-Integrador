@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.CountryModel;
+import com.bootcamp.integrador.models.ProvinceModel;
 import com.bootcamp.integrador.repositories.CountryRepository;
 
 @Service
@@ -46,5 +47,15 @@ public class CountryService {
         }
 
         return country;
+    }
+    
+    public List<ProvinceModel> getProvinces(int id){
+    	 Optional<CountryModel> findCountry = countryRepository.findById(id);
+    	 
+    	 if (findCountry.isPresent()) {
+         	return findCountry.get().getProvinces();
+         } else {
+             return null;
+         }
     }
 }
