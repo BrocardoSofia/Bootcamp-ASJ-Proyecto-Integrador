@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.bootcamp.integrador.models.PurchaseStateModel;
 import com.bootcamp.integrador.repositories.PurchaseStateRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class PurchaseStateService {
     @Autowired
@@ -22,6 +24,7 @@ public class PurchaseStateService {
         return purchaseStateRepository.findById(id);
     }
 
+    @Transactional
     public PurchaseStateModel addPurchaseState(PurchaseStateModel purchaseState) {
         PurchaseStateModel findPurchaseState = purchaseStateRepository.findByPurchaseState(purchaseState.getPurchaseState());
 

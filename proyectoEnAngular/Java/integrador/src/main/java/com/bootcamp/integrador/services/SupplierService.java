@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.bootcamp.integrador.models.SupplierModel;
 import com.bootcamp.integrador.repositories.SupplierRepository;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class SupplierService {
 	@Autowired
@@ -55,6 +57,7 @@ public class SupplierService {
 	}
 	
 	//insertar proveedor
+	@Transactional
 	public SupplierModel addSupplier(SupplierModel supplier) {
 		SupplierModel findSupplierByName = supplierRepository.findAllBybusinessName(supplier.getBusinessName());
 		SupplierModel findSupplierByCode = supplierRepository.findAllBySupplierCode(supplier.getSupplierCode());

@@ -40,11 +40,6 @@ public class ProvinceController {
             return new ResponseEntity<>(foundProvince, HttpStatus.FOUND);
         }
     }
-    
-    @GetMapping("/byCountry/{countryId}")
-    public List<ProvinceModel> getProvincesByCountryId(@PathVariable int countryId) {
-        return provinceService.getProvincesByCountryId(countryId);
-    }
 
     @PostMapping()
     public ResponseEntity<ProvinceModel> addProvince(@RequestBody ProvinceModel province) {
