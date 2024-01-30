@@ -21,9 +21,19 @@ public class SupplierService {
 	
 	//obtener proveedores
 	public Page<SupplierModel> getSuppliers(Pageable pageable, String businessName, 
-											String supplierCode){
-		Page<SupplierModel> page = supplierRepository.findAllByBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(businessName,
-																											supplierCode, pageable);
+											String supplierCode, int supplierCategoryId){
+		Page<SupplierModel> page;
+		
+		if(supplierCategoryId <= 0) {
+			page = supplierRepository.findAllByBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(businessName,
+					supplierCode, pageable);
+		}else {
+			page = supplierRepository.findAllBySupplierCategoryIdAndBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(
+					 supplierCategoryId, 
+					 businessName, 
+					 supplierCode,
+					 pageable);
+		}
 		
 		return page;
 	}
