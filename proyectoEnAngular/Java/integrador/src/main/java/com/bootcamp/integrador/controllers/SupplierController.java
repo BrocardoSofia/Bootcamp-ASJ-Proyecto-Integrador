@@ -40,15 +40,19 @@ public class SupplierController {
     //obtener proveedores activos
     @GetMapping("/active")
     public Page<SupplierModel> getActiveSuppliers(Pageable pageable, 
-									@RequestParam(required = false, defaultValue = "") String businessName){
-    	return supplierService.getActiveSuppliers(pageable, businessName);
+									@RequestParam(required = false, defaultValue = "") String businessName,
+									@RequestParam(required = false, defaultValue = "") String supplierCode,
+									@RequestParam(required = false, defaultValue = "-1") int supplierCategoryId){
+    	return supplierService.getActiveSuppliers(pageable, businessName, supplierCode, supplierCategoryId);
     }
     
     //obtener proveedores eliminados
     @GetMapping("/deleted")
     public Page<SupplierModel> getDeletedSuppliers(Pageable pageable, 
-									@RequestParam(required = false, defaultValue = "") String businessName){
-    	return supplierService.getDeletedSuppliers(pageable, businessName);
+									@RequestParam(required = false, defaultValue = "") String businessName,
+									@RequestParam(required = false, defaultValue = "") String supplierCode,
+									@RequestParam(required = false, defaultValue = "-1") int supplierCategoryId){
+    	return supplierService.getDeletedSuppliers(pageable, businessName, supplierCode, supplierCategoryId);
     }
     
     //get por Id

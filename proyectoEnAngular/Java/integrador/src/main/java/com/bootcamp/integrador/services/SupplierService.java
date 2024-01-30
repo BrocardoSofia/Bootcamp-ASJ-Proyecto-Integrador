@@ -39,15 +39,38 @@ public class SupplierService {
 	}
 	
 	//obtener proveedores activos
-	public Page<SupplierModel> getActiveSuppliers(Pageable pageable, String businessName){
-		Page<SupplierModel> page = supplierRepository.findAllByDeletedAtIsNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
+	public Page<SupplierModel> getActiveSuppliers(Pageable pageable, String businessName, String supplierCode,
+			    									int supplierCategoryId){
+		Page<SupplierModel> page;
 		
+		if(supplierCategoryId <= 0) {
+			page = supplierRepository.findAllByDeletedAtIsNullAndBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(
+																								businessName, supplierCode, pageable);
+		}else {
+			page = supplierRepository.findAllBySupplierCategoryIdAndDeletedAtIsNullAndBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(
+					supplierCategoryId, 
+					 businessName, 
+					 supplierCode,
+					 pageable);
+		}
 		return page;
 	}
 	
 	//obtener proveedores eliminados
-	public Page<SupplierModel> getDeletedSuppliers(Pageable pageable, String businessName){
-		Page<SupplierModel> page = supplierRepository.findAllByDeletedAtIsNotNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
+	public Page<SupplierModel> getDeletedSuppliers(Pageable pageable, String businessName, String supplierCode,
+													int supplierCategoryId){
+		Page<SupplierModel> page;
+		
+		if(supplierCategoryId <= 0) {
+			page = supplierRepository.findAllByDeletedAtIsNotNullAndBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(
+					businessName, supplierCode, pageable);
+		}else {
+			page = supplierRepository.findAllBySupplierCategoryIdAndDeletedAtIsNotNullAndBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(
+					supplierCategoryId, 
+					 businessName, 
+					 supplierCode,
+					 pageable);
+		}
 		return page;
 	}
 	
