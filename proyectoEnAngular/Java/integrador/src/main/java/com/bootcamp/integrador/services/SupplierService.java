@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bootcamp.integrador.models.SupplierModel;
 import com.bootcamp.integrador.repositories.SupplierRepository;
@@ -19,12 +20,16 @@ public class SupplierService {
 	SupplierRepository supplierRepository;
 	
 	//obtener proveedores
-	public Page<SupplierModel> getSuppliers(Pageable pageable, String businessName){
+	public Page<SupplierModel> getSuppliers(Pageable pageable, String businessName, 
+											String supplierCode, int supplierCategoryId){
 		Page<SupplierModel> page;
-		if(businessName == "") {
-			page = supplierRepository.findAll(pageable);
+		if(supplierCategoryId <= 0) {
+			page = supplierRepository.findAllByBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(businessName,
+																													supplierCode, pageable);
 		}else {
-			page = supplierRepository.findAllByBusinessNameContainingIgnoreCase(businessName, pageable);
+			page = supplierRepository.findAllBySupplierCategoryIdBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(supplierCategoryId, 
+																																	businessName,
+																																	supplierCode, pageable);
 		}
 		return page;
 	}

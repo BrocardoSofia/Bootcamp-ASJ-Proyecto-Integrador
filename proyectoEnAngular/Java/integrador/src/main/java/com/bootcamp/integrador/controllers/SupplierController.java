@@ -31,8 +31,10 @@ public class SupplierController {
 	//obtener todos los proveedores
     @GetMapping()
     public Page<SupplierModel> getSuppliers(Pageable pageable, 
-									@RequestParam(required = false, defaultValue = "") String businessName){
-    	return supplierService.getSuppliers(pageable, businessName);
+									@RequestParam(required = false, defaultValue = "") String businessName,
+									@RequestParam(required = false, defaultValue = "") String supplierCode,
+									@RequestParam(required = false, defaultValue = "-1") int supplierCategoryId){
+    	return supplierService.getSuppliers(pageable, businessName, supplierCode, supplierCategoryId);
     }
     
     //obtener proveedores activos
