@@ -21,38 +21,23 @@ public class SupplierService {
 	
 	//obtener proveedores
 	public Page<SupplierModel> getSuppliers(Pageable pageable, String businessName, 
-											String supplierCode, int supplierCategoryId){
-		Page<SupplierModel> page;
-		if(supplierCategoryId <= 0) {
-			page = supplierRepository.findAllByBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(businessName,
-																													supplierCode, pageable);
-		}else {
-			page = supplierRepository.findAllBySupplierCategoryIdBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(supplierCategoryId, 
-																																	businessName,
-																																	supplierCode, pageable);
-		}
+											String supplierCode){
+		Page<SupplierModel> page = supplierRepository.findAllByBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(businessName,
+																											supplierCode, pageable);
+		
 		return page;
 	}
 	
 	//obtener proveedores activos
 	public Page<SupplierModel> getActiveSuppliers(Pageable pageable, String businessName){
-		Page<SupplierModel> page;
-		if(businessName == "") {
-			page = supplierRepository.findAllByDeletedAtIsNull(pageable);
-		}else {
-			page = supplierRepository.findAllByDeletedAtIsNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
-		}
+		Page<SupplierModel> page = supplierRepository.findAllByDeletedAtIsNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
+		
 		return page;
 	}
 	
 	//obtener proveedores eliminados
 	public Page<SupplierModel> getDeletedSuppliers(Pageable pageable, String businessName){
-		Page<SupplierModel> page;
-		if(businessName == "") {
-			page = supplierRepository.findAllByDeletedAtIsNotNull(pageable);
-		}else {
-			page = supplierRepository.findAllByDeletedAtIsNotNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
-		}
+		Page<SupplierModel> page = supplierRepository.findAllByDeletedAtIsNotNullAndBusinessNameContainingIgnoreCase(businessName, pageable);
 		return page;
 	}
 	

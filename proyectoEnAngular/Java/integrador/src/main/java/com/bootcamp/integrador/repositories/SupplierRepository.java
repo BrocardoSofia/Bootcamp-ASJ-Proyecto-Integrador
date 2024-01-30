@@ -12,10 +12,6 @@ public interface SupplierRepository extends JpaRepository<SupplierModel, Integer
     Page<SupplierModel> findAllByBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(String businessName, 
     		 																							String supplierCode,
     																									Pageable pageable);
-    Page<SupplierModel> findAllBySupplierCategoryIdBusinessNameContainingIgnoreCaseAndSupplierCodeContainingIgnoreCase(
-    																								int supplierCategoryId, 
-    																								String businessName,
-    																								String supplierCode, Pageable pageable);
     Page<SupplierModel> findAllByDeletedAtIsNullAndBusinessNameContainingIgnoreCase(String businessName, Pageable pageable);
     Page<SupplierModel> findAllByDeletedAtIsNotNull(Pageable pageable);
     Page<SupplierModel> findAllByDeletedAtIsNotNullAndBusinessNameContainingIgnoreCase(String businessName, Pageable pageable);
