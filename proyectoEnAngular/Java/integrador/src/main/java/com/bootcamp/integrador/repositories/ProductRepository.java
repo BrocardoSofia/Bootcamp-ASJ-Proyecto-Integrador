@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.bootcamp.integrador.models.ProductModel;
 
-public interface ProductRepository  extends JpaRepository<ProductModel, Integer>{
+public interface ProductRepository extends JpaRepository<ProductModel, Integer>{
 	Page<ProductModel> findAll(Pageable pageable);
 	Page<ProductModel> findAllByCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCase(String codeSKU,
 																								String productName, 
