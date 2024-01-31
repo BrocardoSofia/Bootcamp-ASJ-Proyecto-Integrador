@@ -27,8 +27,8 @@ public class SupplierHistoryModel {
 	private SupplierModel supplier;
 	
 	@ManyToOne
-    @JoinColumn(name = "updated_by_id", nullable = false)
-    private UserModel updatedBy;
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserModel user;
 	
 	@Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime createdAt;
@@ -54,7 +54,7 @@ public class SupplierHistoryModel {
 	public SupplierHistoryModel(SupplierModel supplier, UserModel updatedBy,String action,
 								String changes, String oldSupplier) {
 		this.supplier = supplier;
-		this.updatedBy = updatedBy;
+		this.user = updatedBy;
 		this.createdAt = LocalDateTime.now();
 		this.action = action;
 		this.changes = changes;
@@ -69,8 +69,8 @@ public class SupplierHistoryModel {
 		return supplier;
 	}
 
-	public UserModel getUpdatedBy() {
-		return updatedBy;
+	public UserModel getUser() {
+		return user;
 	}
 
 	public LocalDateTime getCreatedAt() {
