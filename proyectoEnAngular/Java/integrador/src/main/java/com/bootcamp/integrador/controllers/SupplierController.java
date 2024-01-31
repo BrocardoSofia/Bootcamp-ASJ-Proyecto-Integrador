@@ -106,7 +106,7 @@ public class SupplierController {
     	if(updatedSupplier == null) {
     		return new ResponseEntity<>(updatedSupplier, HttpStatus.CONFLICT);
     	}else {
-    		return new ResponseEntity<>(updatedSupplier, HttpStatus.CREATED);
+    		return new ResponseEntity<>(updatedSupplier, HttpStatus.OK);
     	}
     }
 }
