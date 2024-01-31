@@ -99,23 +99,25 @@ public class SupplierService {
 	}
 	
 	//eliminar proveedor
-	public SupplierModel deleteSupplier(SupplierModel supplier, int userId) {
-		SupplierModel supplierDeleted = supplierRepository.findById(supplier.getId()).get();
+	public SupplierModel deleteSupplier(int supplierId) {
+		SupplierModel supplierDeleted = supplierRepository.findById(supplierId).get();
 		if(supplierDeleted != null) {
+			supplierHistoryService.addSupplierHistory((supplierDeleted.getCreatedBy()).getId(), supplierId, "deleted", "supplier deleted" , supplierDeleted.toString());
 			supplierDeleted.setDeletedAt(LocalDateTime.now());
+			System.out.println();
 			
-			supplierRepository.save(supplierDeleted);
-			System.out.println(supplierDeleted.toString());
+			supplierDeleted = supplierRepository.save(supplierDeleted);
 		}
-		return supplier;
+		return supplierDeleted;
 	}
 	
 	//reingresar proveedor
-	public boolean reInsertSupplier(SupplierModel supplier, int userId) {
-		Optional<SupplierModel> foundSupplier = supplierRepository.findById(supplier.getId());
+	public boolean reInsertSupplier(int supplierId) {
+		Optional<SupplierModel> foundSupplier = supplierRepository.findById(supplierId);
 
         if (foundSupplier.isPresent()) {
         	SupplierModel undeletedSupplier = foundSupplier.get();
+        	supplierHistoryService.addSupplierHistory((undeletedSupplier.getCreatedBy()).getId(), undeletedSupplier.getId(), "re inserted", "supplier re inserted", undeletedSupplier.toString());
         	undeletedSupplier.setDeletedAt(null);
         	
         	supplierRepository.save(undeletedSupplier);

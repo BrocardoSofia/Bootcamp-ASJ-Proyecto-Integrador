@@ -80,17 +80,17 @@ public class SupplierController {
     }
     
     //eliminar proveedor
-    @DeleteMapping()
-    public ResponseEntity<SupplierModel> deleteSupplier(@RequestBody SupplierModel supplier) {
-    	SupplierModel deletedSupplier = supplierService.deleteSupplier(supplier);
+    @DeleteMapping("/{supplierId}")
+    public ResponseEntity<SupplierModel> deleteSupplier(@PathVariable int supplierId) {
+    	SupplierModel deletedSupplier = supplierService.deleteSupplier(supplierId);
         
         return new ResponseEntity<>(deletedSupplier, HttpStatus.OK);
     }
     
     //reinsertar proveedor
-    @PutMapping("/reInsert")
-    public ResponseEntity<Boolean> reInsertSupplier(@RequestBody SupplierModel supplier) {
-    	boolean reInsert = supplierService.reInsertSupplier(supplier);
+    @PutMapping("/{supplierId}/reInsert")
+    public ResponseEntity<Boolean> reInsertSupplier(@PathVariable int supplierId) {
+    	boolean reInsert = supplierService.reInsertSupplier(supplierId);
         if (reInsert) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {
@@ -99,9 +99,9 @@ public class SupplierController {
     }
     
     //modificar proveedor
-    @PutMapping()
-    public ResponseEntity<SupplierModel> updateSupplier(@RequestBody SupplierModel supplier) {
-    	SupplierModel updatedSupplier = supplierService.updateSupplier(supplier);
+    @PutMapping("/{userId}")
+    public ResponseEntity<SupplierModel> updateSupplier(@RequestBody SupplierModel supplier, @PathVariable int userId) {
+    	SupplierModel updatedSupplier = supplierService.updateSupplier(supplier, userId);
 
     	if(updatedSupplier == null) {
     		return new ResponseEntity<>(updatedSupplier, HttpStatus.CONFLICT);

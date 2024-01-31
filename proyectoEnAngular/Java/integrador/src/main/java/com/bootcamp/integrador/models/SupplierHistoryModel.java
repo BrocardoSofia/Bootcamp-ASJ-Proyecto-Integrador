@@ -31,7 +31,7 @@ public class SupplierHistoryModel {
     private UserModel user;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 	
 	@NotNull(message = "action cannot be null")
     @NotBlank(message = "action cannot be empty")

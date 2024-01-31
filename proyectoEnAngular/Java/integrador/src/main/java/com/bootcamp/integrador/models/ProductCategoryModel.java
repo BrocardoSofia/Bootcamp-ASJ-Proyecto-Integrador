@@ -38,7 +38,7 @@ public class ProductCategoryModel {
     private String category;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updatedAt;

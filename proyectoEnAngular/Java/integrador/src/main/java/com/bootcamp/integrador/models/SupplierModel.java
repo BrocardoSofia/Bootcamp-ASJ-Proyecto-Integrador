@@ -102,7 +102,7 @@ public class SupplierModel {
     private String cuit;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updatedAt;
@@ -120,7 +120,6 @@ public class SupplierModel {
         this.id = id;
         this.supplierCategory = supplierCategory;
         this.createdBy = createdBy;
-        this.createdAt = LocalDateTime.now();
         this.updatedAt = null;
         this.deletedAt = null;
         this.province = province;

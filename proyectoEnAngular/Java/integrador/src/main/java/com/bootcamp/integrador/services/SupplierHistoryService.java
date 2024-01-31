@@ -45,7 +45,6 @@ public class SupplierHistoryService {
 		UserModel user = userRepository.findById(userId).get();
 		SupplierModel supplier = supplierRepository.findById(userId).get();
 		
-		System.out.println("ids que llegaon: "+userId+" - "+ supplierId);
 		SupplierHistoryModel newHistory = new SupplierHistoryModel(action, changes, oldSupplier);
 		newHistory.setSupplier(supplier);
 		newHistory.setUser(user);
