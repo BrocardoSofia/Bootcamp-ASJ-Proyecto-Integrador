@@ -51,10 +51,7 @@ public class SupplierHistoryModel {
 	public SupplierHistoryModel() {
 	}
 
-	public SupplierHistoryModel(SupplierModel supplier, UserModel user,String action,
-								String changes, String oldSupplier) {
-		this.supplier = supplier;
-		this.user = user;
+	public SupplierHistoryModel(String action, String changes, String oldSupplier) {
 		this.createdAt = LocalDateTime.now();
 		this.action = action;
 		this.changes = changes;
@@ -88,5 +85,15 @@ public class SupplierHistoryModel {
 	public String getOldSupplier() {
 		return oldSupplier;
 	}
+
+	public void setSupplier(SupplierModel supplier) {
+		this.supplier = supplier;
+	}
+
+	public void setUser(UserModel user) {
+		this.user = user;
+	}
+	
+	
 	
 }

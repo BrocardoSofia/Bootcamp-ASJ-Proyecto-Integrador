@@ -44,8 +44,11 @@ public class SupplierHistoryService {
 	public void addSupplierHistory(int userId, int supplierId, String action, String changes, String oldSupplier) {
 		UserModel user = userRepository.findById(userId).get();
 		SupplierModel supplier = supplierRepository.findById(userId).get();
-		SupplierHistoryModel newHistory = new SupplierHistoryModel(supplier, user, action, changes, oldSupplier);
 		
+		System.out.println("ids que llegaon: "+userId+" - "+ supplierId);
+		SupplierHistoryModel newHistory = new SupplierHistoryModel(action, changes, oldSupplier);
+		newHistory.setSupplier(supplier);
+		newHistory.setUser(user);
 		supplierHistoryRepository.save(newHistory);
 	}
 }

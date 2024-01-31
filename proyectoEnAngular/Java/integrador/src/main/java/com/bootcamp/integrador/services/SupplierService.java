@@ -18,6 +18,9 @@ public class SupplierService {
 	@Autowired
 	SupplierRepository supplierRepository;
 	
+	@Autowired
+	SupplierHistoryService supplierHistoryService;
+	
 	//obtener proveedores
 	public Page<SupplierModel> getSuppliers(Pageable pageable, String businessName, 
 											String supplierCode, int supplierCategoryId){
@@ -86,25 +89,29 @@ public class SupplierService {
 		SupplierModel supplierAdded = null;
 		
 		if((findSupplierByName == null) && (findSupplierByCode == null)) {
-			supplierAdded = supplierRepository.save(supplier);
-		}
+	        //guardo al proveedor
+	        supplierAdded = supplierRepository.save(supplier);
+	        //registro el cambio en el historial
+	        supplierHistoryService.addSupplierHistory((supplierAdded.getCreatedBy()).getId(), supplierAdded.getId(), "created", supplierAdded.toString(), "---");
+	    }
 		
 		return supplierAdded;
 	}
 	
 	//eliminar proveedor
-	public SupplierModel deleteSupplier(SupplierModel supplier) {
+	public SupplierModel deleteSupplier(SupplierModel supplier, int userId) {
 		SupplierModel supplierDeleted = supplierRepository.findById(supplier.getId()).get();
 		if(supplierDeleted != null) {
 			supplierDeleted.setDeletedAt(LocalDateTime.now());
 			
 			supplierRepository.save(supplierDeleted);
+			System.out.println(supplierDeleted.toString());
 		}
 		return supplier;
 	}
 	
 	//reingresar proveedor
-	public boolean reInsertSupplier(SupplierModel supplier) {
+	public boolean reInsertSupplier(SupplierModel supplier, int userId) {
 		Optional<SupplierModel> foundSupplier = supplierRepository.findById(supplier.getId());
 
         if (foundSupplier.isPresent()) {
@@ -119,7 +126,7 @@ public class SupplierService {
 	}
 	
 	//modificar proveedor
-	public SupplierModel updateSupplier(SupplierModel supplier) {
+	public SupplierModel updateSupplier(SupplierModel supplier, int userId) {
 		SupplierModel existingSupplier = supplierRepository.findById(supplier.getId()).orElse(null);
 		String oldBusinessName = existingSupplier.getBusinessEmail();
 		SupplierModel existBusinessName	= supplierRepository.findAllByBusinessName(supplier.getBusinessName());
