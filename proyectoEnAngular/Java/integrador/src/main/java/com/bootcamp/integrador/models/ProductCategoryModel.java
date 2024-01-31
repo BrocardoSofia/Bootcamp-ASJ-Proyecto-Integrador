@@ -103,6 +103,12 @@ public class ProductCategoryModel {
     public void setSupplierCategory(SupplierCategoryModel supplierCategory) {
         this.supplierCategory = supplierCategory;
     }
+
+	@Override
+	public String toString() {
+		return "ProductCategoryModel [id=" + id + ", category=" + category + ", createdAt=" + createdAt + ", updatedAt="
+				+ updatedAt + ", deletedAt=" + deletedAt + ", supplierCategory=" + supplierCategory.toString() + "]";
+	}
     
     
 }

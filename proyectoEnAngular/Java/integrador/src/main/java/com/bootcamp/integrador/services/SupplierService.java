@@ -182,12 +182,16 @@ public class SupplierService {
 			if(!oldSupplier.getImageUrl().equals(newSupplier.getImageUrl())) {
 				changes += "Image Url: " + newSupplier.getImageUrl()+"|";
 			}
+		}else if(newSupplier.getImageUrl() != null) {
+			changes += "Image Url: " + newSupplier.getImageUrl()+"|";
 		}
 		
 		if(oldSupplier.getBusinessWebpage() != null) {
 			if(!oldSupplier.getBusinessWebpage().equals(newSupplier.getBusinessWebpage())) {
 				changes += "Business Web page: " + newSupplier.getBusinessWebpage()+"|";
 			}
+		}else if(newSupplier.getBusinessWebpage() != null){
+			changes += "Business Web page: " + newSupplier.getBusinessWebpage()+"|";
 		}
 		
 		if(!oldSupplier.getBusinessEmail().equals(newSupplier.getBusinessEmail())) {

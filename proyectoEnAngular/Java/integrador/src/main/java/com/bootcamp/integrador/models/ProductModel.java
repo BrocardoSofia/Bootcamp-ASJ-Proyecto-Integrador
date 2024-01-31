@@ -175,6 +175,14 @@ public class ProductModel {
 	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductModel [id=" + id + ", supplier=" + supplier.toString() + ", productCategory=" + productCategory.toString()
+				+ ", createdBy=" + createdBy.toString() + ", codeSKU=" + codeSKU + ", productName=" + productName
+				+ ", productDescription=" + productDescription + ", price=" + price + ", stock=" + stock
+				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
+	}
     
     
     
