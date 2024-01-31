@@ -7,6 +7,6 @@ import org.springframework.data.domain.Pageable;
 import com.bootcamp.integrador.models.SupplierHistoryModel;
 
 public interface SupplierHistoryRepository extends JpaRepository<SupplierHistoryModel, Integer>{
-	Page<SupplierHistoryModel> findBySupplierId(int supplierId, Pageable pageable);
-	Page<SupplierHistoryModel> findByUserId(int userId, Pageable pageable);
+	Page<SupplierHistoryModel> findAllBySupplierId(int supplierId, Pageable pageable);
+	Page<SupplierHistoryModel> findAllByUserId(int userId, Pageable pageable);
 }
