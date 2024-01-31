@@ -13,7 +13,7 @@ import com.bootcamp.integrador.models.SupplierHistoryModel;
 import com.bootcamp.integrador.services.SupplierHistoryService;
 
 @RestController
-@RequestMapping("/supplier-history") //localhost:8080/users
+@RequestMapping("/supplier-history") //localhost:8080/supplier-history
 @CrossOrigin(origins = "http://localhost:4200")
 public class SupplierHistoryController {
 	@Autowired
@@ -21,7 +21,7 @@ public class SupplierHistoryController {
 	
 	//obtener historial de un proveedor
 	@GetMapping("/supplier/{id}")
-	public Page<SupplierHistoryModel> getsupplierHistory(Pageable pageable, @PathVariable int id){
+	public Page<SupplierHistoryModel> getsupplierHistoryBySupplierId(Pageable pageable, @PathVariable int id){
 		return supplierHistoryService.getSupplierHistoryBySupplierId(pageable, id);
 	}
 	
