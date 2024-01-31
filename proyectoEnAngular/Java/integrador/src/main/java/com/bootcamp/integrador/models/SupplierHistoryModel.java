@@ -47,4 +47,46 @@ public class SupplierHistoryModel {
     @NotBlank(message = "Old Supplier cannot be empty")
     @Size(min = 2, message = "Old Supplier must be greater than 2 characters")
     private String oldSupplier;
+	
+	public SupplierHistoryModel() {
+	}
+
+	public SupplierHistoryModel(SupplierModel supplier, UserModel updatedBy,String action,
+								String changes, String oldSupplier) {
+		this.supplier = supplier;
+		this.updatedBy = updatedBy;
+		this.createdAt = LocalDateTime.now();
+		this.action = action;
+		this.changes = changes;
+		this.oldSupplier = oldSupplier;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public SupplierModel getSupplier() {
+		return supplier;
+	}
+
+	public UserModel getUpdatedBy() {
+		return updatedBy;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public String getChanges() {
+		return changes;
+	}
+
+	public String getOldSupplier() {
+		return oldSupplier;
+	}
+	
 }
