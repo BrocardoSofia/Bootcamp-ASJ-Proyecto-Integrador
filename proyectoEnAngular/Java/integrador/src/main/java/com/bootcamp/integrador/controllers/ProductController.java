@@ -1,15 +1,21 @@
 package com.bootcamp.integrador.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcamp.integrador.models.ProductModel;
+import com.bootcamp.integrador.models.SupplierModel;
 import com.bootcamp.integrador.services.ProductService;
 
 @RestController
@@ -47,6 +53,16 @@ public class ProductController {
 	}
 	
 	//get por Id
+	@GetMapping("/{id}")
+	public ResponseEntity<Optional<ProductModel>> getProductById(@PathVariable int id){
+		Optional<ProductModel> foundProduct = productService.getProductById(id);
+		
+		if(foundProduct.isEmpty()) {
+			return new ResponseEntity<>(foundProduct, HttpStatus.NOT_FOUND);
+		}else {
+			return new ResponseEntity<>(foundProduct, HttpStatus.FOUND);
+		}
+	}
 	
 	//cargar nuevo producto
 	
