@@ -109,16 +109,18 @@ public class ProductService {
 	}
 	
 	//reingresar producto
-	public ProductModel reInsertProduct(ProductModel product) {
+	public boolean reInsertProduct(ProductModel product) {
 		ProductModel productUndeleted = productRepository.findById(product.getId()).get();
 		
 		if(productUndeleted != null) {
 			productUndeleted.setDeletedAt(null);
 			
 			productRepository.save(productUndeleted);
-		}
+			return true;
+		}else {
+            return false;
+        }
 		
-		return productUndeleted;
 	}
 	
 	//modificar producto

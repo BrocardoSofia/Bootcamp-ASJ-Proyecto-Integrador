@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,7 +89,27 @@ public class ProductController {
 	}
 	
 	//reinsertar producto
+	@PutMapping("/reInsert")
+	public ResponseEntity<Boolean> reInsertProduct(@RequestBody ProductModel product){
+		boolean reInsert = productService.reInsertProduct(product);
+		
+		if (reInsert) {
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
+	}
 	
 	//modificar producto
+	@PutMapping()
+	public ResponseEntity<ProductModel> updateProduct(@RequestBody ProductModel product){
+		ProductModel updatedDeleted = productService.updateProduct(product);
+		
+		if(updatedDeleted == null) {
+    		return new ResponseEntity<>(updatedDeleted, HttpStatus.CONFLICT);
+    	}else {
+    		return new ResponseEntity<>(updatedDeleted, HttpStatus.CREATED);
+    	}
+	}
 
 }
