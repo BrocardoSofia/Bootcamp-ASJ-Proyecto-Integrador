@@ -34,5 +34,7 @@ public interface ProductRepository  extends JpaRepository<ProductModel, Integer>
 																								String codeSKU,
 																								String productName, 
 																								Pageable pageable);
+	ProductModel findAllByCodeSKU(String codeSKU);
+	ProductModel findAllByProductName(String productName);
 	
 }

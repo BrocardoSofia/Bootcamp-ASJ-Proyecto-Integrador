@@ -37,6 +37,6 @@ public interface SupplierRepository extends JpaRepository<SupplierModel, Integer
     																								String supplierCode,
     																								Pageable pageable);
     Page<SupplierModel> findAllByBusinessNameContainingIgnoreCase(String businessName, Pageable pageable);
-    SupplierModel findAllBybusinessName(String businessName);
+    SupplierModel findAllByBusinessName(String businessName);
     SupplierModel findAllBySupplierCode(String supplierCode);
 }

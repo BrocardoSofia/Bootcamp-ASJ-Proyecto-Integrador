@@ -82,13 +82,12 @@ public class SupplierService {
 	//insertar proveedor
 	@Transactional
 	public SupplierModel addSupplier(SupplierModel supplier) {
-		SupplierModel findSupplierByName = supplierRepository.findAllBybusinessName(supplier.getBusinessName());
+		SupplierModel findSupplierByName = supplierRepository.findAllByBusinessName(supplier.getBusinessName());
 		SupplierModel findSupplierByCode = supplierRepository.findAllBySupplierCode(supplier.getSupplierCode());
 		SupplierModel supplierAdded = null;
 		
 		if((findSupplierByName == null) && (findSupplierByCode == null)) {
-			supplierRepository.save(supplier);
-			supplierAdded = supplierRepository.findAllBybusinessName(supplier.getBusinessName()); 
+			supplierAdded = supplierRepository.save(supplier);
 		}
 		
 		return supplierAdded;
@@ -124,7 +123,7 @@ public class SupplierService {
 	public SupplierModel updateSupplier(SupplierModel supplier) {
 		SupplierModel existingSupplier = supplierRepository.findById(supplier.getId()).orElse(null);
 		String oldBusinessName = existingSupplier.getBusinessEmail();
-		SupplierModel existBusinessName	= supplierRepository.findAllBybusinessName(supplier.getBusinessName());
+		SupplierModel existBusinessName	= supplierRepository.findAllByBusinessName(supplier.getBusinessName());
 		
 		if(existingSupplier != null && ((existBusinessName == null)||(oldBusinessName == supplier.getBusinessName()))) {
 			existingSupplier.setSupplierCode(supplier.getSupplierCode());
