@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.ProductCategoryModel;
 import com.bootcamp.integrador.models.UserModel;
-import com.bootcamp.integrador.repositories.UserRepositoriy;
+import com.bootcamp.integrador.repositories.UserRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
     @Autowired
-    UserRepositoriy userRepository;
+    UserRepository userRepository;
     
     
     //obtener usuarios

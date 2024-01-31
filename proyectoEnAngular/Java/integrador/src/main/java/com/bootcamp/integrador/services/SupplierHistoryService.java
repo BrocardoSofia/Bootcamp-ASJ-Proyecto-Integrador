@@ -8,12 +8,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.SupplierHistoryModel;
+import com.bootcamp.integrador.models.SupplierModel;
+import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.SupplierHistoryRepository;
+import com.bootcamp.integrador.repositories.SupplierRepository;
+import com.bootcamp.integrador.repositories.UserRepository;
 
 @Service
 public class SupplierHistoryService {
 	@Autowired
 	SupplierHistoryRepository supplierHistoryRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	SupplierRepository supplierRepository;
 	
 	//obtener historial por proveedor
 	public Page<SupplierHistoryModel> getSupplierHistoryBySupplierId(Pageable pageable, int supplierId) {
@@ -31,5 +41,11 @@ public class SupplierHistoryService {
 	}
 	
 	//agregar historial
-	
+	public void addSupplierHistory(int userId, int supplierId, String action, String changes, String oldSupplier) {
+		UserModel user = userRepository.findById(userId).get();
+		SupplierModel supplier = supplierRepository.findById(userId).get();
+		SupplierHistoryModel newHistory = new SupplierHistoryModel(supplier, user, action, changes, oldSupplier);
+		
+		supplierHistoryRepository.save(newHistory);
+	}
 }

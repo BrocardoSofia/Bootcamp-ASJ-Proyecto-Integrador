@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.bootcamp.integrador.models.UserModel;
 
-public interface UserRepositoriy extends JpaRepository<UserModel, Integer>
+public interface UserRepository extends JpaRepository<UserModel, Integer>
 {
 	Page<UserModel> findAll(Pageable pageable);
 	Page<UserModel> findAllByDeletedAtIsNull(Pageable pageable);

@@ -51,10 +51,10 @@ public class SupplierHistoryModel {
 	public SupplierHistoryModel() {
 	}
 
-	public SupplierHistoryModel(SupplierModel supplier, UserModel updatedBy,String action,
+	public SupplierHistoryModel(SupplierModel supplier, UserModel user,String action,
 								String changes, String oldSupplier) {
 		this.supplier = supplier;
-		this.user = updatedBy;
+		this.user = user;
 		this.createdAt = LocalDateTime.now();
 		this.action = action;
 		this.changes = changes;
