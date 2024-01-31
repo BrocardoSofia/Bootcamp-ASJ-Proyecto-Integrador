@@ -162,22 +162,57 @@ public class SupplierService {
 	private String getChanges(SupplierModel oldSupplier, SupplierModel newSupplier) {
 		String changes = "";
 		
-		/*
-			existingSupplier.setSupplierCode(supplier.getSupplierCode());
-			existingSupplier.setUpdatedAt(LocalDateTime.now());
-			existingSupplier.setProvince(supplier.getProvince());
-			existingSupplier.setIvaCondition(supplier.getIvaCondition());
-			existingSupplier.setBusinessName(supplier.getBusinessName());
-			existingSupplier.setImageUrl(supplier.getImageUrl());
-			existingSupplier.setBusinessWebpage(supplier.getBusinessWebpage());
-			existingSupplier.setBusinessEmail(supplier.getBusinessEmail());
-			existingSupplier.setBusinessPhone(supplier.getBusinessPhone());
-			existingSupplier.setStreetName(supplier.getStreetName());
-			existingSupplier.setStreetNumber(supplier.getStreetNumber());
-			existingSupplier.setCity(supplier.getCity());
-			existingSupplier.setCp(supplier.getCp());
-			existingSupplier.setCuit(supplier.getCuit());
-		*/
+		if(oldSupplier.getSupplierCode() != newSupplier.getSupplierCode()) {
+			changes += "Supplier code: " + newSupplier.getSupplierCode()+"|";
+		}
+		
+		if(oldSupplier.getProvince().getId() != newSupplier.getProvince().getId()) {
+			changes += "Province: " + newSupplier.getProvince().getProvince()+"|";
+		}
+		
+		if(oldSupplier.getIvaCondition().getId() != newSupplier.getIvaCondition().getId()) {
+			changes += "Iva Condition: " + newSupplier.getIvaCondition().getIvaCondition()+"|";
+		}
+		
+		if(oldSupplier.getBusinessName() != newSupplier.getBusinessName()) {
+			changes += "Business Name: " + newSupplier.getBusinessName()+"|";
+		}
+		
+		if(oldSupplier.getImageUrl() != newSupplier.getImageUrl()) {
+			changes += "Image Url: " + newSupplier.getImageUrl()+"|";
+		}
+		
+		if(oldSupplier.getBusinessWebpage() != newSupplier.getBusinessWebpage()) {
+			changes += "Business Web page: " + newSupplier.getBusinessWebpage()+"|";
+		}
+		
+		if(oldSupplier.getBusinessEmail() != newSupplier.getBusinessEmail()) {
+			changes += "Business Email: " + newSupplier.getBusinessEmail()+"|";
+		}
+		
+		if(oldSupplier.getBusinessPhone() != newSupplier.getBusinessPhone()) {
+			changes += "Business Phone: " + newSupplier.getBusinessPhone()+"|";
+		}
+		
+		if(oldSupplier.getStreetName() != newSupplier.getStreetName()) {
+			changes += "Street Name: " + newSupplier.getStreetName()+"|";
+		}
+		
+		if(oldSupplier.getStreetNumber() != newSupplier.getStreetNumber()) {
+			changes += "Street Number: " + newSupplier.getStreetNumber()+"|";
+		}
+		
+		if(oldSupplier.getCity() != newSupplier.getCity()) {
+			changes += "City: " + newSupplier.getCity()+"|";
+		}
+		
+		if(oldSupplier.getCp() != newSupplier.getCp()) {
+			changes += "Cp: " + newSupplier.getCp()+"|";
+		}
+		
+		if(oldSupplier.getCuit() != newSupplier.getCuit()) {
+			changes += "Cuit: " + newSupplier.getCuit()+"|";
+		}
 		
 		return changes;
 	}

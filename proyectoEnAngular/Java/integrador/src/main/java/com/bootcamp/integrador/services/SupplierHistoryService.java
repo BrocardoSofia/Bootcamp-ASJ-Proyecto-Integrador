@@ -51,4 +51,6 @@ public class SupplierHistoryService {
 		newHistory.setUser(user);
 		supplierHistoryRepository.save(newHistory);
 	}
+	
+	
 }
