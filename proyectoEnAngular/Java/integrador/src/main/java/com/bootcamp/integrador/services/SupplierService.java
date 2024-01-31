@@ -3,6 +3,7 @@ package com.bootcamp.integrador.services;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -92,7 +93,7 @@ public class SupplierService {
 	        //guardo al proveedor
 	        supplierAdded = supplierRepository.save(supplier);
 	        //registro el cambio en el historial
-	        supplierHistoryService.addSupplierHistory((supplierAdded.getCreatedBy()).getId(), supplierAdded.getId(), "created", supplierAdded.toString(), "---");
+	        supplierHistoryService.addSupplierHistory((supplierAdded.getCreatedBy()).getId(), supplierAdded.getId(), "created", "supplier created", "---");
 	    }
 		
 		return supplierAdded;
@@ -101,10 +102,11 @@ public class SupplierService {
 	//eliminar proveedor
 	public SupplierModel deleteSupplier(int supplierId) {
 		SupplierModel supplierDeleted = supplierRepository.findById(supplierId).get();
-		if(supplierDeleted != null) {
+		if(supplierDeleted != null) {			
 			supplierHistoryService.addSupplierHistory((supplierDeleted.getCreatedBy()).getId(), supplierId, "deleted", "supplier deleted" , supplierDeleted.toString());
+			
 			supplierDeleted.setDeletedAt(LocalDateTime.now());
-			System.out.println();
+			System.out.println(supplierDeleted.toString());
 			
 			supplierDeleted = supplierRepository.save(supplierDeleted);
 		}
@@ -117,7 +119,8 @@ public class SupplierService {
 
         if (foundSupplier.isPresent()) {
         	SupplierModel undeletedSupplier = foundSupplier.get();
-        	supplierHistoryService.addSupplierHistory((undeletedSupplier.getCreatedBy()).getId(), undeletedSupplier.getId(), "re inserted", "supplier re inserted", undeletedSupplier.toString());
+        	supplierHistoryService.addSupplierHistory((undeletedSupplier.getCreatedBy()).getId(), supplierId, "re inserted", "supplier re inserted" , undeletedSupplier.toString());
+        	
         	undeletedSupplier.setDeletedAt(null);
         	
         	supplierRepository.save(undeletedSupplier);
@@ -134,6 +137,7 @@ public class SupplierService {
 		SupplierModel existBusinessName	= supplierRepository.findAllByBusinessName(supplier.getBusinessName());
 		
 		if(existingSupplier != null && ((existBusinessName == null)||(oldBusinessName == supplier.getBusinessName()))) {
+			supplierHistoryService.addSupplierHistory((existingSupplier.getCreatedBy()).getId(), supplier.getId(), "updated", getChanges(existingSupplier, supplier) , existingSupplier.toString());
 			existingSupplier.setSupplierCode(supplier.getSupplierCode());
 			existingSupplier.setUpdatedAt(LocalDateTime.now());
 			existingSupplier.setProvince(supplier.getProvince());
@@ -153,5 +157,28 @@ public class SupplierService {
 		}
 		
 		return existingSupplier;
+	}
+	
+	private String getChanges(SupplierModel oldSupplier, SupplierModel newSupplier) {
+		String changes = "";
+		
+		/*
+			existingSupplier.setSupplierCode(supplier.getSupplierCode());
+			existingSupplier.setUpdatedAt(LocalDateTime.now());
+			existingSupplier.setProvince(supplier.getProvince());
+			existingSupplier.setIvaCondition(supplier.getIvaCondition());
+			existingSupplier.setBusinessName(supplier.getBusinessName());
+			existingSupplier.setImageUrl(supplier.getImageUrl());
+			existingSupplier.setBusinessWebpage(supplier.getBusinessWebpage());
+			existingSupplier.setBusinessEmail(supplier.getBusinessEmail());
+			existingSupplier.setBusinessPhone(supplier.getBusinessPhone());
+			existingSupplier.setStreetName(supplier.getStreetName());
+			existingSupplier.setStreetNumber(supplier.getStreetNumber());
+			existingSupplier.setCity(supplier.getCity());
+			existingSupplier.setCp(supplier.getCp());
+			existingSupplier.setCuit(supplier.getCuit());
+		*/
+		
+		return changes;
 	}
 }

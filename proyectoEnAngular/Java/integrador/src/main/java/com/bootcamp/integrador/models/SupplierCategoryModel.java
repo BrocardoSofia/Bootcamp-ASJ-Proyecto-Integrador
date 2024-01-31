@@ -92,5 +92,13 @@ public class SupplierCategoryModel {
 
     public void setDeletedAt(LocalDateTime deletedAt) {
         this.deletedAt = deletedAt;
-    } 
+    }
+
+	@Override
+	public String toString() {
+		return "SupplierCategoryModel [id=" + id + ", category=" + category + ", createdAt=" + createdAt
+				+ ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
+	} 
+    
+    
 }

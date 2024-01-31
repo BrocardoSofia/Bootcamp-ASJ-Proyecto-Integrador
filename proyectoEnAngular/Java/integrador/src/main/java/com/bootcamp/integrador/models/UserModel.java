@@ -101,5 +101,13 @@ public class UserModel {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+	@Override
+	public String toString() {
+		return "UserModel [id=" + id + ", userAlias=" + userAlias + ", password=" + password + ", createdAt="
+				+ createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
+	}
+    
+    
 	
 }

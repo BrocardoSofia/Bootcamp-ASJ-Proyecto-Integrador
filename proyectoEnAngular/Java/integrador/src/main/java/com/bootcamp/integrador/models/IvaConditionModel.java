@@ -42,5 +42,11 @@ public class IvaConditionModel {
 	public int getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "IvaConditionModel [id=" + id + ", ivaCondition=" + ivaCondition + "]";
+	}
+	
 	
 }

@@ -13,6 +13,7 @@ import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.SupplierHistoryRepository;
 import com.bootcamp.integrador.repositories.SupplierRepository;
 import com.bootcamp.integrador.repositories.UserRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class SupplierHistoryService {
@@ -43,7 +44,7 @@ public class SupplierHistoryService {
 	//agregar historial
 	public void addSupplierHistory(int userId, int supplierId, String action, String changes, String oldSupplier) {
 		UserModel user = userRepository.findById(userId).get();
-		SupplierModel supplier = supplierRepository.findById(userId).get();
+		SupplierModel supplier = supplierRepository.findById(supplierId).get();
 		
 		SupplierHistoryModel newHistory = new SupplierHistoryModel(action, changes, oldSupplier);
 		newHistory.setSupplier(supplier);

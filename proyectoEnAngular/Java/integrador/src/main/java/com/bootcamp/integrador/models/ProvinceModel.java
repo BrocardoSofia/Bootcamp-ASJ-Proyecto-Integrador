@@ -62,5 +62,11 @@ public class ProvinceModel {
     public void setCountry(CountryModel country) {
         this.country = country;
     }
+
+	@Override
+	public String toString() {
+		return "ProvinceModel [id=" + id + ", province=" + province + ", country=" + country + "]";
+	}
+    
     
 }
