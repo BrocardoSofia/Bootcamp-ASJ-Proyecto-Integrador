@@ -24,15 +24,15 @@ public class ProductModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
     @JoinColumn(name = "supplier_id", nullable = false)
     private SupplierModel supplier;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategoryModel productCategory;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
     @JoinColumn(name = "created_by_id", nullable = false)
     private UserModel createdBy;
     
@@ -86,6 +86,94 @@ public class ProductModel {
 		this.createdAt = LocalDateTime.now();
 		this.updatedAt = null;
 		this.deletedAt = null; 
+	}
+
+	public SupplierModel getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(SupplierModel supplier) {
+		this.supplier = supplier;
+	}
+
+	public ProductCategoryModel getProductCategory() {
+		return productCategory;
+	}
+
+	public void setProductCategory(ProductCategoryModel productCategory) {
+		this.productCategory = productCategory;
+	}
+
+	public UserModel getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(UserModel createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getCodeSKU() {
+		return codeSKU;
+	}
+
+	public void setCodeSKU(String codeSKU) {
+		this.codeSKU = codeSKU;
+	}
+
+	public String getProductName() {
+		return productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
+	public String getProductDescription() {
+		return productDescription;
+	}
+
+	public void setProductDescription(String productDescription) {
+		this.productDescription = productDescription;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public LocalDateTime getDeletedAt() {
+		return deletedAt;
+	}
+
+	public void setDeletedAt(LocalDateTime deletedAt) {
+		this.deletedAt = deletedAt;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
 	}
     
     
