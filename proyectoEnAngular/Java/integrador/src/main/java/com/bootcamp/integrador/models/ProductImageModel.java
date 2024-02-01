@@ -32,7 +32,7 @@ public class ProductImageModel {
     private String imageURL;
 	
 	@JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private ProductModel product;
 	
