@@ -1,5 +1,9 @@
 package com.bootcamp.integrador.repositories;
 
-public interface ProductImageRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bootcamp.integrador.models.ProductImageModel;
+
+public interface ProductImageRepository extends JpaRepository<ProductImageModel, Integer>{
 
 }
