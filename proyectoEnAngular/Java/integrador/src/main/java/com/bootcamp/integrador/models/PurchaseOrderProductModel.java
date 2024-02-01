@@ -28,7 +28,7 @@ public class PurchaseOrderProductModel {
 	@JsonBackReference
     @ManyToOne
     @JoinColumn(name = "purchase_order_id", nullable = false)
-    private CountryModel purchaseOrder;
+    private PurchaseOrderModel purchaseOrder;
 	
 	@ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
@@ -52,7 +52,7 @@ public class PurchaseOrderProductModel {
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 	
-	public PurchaseOrderProductModel(CountryModel purchaseOrder, ProductModel product, ProductCategoryModel productCategory,
+	public PurchaseOrderProductModel(PurchaseOrderModel purchaseOrder, ProductModel product, ProductCategoryModel productCategory,
 										double price, int amount) {
 		this.purchaseOrder = purchaseOrder;
 		this.product = product;
@@ -68,7 +68,7 @@ public class PurchaseOrderProductModel {
 		return id;
 	}
 
-	public CountryModel getPurchaseOrder() {
+	public PurchaseOrderModel getPurchaseOrder() {
 		return purchaseOrder;
 	}
 
