@@ -139,6 +139,7 @@ public class SupplierService {
 		if(existingSupplier != null && ((existBusinessName == null)||(oldBusinessName.equals(supplier.getBusinessName())))) {
 			supplierHistoryService.addSupplierHistory((existingSupplier.getCreatedBy()).getId(), supplier.getId(), "updated", getChanges(existingSupplier, supplier) , existingSupplier.toString());
 			existingSupplier.setSupplierCode(supplier.getSupplierCode());
+			existingSupplier.setSupplierCategory(supplier.getSupplierCategory());
 			existingSupplier.setUpdatedAt(LocalDateTime.now());
 			existingSupplier.setProvince(supplier.getProvince());
 			existingSupplier.setIvaCondition(supplier.getIvaCondition());
@@ -168,6 +169,10 @@ public class SupplierService {
 		
 		if(oldSupplier.getProvince().getId() != newSupplier.getProvince().getId()) {
 			changes += "Province: " + newSupplier.getProvince().getProvince()+"|";
+		}
+		
+		if(oldSupplier.getSupplierCategory().getId() != newSupplier.getSupplierCategory().getId()) {
+			changes += "Supplier category: " + newSupplier.getSupplierCategory().getCategory()+"|";
 		}
 		
 		if(oldSupplier.getIvaCondition().getId() != newSupplier.getIvaCondition().getId()) {

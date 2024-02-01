@@ -81,17 +81,17 @@ public class ProductController {
 	}
 	
 	//eliminar producto
-	@DeleteMapping()
-	public ResponseEntity<ProductModel> deleteProduct(@RequestBody ProductModel product){
-		ProductModel productDeleted = productService.deleteProduct(product);
+	@DeleteMapping("/{productId}")
+	public ResponseEntity<ProductModel> deleteProduct(@PathVariable int productId){
+		ProductModel productDeleted = productService.deleteProduct(productId);
 		
 		return new ResponseEntity<>(productDeleted, HttpStatus.OK);
 	}
 	
 	//reinsertar producto
-	@PutMapping("/reInsert")
-	public ResponseEntity<Boolean> reInsertProduct(@RequestBody ProductModel product){
-		boolean reInsert = productService.reInsertProduct(product);
+	@PutMapping("/{productId}/reInsert")
+	public ResponseEntity<Boolean> reInsertProduct(@PathVariable int productId){
+		boolean reInsert = productService.reInsertProduct(productId);
 		
 		if (reInsert) {
             return new ResponseEntity<>(true, HttpStatus.OK);
@@ -108,7 +108,7 @@ public class ProductController {
 		if(updatedDeleted == null) {
     		return new ResponseEntity<>(updatedDeleted, HttpStatus.CONFLICT);
     	}else {
-    		return new ResponseEntity<>(updatedDeleted, HttpStatus.CREATED);
+    		return new ResponseEntity<>(updatedDeleted, HttpStatus.OK);
     	}
 	}
 

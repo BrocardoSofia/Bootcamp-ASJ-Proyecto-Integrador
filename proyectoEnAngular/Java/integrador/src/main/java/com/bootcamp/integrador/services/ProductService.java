@@ -19,6 +19,9 @@ public class ProductService {
 	@Autowired
 	ProductRepository productRepository;
 	
+	@Autowired
+	ProductHistoryService productHistoryService;
+	
 	//obtener productos
 	public Page<ProductModel> getProducts(Pageable pageable, int supplierId, String codeSKU, String productName){
 		Page<ProductModel> page;
@@ -90,16 +93,19 @@ public class ProductService {
 		
 		if((findProductBySKU == null) && (findProductByName == null)) {
 			productAdded = productRepository.save(product);
+			//registro el cambio en el historial
+			productHistoryService.addProductHistory((productAdded.getCreatedBy()).getId(), productAdded.getId(), "created", "product created", "---");
 		}
 		
 		return productAdded;
 	}
 	
 	//eliminar producto
-	public ProductModel deleteProduct(ProductModel product) {
-		ProductModel productDeleted = productRepository.findById(product.getId()).get();
+	public ProductModel deleteProduct(int productId) {
+		ProductModel productDeleted = productRepository.findById(productId).get();
 		
 		if(productDeleted != null) {
+			productHistoryService.addProductHistory((productDeleted.getCreatedBy()).getId(), productId, "deleted", "product deleted" , productDeleted.toString());
 			productDeleted.setDeletedAt(LocalDateTime.now());
 			
 			productRepository.save(productDeleted);
@@ -109,10 +115,11 @@ public class ProductService {
 	}
 	
 	//reingresar producto
-	public boolean reInsertProduct(ProductModel product) {
-		ProductModel productUndeleted = productRepository.findById(product.getId()).get();
+	public boolean reInsertProduct(int productId) {
+		ProductModel productUndeleted = productRepository.findById(productId).get();
 		
 		if(productUndeleted != null) {
+			productHistoryService.addProductHistory((productUndeleted.getCreatedBy()).getId(), productId, "re inserted", "supplier re inserted" , productUndeleted.toString());
 			productUndeleted.setDeletedAt(null);
 			
 			productRepository.save(productUndeleted);
@@ -128,6 +135,7 @@ public class ProductService {
 		ProductModel existingProduct = productRepository.findById(product.getId()).get();
 		
 		if(existingProduct != null) {
+			productHistoryService.addProductHistory((existingProduct.getCreatedBy()).getId(), product.getId(), "updated", getChanges(existingProduct, product) , existingProduct.toString());
 			existingProduct.setSupplier(product.getSupplier());
 			existingProduct.setProductCategory(product.getProductCategory());
 			existingProduct.setCodeSKU(product.getCodeSKU());
@@ -141,5 +149,43 @@ public class ProductService {
 		}
 		
 		return existingProduct;
+	}
+	
+	private String getChanges(ProductModel oldProduct, ProductModel newProduct) {
+		String changes = "";
+		
+		if(oldProduct.getSupplier().getId() != newProduct.getSupplier().getId()) {
+			changes += "Supplier: " + newProduct.getSupplier().getBusinessName()+"|";
+		}
+		
+		if(oldProduct.getProductCategory().getId() != newProduct.getProductCategory().getId()) {
+			changes += "Supplier category: " + newProduct.getProductCategory().getCategory()+"|";
+		}
+		
+		if(!oldProduct.getCodeSKU().equals(newProduct.getCodeSKU())) {
+			changes += "SKU: " + newProduct.getCodeSKU()+"|";
+		}
+		
+		if(!oldProduct.getProductName().equals(newProduct.getProductName())) {
+			changes += "Product Name: " + newProduct.getProductName()+"|";
+		}
+		
+		if(oldProduct.getProductDescription() != null) {
+			if(!oldProduct.getProductDescription().equals(newProduct.getProductDescription())) {
+				changes += "Product Description: " + newProduct.getProductDescription()+"|";
+			}
+		}else if(newProduct.getProductDescription() != null) {
+			changes += "Product Description: " + newProduct.getProductDescription()+"|";
+		}
+		
+		if(oldProduct.getPrice() != newProduct.getPrice()) {
+			changes += "Price: " + newProduct.getPrice()+"|";
+		}
+		
+		if(oldProduct.getStock() != newProduct.getStock()) {
+			changes += "Stock: " + newProduct.getStock()+"|";
+		}
+		
+		return changes;
 	}
 }
