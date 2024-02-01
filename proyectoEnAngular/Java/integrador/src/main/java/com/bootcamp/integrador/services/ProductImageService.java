@@ -43,6 +43,7 @@ public class ProductImageService {
 		
 		if(productImageUpdated != null) {
 			productImageUpdated.setImageURL(productImage.getImageURL());
+			productImageUpdated.setUpdatedAt(LocalDateTime.now());
 			productImageUpdated = productImageRepository.save(productImageUpdated);
 		}
 		

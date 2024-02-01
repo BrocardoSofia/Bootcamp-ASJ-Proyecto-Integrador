@@ -24,33 +24,33 @@ public class ProductImageController {
 	//cargar imagen
     @PostMapping()
     public ResponseEntity<ProductImageModel> addProductImage(@RequestBody ProductImageModel productImage) {
-    	ProductImageModel ProductImageAdded = productImageService.addProductImage(productImage);
-        if(ProductImageAdded == null) {
-        	return new ResponseEntity<>(ProductImageAdded, HttpStatus.CONFLICT);
+    	ProductImageModel productImageAdded = productImageService.addProductImage(productImage);
+        if(productImageAdded == null) {
+        	return new ResponseEntity<>(productImageAdded, HttpStatus.CONFLICT);
         }else {
-        	return new ResponseEntity<>(ProductImageAdded, HttpStatus.CREATED);
+        	return new ResponseEntity<>(productImageAdded, HttpStatus.CREATED);
         }
     }
     
     //eliminar imagen
     @DeleteMapping("/{id}")
     public ResponseEntity<ProductImageModel> deleteProductImage(@PathVariable int id) {
-    	ProductImageModel ProductImageDeleted = productImageService.deleteProductImage(id);
-        if(ProductImageDeleted == null) {
-        	return new ResponseEntity<>(ProductImageDeleted, HttpStatus.NOT_FOUND);
+    	ProductImageModel productImageDeleted = productImageService.deleteProductImage(id);
+        if(productImageDeleted == null) {
+        	return new ResponseEntity<>(productImageDeleted, HttpStatus.NOT_FOUND);
         }else {
-        	return new ResponseEntity<>(ProductImageDeleted, HttpStatus.OK);
+        	return new ResponseEntity<>(productImageDeleted, HttpStatus.OK);
         }
     }
     
     //actualizar imagen
     @PostMapping()
     public ResponseEntity<ProductImageModel> updateProductImage(@RequestBody ProductImageModel productImage) {
-    	ProductImageModel ProductImageAdded = productImageService.updateProductImage(productImage);
-        if(ProductImageAdded == null) {
-        	return new ResponseEntity<>(ProductImageAdded, HttpStatus.NOT_FOUND);
+    	ProductImageModel productImageAdded = productImageService.updateProductImage(productImage);
+        if(productImageAdded == null) {
+        	return new ResponseEntity<>(productImageAdded, HttpStatus.NOT_FOUND);
         }else {
-        	return new ResponseEntity<>(ProductImageAdded, HttpStatus.OK);
+        	return new ResponseEntity<>(productImageAdded, HttpStatus.OK);
         }
     }
 }
