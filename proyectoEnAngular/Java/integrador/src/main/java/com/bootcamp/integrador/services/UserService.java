@@ -77,8 +77,8 @@ public class UserService {
     }
 
     //eliminar usuario
-    public UserModel deleteUser(UserModel user) {
-        UserModel userDeleted = userRepository.findById(user.getId()).get();
+    public UserModel deleteUser(int id) {
+        UserModel userDeleted = userRepository.findById(id).get();
         if(userDeleted != null) {
             userDeleted.setDeletedAt(LocalDateTime.now());
             userRepository.save(userDeleted);
@@ -87,8 +87,8 @@ public class UserService {
     }
     
     //reinsertar usuario
-    public boolean reInserUser(UserModel user) {
-    	Optional<UserModel> foundUser = userRepository.findById(user.getId());
+    public boolean reInserUser(int id) {
+    	Optional<UserModel> foundUser = userRepository.findById(id);
 
         if (foundUser.isPresent()) {
         	UserModel undeletedUser = foundUser.get();

@@ -78,17 +78,17 @@ public class UserController {
     }
 
     //eliminar usuario
-    @DeleteMapping()
-    public ResponseEntity<UserModel> deleteUser(@RequestBody UserModel user) {
-        UserModel deletedUsers = userService.deleteUser(user);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserModel> deleteUser(@PathVariable int id) {
+        UserModel deletedUsers = userService.deleteUser(id);
         
         return new ResponseEntity<>(deletedUsers, HttpStatus.OK);
     }
     
     //reinsertar usuario
-    @PutMapping("/reInsert")
-    public ResponseEntity<Boolean> reInsertUser(@RequestBody UserModel user) {
-    	boolean reInsert = userService.reInserUser(user);
+    @PutMapping("/{id}/reInsert")
+    public ResponseEntity<Boolean> reInsertUser(@PathVariable int id) {
+    	boolean reInsert = userService.reInserUser(id);
         if (reInsert) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {

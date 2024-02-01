@@ -40,8 +40,8 @@ public class ProductCategoryService {
         return productCategory;
     }
 
-    public ProductCategoryModel updateProductCategory(int id, ProductCategoryModel productCategory) {
-        Optional<ProductCategoryModel> foundProductCategory = productCategoryRepository.findById(id);
+    public ProductCategoryModel updateProductCategory(ProductCategoryModel productCategory) {
+        Optional<ProductCategoryModel> foundProductCategory = productCategoryRepository.findById(productCategory.getId());
         ProductCategoryModel foundByCategory = productCategoryRepository.getByCategory(productCategory.getCategory());
 
         if (foundProductCategory.isPresent() && (foundByCategory == null)) {

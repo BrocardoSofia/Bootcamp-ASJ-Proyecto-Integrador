@@ -41,8 +41,8 @@ public class SupplierCategoryService {
         return supplierCategory;
     }
 
-    public SupplierCategoryModel updateSupplierCategory(int id, SupplierCategoryModel supplierCategory) {
-        Optional<SupplierCategoryModel> foundSupplierCategory = supplierCategoryRepository.findById(id);
+    public SupplierCategoryModel updateSupplierCategory(SupplierCategoryModel supplierCategory) {
+        Optional<SupplierCategoryModel> foundSupplierCategory = supplierCategoryRepository.findById(supplierCategory.getId());
         SupplierCategoryModel foundByCategory = supplierCategoryRepository.findByCategory(supplierCategory.getCategory());
 
         if (foundSupplierCategory.isPresent() && (foundByCategory == null)) {

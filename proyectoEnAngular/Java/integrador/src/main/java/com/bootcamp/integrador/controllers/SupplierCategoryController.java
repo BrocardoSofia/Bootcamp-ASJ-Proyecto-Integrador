@@ -62,10 +62,9 @@ public class SupplierCategoryController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SupplierCategoryModel> updateSupplierCategory(@PathVariable int id, 
-    																	@RequestBody SupplierCategoryModel supplierCategory) {
-        SupplierCategoryModel updatedSupplierCategory = supplierCategoryService.updateSupplierCategory(id, supplierCategory);
+    @PutMapping()
+    public ResponseEntity<SupplierCategoryModel> updateSupplierCategory(@RequestBody SupplierCategoryModel supplierCategory) {
+        SupplierCategoryModel updatedSupplierCategory = supplierCategoryService.updateSupplierCategory(supplierCategory);
         if (updatedSupplierCategory == null) {
             return new ResponseEntity<>(updatedSupplierCategory, HttpStatus.NOT_FOUND);
         } else {

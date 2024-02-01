@@ -62,10 +62,9 @@ public class ProductCategoryController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ProductCategoryModel> updateProductCategory(@PathVariable int id, 
-    																	@RequestBody ProductCategoryModel productCategory) {
-        ProductCategoryModel updatedProductCategory = productCategoryService.updateProductCategory(id, productCategory);
+    @PutMapping()
+    public ResponseEntity<ProductCategoryModel> updateProductCategory(@RequestBody ProductCategoryModel productCategory) {
+        ProductCategoryModel updatedProductCategory = productCategoryService.updateProductCategory(productCategory);
         if (updatedProductCategory == null) {
             return new ResponseEntity<>(updatedProductCategory, HttpStatus.NOT_FOUND);
         } else {
