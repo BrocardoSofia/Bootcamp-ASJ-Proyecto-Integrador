@@ -84,7 +84,11 @@ public class SupplierController {
     public ResponseEntity<SupplierModel> deleteSupplier(@PathVariable int supplierId) {
     	SupplierModel deletedSupplier = supplierService.deleteSupplier(supplierId);
         
-        return new ResponseEntity<>(deletedSupplier, HttpStatus.OK);
+        if(deletedSupplier == null){
+        	return new ResponseEntity<>(deletedSupplier, HttpStatus.NOT_FOUND);
+        }else {
+        	return new ResponseEntity<>(deletedSupplier, HttpStatus.OK);
+        }
     }
     
     //reinsertar proveedor
