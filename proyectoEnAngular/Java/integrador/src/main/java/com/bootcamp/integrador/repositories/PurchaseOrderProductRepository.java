@@ -1,5 +1,9 @@
 package com.bootcamp.integrador.repositories;
 
-public interface PurchaseOrderProductRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.bootcamp.integrador.models.PurchaseOrderProductModel;
+
+public interface PurchaseOrderProductRepository extends JpaRepository<PurchaseOrderProductModel, Integer>{
 
 }

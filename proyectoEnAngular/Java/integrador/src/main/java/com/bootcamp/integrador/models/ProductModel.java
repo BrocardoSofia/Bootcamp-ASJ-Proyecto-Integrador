@@ -60,7 +60,7 @@ public class ProductModel {
     double price;
     
     @NotNull(message = "Stock cannot be null")
-    @NotBlank(message = "Stock Name cannot be empty")
+    @NotBlank(message = "Stock cannot be empty")
     @Size(min = 0, message = "Stock must be greater than 0")
     int stock;
     

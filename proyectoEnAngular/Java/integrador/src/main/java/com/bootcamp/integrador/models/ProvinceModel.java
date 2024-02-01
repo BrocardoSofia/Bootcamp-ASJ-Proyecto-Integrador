@@ -34,7 +34,7 @@ public class ProvinceModel {
     private String province;
 
     @JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "country_id", nullable = false)
     private CountryModel country;
     
