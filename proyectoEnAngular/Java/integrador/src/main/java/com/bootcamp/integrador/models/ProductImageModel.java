@@ -26,9 +26,9 @@ public class ProductImageModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	
-	@NotNull(message = "province cannot be null")
-    @NotBlank(message = "province cannot be empty")
-    @Size(min = 2, message = "province must be greater than 2 characters")
+	@NotNull(message = "imageURL cannot be null")
+    @NotBlank(message = "imageURL cannot be empty")
+    @Size(min = 2, message = "imageURL must be greater than 2 characters")
     private String imageURL;
 	
 	@JsonBackReference

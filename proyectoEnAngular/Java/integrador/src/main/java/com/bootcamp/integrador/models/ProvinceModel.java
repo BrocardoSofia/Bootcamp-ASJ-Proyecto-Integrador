@@ -1,6 +1,8 @@
 package com.bootcamp.integrador.models;
 
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Column;
@@ -12,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -33,6 +37,10 @@ public class ProvinceModel {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", nullable = false)
     private CountryModel country;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     public ProvinceModel(int id, String province, CountryModel country) {
         this.id = id;

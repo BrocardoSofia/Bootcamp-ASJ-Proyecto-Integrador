@@ -2,6 +2,7 @@ package com.bootcamp.integrador.models;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +32,7 @@ public class SupplierHistoryModel {
     private UserModel user;
 	
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 	
 	@NotNull(message = "action cannot be null")

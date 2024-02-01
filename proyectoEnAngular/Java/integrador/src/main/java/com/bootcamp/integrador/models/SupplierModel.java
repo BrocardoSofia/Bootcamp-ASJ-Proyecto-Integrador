@@ -1,18 +1,14 @@
 package com.bootcamp.integrador.models;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -100,8 +96,13 @@ public class SupplierModel {
     @NotBlank(message = "cuit cannot be empty")
     @Size(min = 2, max = 50, message = "cuit must be between 2 and 50 characters")
     private String cuit;
+    
+    @JsonManagedReference
+    @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
+    private List<SupplierContactModel> SupplierContacts = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Temporal(TemporalType.TIMESTAMP)
