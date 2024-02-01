@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.bootcamp.integrador.models.PurchaseOrderModel;
 import com.bootcamp.integrador.repositories.PurchaseOrderRepository;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 
@@ -30,6 +32,23 @@ public class PurchaseOrderService {
 	}
 	
 	//modificar orden de compra
+	PurchaseOrderModel updatePurchaseOrder(PurchaseOrderModel purchaseOrder){
+		PurchaseOrderModel purchaseOrderFound = purchaseOrderRepository.findById(purchaseOrder.getId()).get();
+		
+		if(purchaseOrderFound != null) {
+			purchaseOrderFound.setPurchaseState(purchaseOrder.getPurchaseState());
+			purchaseOrderFound.setDeliveryDate(purchaseOrder.getDeliveryDate());
+			purchaseOrderFound.setReceptionInfo(purchaseOrder.getReceptionInfo());
+			purchaseOrderFound.setUpdatedAt(LocalDateTime.now());
+			
+			purchaseOrderFound = purchaseOrderRepository.save(purchaseOrderFound);
+		}
+		
+		return null;
+	}
 	
 	//agregar orden de compra
+	PurchaseOrderModel addPurchaseOrder(PurchaseOrderModel purchaseOrder){
+		return purchaseOrderRepository.save(purchaseOrder);
+	}
 }
