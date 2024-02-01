@@ -38,6 +38,7 @@ public class PurchaseOrderModel {
 	@NotNull(message = "Purchase Order Number cannot be null")
     @NotBlank(message = "Purchase Order Number Name cannot be empty")
     @Size(min = 0, message = "Purchase Order Number must be greater than 0")
+	@Column(unique = true)
     int purchaseOrderNumber;
 	
 	@Temporal(TemporalType.TIMESTAMP)
@@ -55,4 +56,73 @@ public class PurchaseOrderModel {
     
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime updatedAt;
+    
+    public PurchaseOrderModel() {
+    }
+
+	public PurchaseOrderModel(PurchaseStateModel purchaseState, UserModel createdBy, SupplierModel supplier,
+			int purchaseOrderNumber, LocalDateTime deliveryDate, String receptionInfo) {
+		this.purchaseState = purchaseState;
+		this.createdBy = createdBy;
+		this.supplier = supplier;
+		this.purchaseOrderNumber = purchaseOrderNumber;
+		this.deliveryDate = deliveryDate;
+		this.receptionInfo = receptionInfo;
+		this.createdAt  = LocalDateTime.now();
+		this.updatedAt = null;
+	}
+
+	public PurchaseStateModel getPurchaseState() {
+		return purchaseState;
+	}
+
+	public void setPurchaseState(PurchaseStateModel purchaseState) {
+		this.purchaseState = purchaseState;
+	}
+
+	public LocalDateTime getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(LocalDateTime deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+	public String getReceptionInfo() {
+		return receptionInfo;
+	}
+
+	public void setReceptionInfo(String receptionInfo) {
+		this.receptionInfo = receptionInfo;
+	}
+
+	public LocalDateTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDateTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public UserModel getCreatedBy() {
+		return createdBy;
+	}
+
+	public SupplierModel getSupplier() {
+		return supplier;
+	}
+
+	public int getPurchaseOrderNumber() {
+		return purchaseOrderNumber;
+	}
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+    
+    
 }
