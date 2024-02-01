@@ -17,22 +17,22 @@ public class PurchaseOrderService {
 	PurchaseOrderRepository purchaseOrderRepository;
 	
 	//obtener todas las ordenes de compra
-	Page<PurchaseOrderModel> getPurchaseOrders(Pageable pageable){
+	public Page<PurchaseOrderModel> getPurchaseOrders(Pageable pageable){
 		return purchaseOrderRepository.findAll(pageable);
 	}
 	
 	//obtener ordenes de compra por proveedor
-	Page<PurchaseOrderModel> getPurchaseOrdersBySupplierId(Pageable pageable, int supplierId){
+	public Page<PurchaseOrderModel> getPurchaseOrdersBySupplierId(Pageable pageable, int supplierId){
 		return purchaseOrderRepository.findAllBySupplierId(pageable, supplierId);
 	}
 	
 	//obtener ordenes de compra por usuario
-	Page<PurchaseOrderModel> getPurchaseOrdersByUserId(Pageable pageable, int userId){
+	public Page<PurchaseOrderModel> getPurchaseOrdersByUserId(Pageable pageable, int userId){
 		return purchaseOrderRepository.findAllByCreatedBy(pageable, userId);
 	}
 	
 	//modificar orden de compra
-	PurchaseOrderModel updatePurchaseOrder(PurchaseOrderModel purchaseOrder){
+	public PurchaseOrderModel updatePurchaseOrder(PurchaseOrderModel purchaseOrder){
 		PurchaseOrderModel purchaseOrderFound = purchaseOrderRepository.findById(purchaseOrder.getId()).get();
 		
 		if(purchaseOrderFound != null) {
@@ -48,7 +48,12 @@ public class PurchaseOrderService {
 	}
 	
 	//agregar orden de compra
-	PurchaseOrderModel addPurchaseOrder(PurchaseOrderModel purchaseOrder){
+	public PurchaseOrderModel addPurchaseOrder(PurchaseOrderModel purchaseOrder){
 		return purchaseOrderRepository.save(purchaseOrder);
+	}
+	
+	//encontrar la ultima orden de compra de un proveedor
+	public PurchaseOrderModel getLastPurchaseOrderBySupplierId(int supplierId) {
+	    return purchaseOrderRepository.findFirstBySupplierIdOrderByCreatedAtDesc(supplierId);
 	}
 }

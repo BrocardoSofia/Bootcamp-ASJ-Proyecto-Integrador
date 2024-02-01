@@ -10,4 +10,5 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrderMode
 	Page<PurchaseOrderModel> findAll(Pageable pageable);
 	Page<PurchaseOrderModel> findAllBySupplierId(Pageable pageable, int supplierId);
 	Page<PurchaseOrderModel> findAllByCreatedBy(Pageable pageable, int userId);
+	PurchaseOrderModel findFirstBySupplierIdOrderByCreatedAtDesc(int supplierId);
 }
