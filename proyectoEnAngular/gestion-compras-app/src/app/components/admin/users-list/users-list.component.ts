@@ -22,16 +22,15 @@ export class UsersListComponent implements OnInit{
   constructor(private userService: UsersService){}
 
   ngOnInit(): void {
-    this.userService.getFirstUsers().subscribe(users => {
-      this.users = users;
+    this.userService.getUsers().subscribe(data=>{
+      console.log(data);
+      this.pages = data.totalPages;
+      this.users = data.content;
 
-      this.userService.getAmountPages().subscribe((data)=>{
-        this.pages = data;
-        if(this.pages > 5){
-          this.nextFive = true;
-        }
-      })
-    });
+      if(this.pages > 5){
+        this.nextFive = true;
+      }
+    })
   }
 
   getEstado(user: User){

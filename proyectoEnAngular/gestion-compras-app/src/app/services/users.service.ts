@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { Observable , Observer, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,11 +9,13 @@ import { Observable , Observer, of } from 'rxjs';
 export class UsersService {
   private pages: number = 0;
   private usersPerPage: number = 10;
-  constructor() { }
+  private url: string = 'http://localhost:8080/users';
+  
+  constructor(private http: HttpClient) { }
 
   public inicUser(){
     let user: User = {
-      id: 1,
+      id: 0,
       userAlias: '',
       password: '',
       createdAt: new Date,
@@ -24,16 +27,8 @@ export class UsersService {
   }
 
   public addUser(user: User): Observable<User> {
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    if(users.length !== 0){
-      user.id = users[users.length-1].id + 1;
-    }
-    users.push(user);
-    window.localStorage.setItem('users', JSON.stringify(users));
-    return Observable.create((observer: Observer<User>) => {
-      observer.next(user);
-      observer.complete();
-    });
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.post<User>(this.url, user, { headers });
   }
 
   public userExists(userName: string): Observable<boolean> {
@@ -156,6 +151,15 @@ export class UsersService {
     const usersFilter = users.filter((user)=>user.userAlias.match(userName));
 
     return of(Math.ceil((usersFilter.length/this.usersPerPage)));
+  }
+
+  getUsers(): Observable<any> {
+    const params = {
+      page: '0',
+      size: '10'
+    };
+
+    return this.http.get(this.url, { params });
   }
   
 }

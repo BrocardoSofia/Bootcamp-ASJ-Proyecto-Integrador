@@ -52,9 +52,7 @@ public class UserModel {
 
     }
 
-    public UserModel(int id, String userAlias, String password) {
-        super();
-        this.id = id;
+    public UserModel(String userAlias, String password) {
         this.userAlias = userAlias;
         this.password = password;
         this.createdAt = LocalDateTime.now();
