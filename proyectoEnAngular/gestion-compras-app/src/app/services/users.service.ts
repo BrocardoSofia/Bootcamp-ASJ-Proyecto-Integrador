@@ -94,5 +94,20 @@ export class UsersService {
 
     return this.http.get(this.url+"/deleted", { params });
   }
+
+  getUserById(id: number): Observable<User>{
+    const url = this.url+'/'+id;
+
+    return new Observable<User>(observer => {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const user: User = data;
+          observer.next(user);
+          observer.complete();
+        })
+        .catch(error => observer.error(error));
+    });
+  }
   
 }
