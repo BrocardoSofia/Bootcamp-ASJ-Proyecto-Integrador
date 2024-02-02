@@ -33,12 +33,12 @@ public class SupplierContactModel {
 	
 	@NotNull(message = "Contact Name cannot be null")
     @NotBlank(message = "Contact Name cannot be empty")
-    @Size(min = 2, message = "Contact Name must be greater than 2 characters")
+    @Size(min = 2, max = 50, message = "Contact Name must be greater than 2 characters")
     private String contactName;
 	
 	@NotNull(message = "Contact Lastname cannot be null")
     @NotBlank(message = "Contact Lastname cannot be empty")
-    @Size(min = 2, message = "Contact Lastname must be greater than 2 characters")
+    @Size(min = 2, max = 50, message = "Contact Lastname must be greater than 2 characters")
     private String contactLastname;
 	
 	@NotNull(message = "Phone cannot be null")

@@ -57,8 +57,12 @@ public class SupplierModel {
     @Column(unique = true)
     private String businessName;
 
+    @Size(min = 2, max = 1500, message = "Image Url must be between 2 and 50 characters")
+    @Column(nullable = true)
     private String imageUrl;
 
+    @Size(min = 2, max = 1500, message = "Business Webpage must be between 2 and 50 characters")
+    @Column(nullable = true)
     private String businessWebpage;
 
     @NotNull(message = "buisnessEmail cannot be null")

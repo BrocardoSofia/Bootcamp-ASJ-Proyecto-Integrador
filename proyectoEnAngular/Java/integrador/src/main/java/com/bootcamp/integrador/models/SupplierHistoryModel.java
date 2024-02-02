@@ -42,12 +42,12 @@ public class SupplierHistoryModel {
 	
 	@NotNull(message = "changes cannot be null")
     @NotBlank(message = "changes cannot be empty")
-    @Size(min = 2, message = "changes must be greater than 2 characters")
+    @Size(min = 2, max = 1500, message = "changes must be greater than 2 characters")
     private String changes;
 	
 	@NotNull(message = "Old Supplier cannot be null")
     @NotBlank(message = "Old Supplier cannot be empty")
-    @Size(min = 2, message = "Old Supplier must be greater than 2 characters")
+    @Size(min = 2, max = 1500, message = "Old Supplier must be greater than 2 characters")
     private String oldSupplier;
 	
 	public SupplierHistoryModel() {
