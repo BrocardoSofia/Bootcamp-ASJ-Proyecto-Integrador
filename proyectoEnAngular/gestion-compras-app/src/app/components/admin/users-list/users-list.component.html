@@ -30,8 +30,13 @@
         <input type="text" class="form-control" placeholder="Buscar usuario" 
         name="userName" [(ngModel)]="searchUserName">
         <button class="btn btn-search btn-icon" type="button" id="button-addon2"
-        (click)="searchByUserName()">
+        (click)="searchByUserName()" *ngIf="!searchUserNameOn" 
+        [ngClass]="((searchUserName !== '')?'':'disabled')">
           <i class="bi bi-search"></i>
+        </button>
+        <button class="btn btn-search btn-icon" type="button" id="button-addon2"
+        (click)="clearSearchByName()" *ngIf="searchUserNameOn">
+          <i class="bi bi-x-lg"></i>
         </button>
       </div>
     </div>

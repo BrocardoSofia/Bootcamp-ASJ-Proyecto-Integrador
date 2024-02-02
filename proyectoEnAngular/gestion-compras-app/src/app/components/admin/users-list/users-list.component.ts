@@ -19,6 +19,7 @@ export class UsersListComponent implements OnInit{
   nextFive: boolean = false;
   previous: boolean = false;
   searchUserName: string = '';
+  searchUserNameOn: boolean = false;
   state: State = 'All';
   
   constructor(private userService: UsersService){}
@@ -112,6 +113,7 @@ export class UsersListComponent implements OnInit{
           this.userService.getAllUsers(page,"createdAt",this.searchUserName).subscribe(
             data=>{
               this.users = data.content;
+              this.pages = data.totalPages;
             }
             );
           break;
@@ -133,8 +135,13 @@ export class UsersListComponent implements OnInit{
   }
 
   searchByUserName(){
-    if(this.searchUserName !== ''){
-      
-    }
+    this.searchUserNameOn = true;
+    this.selectPage(this.currentPage);
+  }
+
+  clearSearchByName(){
+    this.searchUserName = '';
+    this.searchUserNameOn = false;
+    this.selectPage(this.currentPage);
   }
 }
