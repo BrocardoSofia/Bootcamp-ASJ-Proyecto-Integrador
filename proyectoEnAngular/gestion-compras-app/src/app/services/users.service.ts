@@ -32,12 +32,10 @@ export class UsersService {
   }
 
   public userExists(userName: string): Observable<boolean> {
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    let found = users.find((user) => user.userAlias === userName);
-    return Observable.create((observer: Observer<boolean>) => {
-      observer.next(!!found);
-      observer.complete();
-    });
+    let exist = false;
+    const url = this.url + "/exist/" + userName;
+
+    return this.http.get<boolean>(url);
   }
 
   public getAmountPages(): Observable<number>{
@@ -161,5 +159,18 @@ export class UsersService {
 
     return this.http.get(this.url, { params });
   }
+
+  getAllUsersByFilter(pageNumber : number): Observable<any> {
+    const params = {
+      page: pageNumber.toString(),
+      size: '10'
+    };
+
+    return this.http.get(this.url, { params });
+  }
+
+  //get active users filtered
+
+  //get deketed users filtered
   
 }

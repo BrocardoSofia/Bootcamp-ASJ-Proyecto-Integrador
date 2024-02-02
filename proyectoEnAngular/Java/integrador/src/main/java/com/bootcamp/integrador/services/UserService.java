@@ -60,6 +60,11 @@ public class UserService {
     public Optional<UserModel> getUserById(int id) {
         return userRepository.findById(id);
     }
+    
+    //obtener un usuario segun alias
+    public UserModel getUserByAlias(String userAlias) {
+        return userRepository.findByUserAlias(userAlias);
+    }
 
     //insertar usuario
     @Transactional

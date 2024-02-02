@@ -108,6 +108,7 @@ export class NewUserComponent implements OnInit{
     //valido si el usuario existe
     this.userService.userExists(this.user.userAlias).subscribe(
       exists => {
+        console.log(exists);
         if (!exists) {
           this.userService.addUser(this.user).subscribe(
             user => {

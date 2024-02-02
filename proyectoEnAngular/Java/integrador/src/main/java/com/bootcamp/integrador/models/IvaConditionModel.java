@@ -31,8 +31,7 @@ public class IvaConditionModel {
 	@Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-	public IvaConditionModel(int id, String ivaCondition) {
-		this.id = id;
+	public IvaConditionModel(String ivaCondition) {
 		this.ivaCondition = ivaCondition;
 	}
 	

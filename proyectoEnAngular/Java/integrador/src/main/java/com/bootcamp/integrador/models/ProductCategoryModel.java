@@ -51,8 +51,7 @@ public class ProductCategoryModel {
     @JoinColumn(name = "supplier_category_id", nullable = false)
     private SupplierCategoryModel supplierCategory;
 
-    public ProductCategoryModel(int id, String category, SupplierCategoryModel supplierCategory) {
-        this.id = id;
+    public ProductCategoryModel(String category, SupplierCategoryModel supplierCategory) {
         this.category = category;
         this.supplierCategory = supplierCategory;
         this.createdAt = LocalDateTime.now();

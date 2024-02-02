@@ -81,9 +81,8 @@ public class ProductModel {
     public ProductModel() {
     }
 
-	public ProductModel(int id, SupplierModel supplier, ProductCategoryModel productCategory, UserModel createdBy,
+	public ProductModel(SupplierModel supplier, ProductCategoryModel productCategory, UserModel createdBy,
 						String codeSKU, String productName, String productDescription, double price, int stock) {
-		this.id = id;
 		this.supplier = supplier;
 		this.productCategory = productCategory;
 		this.createdBy = createdBy;

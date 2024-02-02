@@ -115,14 +115,13 @@ public class SupplierModel {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
 
-    public SupplierModel(int id, SupplierCategoryModel supplierCategory, 
+    public SupplierModel(SupplierCategoryModel supplierCategory, 
     					UserModel createdBy, UserModel updatedBy, ProvinceModel province, 
     					IvaConditionModel ivaCondition, String supplierCode, String businessName, 
     					String imageUrl, String buisnessWebpage, String buisnessEmail, String buisnessPhone, 
     					String streetName, int streetNumber, String city, String cp, String cuit) 
     {
     	this.createdAt = LocalDateTime.now();
-        this.id = id;
         this.supplierCategory = supplierCategory;
         this.createdBy = createdBy;
         this.updatedAt = null;

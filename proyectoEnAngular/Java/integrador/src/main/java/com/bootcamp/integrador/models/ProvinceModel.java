@@ -42,8 +42,7 @@ public class ProvinceModel {
 	@Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public ProvinceModel(int id, String province, CountryModel country) {
-        this.id = id;
+    public ProvinceModel(String province, CountryModel country) {
         this.province = province;
         this.country = country;
     }

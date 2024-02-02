@@ -31,8 +31,7 @@ public class PurchaseStateModel {
 	@Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
 
-    public PurchaseStateModel(int id, String purchaseState) {
-        this.id = id;
+    public PurchaseStateModel(String purchaseState) {
         this.purchaseState = purchaseState;
     }
 

@@ -71,7 +71,7 @@ public class PurchaseOrderModel {
     }
 
 	public PurchaseOrderModel(PurchaseStateModel purchaseState, UserModel createdBy, SupplierModel supplier,
-			int purchaseOrderNumber, LocalDateTime deliveryDate, String receptionInfo) {
+							int purchaseOrderNumber, LocalDateTime deliveryDate, String receptionInfo) {
 		this.purchaseState = purchaseState;
 		this.createdBy = createdBy;
 		this.supplier = supplier;

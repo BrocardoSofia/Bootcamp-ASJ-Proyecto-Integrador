@@ -54,6 +54,17 @@ public class UserController {
 		return userService.getDeletedUsers(pageable, userAlias);
 	}
     
+    //obtener usuario por alias
+    @GetMapping("/exist/{userAlias}")
+	public boolean getUserByAlias(Pageable pageable, 
+									@PathVariable String userAlias) {	
+    	if(userService.getUserByAlias(userAlias) != null) {
+    		return true;
+    	}else{
+    		return false;
+    	}
+	}
+    
     //get por Id
     @GetMapping("/{id}")
     public ResponseEntity<Optional<UserModel>> getUserById(@PathVariable int id){

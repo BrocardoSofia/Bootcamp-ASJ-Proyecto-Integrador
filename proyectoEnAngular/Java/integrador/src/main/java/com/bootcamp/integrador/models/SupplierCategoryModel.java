@@ -48,11 +48,10 @@ public class SupplierCategoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
 
-    public SupplierCategoryModel(int id, String category) {
+    public SupplierCategoryModel(String category) {
     	this.createdAt = LocalDateTime.now();
     	this.updatedAt = null;
     	this.deletedAt = null;
-        this.id = id;
         this.category = category;
     }
 
