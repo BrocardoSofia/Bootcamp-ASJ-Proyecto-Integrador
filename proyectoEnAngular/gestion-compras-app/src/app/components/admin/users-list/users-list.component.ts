@@ -106,9 +106,10 @@ export class UsersListComponent implements OnInit{
   }
 
   selectPage(page: number){
+    this.currentPage = page;
       switch(this.state){
         case 'All':
-          this.userService.getAllUsers(this.currentPage,"createdAt",this.searchUserName).subscribe(
+          this.userService.getAllUsers(page,"createdAt",this.searchUserName).subscribe(
             data=>{
               this.users = data.content;
             }

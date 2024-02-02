@@ -72,7 +72,7 @@
             <a class="page-link" 
               aria-label="Next"
               style="cursor: pointer;"
-              [ngClass]="((pages !== 1) && (currentPage !== pages)?'':'disabled')">
+              [ngClass]="((pages !== 1) && (currentPage+1 !== pages)?'':'disabled')">
               <span aria-hidden="true">Next</span>
             </a>
           </li>
