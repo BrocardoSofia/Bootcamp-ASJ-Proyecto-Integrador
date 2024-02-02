@@ -28,7 +28,7 @@ export class LoginService {
   public validPassword(user_name: string, password: string): Observable<boolean>{
     let valid = false;
     let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    let found = users.find((user) => user.userName === user_name);
+    let found = users.find((user) => user.userAlias === user_name);
 
     if (found && found.password === password) {
       valid = true;

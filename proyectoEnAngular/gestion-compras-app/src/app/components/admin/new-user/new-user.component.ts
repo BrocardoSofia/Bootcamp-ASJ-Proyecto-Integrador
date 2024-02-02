@@ -63,7 +63,7 @@ export class NewUserComponent implements OnInit{
           }else{
             this.user = user;
             this.edit = true;
-            this.oldUserName = user.userName;
+            this.oldUserName = user.userAlias;
           }
           
         });
@@ -82,18 +82,18 @@ export class NewUserComponent implements OnInit{
   }
 
   private modifyUser(){
-    if(this.user.userName === this.oldUserName){
+    if(this.user.userAlias === this.oldUserName){
       //si el nombre de usuario coincide con el viejo no lo valido, ya lo modifico
       this.userService.modifyUser(this.user).subscribe((data)=>{
-        this.userLoadedSuccessfully('Se edito correctamente al usuario: ' + this.user.userName);
+        this.userLoadedSuccessfully('Se edito correctamente al usuario: ' + this.user.userAlias);
       })
     }else{
       //si el nombre de usuario cambio debo verificar que no exista
-      this.userService.userExists(this.user.userName).subscribe(
+      this.userService.userExists(this.user.userAlias).subscribe(
         exists => {
           if (!exists) {
             this.userService.modifyUser(this.user).subscribe((data) => {
-                this.userLoadedSuccessfully('Se edito correctamente al usuario: ' + this.user.userName);
+                this.userLoadedSuccessfully('Se edito correctamente al usuario: ' + this.user.userAlias);
               }
             );
           } else {
@@ -106,12 +106,12 @@ export class NewUserComponent implements OnInit{
 
   private createUser(){
     //valido si el usuario existe
-    this.userService.userExists(this.user.userName).subscribe(
+    this.userService.userExists(this.user.userAlias).subscribe(
       exists => {
         if (!exists) {
           this.userService.addUser(this.user).subscribe(
             user => {
-              this.userLoadedSuccessfully('Se agrego correctamente al usuario: ' + this.user.userName);
+              this.userLoadedSuccessfully('Se agrego correctamente al usuario: ' + this.user.userAlias);
             }
           );
         } else {
@@ -140,11 +140,11 @@ export class NewUserComponent implements OnInit{
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: 'Ya existe el usuario ' + this.user.userName + ' en el sistema',
+      text: 'Ya existe el usuario ' + this.user.userAlias + ' en el sistema',
     });
 
     if(this.edit){
-      this.user.userName = this.oldUserName;
+      this.user.userAlias = this.oldUserName;
     }else{
       this.submitForm.reset();
     }

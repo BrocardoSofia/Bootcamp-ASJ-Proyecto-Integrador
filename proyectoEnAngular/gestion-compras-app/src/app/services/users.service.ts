@@ -13,7 +13,7 @@ export class UsersService {
   public inicUser(){
     let user: User = {
       id: 1,
-      userName: '',
+      userAlias: '',
       password: '',
       createdAt: new Date,
       updatedAt: null,
@@ -38,7 +38,7 @@ export class UsersService {
 
   public userExists(userName: string): Observable<boolean> {
     let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    let found = users.find((user) => user.userName === userName);
+    let found = users.find((user) => user.userAlias === userName);
     return Observable.create((observer: Observer<boolean>) => {
       observer.next(!!found);
       observer.complete();
@@ -148,12 +148,12 @@ export class UsersService {
 
   getUsersByUserName(userName: string):Observable<User[]>{
     const users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    return of(users.filter((user)=>user.userName.match(userName)));
+    return of(users.filter((user)=>user.userAlias.match(userName)));
   }
 
   getAmountPagesByUserName(userName: string):Observable<number>{
     let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    const usersFilter = users.filter((user)=>user.userName.match(userName));
+    const usersFilter = users.filter((user)=>user.userAlias.match(userName));
 
     return of(Math.ceil((usersFilter.length/this.usersPerPage)));
   }

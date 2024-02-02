@@ -40,7 +40,7 @@ export class UsersListComponent implements OnInit{
 
   deleteUser(user: User){
     Swal.fire({
-      title: "Eliminando al usuario: " + user.userName,
+      title: "Eliminando al usuario: " + user.userAlias,
       text: "¿Esta seguro que desea eliminar al usuario?",
       icon: "warning",
       showCancelButton: true,
@@ -53,7 +53,7 @@ export class UsersListComponent implements OnInit{
           this.users = data;
           Swal.fire({
             title: "¡Eliminado!",
-            text: "¡El usuario " + user.userName + " fue eliminado correctamente!",
+            text: "¡El usuario " + user.userAlias + " fue eliminado correctamente!",
             icon: "success"
           });
         })  
@@ -63,7 +63,7 @@ export class UsersListComponent implements OnInit{
 
   reInsertUser(user: User){
     Swal.fire({
-      title: "Reingresando al usuario: " + user.userName,
+      title: "Reingresando al usuario: " + user.userAlias,
       text: "¿Esta seguro que desea reingresar al usuario?",
       icon: "warning",
       showCancelButton: true,
@@ -76,7 +76,7 @@ export class UsersListComponent implements OnInit{
           this.users = data;
           Swal.fire({
             title: "¡Reingresado al sistema!",
-            text: "¡El usuario " + user.userName + " fue reingresado correctamente!",
+            text: "¡El usuario " + user.userAlias + " fue reingresado correctamente!",
             icon: "success"
           });
         })  
