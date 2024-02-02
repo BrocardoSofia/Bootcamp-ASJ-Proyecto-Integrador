@@ -97,7 +97,7 @@ public class UserController {
     }
     
     //reinsertar usuario
-    @PutMapping("/{id}/reInsert")
+    @DeleteMapping("/{id}/reInsert")
     public ResponseEntity<Boolean> reInsertUser(@PathVariable int id) {
     	boolean reInsert = userService.reInserUser(id);
         if (reInsert) {

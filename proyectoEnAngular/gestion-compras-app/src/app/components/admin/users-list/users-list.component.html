@@ -55,16 +55,16 @@
             <a class="page-link" 
                 aria-label="Previous" 
                 style="cursor: pointer;"
-                [ngClass]="(currentPage != 1)?'':'disabled'"
+                [ngClass]="(currentPage != 0)?'':'disabled'"
             >
               <span aria-hidden="true">Prev</span>
             </a>
           </li>
           <li class="page-item" *ngFor="let page of getPages()">
             <a class="page-link" 
-                [ngClass]="(currentPage === page)?'active':''" 
+                [ngClass]="((currentPage+1) === page)?'active':''" 
                 style="cursor: pointer;"
-                (click)="selectPage(page)">{{page}}
+                (click)="selectPage(page-1)">{{page}}
           </a>
           </li>
           <li class="page-item" 
@@ -100,7 +100,7 @@
               class="badge rounded-pill"
               [ngClass]="(user.deletedAt !== null) ? 'bg-danger' : 'bg-success'"
             >
-              {{getEstado(user)}}
+              {{getUserState(user)}}
             </span>
           </td>
           <td class="text-center">

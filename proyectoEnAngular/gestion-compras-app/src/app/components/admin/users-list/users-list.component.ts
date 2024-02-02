@@ -3,6 +3,8 @@ import { UsersService } from '../../../services/users.service';
 import { User } from '../../../models/user';
 import Swal from 'sweetalert2';
 
+type State = 'All' | 'Active' | 'Deleted';
+
 @Component({
   selector: 'app-users-list',
   templateUrl: './users-list.component.html',
@@ -11,13 +13,13 @@ import Swal from 'sweetalert2';
 export class UsersListComponent implements OnInit{
 
   users:User[] = [];
-  currentPage: number = 1;
+  currentPage: number = 0;
   pages:number = 1;
   maxPages: number = 5;
   nextFive: boolean = false;
   previous: boolean = false;
   searchUserName: string = '';
-  searchOn:boolean = false;
+  state: State = 'All';
   
   constructor(private userService: UsersService){}
 
@@ -33,7 +35,7 @@ export class UsersListComponent implements OnInit{
     })
   }
 
-  getEstado(user: User){
+  getUserState(user: User){
     return (user.deletedAt !== null)?'Inactivo':'Activo';
   }
 
@@ -48,14 +50,17 @@ export class UsersListComponent implements OnInit{
       confirmButtonText: "Eliminar"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userService.deleteUser(user).subscribe((data)=>{
-          this.users = data;
-          Swal.fire({
-            title: "¡Eliminado!",
-            text: "¡El usuario " + user.userAlias + " fue eliminado correctamente!",
-            icon: "success"
-          });
-        })  
+        this.userService.deleteUser(user).subscribe(
+          deleted=>{
+            Swal.fire({
+              title: "¡Eliminado!",
+              text: "El usuario " + deleted.userAlias + " fue eliminado correctamente",
+              icon: "success"
+            });
+            this.selectPage(this.currentPage);
+          }
+        )
+        
       }
     });
   }
@@ -71,14 +76,16 @@ export class UsersListComponent implements OnInit{
       confirmButtonText: "Reingresar"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.userService.reInsertUser(user).subscribe((data)=>{
-          this.users = data;
-          Swal.fire({
-            title: "¡Reingresado al sistema!",
-            text: "¡El usuario " + user.userAlias + " fue reingresado correctamente!",
-            icon: "success"
-          });
-        })  
+        this.userService.reInsertUser(user).subscribe(
+          deleted=>{
+            Swal.fire({
+              title: "¡Re ingresado!",
+              text: "El usuario " + deleted.userAlias + " fue re ingresado correctamente",
+              icon: "success"
+            });
+            this.selectPage(this.currentPage);
+          }
+        )
       }
     });
   }
@@ -99,11 +106,19 @@ export class UsersListComponent implements OnInit{
   }
 
   selectPage(page: number){
-    this.userService.getPageUsers(page).subscribe((data)=>{
-      this.users = data;
-    })
-    this.currentPage = page;
-    
+      switch(this.state){
+        case 'All':
+          this.userService.getAllUsers(this.currentPage,"createdAt",this.searchUserName).subscribe(
+            data=>{
+              this.users = data.content;
+            }
+            );
+          break;
+        case 'Active':
+          break;
+        case 'Deleted':
+          break;
+     }  
   }
 
   nextPage(){
@@ -117,14 +132,8 @@ export class UsersListComponent implements OnInit{
   }
 
   searchByUserName(){
-    this.searchOn = true;
-
     if(this.searchUserName !== ''){
-      this.userService.getUsersByUserName(this.searchUserName).subscribe((data)=>{
-        this.users = data;
-        this.searchUserName = '';
-        
-      })
+      
     }
   }
 }

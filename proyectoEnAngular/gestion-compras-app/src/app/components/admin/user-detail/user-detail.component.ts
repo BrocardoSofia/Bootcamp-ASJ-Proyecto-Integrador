@@ -27,16 +27,16 @@ export class UserDetailComponent implements OnInit{
 
       if (param !== null) {
         this.idParam = parseInt(param);
-        this.usersService.getUserById(this.idParam).subscribe((user)=>{
+        // this.usersService.getUserById(this.idParam).subscribe((user)=>{
 
-          if(user === undefined){
-            //si no encontro el usuario lo redirijo a userList
-            this.router.navigate(['/users']);
-          }else{
-            this.user = user;
-          }
+        //   if(user === undefined){
+        //     //si no encontro el usuario lo redirijo a userList
+        //     this.router.navigate(['/users']);
+        //   }else{
+        //     this.user = user;
+        //   }
           
-        });
+        // });
       }
     });
 

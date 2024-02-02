@@ -38,117 +38,16 @@ export class UsersService {
     return this.http.get<boolean>(url);
   }
 
-  public getAmountPages(): Observable<number>{
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    return of(Math.ceil((users.length/this.usersPerPage)));
+  public deleteUser(user: User): Observable<User> {
+    const url = this.url + "/" + user.id;
+
+    return this.http.delete<User>(url);
   }
 
-  public getFirstUsers(): Observable<User[]> {
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-  
-    return of(users.slice(0, this.usersPerPage));
-  }
+  public reInsertUser(user: User): Observable<User> {
+    const url = this.url + "/" + user.id + "/reInsert";
 
-  public getPageUsers(page: number): Observable<User[]> {
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    let searchPage = (page-1) * this.usersPerPage;
-    
-    return of(users.slice(searchPage, searchPage+this.usersPerPage));
-  }
-
-  public getActiveUsers(): Observable<User[]> {
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    return of(users.filter((user)=>user.deletedAt === null));
-  }
-
-  public getDeletedUsers(): Observable<User[]> {
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    return of(users.filter((user)=>user.deletedAt !== null));
-  }
-
-  public getUserById(id: number): Observable<User|undefined> {
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    let userById = users.find((user)=>user.id === id);
-  
-    return of(userById);
-  }
-
-  public modifyUser(user: User):Observable<boolean>{
-    const users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-
-    //busco el proveedor y lo modifico en el arreglo
-    let modified = false;
-    let i=0;
-
-    while(modified===false && i<users.length){
-      if(users[i].id === user.id){
-        users[i] = user;
-        users[i].updatedAt = new Date();
-        modified = true;
-      }
-      i++;
-    }
-
-    //guardo el arreglo en el localStorage
-    window.localStorage.setItem('users', JSON.stringify(users));
-
-    return of(modified);
-  }
-
-  public deleteUser(user: User):Observable<User[]>{
-    const users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-
-    //busco el proveedor y lo modifico en el arreglo
-    let deleted = false;
-    let i=0;
-
-    while(deleted===false && i<users.length){
-      if(users[i].id === user.id){
-        users[i].deletedAt = new Date();
-        users[i].updatedAt = new Date();
-        deleted = true;
-      }
-      i++;
-    }
-
-    //guardo el arreglo en el localStorage
-    window.localStorage.setItem('users', JSON.stringify(users));
-
-    return of(users);
-  }
-
-  public reInsertUser(user: User):Observable<User[]>{
-    const users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-
-    //busco el proveedor y lo modifico en el arreglo
-    let deleted = false;
-    let i=0;
-
-    while(deleted===false && i<users.length){
-      if(users[i].id === user.id){
-        users[i].deletedAt = null;
-        users[i].updatedAt = new Date();
-        deleted = true;
-      }
-      i++;
-    }
-
-    //guardo el arreglo en el localStorage
-    window.localStorage.setItem('users', JSON.stringify(users));
-
-    return of(users);
-  }
-
-  getUsersByUserName(userName: string):Observable<User[]>{
-    const users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    return of(users.filter((user)=>user.userAlias.match(userName)));
-  }
-
-  getAmountPagesByUserName(userName: string):Observable<number>{
-    let users: User[] = JSON.parse(window.localStorage.getItem('users') || '[]');
-    const usersFilter = users.filter((user)=>user.userAlias.match(userName));
-
-    return of(Math.ceil((usersFilter.length/this.usersPerPage)));
+    return this.http.delete<User>(url);
   }
 
   getUsers(): Observable<any> {
@@ -160,10 +59,13 @@ export class UsersService {
     return this.http.get(this.url, { params });
   }
 
-  getAllUsersByFilter(pageNumber : number): Observable<any> {
+  //get all users filtered
+  getAllUsers(pageNumber:number, orderBy: string, userAliasFront: string): Observable<any> {
     const params = {
-      page: pageNumber.toString(),
-      size: '10'
+      page: pageNumber,
+      size: '10',
+      sort: orderBy,
+      userAlias: userAliasFront
     };
 
     return this.http.get(this.url, { params });
