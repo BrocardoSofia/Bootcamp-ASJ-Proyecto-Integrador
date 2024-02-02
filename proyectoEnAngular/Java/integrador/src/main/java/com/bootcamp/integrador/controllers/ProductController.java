@@ -32,28 +32,31 @@ public class ProductController {
 	//obtener todos los productos
 	@GetMapping()
 	public Page<ProductModel> getProducts(Pageable pageable, 
+									@RequestParam(required = false, defaultValue = "") String productDescription,
 									@RequestParam(required = false, defaultValue = "") String productName,
 									@RequestParam(required = false, defaultValue = "") String codeSKU,
 									@RequestParam(required = false, defaultValue = "-1") int supplierId){
-		return productService.getProducts(pageable, supplierId, codeSKU, productName);
+		return productService.getProducts(pageable, supplierId, codeSKU, productName, productDescription);
 	}
 	
 	//obtener productos activos
 	@GetMapping("/active")
 	public Page<ProductModel> getActiveProducts(Pageable pageable, 
+									@RequestParam(required = false, defaultValue = "") String productDescription,
 									@RequestParam(required = false, defaultValue = "") String productName,
 									@RequestParam(required = false, defaultValue = "") String codeSKU,
 									@RequestParam(required = false, defaultValue = "-1") int supplierId){
-		return productService.getActiveProducts(pageable, supplierId, codeSKU, productName);
+		return productService.getActiveProducts(pageable, supplierId, codeSKU, productName, productDescription);
 	}
 	
 	//obtener productos eliminados
 	@GetMapping("/deleted")
 	public Page<ProductModel> getDeletedProducts(Pageable pageable, 
+									@RequestParam(required = false, defaultValue = "") String productDescription,
 									@RequestParam(required = false, defaultValue = "") String productName,
 									@RequestParam(required = false, defaultValue = "") String codeSKU,
 									@RequestParam(required = false, defaultValue = "-1") int supplierId){
-		return productService.getDeletedProducts(pageable, supplierId, codeSKU, productName);
+		return productService.getDeletedProducts(pageable, supplierId, codeSKU, productName, productDescription);
 	}
 	
 	//get por Id

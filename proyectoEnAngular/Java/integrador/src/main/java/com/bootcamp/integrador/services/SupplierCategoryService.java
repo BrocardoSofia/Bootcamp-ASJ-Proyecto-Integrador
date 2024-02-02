@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bootcamp.integrador.models.SupplierCategoryCount;
 import com.bootcamp.integrador.models.SupplierCategoryModel;
 import com.bootcamp.integrador.repositories.SupplierCategoryRepository;
 import com.bootcamp.integrador.repositories.SupplierRepository;
@@ -79,5 +80,9 @@ public class SupplierCategoryService {
         } else {
             return false;
         }
+    }
+    
+    public List<SupplierCategoryCount> supplierCategoryCounts(){
+    	return supplierCategoryRepository.findSupplierCategoryCounts();
     }
 }

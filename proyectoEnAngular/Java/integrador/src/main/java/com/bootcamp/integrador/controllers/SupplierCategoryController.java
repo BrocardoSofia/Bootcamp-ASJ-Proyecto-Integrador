@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bootcamp.integrador.models.SupplierCategoryCount;
 import com.bootcamp.integrador.models.SupplierCategoryModel;
 import com.bootcamp.integrador.services.SupplierCategoryService;
 
@@ -40,6 +41,11 @@ public class SupplierCategoryController {
         } else {
             return new ResponseEntity<>(foundSupplierCategory, HttpStatus.FOUND);
         }
+    }
+    
+    @GetMapping("/counts")
+    public List<SupplierCategoryCount> getSupplierCategoryCounts() {
+        return supplierCategoryService.supplierCategoryCounts();
     }
 
     @PostMapping()

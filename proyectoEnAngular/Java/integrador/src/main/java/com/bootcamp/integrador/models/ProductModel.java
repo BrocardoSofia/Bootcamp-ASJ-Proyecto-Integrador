@@ -52,7 +52,7 @@ public class ProductModel {
     @Size(min = 3, max = 50, message = "Product Name must be between 3 and 50 characters")
     private String productName;
     
-    private String productDescription;
+    private String productDescription = "";
     
     @NotNull(message = "Price cannot be null")
     @NotBlank(message = "Price Name cannot be empty")

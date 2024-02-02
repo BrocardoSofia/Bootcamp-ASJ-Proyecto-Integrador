@@ -23,18 +23,21 @@ public class ProductService {
 	ProductHistoryService productHistoryService;
 	
 	//obtener productos
-	public Page<ProductModel> getProducts(Pageable pageable, int supplierId, String codeSKU, String productName){
+	public Page<ProductModel> getProducts(Pageable pageable, int supplierId, String codeSKU, String productName, String productDescription){
 		Page<ProductModel> page;
 		
 		if(supplierId <= 0) {
-			page = productRepository.findAllByCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCase(codeSKU,
-					 																						productName, 
+			page = productRepository.findAllByCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
+																											codeSKU,
+					 																						productName,
+					 																						productDescription,
 					 																						pageable);
 		}else {
-			page = productRepository.findAllBySupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCase(
+			page = productRepository.findAllBySupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
 					 																						supplierId,
 					 																						codeSKU,
 					 																						productName, 
+					 																						productDescription,
 					 																						pageable);
 		}
 		
@@ -42,18 +45,21 @@ public class ProductService {
 	}
 	
 	//obtener productos activos
-	public Page<ProductModel> getActiveProducts(Pageable pageable, int supplierId, String codeSKU, String productName){
+	public Page<ProductModel> getActiveProducts(Pageable pageable, int supplierId, String codeSKU, String productName, String productDescription){
 		Page<ProductModel> page;
 		
 		if(supplierId <= 0) {
-			page = productRepository.findAllByDeletedAtIsNullAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCase(codeSKU,
+			page = productRepository.findAllByDeletedAtIsNullAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
+																											codeSKU,
 					 																						productName, 
+					 																						productDescription,
 					 																						pageable);
 		}else {
-			page = productRepository.findAllByDeletedAtIsNullAndSupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCase(
+			page = productRepository.findAllByDeletedAtIsNullAndSupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
 					 																						supplierId,
 					 																						codeSKU,
 					 																						productName, 
+					 																						productDescription,
 					 																						pageable);
 		}
 		
@@ -61,18 +67,21 @@ public class ProductService {
 	}
 	
 	//obtener productos eliminados
-	public Page<ProductModel> getDeletedProducts(Pageable pageable, int supplierId, String codeSKU, String productName){
+	public Page<ProductModel> getDeletedProducts(Pageable pageable, int supplierId, String codeSKU, String productName, String productDescription){
 		Page<ProductModel> page;
 		
 		if(supplierId <= 0) {
-			page = productRepository.findAllByDeletedAtIsNotNullAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCase(codeSKU,
+			page = productRepository.findAllByDeletedAtIsNotNullAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
+																											codeSKU,
 					 																						productName, 
+					 																						productDescription,
 					 																						pageable);
 		}else {
-			page = productRepository.findAllByDeletedAtIsNotNullAndSupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCase(
+			page = productRepository.findAllByDeletedAtIsNotNullAndSupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
 					 																						supplierId,
 					 																						codeSKU,
 					 																						productName, 
+					 																						productDescription,
 					 																						pageable);
 		}
 		
