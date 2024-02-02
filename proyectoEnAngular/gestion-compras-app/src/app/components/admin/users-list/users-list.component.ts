@@ -21,6 +21,7 @@ export class UsersListComponent implements OnInit{
   searchUserName: string = '';
   searchUserNameOn: boolean = false;
   state: State = 'All';
+  selectedOption: string = '1';
   
   constructor(private userService: UsersService){}
 
@@ -118,10 +119,38 @@ export class UsersListComponent implements OnInit{
             );
           break;
         case 'Active':
+          this.userService.getAllActiveUsers(page,"createdAt",this.searchUserName).subscribe(
+            data=>{
+              this.users = data.content;
+              this.pages = data.totalPages;
+            }
+            );
           break;
         case 'Deleted':
+          this.userService.getAllDeletedUsers(page,"createdAt",this.searchUserName).subscribe(
+            data=>{
+              this.users = data.content;
+              this.pages = data.totalPages;
+            }
+            );
           break;
      }  
+  }
+
+  changeStatusFilter(){
+    console.log(this.selectedOption);
+    switch(this.selectedOption){
+      case '1':
+        this.state = 'All';
+        break;
+      case '2':
+        this.state = 'Active';
+        break;
+      case '3':
+        this.state = 'Deleted';
+        break;
+    }
+    this.selectPage(this.currentPage);
   }
 
   nextPage(){

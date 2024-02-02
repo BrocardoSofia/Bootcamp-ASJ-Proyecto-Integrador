@@ -72,7 +72,27 @@ export class UsersService {
   }
 
   //get active users filtered
+  getAllActiveUsers(pageNumber:number, orderBy: string, userAliasFront: string): Observable<any> {
+    const params = {
+      page: pageNumber,
+      size: '10',
+      sort: orderBy,
+      userAlias: userAliasFront
+    };
+
+    return this.http.get(this.url+"/active", { params });
+  }
 
   //get deketed users filtered
+  getAllDeletedUsers(pageNumber:number, orderBy: string, userAliasFront: string): Observable<any> {
+    const params = {
+      page: pageNumber,
+      size: '10',
+      sort: orderBy,
+      userAlias: userAliasFront
+    };
+
+    return this.http.get(this.url+"/deleted", { params });
+  }
   
 }
