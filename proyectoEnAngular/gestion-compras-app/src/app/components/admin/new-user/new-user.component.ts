@@ -55,9 +55,16 @@ export class NewUserComponent implements OnInit{
 
       if (param !== null) {
         this.idParam = parseInt(param);
-        console.log("init");
+
         this.userService.getUserById(this.idParam).subscribe(response => {
-          this.user = response;
+
+          if(response !== null){
+            this.user = response;
+          }else{
+            //lo redirijo a la pagina anterior
+            this.router.navigate(['/users']);
+          }
+          
         });
       }
     });
