@@ -25,7 +25,8 @@
             </div>
         </div>
 
-        <div class="input-group mt-3 mb-3">
+        <label for="password" class="form-label mt-1">Contraseña*</label>
+        <div class="input-group  mb-0">
             <span class="input-group-text"><i class="fa fa-lock"></i></span>
             <input class="form-control" id="password" name="password" placeholder="**********" 
             [(ngModel)]="user.password" formControlName="password" required>
@@ -33,13 +34,13 @@
             <i class="bi bi-eye-fill" id="togglePassword" 
              style="cursor: pointer"></i>
             </span>
-            <div *ngIf="submitForm.get('password')?.invalid && submitForm.get('password')?.touched" 
+        </div>
+        <div *ngIf="submitForm.get('password')?.invalid && submitForm.get('password')?.touched" 
             class="fw-lighter text-danger">
                 La contraseña debe tener entre 9 y 20 caracteres
-            </div>
         </div>
     
-        <button type="submit" [disabled]="submitForm.invalid" class="btn btn-primary mt-2">
+        <button type="submit" [disabled]="submitForm.invalid" class="btn btn-primary mt-4">
             Verificar
         </button>
     </form>

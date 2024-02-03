@@ -31,21 +31,9 @@ public class ProvinceService {
 
     @Transactional
     public ProvinceModel addProvince(ProvinceModel province) {
-        ProvinceModel findProvince = provinceRepository.findByProvince(province.getProvince());
+        ProvinceModel savedProvince = provinceRepository.save(province);
 
-        if (findProvince == null) {
-			Optional<CountryModel> country = countryRepository.findById(province.getCountry().getId());
-        	if(country.isPresent()) {
-        		province.setCountry(country.get());
-            	findProvince = provinceRepository.save(province);
-        	}else {
-                findProvince = null;
-            }
-        } else {
-            findProvince = null;
-        }
-
-        return findProvince;
+        return savedProvince;
     }
     
     
