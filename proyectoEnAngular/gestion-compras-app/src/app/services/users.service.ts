@@ -31,6 +31,11 @@ export class UsersService {
     return this.http.post<User>(this.url, user, { headers });
   }
 
+  public updateUser(user: User): Observable<User> {
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.put<User>(this.url, user, { headers });
+  }
+
   public userExists(userName: string): Observable<boolean> {
     let exist = false;
     const url = this.url + "/exist/" + userName;

@@ -60,6 +60,8 @@ export class NewUserComponent implements OnInit{
 
           if(response !== null){
             this.user = response;
+            this.edit = true;
+            this.oldUserName = this.user.userAlias;
           }else{
             //lo redirijo a la pagina anterior
             this.router.navigate(['/users']);
@@ -90,8 +92,11 @@ export class NewUserComponent implements OnInit{
       this.userService.userExists(this.user.userAlias).subscribe(
         exists => {
           if (!exists) {
-            
-            
+            this.userService.updateUser(this.user).subscribe(
+              data => {
+                this.userLoadedSuccessfully('Se modifico correctamente al usuario: ' + this.user.userAlias);
+              }
+            )            
           } else {
             this.alertUserExist()
           }
