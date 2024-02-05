@@ -23,13 +23,22 @@
                             <div class="smallFont textColor" [ngClass]="(selectedPath('/users')?'Blue':'')">Usuarios</div>
                         </a>
                     </li>
-                    <li class="nav-item me-4 pt-2" *ngIf="show()" [ngClass]="(!selectedPath('/config-categories')?'iconChange':'')">
-                        <a routerLink="/config-categories" class="nav-link text-center p-0">
+                    <li class="nav-item me-4 pt-2" *ngIf="show()" [ngClass]="(!selectedPath('/supplier-categories')?'iconChange':'')">
+                        <a routerLink="/supplier-categories" class="nav-link text-center p-0">
                             <div class=" d-flex align-items-center overflow-hidden changeWidth mx-auto">
-                                <i *ngIf="!selectedPath('/config-categories')" class="bi bi-tags iconHeight mx-2"></i>
-                                <i class="bi bi-tags-fill iconHeight mx-2" [ngClass]="(selectedPath('/config-categories')?'Blue':'')"></i>
+                                <i *ngIf="!selectedPath('/supplier-categories')" class="bi bi-tags iconHeight mx-2"></i>
+                                <i class="bi bi-tags-fill iconHeight mx-2" [ngClass]="(selectedPath('/supplier-categories')?'Blue':'')"></i>
                             </div>
-                            <div class="smallFont textColor" [ngClass]="(selectedPath('/config-categories')?'Blue':'')">Categorias/rubros</div>
+                            <div class="smallFont textColor" [ngClass]="(selectedPath('/supplier-categories')?'Blue':'')">Rubros</div>
+                        </a>
+                    </li>
+                    <li class="nav-item me-4 pt-2" *ngIf="show()" [ngClass]="(!selectedPath('/product-categories')?'iconChange':'')">
+                        <a routerLink="/product-categories" class="nav-link text-center p-0">
+                            <div class=" d-flex align-items-center overflow-hidden changeWidth mx-auto">
+                                <i *ngIf="!selectedPath('/product-categories')" class="bi bi-archive iconHeight mx-2"></i>
+                                <i class="bi bi-archive-fill iconHeight mx-2" [ngClass]="(selectedPath('/product-categories')?'Blue':'')"></i>
+                            </div>
+                            <div class="smallFont textColor" [ngClass]="(selectedPath('/product-categories')?'Blue':'')">Categorias</div>
                         </a>
                     </li>
                     <li class="nav-item me-4 pt-2" [ngClass]="(!selectedPath('/suppliers')?'iconChange':'')">

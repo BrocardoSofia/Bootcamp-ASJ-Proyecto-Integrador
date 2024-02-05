@@ -23,6 +23,7 @@ import { NewUserComponent } from './components/admin/new-user/new-user.component
 import { ConfigCategoiresComponent } from './components/admin/config-categoires/config-categoires.component';
 import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ConfigSupplierCategoriesComponent } from './components/admin/config-supplier-categories/config-supplier-categories.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { HttpClientModule } from '@angular/common/http';
     NewUserComponent,
     ConfigCategoiresComponent,
     UserDetailComponent,
+    ConfigSupplierCategoriesComponent,
   ],
   imports: [
     BrowserModule,

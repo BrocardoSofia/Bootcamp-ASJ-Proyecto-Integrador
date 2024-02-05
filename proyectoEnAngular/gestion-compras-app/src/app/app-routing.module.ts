@@ -16,6 +16,7 @@ import { NewUserComponent } from './components/admin/new-user/new-user.component
 import { loginGuard } from './guards/login.guard';
 import { ConfigCategoiresComponent } from './components/admin/config-categoires/config-categoires.component';
 import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
+import { ConfigSupplierCategoriesComponent } from './components/admin/config-supplier-categories/config-supplier-categories.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'index'},
@@ -28,7 +29,8 @@ const routes: Routes = [
       { path: 'detail', component: UserDetailComponent, canActivate : [loginGuard]}
     ],
   },
-  { path: 'config-categories', component: ConfigCategoiresComponent, canActivate : [loginGuard]},
+  { path: 'product-categories', component: ConfigCategoiresComponent, canActivate : [loginGuard]},
+  { path: 'supplier-categories', component: ConfigSupplierCategoriesComponent, canActivate : [loginGuard]},
   { path: 'home', component: WelcomeComponent, canActivate : [loginGuard]},
   { path: 'suppliers',
     children: [
