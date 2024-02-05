@@ -43,16 +43,16 @@ export class UserDetailComponent implements OnInit{
     // datos
     const data = {
       labels: [
-        'Red',
-        'Green',
-        'Yellow'
+        'Creados',
+        'Eliminados',
+        'Modificados'
       ],
       datasets: [{
-        label: 'My First Dataset',
+        label: 'User history',
         data: [11, 16, 7],
         backgroundColor: [
-          'rgb(255, 99, 132)',
           'rgb(75, 192, 192)',
+          'rgb(255, 99, 132)',
           'rgb(255, 205, 86)'
         ]
       }]
