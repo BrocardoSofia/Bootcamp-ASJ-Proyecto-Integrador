@@ -1,5 +1,8 @@
 package com.bootcamp.integrador.services;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +53,34 @@ public class SupplierHistoryService {
 		newHistory.setSupplier(supplier);
 		newHistory.setUser(user);
 		supplierHistoryRepository.save(newHistory);
+	}
+	
+	public Map<String, Integer> getSupplierHistoryActionsBySupplierId(int supplierId) {
+	    List<SupplierHistoryModel> supplierHistory = supplierHistoryRepository.findAllBySupplierId(supplierId);
+	    Map<String, Integer> actions = new HashMap<>();
+	    for (SupplierHistoryModel history : supplierHistory) {
+	        String action = history.getAction();
+	        if (actions.containsKey(action)) {
+	            actions.put(action, actions.get(action) + 1);
+	        } else {
+	            actions.put(action, 1);
+	        }
+	    }
+	    return actions;
+	}
+	
+	public Map<String, Integer> getSupplierHistoryActionsByUserId(int userId) {
+	    List<SupplierHistoryModel> userHistory = supplierHistoryRepository.findAllByUserId(userId);
+	    Map<String, Integer> actions = new HashMap<>();
+	    for (SupplierHistoryModel history : userHistory) {
+	        String action = history.getAction();
+	        if (actions.containsKey(action)) {
+	            actions.put(action, actions.get(action) + 1);
+	        } else {
+	            actions.put(action, 1);
+	        }
+	    }
+	    return actions;
 	}
 	
 	

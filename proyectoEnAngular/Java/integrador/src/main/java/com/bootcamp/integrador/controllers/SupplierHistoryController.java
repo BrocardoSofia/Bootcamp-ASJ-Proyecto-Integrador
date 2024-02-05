@@ -1,5 +1,7 @@
 package com.bootcamp.integrador.controllers;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,5 +31,15 @@ public class SupplierHistoryController {
 	@GetMapping("/user/{id}")
 	public Page<SupplierHistoryModel> getsupplierHistoryByUserId(Pageable pageable, @PathVariable int id){
 		return supplierHistoryService.getSupplierHistoryByUserId(pageable, id);
+	}
+	
+	@GetMapping("/supplier/{id}/actions")
+	public Map<String, Integer> getsupplierHistoryActionsBySupplierId(@PathVariable int id){
+	    return supplierHistoryService.getSupplierHistoryActionsBySupplierId(id);
+	}
+	
+	@GetMapping("/user/{id}/actions")
+	public Map<String, Integer> getsupplierHistoryActionsByUserId(@PathVariable int id){
+	    return supplierHistoryService.getSupplierHistoryActionsByUserId(id);
 	}
 }

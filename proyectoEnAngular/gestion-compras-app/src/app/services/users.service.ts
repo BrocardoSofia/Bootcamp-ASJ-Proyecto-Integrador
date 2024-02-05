@@ -66,35 +66,23 @@ export class UsersService {
 
   //get all users filtered
   getAllUsers(pageNumber:number, orderBy: string, userAliasFront: string): Observable<any> {
-    
-    ///VER ESTE SORT PARA EL RESTO
-    let urlGet = this.url+"?page"+pageNumber+"&size=10"+orderBy+"&userAlias="+userAliasFront;
+    let urlGet = this.url+"?page="+pageNumber+"&size=10"+orderBy+"&userAlias="+userAliasFront;
 
     return this.http.get(urlGet);
   }
 
   //get active users filtered
   getAllActiveUsers(pageNumber:number, orderBy: string, userAliasFront: string): Observable<any> {
-    const params = {
-      page: pageNumber,
-      size: '10',
-      sort: orderBy,
-      userAlias: userAliasFront
-    };
+    let urlGet = this.url+"/active"+"?page="+pageNumber+"&size=10"+orderBy+"&userAlias="+userAliasFront;
 
-    return this.http.get(this.url+"/active", { params });
+    return this.http.get(urlGet);
   }
 
   //get deketed users filtered
   getAllDeletedUsers(pageNumber:number, orderBy: string, userAliasFront: string): Observable<any> {
-    const params = {
-      page: pageNumber,
-      size: '10',
-      sort: orderBy,
-      userAlias: userAliasFront
-    };
+    let urlGet = this.url+"/deleted"+"?page="+pageNumber+"&size=10"+orderBy+"&userAlias="+userAliasFront;
 
-    return this.http.get(this.url+"/deleted", { params });
+    return this.http.get(urlGet);
   }
 
   getUserById(id: number): Observable<User>{
