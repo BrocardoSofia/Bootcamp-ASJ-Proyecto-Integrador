@@ -79,6 +79,12 @@ export class NavBarComponent implements OnInit{
       case 'users': 
         name = 'Usuarios';
         break;
+      case 'supplier-categories': 
+        name = 'Rubros';
+        break;
+      case 'product-categories': 
+        name = 'Categorias';
+        break;
     }
 
     return name;
