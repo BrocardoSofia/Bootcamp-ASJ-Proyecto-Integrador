@@ -65,3 +65,35 @@
     color: #353535;
     align-items: center;
 }
+
+.filterItems{
+    height: 5vh;
+}
+
+.select-filter{
+    width: 50%;
+}
+
+.userImg{
+    width: 20vw;
+}
+
+.icono{
+    height: 5vh;
+}
+
+.btn-outline-warning{
+    
+    border-color: #51ca01!important;
+    color: #51ca01;
+}
+
+.btn-outline-warning:hover{
+    background-color: #41a101!important;
+    border-color: #41a101!important;
+    color: #fff;
+}
+
+.title{
+    align-items: center;
+}

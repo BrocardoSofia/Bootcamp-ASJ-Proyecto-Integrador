@@ -24,6 +24,8 @@ import { ConfigCategoiresComponent } from './components/admin/config-categoires/
 import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigSupplierCategoriesComponent } from './components/admin/config-supplier-categories/config-supplier-categories.component';
+import { NewSupplierCategoriesComponent } from './components/admin/new-supplier-categories/new-supplier-categories.component';
+import { DetailSupplierCategoriesComponent } from './components/admin/detail-supplier-categories/detail-supplier-categories.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { ConfigSupplierCategoriesComponent } from './components/admin/config-sup
     ConfigCategoiresComponent,
     UserDetailComponent,
     ConfigSupplierCategoriesComponent,
+    NewSupplierCategoriesComponent,
+    DetailSupplierCategoriesComponent,
   ],
   imports: [
     BrowserModule,
