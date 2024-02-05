@@ -23,7 +23,7 @@ export class UserDetailComponent implements OnInit{
 
   ngOnInit(): void {
     this.activeRoute.queryParamMap.subscribe((params) => {
-      let param = params.get('editUser') || null;
+      let param = params.get('user') || null;
 
       if (param !== null) {
         this.idParam = parseInt(param);

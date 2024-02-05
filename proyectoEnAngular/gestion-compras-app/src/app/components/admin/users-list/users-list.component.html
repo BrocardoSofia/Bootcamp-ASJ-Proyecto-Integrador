@@ -122,7 +122,7 @@
               type="button"
               class="btn btn-outline-primary rounded-circle btn-icon me-3"
               routerLink="./detail"
-              [queryParams]="{ editUser: user.id}"
+              [queryParams]="{ user: user.id}"
             >
               <i class="bi bi-search"></i>
             </button>
@@ -131,7 +131,7 @@
               type="button"
               class="btn btn-outline-success rounded-circle btn-icon me-3"
               routerLink="./edit"
-              [queryParams]="{ editUser: user.id}"
+              [queryParams]="{ user: user.id}"
             >
               <i class="bi bi-pencil-fill"></i>
             </button>

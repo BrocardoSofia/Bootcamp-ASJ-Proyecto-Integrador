@@ -51,7 +51,7 @@ export class NewUserComponent implements OnInit{
     this.user = this.userService.inicUser();
 
     this.activeRoute.queryParamMap.subscribe((params) => {
-      let param = params.get('editUser') || null;
+      let param = params.get('user') || null;
 
       if (param !== null) {
         this.idParam = parseInt(param);
