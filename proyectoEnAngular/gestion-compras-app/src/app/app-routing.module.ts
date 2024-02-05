@@ -17,6 +17,8 @@ import { loginGuard } from './guards/login.guard';
 import { ConfigCategoiresComponent } from './components/admin/config-categoires/config-categoires.component';
 import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
 import { ConfigSupplierCategoriesComponent } from './components/admin/config-supplier-categories/config-supplier-categories.component';
+import { NewSupplierCategoriesComponent } from './components/admin/new-supplier-categories/new-supplier-categories.component';
+import { DetailSupplierCategoriesComponent } from './components/admin/detail-supplier-categories/detail-supplier-categories.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'index'},
@@ -30,7 +32,14 @@ const routes: Routes = [
     ],
   },
   { path: 'product-categories', component: ConfigCategoiresComponent, canActivate : [loginGuard]},
-  { path: 'supplier-categories', component: ConfigSupplierCategoriesComponent, canActivate : [loginGuard]},
+  { path: 'supplier-categories',
+    children: [
+      { path: '', component: ConfigSupplierCategoriesComponent, canActivate : [loginGuard]},
+      { path: 'new', component: NewSupplierCategoriesComponent, canActivate : [loginGuard]},
+      { path: 'edit', component: NewSupplierCategoriesComponent, canActivate : [loginGuard]},
+      { path: 'detail', component: DetailSupplierCategoriesComponent, canActivate : [loginGuard]}
+    ],
+  },
   { path: 'home', component: WelcomeComponent, canActivate : [loginGuard]},
   { path: 'suppliers',
     children: [
