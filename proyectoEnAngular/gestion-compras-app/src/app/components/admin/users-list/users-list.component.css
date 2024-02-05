@@ -22,22 +22,14 @@
     align-items: center;
 }
 
-.table-header{
-    background-color: #9ab7d1;
-    border-top-left-radius: 0.3em;
-    border-top-right-radius: 0.3em;
-    color: #fff;
-    align-items: center;
-}
-
-.btn-search{
+/* .btn-search{
     background-color: #4a7eab;
     color: #fff;
 }
 
 .btn-search:hover{
     background-color: #346894;
-}
+} */
 
 .filterItems{
     height: 5vh;

@@ -1,15 +1,11 @@
 <nav class="navbar align-items-center bg-light fixed-top nav-config"
 *ngIf="!selectedPath('/index')">
-    <div class="container-fluid border-bottom bg-blue-1" >
+    <div class="container-fluid border-bottom bg-primary-subtle" >
         <div class="d-flex align-items-center">
             <a routerLink="/home" class="navbar-brand m-0 textColor fw-bold brand a-blue-1"
             [ngClass]="(selectedPath('/home')?'Blue':'') || (selectedPath('/admin')?'Blue':'')">
-                <img *ngIf="selectedPath('/home')" 
+                <img 
                     src="/assets/logo.png" alt="logo" 
-                    style="height: 4vh;" class="me-2 imgLogo iconHeight mx-2"
-                >
-                <img *ngIf="!selectedPath('/home')" 
-                    src="/assets/logo-dark.png" alt="logo" 
                     style="height: 4vh;" class="me-2 imgLogo iconHeight mx-2"
                 >
                 ASJ COMPRAS

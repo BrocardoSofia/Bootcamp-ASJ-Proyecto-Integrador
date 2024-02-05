@@ -18,7 +18,7 @@
     </div>
   </section>
 
-  <section class="m-0 p-2 table-header d-flex">
+  <section class="m-0 p-2 table-header bg-primary-subtle d-flex">
     <div class="col-md-9 ps-2">
       <h2 class="text-left">Tabla de usuarios</h2>
     </div>
@@ -29,12 +29,12 @@
       <div class="input-group input-group-append">
         <input type="text" class="form-control" placeholder="Buscar usuario" 
         name="userName" [(ngModel)]="searchUserName">
-        <button class="btn btn-search btn-icon" type="button" id="button-addon2"
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
         (click)="searchByUserName()" *ngIf="!searchUserNameOn" 
         [ngClass]="((searchUserName !== '')?'':'disabled')">
           <i class="bi bi-search"></i>
         </button>
-        <button class="btn btn-search btn-icon" type="button" id="button-addon2"
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
         (click)="clearSearchByName()" *ngIf="searchUserNameOn">
           <i class="bi bi-x-lg"></i>
         </button>

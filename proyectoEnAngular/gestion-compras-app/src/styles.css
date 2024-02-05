@@ -58,3 +58,10 @@
 .columnSort:hover{
     color: rgb(118, 118, 118);
 }
+
+.table-header{
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+    color: #353535;
+    align-items: center;
+}
