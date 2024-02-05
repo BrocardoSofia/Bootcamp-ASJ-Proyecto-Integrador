@@ -1,1 +1,11 @@
-<p>new-supplier-categories works!</p>
+<div class="container">
+    <h1 class="pt-3 mb-4" *ngIf="!edit">
+        <img src="/assets/plus-square-fill.svg" alt="icono user" class="icono">
+        Creando nuevo Rubro
+    </h1>
+
+    <h1 class="pt-3 mb-4" *ngIf="edit">
+        <img src="/assets/gear-fill.svg" alt="icono user" class="icono">
+        Editando Rubro
+    </h1>
+</div>

@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './new-supplier-categories.component.css'
 })
 export class NewSupplierCategoriesComponent {
-
+  edit: boolean = false;
+  supplierCategory: string = '';
 }
