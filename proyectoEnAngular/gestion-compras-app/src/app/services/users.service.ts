@@ -66,14 +66,11 @@ export class UsersService {
 
   //get all users filtered
   getAllUsers(pageNumber:number, orderBy: string, userAliasFront: string): Observable<any> {
-    const params = {
-      page: pageNumber,
-      size: '10',
-      sort: orderBy,
-      userAlias: userAliasFront
-    };
+    
+    ///VER ESTE SORT PARA EL RESTO
+    let urlGet = this.url+"?page"+pageNumber+"&size=10"+orderBy+"&userAlias="+userAliasFront;
 
-    return this.http.get(this.url, { params });
+    return this.http.get(urlGet);
   }
 
   //get active users filtered
@@ -114,5 +111,15 @@ export class UsersService {
         .catch(error => observer.error(error));
     });
   }
+
+  //obtener historial de proveedores
+
+  //obtener cantidad de proveedores eliminados/modificados/creados
+
+  //obtener historial de productos
+
+  //obtener cantidad de productos eliminados/modificados/creados
+
+  //obtener historial de ordenes de compra
   
 }

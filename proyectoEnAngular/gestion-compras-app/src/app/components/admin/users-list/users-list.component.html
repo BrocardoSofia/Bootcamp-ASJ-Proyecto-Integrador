@@ -91,8 +91,16 @@
   <table class="table m-0 p-4" *ngIf="users.length !== 0">
       <thead>
         <tr class="table">
-          <th scope="col">Nombre de usuario</th>
-          <th scope="col">Fecha de alta</th>
+          <th scope="col" class="columnSort" (click)="changeSort('userAlias')">Nombre de usuario 
+            <i *ngIf="userAliasSort === 'None'" class="bi bi-arrow-down-up"></i>
+            <i *ngIf="userAliasSort === 'desc'" class="bi bi-arrow-down"></i>
+            <i *ngIf="userAliasSort === 'asc'" class="bi bi-arrow-up"></i>
+          </th>
+          <th scope="col" class="columnSort" (click)="changeSort('createdAt')">Fecha de alta 
+            <i *ngIf="createdAtSort === 'None'" class="bi bi-arrow-down-up"></i>
+            <i *ngIf="createdAtSort === 'desc'" class="bi bi-arrow-down"></i>
+            <i *ngIf="createdAtSort === 'asc'" class="bi bi-arrow-up"></i>
+          </th>
           <th scope="col" class="text-center">Estado</th>
           <th scope="col" class="text-center">Acciones</th>
         </tr>

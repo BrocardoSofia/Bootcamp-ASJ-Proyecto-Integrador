@@ -4,6 +4,7 @@ import { User } from '../../../models/user';
 import Swal from 'sweetalert2';
 
 type State = 'All' | 'Active' | 'Deleted';
+type SortOrder = 'None' | 'asc' | 'desc';
 
 @Component({
   selector: 'app-users-list',
@@ -22,6 +23,8 @@ export class UsersListComponent implements OnInit{
   searchUserNameOn: boolean = false;
   state: State = 'All';
   selectedOption: string = '1';
+  userAliasSort:SortOrder = 'None';
+  createdAtSort:SortOrder = 'None';
   
   constructor(private userService: UsersService){}
 
@@ -111,7 +114,8 @@ export class UsersListComponent implements OnInit{
     this.currentPage = page;
       switch(this.state){
         case 'All':
-          this.userService.getAllUsers(page,"createdAt",this.searchUserName).subscribe(
+          ///VER ESTE SORT PARA EL RESTO
+          this.userService.getAllUsers(page,this.getSort(),this.searchUserName).subscribe(
             data=>{
               this.users = data.content;
               this.pages = data.totalPages;
@@ -119,7 +123,7 @@ export class UsersListComponent implements OnInit{
             );
           break;
         case 'Active':
-          this.userService.getAllActiveUsers(page,"createdAt",this.searchUserName).subscribe(
+          this.userService.getAllActiveUsers(page,this.getSort(),this.searchUserName).subscribe(
             data=>{
               this.users = data.content;
               this.pages = data.totalPages;
@@ -127,7 +131,7 @@ export class UsersListComponent implements OnInit{
             );
           break;
         case 'Deleted':
-          this.userService.getAllDeletedUsers(page,"createdAt",this.searchUserName).subscribe(
+          this.userService.getAllDeletedUsers(page,this.getSort(),this.searchUserName).subscribe(
             data=>{
               this.users = data.content;
               this.pages = data.totalPages;
@@ -172,5 +176,43 @@ export class UsersListComponent implements OnInit{
     this.searchUserName = '';
     this.searchUserNameOn = false;
     this.selectPage(this.currentPage);
+  }
+
+  changeSort(columnName: string){
+    switch(columnName){
+      case 'userAlias':
+        if(this.userAliasSort === 'None'){
+          this.userAliasSort = 'desc';
+        }else if(this.userAliasSort === 'desc'){
+          this.userAliasSort = 'asc';
+        }else{
+          this.userAliasSort = 'None';
+        }
+        break;
+      case 'createdAt':
+        if(this.createdAtSort === 'None'){
+          this.createdAtSort = 'desc';
+        }else if(this.createdAtSort === 'desc'){
+          this.createdAtSort = 'asc';
+        }else{
+          this.createdAtSort = 'None';
+        }
+        break;
+    }
+    this.selectPage(0);
+  }
+
+  getSort(){
+    let sort:string = '';
+
+    if(this.userAliasSort !== 'None'){
+      sort = '&sort=userAlias,'+this.userAliasSort;
+    }
+
+    if(this.createdAtSort !== 'None'){
+      sort += '&sort=createdAt,'+this.createdAtSort;
+    }
+
+    return sort;
   }
 }

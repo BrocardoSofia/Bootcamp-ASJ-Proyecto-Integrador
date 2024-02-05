@@ -18,7 +18,7 @@
                 
                 <article>
                     <button id="toggle-password" type="button" 
-                    class="btn btn-secondary  rounded-circle btn-icon btn-sm ml-2" 
+                    class="btn btn-outline-secondary rounded-circle btn-icon btn-sm ml-2" 
                     (click)="togglePassword()">
                     <i *ngIf="seePassword" class="bi bi-eye-fill"></i>
                     <i *ngIf="!seePassword" class="bi bi-eye-slash-fill"></i>
@@ -37,9 +37,17 @@
         </ul>
     
         <section class="mt-5">
-            <h3>Estadisticas</h3>
+            <h3>Historial</h3>
+            <div class="btn-group" role="group" aria-label="user history">
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+                <label class="btn btn-outline-primary" for="vbtn-radio1">Proveedores</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="vbtn-radio2">Productos</label>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="vbtn-radio3">Ordenes de compra</label>
+              </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <ul class="list-group mt-2 mb-2 ">
                         <li class="list-group-item">
                             <article><strong>Proveedores creados: </strong> No creo proveedores</article>
@@ -55,7 +63,49 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-md-6" style="height: 50vh;" >
+                <div class="col-md-4"  >
+                    <div class="card border-left-primary shadow mb-3 mt-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                        Creados</div>
+                                    <div class="h5 mb-0 font-weight-bold text-success text-gray-800">0</div>
+                                </div>
+                                <div class="col-auto text-success">
+                                    <i class="fa fa-plus-square fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-left-primary shadow mb-3 mt-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                        Eliminados</div>
+                                    <div class="h5 mb-0 font-weight-bold text-danger text-gray-800">0</div>
+                                </div>
+                                <div class="col-auto text-danger">
+                                    <i class="fa fa-trash fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card border-left-primary shadow mb-3 mt-2">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                        Modificados</div>
+                                    <div class="h5 mb-0 font-weight-bold text-warning text-gray-800">0</div>
+                                </div>
+                                <div class="col-auto text-warning">
+                                    <i class="fa fa-pencil fa-2x text-gray-300"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <canvas id="chart">{{ chart }}</canvas>
                 </div>
             </div>

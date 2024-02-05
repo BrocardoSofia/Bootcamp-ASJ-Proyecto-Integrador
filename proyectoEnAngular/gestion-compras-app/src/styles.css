@@ -50,3 +50,11 @@
 .a-blue-1:hover{
     color: #3e93de;
 }
+
+.columnSort{
+    cursor: pointer;
+}
+
+.columnSort:hover{
+    color: rgb(118, 118, 118);
+}
