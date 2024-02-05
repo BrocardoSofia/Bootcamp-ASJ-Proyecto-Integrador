@@ -28,15 +28,13 @@ export class LoginService {
 
     return this.http.get<User>(this.url+"/login/"+userAlias+"/"+password).pipe(
       map(user => {
-        console.log(user);
         if (user !== null) {
-          localStorage.setItem('token', 'token'); // Guardar token para guards
+          localStorage.setItem('token', 'userId:'+user.id); // Guardar token para guards
         }
 
         if (this.isAdmin(userAlias)) {
           this.navBarService.setAdmin(true);
         }
-        console.log(user);
 
         return user;
       })

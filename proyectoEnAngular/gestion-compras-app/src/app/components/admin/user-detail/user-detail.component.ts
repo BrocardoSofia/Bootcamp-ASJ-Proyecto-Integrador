@@ -29,7 +29,7 @@ export class UserDetailComponent implements OnInit{
         this.idParam = parseInt(param);
         this.usersService.getUserById(this.idParam).subscribe((user)=>{
 
-          if(user === undefined){
+          if(user === null){
             //si no encontro el usuario lo redirijo a userList
             this.router.navigate(['/users']);
           }else{

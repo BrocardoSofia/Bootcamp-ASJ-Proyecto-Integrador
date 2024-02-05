@@ -30,7 +30,6 @@ export class UsersListComponent implements OnInit{
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe(data=>{
-      console.log(data);
       this.pages = data.totalPages;
       this.users = data.content;
 
@@ -142,7 +141,6 @@ export class UsersListComponent implements OnInit{
   }
 
   changeStatusFilter(){
-    console.log(this.selectedOption);
     switch(this.selectedOption){
       case '1':
         this.state = 'All';
