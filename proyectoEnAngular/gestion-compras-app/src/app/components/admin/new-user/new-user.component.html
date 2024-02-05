@@ -11,18 +11,26 @@
     </h1>
 
     <form [formGroup]="submitForm" (ngSubmit)="submitUser()">
-        <div class="mt-3 mb-3">
+        <div class="mt-3 mb-3" *ngIf="user.userAlias !== 'admin_asjcompras_01'"> 
             <label for="userInput" class="form-label">Nombre de usuario*</label>
             <input type="text" required id="userInput" class="form-control" formControlName="user_name"
-              placeholder="nombre_apellido_numeroDeEmpleado" name="user_name" [(ngModel)]="user.userAlias" 
-              oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"/>
-            <div *ngIf="submitForm.get('user_name')?.invalid && submitForm.get('user_name')?.touched" 
-            class="fw-lighter text-danger">
+                placeholder="nombre_apellido_numeroDeEmpleado" name="user_name" [(ngModel)]="user.userAlias"
+                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
+                type="text"
+                />
+            <div *ngIf="submitForm.get('user_name')?.invalid && submitForm.get('user_name')?.touched"
+                class="fw-lighter text-danger">
                 El nombre de usuario debe tener entre 5 y 50 caracteres
             </div>
-            <div *ngIf="submitForm.get('user_name')?.invalid && submitForm.get('user_name')?.touched && submitForm.get('user_name')?.errors?.['pattern']" class="fw-lighter text-danger">
+            <div *ngIf="submitForm.get('user_name')?.invalid && submitForm.get('user_name')?.touched && submitForm.get('user_name')?.errors?.['pattern']"
+                class="fw-lighter text-danger">
                 El nombre de usuario debe tener el siguiente formato: nombre_apellido_numeroDeEmpleado
             </div>
+        </div>
+        <div class="mt-3 mb-3" *ngIf="user.userAlias === 'admin_asjcompras_01'">
+            <label for="userInput" class="form-label">Nombre de usuario*</label>
+            <input type="text" id="user" class="form-control" 
+            placeholder="{{user.userAlias}}" name="user_name" type="text" disabled />
         </div>
 
         <label for="password" class="form-label mt-1">Contraseña*</label>
