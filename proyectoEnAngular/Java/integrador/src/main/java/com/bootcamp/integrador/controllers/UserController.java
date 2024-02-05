@@ -54,7 +54,7 @@ public class UserController {
 		return userService.getDeletedUsers(pageable, userAlias);
 	}
     
-    //obtener usuario por alias
+    //obtener si un usuario existe por alias
     @GetMapping("/exist/{userAlias}")
 	public boolean getUserByAlias(Pageable pageable, 
 									@PathVariable String userAlias) {	
@@ -63,6 +63,13 @@ public class UserController {
     	}else{
     		return false;
     	}
+	}
+    
+    @GetMapping("/login/{userAlias}/{password}")
+	public UserModel loginUser(Pageable pageable, 
+									@PathVariable String userAlias,
+									@PathVariable String password) {	
+    	return userService.loginUser(userAlias, password);
 	}
     
     //get por Id

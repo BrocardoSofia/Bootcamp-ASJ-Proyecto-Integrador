@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { NavBarService } from '../../services/nav-bar.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +19,7 @@ export class LoginComponent implements OnInit{
 
   constructor(private router: Router,
               private loginService: LoginService,
-              private fb: FormBuilder,
-              private navBarService: NavBarService)
+              private fb: FormBuilder)
   {}
 
   ngOnInit(): void {
@@ -27,49 +27,25 @@ export class LoginComponent implements OnInit{
       user: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-    this.navBarService.setAdmin(false);
-    localStorage.removeItem("token");
   }
 
   public validateUser(){
-    let valid: boolean;
-    if(this.user==='admin' && this.password!==undefined){
-      //si es un admin valido para admin
-      valid = this.loginService.validAdmin(this.password);
+    let user: User;
 
-      if(valid){
-        //si es valido lo redirigo a el component admin/user-list
-        localStorage.setItem('token', 'token') //guardo token para guards
-        this.navBarService.setAdmin(true);
-        this.toastSuccessfulLogin();
-        this.router.navigate(['/home']);
-      }else{
-        //si no es valido le mando un alert de error
-        this.loginError();
-      }
-    }else{
-      //sino valido para user
-      this.loginService.validPassword(this.user, this.password).subscribe((result) => {
-        valid = result;
-
-        if(valid){
-          //si es valido lo mando a la pagina principal
+    this.loginService.validLogin(this.user, this.password).subscribe(
+      result=>{
+        if(result != null){
           this.toastSuccessfulLogin();
-          
-          localStorage.setItem('token', 'token') //guardo token para guards
           this.router.navigate(['/home']);
+          
         }else{
-          //si no le aviso
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: 'Usuario y/o contraseña invalidos',
-          });
-          this.submitForm.reset();
+          //sino significa que el usuario no ingreso bien su contraseña o nombre de usuario
+          //si no es valido le mando un alert de error
+          this.loginError();
         }
-      });
-      
-    }
+      }
+    )
+    
   }
 
   private loginError(){

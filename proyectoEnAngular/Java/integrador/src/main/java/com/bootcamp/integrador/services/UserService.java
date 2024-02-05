@@ -65,6 +65,19 @@ public class UserService {
     public UserModel getUserByAlias(String userAlias) {
         return userRepository.findByUserAlias(userAlias);
     }
+    
+    //obtener login user
+    public UserModel loginUser(String userAlias, String password) {
+        UserModel user =  userRepository.findByUserAlias(userAlias);
+        
+        if(user != null && user.getDeletedAt() == null) {
+        	if(user.getPassword().equals(password)) {
+        		return user;
+        	}
+        }
+        
+        return null;
+    }
 
     //insertar usuario
     @Transactional
