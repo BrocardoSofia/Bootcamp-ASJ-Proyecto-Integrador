@@ -140,6 +140,66 @@ export class ConfigSupplierCategoriesComponent {
      }  
   }
 
+  changeStatusFilter(){
+    switch(this.selectedOption){
+      case '1':
+        this.state = 'All';
+        break;
+      case '2':
+        this.state = 'Active';
+        break;
+      case '3':
+        this.state = 'Deleted';
+        break;
+    }
+    this.selectPage(this.currentPage);
+  }
+
+  nextPage(){
+    this.currentPage++;
+    this.selectPage(this.currentPage);
+  }
+
+  prevPage(){
+    this.currentPage--;
+    this.selectPage(this.currentPage);
+  }
+
+  searchByCategory(){
+    this.searchCategoryOn = true;
+    this.selectPage(this.currentPage);
+  }
+
+  clearSearchByCategory(){
+    this.searchCategory = '';
+    this.searchCategoryOn = false;
+    this.selectPage(this.currentPage);
+  }
+
+  changeSort(columnName: string){
+    switch(columnName){
+      case 'category':
+        if(this.categorySort === 'None'){
+          this.categorySort = 'desc';
+        }else if(this.categorySort === 'desc'){
+          this.categorySort = 'asc';
+        }else{
+          this.categorySort = 'None';
+        }
+        break;
+      case 'createdAt':
+        if(this.createdAtSort === 'None'){
+          this.createdAtSort = 'desc';
+        }else if(this.createdAtSort === 'desc'){
+          this.createdAtSort = 'asc';
+        }else{
+          this.createdAtSort = 'None';
+        }
+        break;
+    }
+    this.selectPage(0);
+  }
+
   getSort(){
     let sort:string = '';
 
