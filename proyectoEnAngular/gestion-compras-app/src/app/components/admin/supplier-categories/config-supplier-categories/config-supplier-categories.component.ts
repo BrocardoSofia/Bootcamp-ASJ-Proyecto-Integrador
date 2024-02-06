@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SupplierCategory } from '../../../../models/supplier-category';
 import { SupplierCategoriesService } from '../../../../services/supplier-categories.service';
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ type SortOrder = 'None' | 'asc' | 'desc';
   templateUrl: './config-supplier-categories.component.html',
   styleUrl: './config-supplier-categories.component.css'
 })
-export class ConfigSupplierCategoriesComponent {
+export class ConfigSupplierCategoriesComponent implements OnInit{
 
   suplierCategories:SupplierCategory[] = [];
   currentPage: number = 0;
