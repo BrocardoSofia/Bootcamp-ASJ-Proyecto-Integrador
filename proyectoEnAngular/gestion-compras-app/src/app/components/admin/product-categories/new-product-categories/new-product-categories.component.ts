@@ -32,6 +32,10 @@ export class NewProductCategoriesComponent implements OnInit{
   createdAtSort:SortOrder = 'None';
 
   continue: boolean = false;
+  supplierCategorySaved!: SupplierCategory;
+  supplierCategorySavedId: number = 0;
+
+  supplierCategorySelected: boolean = false;
 
   constructor(private supplierCategoryService: SupplierCategoriesService,
               private productCategoryService: ProductCategoriesService){}
@@ -130,5 +134,15 @@ export class NewProductCategoriesComponent implements OnInit{
     }
 
     return sort;
+  }
+
+  selectSupplierCategory(supplierCategory: SupplierCategory){
+    this.supplierCategorySaved = supplierCategory;
+    this.supplierCategorySavedId = supplierCategory.id;
+    this.continue = true;
+  }
+
+  continueForm(){
+    this.supplierCategorySelected = true;
   }
 }
