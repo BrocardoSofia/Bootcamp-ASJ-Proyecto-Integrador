@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcamp.integrador.models.SupplierCategoryCount;
 import com.bootcamp.integrador.models.SupplierCategoryModel;
+import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.services.SupplierCategoryService;
 
 @RestController
@@ -35,6 +36,22 @@ public class SupplierCategoryController {
 											@RequestParam(required = false, defaultValue = "") String category) {
         return supplierCategoryService.getSupplierCategories(pageable, category);
     }
+    
+    //obtener usuarios activos
+    @GetMapping("/SupplierCategoryModel")
+	public Page<SupplierCategoryModel> getActiveCategories(Pageable pageable, 
+											@RequestParam(required = false, defaultValue = "") String category) {		
+		
+		return supplierCategoryService.getActiveCategories(pageable, category);
+	}
+    
+    //obtener usuario eliminados
+    @GetMapping("/deleted")
+	public Page<SupplierCategoryModel> getDeletedCategories(Pageable pageable, 
+											@RequestParam(required = false, defaultValue = "") String category) {		
+		
+		return supplierCategoryService.getDeletedCategories(pageable, category);
+	}
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<SupplierCategoryModel>> getSupplierCategoryById(@PathVariable int id) {

@@ -58,4 +58,31 @@ export class SupplierCategoriesService {
 
     return this.http.get(this.url, { params });
   }
+
+  //get all categories filtered
+  getAllCategories(pageNumber:number, orderBy: string, category: string): Observable<any> {
+    let urlGet = this.url+"?page="+pageNumber+"&size=10"+orderBy+"&category="+category;
+
+    return this.http.get(urlGet);
+  }
+
+  //get active categories filtered
+  getAllActiveCategories(pageNumber:number, orderBy: string, category: string): Observable<any> {
+    let urlGet = this.url+"/active"+"?page="+pageNumber+"&size=10"+orderBy+"&category="+category;
+
+    return this.http.get(urlGet);
+  }
+
+  //get deleted categories filtered
+  getAllDeletedCategories(pageNumber:number, orderBy: string, category: string): Observable<any> {
+    let urlGet = this.url+"/deleted"+"?page="+pageNumber+"&size=10"+orderBy+"&category="+category;
+
+    return this.http.get(urlGet);
+  }
+
+  public reInsertCategory(supplierCategory: SupplierCategory): Observable<SupplierCategory> {
+    const url = this.url + "/" + supplierCategory.id + "/reInsert";
+
+    return this.http.delete<SupplierCategory>(url);
+  }
 }

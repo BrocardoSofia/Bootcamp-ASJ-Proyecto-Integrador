@@ -1,7 +1,6 @@
 package com.bootcamp.integrador.services;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.SupplierCategoryCount;
 import com.bootcamp.integrador.models.SupplierCategoryModel;
-import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.SupplierCategoryRepository;
-import com.bootcamp.integrador.repositories.SupplierRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -33,6 +30,30 @@ public class SupplierCategoryService {
   		}
   		return page;
     }
+    
+    //obtener rubros activos
+  	public Page<SupplierCategoryModel> getActiveCategories(Pageable pageable, String category){
+  		Page<SupplierCategoryModel> page;
+  		if(category == "") {
+  			//no envio category
+  			page = supplierCategoryRepository.findAllByDeletedAtIsNull(pageable);
+  		}else {
+  			page = supplierCategoryRepository.findAllByDeletedAtIsNullAndCategoryContainingIgnoreCase(category, pageable);	
+  		}
+  		return page;
+  	}
+  	
+    //obtener rubros eliminados
+  	public Page<SupplierCategoryModel> getDeletedCategories(Pageable pageable, String category){
+  		Page<SupplierCategoryModel> page;
+  		if(category == "") {
+  			//no envio category
+  			page = supplierCategoryRepository.findAllByDeletedAtIsNotNull(pageable);
+  		}else {
+  			page = supplierCategoryRepository.findAllByDeletedAtIsNotNullAndCategoryContainingIgnoreCase(category, pageable);	
+  		}
+  		return page;
+  	}
 
     public Optional<SupplierCategoryModel> getSupplierCategoryById(int id) {
         return supplierCategoryRepository.findById(id);

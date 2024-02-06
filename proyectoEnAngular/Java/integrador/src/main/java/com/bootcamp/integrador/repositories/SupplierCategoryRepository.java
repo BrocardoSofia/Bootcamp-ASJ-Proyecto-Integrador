@@ -17,5 +17,9 @@ public interface SupplierCategoryRepository extends JpaRepository<SupplierCatego
     				+ "ON s.supplier_category_id = sc.id GROUP BY sc.name", nativeQuery = true)
     List<SupplierCategoryCount> findSupplierCategoryCounts();
     Page<SupplierCategoryModel> findAllByCategoryContainingIgnoreCase(String category, Pageable pageable);
+    Page<SupplierCategoryModel> findAllByDeletedAtIsNullAndCategoryContainingIgnoreCase(String category, Pageable pageable);
+    Page<SupplierCategoryModel> findAllByDeletedAtIsNotNullAndCategoryContainingIgnoreCase(String category, Pageable pageable);
+    Page<SupplierCategoryModel> findAllByDeletedAtIsNull(Pageable pageable);
+    Page<SupplierCategoryModel> findAllByDeletedAtIsNotNull(Pageable pageable);
     boolean existsByCategory(String category);
 }
