@@ -11,14 +11,13 @@ import { SupplierDetailComponent } from './components/supplier/supplier-detail/s
 import { ProductDetailComponent } from './components/product/product-detail/product-detail.component';
 import { PurchaseOrderDetailComponent } from './components/purchase-order/purchase-order-detail/purchase-order-detail.component';
 import { LoginComponent } from './components/login/login.component';
-import { UsersListComponent } from './components/admin/users-list/users-list.component';
-import { NewUserComponent } from './components/admin/new-user/new-user.component';
+import { UsersListComponent } from './components/admin/users/users-list/users-list.component';
+import { NewUserComponent } from './components/admin/users/new-user/new-user.component';
 import { loginGuard } from './guards/login.guard';
-import { ConfigCategoiresComponent } from './components/admin/config-categoires/config-categoires.component';
-import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
-import { ConfigSupplierCategoriesComponent } from './components/admin/config-supplier-categories/config-supplier-categories.component';
-import { NewSupplierCategoriesComponent } from './components/admin/new-supplier-categories/new-supplier-categories.component';
-import { DetailSupplierCategoriesComponent } from './components/admin/detail-supplier-categories/detail-supplier-categories.component';
+import { UserDetailComponent } from './components/admin/users/user-detail/user-detail.component';
+import { ConfigSupplierCategoriesComponent } from './components/admin/supplier-categories/config-supplier-categories/config-supplier-categories.component';
+import { NewSupplierCategoriesComponent } from './components/admin/supplier-categories/new-supplier-categories/new-supplier-categories.component';
+import { ProductCategoriesListComponent } from './components/admin/product-categories/product-categories-list/product-categories-list.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'index'},
@@ -31,14 +30,12 @@ const routes: Routes = [
       { path: 'detail', component: UserDetailComponent, canActivate : [loginGuard]}
     ],
   },
-  { path: 'product-categories', component: ConfigCategoiresComponent, canActivate : [loginGuard]},
+  { path: 'product-categories', component: ProductCategoriesListComponent, canActivate : [loginGuard]},
   { path: 'supplier-categories',
     children: [
       { path: '', component: ConfigSupplierCategoriesComponent, canActivate : [loginGuard]},
       { path: 'new', component: NewSupplierCategoriesComponent, canActivate : [loginGuard]},
-      { path: 'edit', component: NewSupplierCategoriesComponent, canActivate : [loginGuard]},
-      { path: 'detail', component: DetailSupplierCategoriesComponent, canActivate : [loginGuard]}
-    ],
+      { path: 'edit', component: NewSupplierCategoriesComponent, canActivate : [loginGuard]}    ],
   },
   { path: 'home', component: WelcomeComponent, canActivate : [loginGuard]},
   { path: 'suppliers',

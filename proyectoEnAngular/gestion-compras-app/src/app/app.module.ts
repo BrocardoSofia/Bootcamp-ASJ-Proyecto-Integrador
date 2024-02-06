@@ -18,14 +18,13 @@ import { PurchaseOrderDetailComponent } from './components/purchase-order/purcha
 import { ProductDetailComponent } from './components/product/product-detail/product-detail.component';
 import { SupplierDetailComponent } from './components/supplier/supplier-detail/supplier-detail.component';
 import { LoginComponent } from './components/login/login.component';
-import { UsersListComponent } from './components/admin/users-list/users-list.component';
-import { NewUserComponent } from './components/admin/new-user/new-user.component';
-import { ConfigCategoiresComponent } from './components/admin/config-categoires/config-categoires.component';
-import { UserDetailComponent } from './components/admin/user-detail/user-detail.component';
+import { UsersListComponent } from './components/admin/users/users-list/users-list.component';
+import { NewUserComponent } from './components/admin/users/new-user/new-user.component';
+import { UserDetailComponent } from './components/admin/users/user-detail/user-detail.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ConfigSupplierCategoriesComponent } from './components/admin/config-supplier-categories/config-supplier-categories.component';
-import { NewSupplierCategoriesComponent } from './components/admin/new-supplier-categories/new-supplier-categories.component';
-import { DetailSupplierCategoriesComponent } from './components/admin/detail-supplier-categories/detail-supplier-categories.component';
+import { ConfigSupplierCategoriesComponent } from './components/admin/supplier-categories/config-supplier-categories/config-supplier-categories.component';
+import { NewSupplierCategoriesComponent } from './components/admin/supplier-categories/new-supplier-categories/new-supplier-categories.component';
+import { NewProductCategoriesComponent } from './components/admin/product-categories/new-product-categories/new-product-categories.component';
 
 @NgModule({
   declarations: [
@@ -46,11 +45,10 @@ import { DetailSupplierCategoriesComponent } from './components/admin/detail-sup
     LoginComponent,
     UsersListComponent,
     NewUserComponent,
-    ConfigCategoiresComponent,
     UserDetailComponent,
     ConfigSupplierCategoriesComponent,
     NewSupplierCategoriesComponent,
-    DetailSupplierCategoriesComponent,
+    NewProductCategoriesComponent,
   ],
   imports: [
     BrowserModule,

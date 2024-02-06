@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SupplierCategoriesService } from '../../../services/supplier-categories.service';
-import { SupplierCategory } from '../../../models/supplier-category';
+import { SupplierCategoriesService } from '../../../../services/supplier-categories.service';
+import { SupplierCategory } from '../../../../models/supplier-category';
 import Swal from 'sweetalert2';
 import { auto } from '@popperjs/core';
 

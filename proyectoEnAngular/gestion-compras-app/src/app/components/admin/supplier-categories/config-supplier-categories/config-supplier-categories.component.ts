@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { SupplierCategory } from '../../../models/supplier-category';
-import { SupplierCategoriesService } from '../../../services/supplier-categories.service';
+import { SupplierCategory } from '../../../../models/supplier-category';
+import { SupplierCategoriesService } from '../../../../services/supplier-categories.service';
 import Swal from 'sweetalert2';
 
 type State = 'All' | 'Active' | 'Deleted';

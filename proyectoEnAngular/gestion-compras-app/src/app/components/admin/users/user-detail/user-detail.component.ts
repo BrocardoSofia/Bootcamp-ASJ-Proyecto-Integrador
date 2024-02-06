@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../../../services/users.service';
+import { UsersService } from '../../../../services/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../../../models/user';
+import { User } from '../../../../models/user';
 import { Chart, ChartType} from 'chart.js/auto';
 
 @Component({
