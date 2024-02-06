@@ -6,9 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.ProductCategoryModel;
+import com.bootcamp.integrador.models.SupplierCategoryModel;
 import com.bootcamp.integrador.repositories.ProductCategoryRepository;
 
 import jakarta.transaction.Transactional;
@@ -18,9 +21,40 @@ public class ProductCategoryService {
     @Autowired
     ProductCategoryRepository productCategoryRepository;
 
-    public List<ProductCategoryModel> getProductCategories() {
-        return productCategoryRepository.findAll();
+    public Page<ProductCategoryModel> getProductCategories(Pageable pageable, String category) {
+        Page<ProductCategoryModel> page;
+  		if(category == "") {
+  			//no envio userAlias
+  			page = productCategoryRepository.findAll(pageable);
+  		}else {
+  			page = productCategoryRepository.findAllByCategoryContainingIgnoreCase(category, pageable);	
+  		}
+  		return page;
     }
+    
+    //obtener categorias activos
+  	public Page<ProductCategoryModel> getActiveCategories(Pageable pageable, String category){
+  		Page<ProductCategoryModel> page;
+  		if(category == "") {
+  			//no envio category
+  			page = productCategoryRepository.findAllByDeletedAtIsNull(pageable);
+  		}else {
+  			page = productCategoryRepository.findAllByDeletedAtIsNullAndCategoryContainingIgnoreCase(category, pageable);	
+  		}
+  		return page;
+  	}
+  	
+    //obtener rubros eliminados
+  	public Page<ProductCategoryModel> getDeletedCategories(Pageable pageable, String category){
+  		Page<ProductCategoryModel> page;
+  		if(category == "") {
+  			//no envio category
+  			page = productCategoryRepository.findAllByDeletedAtIsNotNull(pageable);
+  		}else {
+  			page = productCategoryRepository.findAllByDeletedAtIsNotNullAndCategoryContainingIgnoreCase(category, pageable);	
+  		}
+  		return page;
+  	}
 
     public Optional<ProductCategoryModel> getProductCategoryById(int id) {
         return productCategoryRepository.findById(id);
@@ -55,16 +89,16 @@ public class ProductCategoryService {
         }
     }
 
-    public boolean deleteProductCategory(int id) {
+    public ProductCategoryModel deleteProductCategory(int id) {
         Optional<ProductCategoryModel> foundProductCategory = productCategoryRepository.findById(id);
 
         if (foundProductCategory.isPresent()) {
             ProductCategoryModel deletedProductCategory = foundProductCategory.get();
             deletedProductCategory.setDeletedAt(LocalDateTime.now());
             productCategoryRepository.save(deletedProductCategory);
-            return true;
+            return deletedProductCategory;
         } else {
-            return false;
+            return null;
         }
     }
 

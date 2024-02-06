@@ -37,7 +37,7 @@ public class SupplierCategoryController {
         return supplierCategoryService.getSupplierCategories(pageable, category);
     }
     
-    //obtener usuarios activos
+    //obtener rubros activos
     @GetMapping("/active")
 	public Page<SupplierCategoryModel> getActiveCategories(Pageable pageable, 
 											@RequestParam(required = false, defaultValue = "") String category) {		
@@ -45,7 +45,7 @@ public class SupplierCategoryController {
 		return supplierCategoryService.getActiveCategories(pageable, category);
 	}
     
-    //obtener usuario eliminados
+    //obtener rubros eliminados
     @GetMapping("/deleted")
 	public Page<SupplierCategoryModel> getDeletedCategories(Pageable pageable, 
 											@RequestParam(required = false, defaultValue = "") String category) {		

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcamp.integrador.models.ProductCategoryModel;
+import com.bootcamp.integrador.models.SupplierCategoryModel;
 import com.bootcamp.integrador.services.ProductCategoryService;
 
 @RestController
@@ -27,9 +31,26 @@ public class ProductCategoryController {
     ProductCategoryService productCategoryService;
 
     @GetMapping()
-    public List<ProductCategoryModel> getProductCategories() {
-        return productCategoryService.getProductCategories();
+    public Page<ProductCategoryModel> getProductCategories(Pageable pageable, 
+											@RequestParam(required = false, defaultValue = "") String category) {
+        return productCategoryService.getProductCategories(pageable, category);
     }
+    
+    //obtener categorias activas
+    @GetMapping("/active")
+	public Page<ProductCategoryModel> getActiveCategories(Pageable pageable, 
+											@RequestParam(required = false, defaultValue = "") String category) {		
+		
+		return productCategoryService.getActiveCategories(pageable, category);
+	}
+    
+    //obtener categorias eliminadas
+    @GetMapping("/deleted")
+	public Page<ProductCategoryModel> getDeletedCategories(Pageable pageable, 
+											@RequestParam(required = false, defaultValue = "") String category) {		
+		
+		return productCategoryService.getDeletedCategories(pageable, category);
+	}
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<ProductCategoryModel>> getProductCategoryById(@PathVariable int id) {
@@ -53,12 +74,12 @@ public class ProductCategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteProductCategory(@PathVariable int id) {
-        boolean deleted = productCategoryService.deleteProductCategory(id);
-        if (deleted) {
-            return new ResponseEntity<>(true, HttpStatus.OK);
+    public ResponseEntity<ProductCategoryModel> deleteProductCategory(@PathVariable int id) {
+    	ProductCategoryModel deleted = productCategoryService.deleteProductCategory(id);
+        if (deleted != null) {
+            return new ResponseEntity<>(deleted, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(deleted, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -72,7 +93,7 @@ public class ProductCategoryController {
         }
     }
 
-    @PutMapping("/{id}/reInsert")
+    @DeleteMapping("/{id}/reInsert")
     public ResponseEntity<Boolean> reInsertProductCategory(@PathVariable int id) {
         boolean reInsert = productCategoryService.reInsertProductCategory(id);
         if (reInsert) {
