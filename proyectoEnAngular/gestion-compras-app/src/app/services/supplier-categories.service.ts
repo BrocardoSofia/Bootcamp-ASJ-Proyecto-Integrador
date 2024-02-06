@@ -49,4 +49,13 @@ export class SupplierCategoriesService {
 
     return this.http.delete<SupplierCategory>(url);
   }
+
+  getSupplierCategories(): Observable<any> {
+    const params = {
+      page: '0',
+      size: '10'
+    };
+
+    return this.http.get(this.url, { params });
+  }
 }

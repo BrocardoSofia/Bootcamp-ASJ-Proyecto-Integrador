@@ -6,10 +6,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.SupplierCategoryCount;
 import com.bootcamp.integrador.models.SupplierCategoryModel;
+import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.SupplierCategoryRepository;
 import com.bootcamp.integrador.repositories.SupplierRepository;
 
@@ -20,8 +23,15 @@ public class SupplierCategoryService {
     @Autowired
     SupplierCategoryRepository supplierCategoryRepository;
 
-    public List<SupplierCategoryModel> getSupplierCategories() {
-        return supplierCategoryRepository.findAll();
+    public Page<SupplierCategoryModel> getSupplierCategories(Pageable pageable, String category) {
+        Page<SupplierCategoryModel> page;
+  		if(category == "") {
+  			//no envio userAlias
+  			page = supplierCategoryRepository.findAll(pageable);
+  		}else {
+  			page = supplierCategoryRepository.findAllByCategoryContainingIgnoreCase(category, pageable);	
+  		}
+  		return page;
     }
 
     public Optional<SupplierCategoryModel> getSupplierCategoryById(int id) {
