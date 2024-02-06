@@ -25,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfigSupplierCategoriesComponent } from './components/admin/supplier-categories/config-supplier-categories/config-supplier-categories.component';
 import { NewSupplierCategoriesComponent } from './components/admin/supplier-categories/new-supplier-categories/new-supplier-categories.component';
 import { NewProductCategoriesComponent } from './components/admin/product-categories/new-product-categories/new-product-categories.component';
+import { ProductCategoriesListComponent } from './components/admin/product-categories/product-categories-list/product-categories-list.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { NewProductCategoriesComponent } from './components/admin/product-catego
     ConfigSupplierCategoriesComponent,
     NewSupplierCategoriesComponent,
     NewProductCategoriesComponent,
+    ProductCategoriesListComponent
   ],
   imports: [
     BrowserModule,
