@@ -11,7 +11,7 @@ export class SupplierCategoriesService {
 
   constructor(private http: HttpClient) { }
 
-  public inicUser(){
+  public inicSupplierCategory(){
     let supplierCategory: SupplierCategory = {
       id: 0,
       category: '',
