@@ -85,7 +85,11 @@ export class NewUserComponent implements OnInit{
   private modifyUser(){
     if(this.user.userAlias === this.oldUserName){
       //si el nombre de usuario coincide con el viejo no lo valido, ya lo modifico
-      
+      this.userService.updateUser(this.user).subscribe(
+        data => {
+          this.userLoadedSuccessfully('Se modifico correctamente al usuario: ' + this.user.userAlias);
+        }
+      )
       
     }else{
       //si el nombre de usuario cambio debo verificar que no exista

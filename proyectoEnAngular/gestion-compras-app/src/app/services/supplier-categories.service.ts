@@ -38,13 +38,13 @@ export class SupplierCategoriesService {
   }
 
   //modificar categoria
-  public updateUser(supplierCategory: SupplierCategory): Observable<SupplierCategory> {
+  public updateCategory(supplierCategory: SupplierCategory): Observable<SupplierCategory> {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.put<SupplierCategory>(this.url, supplierCategory, { headers });
   }
 
   //eliminar categoria
-  public deleteUser(supplierCategory: SupplierCategory): Observable<SupplierCategory> {
+  public deleteCategory(supplierCategory: SupplierCategory): Observable<SupplierCategory> {
     const url = this.url + "/" + supplierCategory.id;
 
     return this.http.delete<SupplierCategory>(url);

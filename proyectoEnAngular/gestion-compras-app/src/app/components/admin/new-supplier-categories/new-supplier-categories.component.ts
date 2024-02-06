@@ -89,6 +89,31 @@ export class NewSupplierCategoriesComponent implements OnInit{
   }
 
   modifyCategory(){
-
+    if(this.supplierCategory.category === this.oldCategory){
+      //si el nombre de usuario coincide con el viejo no lo valido, ya lo modifico
+      this.supplierCategoriesService.updateCategory(this.supplierCategory).subscribe(
+        data => {
+          this.categoryLoadedSuccessfully('Se modifico correctamente la categoria: ' 
+          + this.supplierCategory.category);
+        }
+      )
+      
+    }else{
+      //si el nombre de usuario cambio debo verificar que no exista
+      this.supplierCategoriesService.categoryExists(this.supplierCategory.category).subscribe(
+        exists => {
+          if (!exists) {
+            this.supplierCategoriesService.updateCategory(this.supplierCategory).subscribe(
+              data => {
+                this.categoryLoadedSuccessfully('Se modifico correctamente la categoria: ' 
+                + this.supplierCategory.category);
+              }
+            )            
+          } else {
+            this.alertCategoryExist()
+          }
+        }
+      );
+    }
   }
 }
