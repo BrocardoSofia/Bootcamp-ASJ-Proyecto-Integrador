@@ -42,7 +42,7 @@ public class ProductCategoryService {
 
     public ProductCategoryModel updateProductCategory(ProductCategoryModel productCategory) {
         Optional<ProductCategoryModel> foundProductCategory = productCategoryRepository.findById(productCategory.getId());
-        ProductCategoryModel foundByCategory = productCategoryRepository.getByCategory(productCategory.getCategory());
+        ProductCategoryModel foundByCategory = productCategoryRepository.findByCategory(productCategory.getCategory());
 
         if (foundProductCategory.isPresent() && (foundByCategory == null)) {
             ProductCategoryModel updatedProductCategory = foundProductCategory.get();
