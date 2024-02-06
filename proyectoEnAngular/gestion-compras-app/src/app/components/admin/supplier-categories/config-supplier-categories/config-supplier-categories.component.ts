@@ -45,8 +45,8 @@ export class ConfigSupplierCategoriesComponent implements OnInit{
 
   deleteCategory(suplierCategory: SupplierCategory){
     Swal.fire({
-      title: "Eliminando la categoria: " + suplierCategory.category,
-      text: "¿Esta seguro que desea eliminar la categoria?",
+      title: "Eliminando el rubro: " + suplierCategory.category,
+      text: "¿Esta seguro que desea eliminar el rubro?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -58,7 +58,7 @@ export class ConfigSupplierCategoriesComponent implements OnInit{
           deleted=>{
             Swal.fire({
               title: "¡Eliminado!",
-              text: "La categoria " + deleted.category + " fue eliminada correctamente",
+              text: "El rubro " + deleted.category + " fue eliminado correctamente",
               icon: "success"
             });
             this.selectPage(this.currentPage);
@@ -71,8 +71,8 @@ export class ConfigSupplierCategoriesComponent implements OnInit{
 
   reInsertCategory(suplierCategory: SupplierCategory){
     Swal.fire({
-      title: "Reingresando la categoria: " + suplierCategory.category,
-      text: "¿Esta seguro que desea reingresar la categoria?",
+      title: "Reingresando el rubro: " + suplierCategory.category,
+      text: "¿Esta seguro que desea reingresar el rubro?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -84,7 +84,7 @@ export class ConfigSupplierCategoriesComponent implements OnInit{
           deleted=>{
             Swal.fire({
               title: "¡Re ingresado!",
-              text: "La categoria " + suplierCategory.category + " fue re ingresada correctamente",
+              text: "El rubro " + suplierCategory.category + " fue re ingresado correctamente",
               icon: "success"
             });
             this.selectPage(this.currentPage);
