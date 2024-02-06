@@ -24,7 +24,7 @@ export class SupplierCategoriesService {
     return supplierCategory;
   }
 
-  //ver si existe la categoria
+  //ver si existe el rubro
   public categoryExists(category: string): Observable<boolean> {
     let exist = false;
     const url = this.url + "/exist/" + category;
@@ -32,19 +32,19 @@ export class SupplierCategoriesService {
     return this.http.get<boolean>(url);
   }
 
-  //agregar categoria
+  //agregar rubro
   public addCategory(supplierCategory: SupplierCategory): Observable<SupplierCategory> {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post<SupplierCategory>(this.url, supplierCategory, { headers });
   }
 
-  //modificar categoria
+  //modificar rubro
   public updateCategory(supplierCategory: SupplierCategory): Observable<SupplierCategory> {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.put<SupplierCategory>(this.url, supplierCategory, { headers });
   }
 
-  //eliminar categoria
+  //eliminar rubro
   public deleteCategory(supplierCategory: SupplierCategory): Observable<SupplierCategory> {
     const url = this.url + "/" + supplierCategory.id;
 
