@@ -1,7 +1,6 @@
-export interface User{
+export interface SupplierCategory{
     id: number,
-    userAlias: string,
-    password: string,
+    category: string,
     createdAt: Date,
     updatedAt: Date | null,
     deletedAt: Date | null

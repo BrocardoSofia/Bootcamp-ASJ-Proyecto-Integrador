@@ -7,8 +7,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class UsersService {
-  private pages: number = 0;
-  private usersPerPage: number = 10;
   private url: string = 'http://localhost:8080/users';
   
   constructor(private http: HttpClient) { }
