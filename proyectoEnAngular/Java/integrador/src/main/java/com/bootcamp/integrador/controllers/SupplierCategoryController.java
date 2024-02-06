@@ -87,4 +87,9 @@ public class SupplierCategoryController {
             return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
         }
     }
+    
+    @GetMapping("/exists-by-category/{category}")
+    public boolean checkIfSupplierCategoryExists(@PathVariable String category) {
+        return supplierCategoryService.checkIfSupplierCategoryExists(category);
+    }
 }

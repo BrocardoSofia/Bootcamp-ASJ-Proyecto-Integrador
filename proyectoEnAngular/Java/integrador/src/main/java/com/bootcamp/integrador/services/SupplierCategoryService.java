@@ -85,4 +85,8 @@ public class SupplierCategoryService {
     public List<SupplierCategoryCount> supplierCategoryCounts(){
     	return supplierCategoryRepository.findSupplierCategoryCounts();
     }
+    
+    public boolean checkIfSupplierCategoryExists(String category) {
+        return supplierCategoryRepository.existsByCategory(category);
+    }
 }

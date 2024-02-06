@@ -34,7 +34,6 @@ public class ProductCategoryModel {
     @NotNull(message = "category cannot be null")
     @NotBlank(message = "category cannot be empty")
     @Size(min = 2, max = 50, message = "category must be between 2 and 50 characters")
-    @Column(unique = true)
     private String category;
 
     @Temporal(TemporalType.TIMESTAMP)
