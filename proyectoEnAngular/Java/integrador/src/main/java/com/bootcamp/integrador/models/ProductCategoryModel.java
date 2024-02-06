@@ -7,6 +7,8 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,6 +48,7 @@ public class ProductCategoryModel {
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "supplier_category_id", nullable = false)
     private SupplierCategoryModel supplierCategory;

@@ -47,6 +47,10 @@ public class SupplierCategoryModel {
 
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime deletedAt;
+    
+    @JsonManagedReference
+    @OneToMany(mappedBy = "supplierCategory", cascade = CascadeType.ALL)
+    private List<ProductCategoryModel> products = new ArrayList<>();
 
     public SupplierCategoryModel(String category) {
     	this.createdAt = LocalDateTime.now();

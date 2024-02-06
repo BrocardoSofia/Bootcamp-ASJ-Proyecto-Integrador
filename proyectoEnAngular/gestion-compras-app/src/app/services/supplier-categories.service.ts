@@ -17,7 +17,8 @@ export class SupplierCategoriesService {
       category: '',
       createdAt: new Date,
       updatedAt: null,
-      deletedAt: null
+      deletedAt: null,
+      products: []
     }
 
     return supplierCategory;
