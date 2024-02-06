@@ -59,12 +59,12 @@ public class SupplierCategoryController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteSupplierCategory(@PathVariable int id) {
-        boolean deleted = supplierCategoryService.deleteSupplierCategory(id);
-        if (deleted) {
-            return new ResponseEntity<>(true, HttpStatus.OK);
+    public ResponseEntity<SupplierCategoryModel> deleteSupplierCategory(@PathVariable int id) {
+    	SupplierCategoryModel deleted = supplierCategoryService.deleteSupplierCategory(id);
+        if (deleted != null) {
+            return new ResponseEntity<>(deleted, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(deleted, HttpStatus.NOT_FOUND);
         }
     }
 
@@ -79,16 +79,16 @@ public class SupplierCategoryController {
     }
 
     @PutMapping("/{id}/reInsert")
-    public ResponseEntity<Boolean> reInsertSupplierCategory(@PathVariable int id) {
-        boolean undeleted = supplierCategoryService.reInsertSupplierCategory(id);
-        if (undeleted) {
-            return new ResponseEntity<>(true, HttpStatus.OK);
+    public ResponseEntity<SupplierCategoryModel> reInsertSupplierCategory(@PathVariable int id) {
+    	SupplierCategoryModel undeleted = supplierCategoryService.reInsertSupplierCategory(id);
+        if (undeleted != null) {
+            return new ResponseEntity<>(undeleted, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(undeleted, HttpStatus.NOT_FOUND);
         }
     }
     
-    @GetMapping("/exists-by-category/{category}")
+    @GetMapping("/exist/{category}")
     public boolean checkIfSupplierCategoryExists(@PathVariable String category) {
         return supplierCategoryService.checkIfSupplierCategoryExists(category);
     }

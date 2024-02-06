@@ -56,29 +56,31 @@ public class SupplierCategoryService {
         }
     }
 
-    public boolean deleteSupplierCategory(int id) {
+    public SupplierCategoryModel deleteSupplierCategory(int id) {
         Optional<SupplierCategoryModel> foundSupplierCategory = supplierCategoryRepository.findById(id);
 
         if (foundSupplierCategory.isPresent()) {
             SupplierCategoryModel deletedSupplierCategory = foundSupplierCategory.get();
+            
             deletedSupplierCategory.setDeletedAt(LocalDateTime.now());
             supplierCategoryRepository.save(deletedSupplierCategory);
-            return true;
+            
+            return deletedSupplierCategory;
         } else {
-            return false;
+            return null;
         }
     }
 
-    public boolean reInsertSupplierCategory(int id) {
+    public SupplierCategoryModel reInsertSupplierCategory(int id) {
         Optional<SupplierCategoryModel> foundSupplierCategory = supplierCategoryRepository.findById(id);
 
         if (foundSupplierCategory.isPresent()) {
             SupplierCategoryModel undeletedSupplierCategory = foundSupplierCategory.get();
             undeletedSupplierCategory.setDeletedAt(null);
             supplierCategoryRepository.save(undeletedSupplierCategory);
-            return true;
+            return undeletedSupplierCategory;
         } else {
-            return false;
+            return null;
         }
     }
     
