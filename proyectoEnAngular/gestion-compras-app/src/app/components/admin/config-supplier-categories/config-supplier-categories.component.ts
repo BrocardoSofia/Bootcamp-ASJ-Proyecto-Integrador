@@ -43,7 +43,7 @@ export class ConfigSupplierCategoriesComponent {
     return (suplierCategory.deletedAt !== null)?'Inactivo':'Activo';
   }
 
-  deleteUser(suplierCategory: SupplierCategory){
+  deleteCategory(suplierCategory: SupplierCategory){
     Swal.fire({
       title: "Eliminando la categoria: " + suplierCategory.category,
       text: "¿Esta seguro que desea eliminar la categoria?",
@@ -69,7 +69,7 @@ export class ConfigSupplierCategoriesComponent {
     });
   }
 
-  reInsertUser(suplierCategory: SupplierCategory){
+  reInsertCategory(suplierCategory: SupplierCategory){
     Swal.fire({
       title: "Reingresando la categoria: " + suplierCategory.category,
       text: "¿Esta seguro que desea reingresar la categoria?",
@@ -84,7 +84,7 @@ export class ConfigSupplierCategoriesComponent {
           deleted=>{
             Swal.fire({
               title: "¡Re ingresado!",
-              text: "La categoria " + deleted.category + " fue re ingresada correctamente",
+              text: "La categoria " + suplierCategory.category + " fue re ingresada correctamente",
               icon: "success"
             });
             this.selectPage(this.currentPage);
@@ -204,7 +204,7 @@ export class ConfigSupplierCategoriesComponent {
     let sort:string = '';
 
     if(this.categorySort !== 'None'){
-      sort = '&sort=userAlias,'+this.categorySort;
+      sort = '&sort=category,'+this.categorySort;
     }
 
     if(this.createdAtSort !== 'None'){

@@ -38,7 +38,7 @@ public class SupplierCategoryController {
     }
     
     //obtener usuarios activos
-    @GetMapping("/SupplierCategoryModel")
+    @GetMapping("/active")
 	public Page<SupplierCategoryModel> getActiveCategories(Pageable pageable, 
 											@RequestParam(required = false, defaultValue = "") String category) {		
 		
@@ -99,10 +99,10 @@ public class SupplierCategoryController {
         }
     }
 
-    @PutMapping("/{id}/reInsert")
-    public ResponseEntity<SupplierCategoryModel> reInsertSupplierCategory(@PathVariable int id) {
-    	SupplierCategoryModel undeleted = supplierCategoryService.reInsertSupplierCategory(id);
-        if (undeleted != null) {
+    @DeleteMapping("/{id}/reInsert")
+    public ResponseEntity<Boolean> reInsertSupplierCategory(@PathVariable int id) {
+    	boolean undeleted = supplierCategoryService.reInsertSupplierCategory(id);
+        if (undeleted) {
             return new ResponseEntity<>(undeleted, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(undeleted, HttpStatus.NOT_FOUND);

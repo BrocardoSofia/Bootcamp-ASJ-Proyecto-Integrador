@@ -80,9 +80,24 @@ export class SupplierCategoriesService {
     return this.http.get(urlGet);
   }
 
-  public reInsertCategory(supplierCategory: SupplierCategory): Observable<SupplierCategory> {
+  public reInsertCategory(supplierCategory: SupplierCategory): Observable<boolean> {
     const url = this.url + "/" + supplierCategory.id + "/reInsert";
 
-    return this.http.delete<SupplierCategory>(url);
+    return this.http.delete<boolean>(url);
+  }
+
+  getCategoryById(id: number): Observable<SupplierCategory>{
+    const url = this.url+'/'+id;
+
+    return new Observable<SupplierCategory>(observer => {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const supplierCategory: SupplierCategory = data;
+          observer.next(supplierCategory);
+          observer.complete();
+        })
+        .catch(error => observer.error(error));
+    });
   }
 }

@@ -47,10 +47,10 @@ export class UsersService {
     return this.http.delete<User>(url);
   }
 
-  public reInsertUser(user: User): Observable<User> {
+  public reInsertUser(user: User): Observable<boolean> {
     const url = this.url + "/" + user.id + "/reInsert";
 
-    return this.http.delete<User>(url);
+    return this.http.delete<boolean>(url);
   }
 
   getUsers(): Observable<any> {

@@ -16,6 +16,7 @@ export class NewSupplierCategoriesComponent implements OnInit{
   submitForm!: FormGroup;
   supplierCategory!: SupplierCategory;
   oldCategory: string = '';
+  idParam: number = 0;
 
   constructor(private fb: FormBuilder,
               private activeRoute: ActivatedRoute,
@@ -27,7 +28,28 @@ export class NewSupplierCategoriesComponent implements OnInit{
       category: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]]
     });
 
-    this.supplierCategory = this.supplierCategoriesService.inicSupplierCategory()
+    this.supplierCategory = this.supplierCategoriesService.inicSupplierCategory();
+
+    this.activeRoute.queryParamMap.subscribe((params) => {
+      let param = params.get('suplierCategory') || null;
+
+      if (param !== null) {
+        this.idParam = parseInt(param);
+
+        this.supplierCategoriesService.getCategoryById(this.idParam).subscribe(response => {
+
+          if(response !== null){
+            this.supplierCategory = response;
+            this.edit = true;
+            this.oldCategory = this.supplierCategory.category;
+          }else{
+            //lo redirijo a la pagina anterior
+            this.router.navigate(['/supplier-categories']);
+          }
+          
+        });
+      }
+    });
   }
 
   submitCategory(){

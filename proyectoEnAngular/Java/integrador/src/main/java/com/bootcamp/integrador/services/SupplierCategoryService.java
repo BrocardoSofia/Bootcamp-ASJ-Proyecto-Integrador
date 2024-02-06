@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.SupplierCategoryCount;
 import com.bootcamp.integrador.models.SupplierCategoryModel;
+import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.SupplierCategoryRepository;
 
 import jakarta.transaction.Transactional;
@@ -101,17 +102,18 @@ public class SupplierCategoryService {
             return null;
         }
     }
-
-    public SupplierCategoryModel reInsertSupplierCategory(int id) {
-        Optional<SupplierCategoryModel> foundSupplierCategory = supplierCategoryRepository.findById(id);
+    
+    //reinsertar rubro
+    public boolean reInsertSupplierCategory(int id) {
+    	Optional<SupplierCategoryModel> foundSupplierCategory = supplierCategoryRepository.findById(id);
 
         if (foundSupplierCategory.isPresent()) {
-            SupplierCategoryModel undeletedSupplierCategory = foundSupplierCategory.get();
-            undeletedSupplierCategory.setDeletedAt(null);
-            supplierCategoryRepository.save(undeletedSupplierCategory);
-            return undeletedSupplierCategory;
+        	SupplierCategoryModel undeletedSupplierCategory = foundSupplierCategory.get();
+        	undeletedSupplierCategory.setDeletedAt(null);
+        	supplierCategoryRepository.save(undeletedSupplierCategory);
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
     

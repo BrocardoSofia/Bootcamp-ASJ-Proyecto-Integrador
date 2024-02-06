@@ -84,7 +84,7 @@ export class UsersListComponent implements OnInit{
           deleted=>{
             Swal.fire({
               title: "¡Re ingresado!",
-              text: "El usuario " + deleted.userAlias + " fue re ingresado correctamente",
+              text: "El usuario " + user.userAlias + " fue re ingresado correctamente",
               icon: "success"
             });
             this.selectPage(this.currentPage);
