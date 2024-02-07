@@ -47,7 +47,7 @@ public class SupplierModel {
 
     @NotNull(message = "supplierCode cannot be null")
     @NotBlank(message = "supplierCode cannot be empty")
-    @Size(min = 2, max = 50, message = "supplierCode must be between 2 and 50 characters")
+    @Size(min = 4, max = 50, message = "supplierCode must be between 4 and 50 characters")
     @Column(unique = true)
     private String supplierCode;
 
