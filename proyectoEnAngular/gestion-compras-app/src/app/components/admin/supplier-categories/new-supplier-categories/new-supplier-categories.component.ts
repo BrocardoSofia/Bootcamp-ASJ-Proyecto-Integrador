@@ -69,7 +69,7 @@ export class NewSupplierCategoriesComponent implements OnInit{
         if (!exists) {
           this.supplierCategoriesService.addCategory(this.supplierCategory).subscribe(
             user => {
-              this.categoryLoadedSuccessfully('Se agrego correctamente la categoria: ' 
+              this.categoryLoadedSuccessfully('Se agrego correctamente el rubro: ' 
               + this.supplierCategory.category);
             }
           );
@@ -85,7 +85,7 @@ export class NewSupplierCategoriesComponent implements OnInit{
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: 'Ya existe la categoria ' + this.supplierCategory.category + ' en el sistema',
+      text: 'Ya existe el rubro ' + this.supplierCategory.category + ' en el sistema',
     });
 
     if(this.edit){
@@ -115,7 +115,7 @@ export class NewSupplierCategoriesComponent implements OnInit{
       //si el nombre de usuario coincide con el viejo no lo valido, ya lo modifico
       this.supplierCategoriesService.updateCategory(this.supplierCategory).subscribe(
         data => {
-          this.categoryLoadedSuccessfully('Se modifico correctamente la categoria: ' 
+          this.categoryLoadedSuccessfully('Se modifico correctamente el rubro: ' 
           + this.supplierCategory.category);
         }
       )
@@ -127,7 +127,7 @@ export class NewSupplierCategoriesComponent implements OnInit{
           if (!exists) {
             this.supplierCategoriesService.updateCategory(this.supplierCategory).subscribe(
               data => {
-                this.categoryLoadedSuccessfully('Se modifico correctamente la categoria: ' 
+                this.categoryLoadedSuccessfully('Se modifico correctamente el rubro: ' 
                 + this.supplierCategory.category);
               }
             )            

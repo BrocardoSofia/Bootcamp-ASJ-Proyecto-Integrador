@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcamp.integrador.models.ProductCategoryModel;
-import com.bootcamp.integrador.models.SupplierCategoryModel;
 import com.bootcamp.integrador.services.ProductCategoryService;
 
 @RestController
@@ -61,6 +60,13 @@ public class ProductCategoryController {
         } else {
             return new ResponseEntity<>(foundProductCategory, HttpStatus.FOUND);
         }
+    }
+    
+    @GetMapping("/exists/{supplierCategoryId}/{category}")
+    public ResponseEntity<Boolean> categoryExists( @PathVariable int supplierCategoryId,
+            										@PathVariable String category) {
+        boolean exists = productCategoryService.categoryExistsForSupplier(supplierCategoryId, category);
+        return ResponseEntity.ok(exists);
     }
 
     @PostMapping()

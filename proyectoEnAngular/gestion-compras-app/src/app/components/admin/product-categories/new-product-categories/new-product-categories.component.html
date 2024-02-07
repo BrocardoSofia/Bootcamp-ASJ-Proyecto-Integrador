@@ -111,6 +111,23 @@
 
     <!-- cargar categoria -->
     <article *ngIf="supplierCategorySelected">
-        <p>Escribir la categoria</p>
+      <form [formGroup]="submitForm" (ngSubmit)="submitCategory()">
+        <div class="mt-3 mb-3"> 
+            <label for="categoryInput" class="form-label">Categoria*</label>
+            <input type="text" required id="categoryInput" class="form-control" formControlName="category"
+                placeholder="Ejemplo" name="category" [(ngModel)]="productCategory.category"
+                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
+                type="text"
+                />
+            <div *ngIf="submitForm.get('category')?.invalid && submitForm.get('category')?.touched"
+                class="fw-lighter text-danger">
+                La categoria debe tener entre 3 y 50 caracteres
+            </div>
+        </div>
+    
+        <button type="submit" [disabled]="submitForm.invalid" class="btn btn-primary mt-2">
+            Guardar
+        </button>
+    </form>
     </article>
 </div>

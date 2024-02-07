@@ -16,4 +16,6 @@ public interface ProductCategoryRepository extends JpaRepository<ProductCategory
     Page<ProductCategoryModel> findAllByDeletedAtIsNotNull(Pageable pageable);
     
     boolean existsByCategory(String category);
+    
+    boolean existsByCategoryIgnoreCaseAndSupplierCategoryId(String category, int supplierCategoryId);
 }

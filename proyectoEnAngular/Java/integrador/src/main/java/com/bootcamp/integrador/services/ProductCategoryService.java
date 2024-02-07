@@ -114,4 +114,8 @@ public class ProductCategoryService {
             return false;
         }
     }
+    
+    public boolean categoryExistsForSupplier(int supplierCategoryId, String category) {
+        return productCategoryRepository.existsByCategoryIgnoreCaseAndSupplierCategoryId(category, supplierCategoryId);
+    }
 }

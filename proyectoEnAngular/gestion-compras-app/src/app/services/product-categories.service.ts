@@ -20,16 +20,15 @@ export class ProductCategoriesService {
       createdAt: new Date,
       updatedAt: null,
       deletedAt: null,
-      supplier: this.supplierCategoryService.inicSupplierCategory()
+      supplierCategory: this.supplierCategoryService.inicSupplierCategory()
     }
 
     return productCategory;
   }
 
   //ver si existe la categoria
-  public categoryExists(category: string): Observable<boolean> {
-    let exist = false;
-    const url = this.url + "/exist/" + category;
+  public categoryExists(category: string, idSupplierCategory: number): Observable<boolean> {
+    const url = this.url + "/exists/" + idSupplierCategory + "/" + category;
 
     return this.http.get<boolean>(url);
   }

@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductCategory } from '../../../../models/product-category';
 import { SupplierCategory } from '../../../../models/supplier-category';
 import { SupplierCategoriesService } from '../../../../services/supplier-categories.service';
 import { ProductCategoriesService } from '../../../../services/product-categories.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { auto } from '@popperjs/core';
 
 type SortOrder = 'None' | 'asc' | 'desc';
 
@@ -37,10 +40,19 @@ export class NewProductCategoriesComponent implements OnInit{
 
   supplierCategorySelected: boolean = false;
 
-  constructor(private supplierCategoryService: SupplierCategoriesService,
+  constructor(private fb: FormBuilder,
+              private activeRoute: ActivatedRoute,
+              private router: Router,
+              private supplierCategoryService: SupplierCategoriesService,
               private productCategoryService: ProductCategoriesService){}
 
   ngOnInit(): void {
+    this.submitForm = this.fb.group({
+      category: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]]
+    });
+
+    this.productCategory = this.productCategoryService.inicProductCategory();
+
     this.supplierCategoryService.getAllActiveCategories(0,this.getSort(),this.searchCategory).subscribe(
       data=>{
         this.pages = data.totalPages;
@@ -49,7 +61,28 @@ export class NewProductCategoriesComponent implements OnInit{
         if(this.pages > 5){
           this.nextFive = true;
         }
-    })
+    });
+
+    this.activeRoute.queryParamMap.subscribe((params) => {
+      let param = params.get('productCategory') || null;
+
+      if (param !== null) {
+        this.idParam = parseInt(param);
+
+        this.productCategoryService.getCategoryById(this.idParam).subscribe(response => {
+
+          if(response !== null){
+            this.productCategory = response;
+            this.edit = true;
+            this.oldCategory = this.productCategory.category;
+          }else{
+            //lo redirijo a la pagina anterior
+            this.router.navigate(['/product-categories']);
+          }
+          
+        });
+      }
+    });
   }
 
   getPages(): number[] {
@@ -144,5 +177,93 @@ export class NewProductCategoriesComponent implements OnInit{
 
   continueForm(){
     this.supplierCategorySelected = true;
+    this.productCategory.supplierCategory = this.supplierCategorySaved;
+  }
+
+  submitCategory(){
+    if(!this.edit){
+      //si no estoy en modo edicion se agrega un nuevo usuario
+      this.createCategory();
+    }else{
+      //si estamos en modo edicion se debe modificar el usuario
+      this.modifyCategory();
+    }
+  }
+
+  createCategory(){
+    //valido si el usuario existe
+    this.productCategoryService.categoryExists(this.productCategory.category, this.supplierCategorySaved.id).subscribe(
+      exists => {
+        if (!exists) {
+          this.productCategoryService.addCategory(this.productCategory).subscribe(
+            user => {
+              this.categoryLoadedSuccessfully('Se agrego correctamente la categoria: ' 
+              + this.productCategory.category);
+            }
+          );
+        } else {
+          this.alertCategoryExist()
+        }
+      }
+    );
+  }
+
+  private alertCategoryExist(){
+    //si existe informo con un alert que el usuario ya esta registrado
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: 'Ya existe la categoria ' + this.productCategory.category + ' en el sistema',
+    });
+
+    if(this.edit){
+      this.productCategory.category = this.oldCategory;
+    }else{
+      this.submitForm.reset();
+    }
+    
+  }
+
+  private categoryLoadedSuccessfully(textInfo: string){
+    //muestro en un alert que se agrego correctamente el usuario
+    Swal.fire({
+      text: textInfo,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+  
+    //lo redirijo a la pagina anterior
+    this.router.navigate(['/product-categories']);
+  }
+
+  modifyCategory(){
+    if(this.productCategory.category === this.oldCategory){
+      //si el nombre de usuario coincide con el viejo no lo valido, ya lo modifico
+      this.productCategoryService.updateCategory(this.productCategory).subscribe(
+        data => {
+          this.categoryLoadedSuccessfully('Se modifico correctamente la categoria: ' 
+          + this.productCategory.category);
+        }
+      )
+      
+    }else{
+      //si el nombre de usuario cambio debo verificar que no exista
+      this.productCategoryService.categoryExists(this.productCategory.category, this.supplierCategorySaved.id).subscribe(
+        exists => {
+          if (!exists) {
+            this.productCategoryService.updateCategory(this.productCategory).subscribe(
+              data => {
+                this.categoryLoadedSuccessfully('Se modifico correctamente la categoria: ' 
+                + this.productCategory.category);
+              }
+            )            
+          } else {
+            this.alertCategoryExist()
+          }
+        }
+      );
+    }
   }
 }
