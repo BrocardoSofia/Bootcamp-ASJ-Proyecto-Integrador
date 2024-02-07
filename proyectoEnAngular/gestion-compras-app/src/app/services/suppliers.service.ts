@@ -3,6 +3,7 @@ import { Supplier } from '../models/suppliers';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IvaCondition } from '../models/ivaCondition';
+import { Country } from '../models/country';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class SuppliersService {
 
   private url: string = 'http://localhost:8080/suppliers';
   private urlIvaContitions: string = 'http://localhost:8080/iva-conditions';
+  private urlCountries: string = 'http://localhost:8080/countries';
   
   constructor(private http: HttpClient) { }
 
@@ -159,7 +161,11 @@ export class SuppliersService {
     });
   }
 
-  getIvaConditions(): Observable<IvaCondition[]> {
+  getAllIvaConditions(): Observable<IvaCondition[]> {
     return this.http.get<IvaCondition[]>(this.urlIvaContitions);
+  }
+
+  getAllCountries(): Observable<Country[]> {
+    return this.http.get<Country[]>(this.urlCountries);
   }
 }

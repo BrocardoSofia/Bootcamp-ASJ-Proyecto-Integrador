@@ -144,26 +144,26 @@
                 <option *ngFor="let ivaCondition of ivaConditions" [value]="ivaCondition.id">
                     {{ ivaCondition.ivaCondition }}
                 </option>
-              </select>
+            </select>
 
-              <label for="codeInput" class="form-label mt-4">CUIT*</label>
-              <input type="text" required id="codeInput" class="form-control" formControlName="cuit"
-                  placeholder="Ejemplo" name="cuit" [(ngModel)]="supplier.cuit"
-                  oninvalid="this.setCustomValidity('El campo debe tener 11 digitos')"
-                  type="text"
-                  />
-                <div *ngIf="taxDataForm.get('cuit')?.invalid && taxDataForm.get('cuit')?.touched"
-                    class="fw-lighter text-danger">
-                    El CUIT debe tener 13 caracteres.
-                </div>
-                <div *ngIf="taxDataForm.get('cuit')?.invalid && taxDataForm.get('cuit')?.touched && taxDataForm.get('cuit')?.errors?.['pattern']"
-                    class="fw-lighter text-danger">
-                    El cuit debe tener el siguiente formato: 00-00000000-0
-                </div>
+            <label for="codeInput" class="form-label mt-4">CUIT*</label>
+            <input type="text" required id="codeInput" class="form-control" formControlName="cuit"
+                placeholder="Ejemplo" name="cuit" [(ngModel)]="supplier.cuit"
+                oninvalid="this.setCustomValidity('El campo debe tener 11 digitos')"
+                type="text"
+                />
+            <div *ngIf="taxDataForm.get('cuit')?.invalid && taxDataForm.get('cuit')?.touched"
+                class="fw-lighter text-danger">
+                El CUIT debe tener 13 caracteres.
+            </div>
+            <div *ngIf="taxDataForm.get('cuit')?.invalid && taxDataForm.get('cuit')?.touched && taxDataForm.get('cuit')?.errors?.['pattern']"
+                class="fw-lighter text-danger">
+                El cuit debe tener el siguiente formato: 00-00000000-0
+            </div>
 
-                <button type="submit" [disabled]="taxDataForm.invalid" class="btn btn-primary mt-4">
-                    Continuar
-                </button>
+            <button type="submit" [disabled]="taxDataForm.invalid" class="btn btn-primary mt-4">
+                Continuar
+            </button>
         </form>
     </section>
 
@@ -194,7 +194,14 @@
     <!-- pais, provincia, ciudad, cp, calle, numero -->
     <section *ngIf="logoValid && !locationValid">
         <form [formGroup]="locationForm" (ngSubmit)="submitLocation()">
-            <p>pais</p> 
+            <label for="countryInput" class="form-label mt-4">Pais*</label>
+            <select class="form-select" aria-label="Default select example" id="countryInput"
+                class="form-control" formControlName="ivaCondition">
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option *ngFor="let country of countries" [value]="country.id">
+                    {{ country.country }}
+                </option>
+            </select>
             <p>provincia</p> 
             <p>ciudad</p>
             <p>cp</p>

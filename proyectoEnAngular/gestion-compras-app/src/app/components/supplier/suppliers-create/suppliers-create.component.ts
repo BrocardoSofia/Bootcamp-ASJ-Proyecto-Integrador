@@ -110,9 +110,15 @@ export class SuppliersCreateComponent implements OnInit {
       streetNumber: ['', [Validators.required]]
     });
 
-    this.suppliersService.getIvaConditions().subscribe(
+    this.suppliersService.getAllIvaConditions().subscribe(
       response=>{
         this.ivaConditions = response;
+      }
+    )
+
+    this.suppliersService.getAllCountries().subscribe(
+      response=>{
+        this.countries = response;
       }
     )
   }
