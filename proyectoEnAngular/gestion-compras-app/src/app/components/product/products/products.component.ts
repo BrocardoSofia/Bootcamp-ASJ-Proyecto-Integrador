@@ -10,49 +10,12 @@ import Swal from 'sweetalert2';
 })
 export class ProductsComponent implements OnInit{
 
-  products: Product[] = [];
-  toDeleteProduct:Product = this.productsService.inicProduct();
-
   constructor(private productsService: ProductsService){}
 
   ngOnInit() {
-    this.products = this.productsService.getActiveProducts();
-    
+       
   }
 
-  setToDeleteProduct(product: Product){
-    this.toDeleteProduct = product;
-    
-  }
-
-  deleteProduct(){
-    //elimino el producto
-    this.productsService.deleteProductById(this.toDeleteProduct.id);
-
-    //recargo los productos
-    this.updateProducts();
-
-    const Toast = Swal.mixin({
-      toast: true,
-      position: "top-end",
-      showConfirmButton: false,
-      timer: 3000,
-      timerProgressBar: true,
-      didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-      }
-    });
-    Toast.fire({
-      icon: "success",
-      title: "Se elimino correctamente el producto: " + this.toDeleteProduct.name,
-    });
-    
-  }
-
-  private updateProducts(){
-    //actualiza a los productos
-    this.products = this.productsService.getActiveProducts();
-  }
+  
 
 }

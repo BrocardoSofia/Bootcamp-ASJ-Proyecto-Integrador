@@ -17,5 +17,154 @@
     </div>
   </section>
 
+  <section class="m-0 p-2 table-header bg-primary-subtle d-flex">
+    <div class="col-md-9 ps-2">
+      <h2 class="text-left">Tabla de proveedores</h2>
+    </div>
+    <div class="col-md-3 p-2 ">
+      <div class="input-group input-group-append">
+        <input type="text" class="form-control" placeholder="Buscar Razon Social" 
+        name="businessName" [(ngModel)]="searchBusinessName">
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="searchByBusinessName()" *ngIf="!searchBusinessName" 
+        [ngClass]="((searchBusinessName !== '')?'':'disabled')">
+          <i class="bi bi-search"></i>
+        </button>
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="clearSearchByBusinessName()" *ngIf="searchBusinessNameOn">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section style="background-color: #fff; height: 9vh;" 
+  class="m-0 p-2 container-fluid filterItems border-bottom">
+    <article class="row">
+      <div class="col-md-9 d-flex justify-content-start filterItems">
+        <select class="form-select select-filter" aria-label="Default select example" 
+        [(ngModel)]="selectedOption" (ngModelChange)="changeStatusFilter()">
+          <option selected value="1">Todos</option>
+          <option value="2">Activos</option>
+          <option value="3">Eliminados</option>
+        </select>
+      </div>
+  
+      <nav class="col-md-3 d-flex justify-content-end filterItems pe-3" 
+      aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" (click)="prevPage()">
+            <a class="page-link" 
+                aria-label="Previous" 
+                style="cursor: pointer;"
+                [ngClass]="(currentPage != 0)?'':'disabled'"
+            >
+              <span aria-hidden="true">Prev</span>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let page of getPages()">
+            <a class="page-link" 
+                [ngClass]="((currentPage+1) === page)?'active':''" 
+                style="cursor: pointer;"
+                (click)="selectPage(page-1)">{{page}}
+          </a>
+          </li>
+          <li class="page-item" 
+          (click)="nextPage()">
+            <a class="page-link" 
+              aria-label="Next"
+              style="cursor: pointer;"
+              [ngClass]="((pages !== 1) && (currentPage+1 !== pages)?'':'disabled')">
+              <span aria-hidden="true">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+  
+    </article>
+  </section>
+  
+  <table class="table m-0 p-4" *ngIf="suppliers.length !== 0">
+      <thead>
+        <tr class="table">
+          <th scope="col" class="text-center">Logo</th>
+          <th scope="col" class="text-center">Código</th>
+          <th scope="col" class="columnSort" (click)="changeSort('userAlias')">Razón social 
+            <i *ngIf="businessNameSort === 'None'" class="bi bi-arrow-down-up"></i>
+            <i *ngIf="businessNameSort === 'desc'" class="bi bi-arrow-down"></i>
+            <i *ngIf="businessNameSort === 'asc'" class="bi bi-arrow-up"></i>
+          </th>
+          <th scope="col" class="text-center">País</th>
+          <th scope="col" class="text-center">Provincia</th>
+          <th scope="col" class="text-center">Contacto</th>
+          <th scope="col" class="text-center">Estado</th>
+          <th scope="col" class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let supplier of suppliers">
+          <td>imagen</td>
+          <td>codigo</td>
+          <td>razon social</td>
+          <td>pais</td>
+          <td>provincia</td>
+          <td>contacto</td>
+          <td class="text-center">
+            <span
+              class="badge rounded-pill"
+              [ngClass]="(supplier.deletedAt !== null) ? 'bg-danger' : 'bg-success'"
+            >
+              {{getSupplierState(supplier)}}
+            </span>
+          </td>
+          <td class="text-center">
+            <button
+              type="button"
+              class="btn btn-outline-primary rounded-circle btn-icon me-3"
+              routerLink="./detail"
+              [queryParams]="{ supplier: supplier.id}"
+            >
+              <i class="bi bi-search"></i>
+            </button>
+
+            <button
+              type="button"
+              class="btn btn-outline-success rounded-circle btn-icon me-3"
+              routerLink="./edit"
+              [queryParams]="{ supplier: supplier.id}"
+            >
+              <i class="bi bi-pencil-fill"></i>
+            </button>
+  
+            <button
+            *ngIf="supplier.deletedAt === null"
+              type="button"
+              class="btn btn-outline-danger rounded-circle btn-icon"
+              (click)="deleteSupplier(supplier)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <i class="bi bi-person-dash-fill"></i>
+            </button>
+
+            <button
+            *ngIf="supplier.deletedAt !== null"
+              type="button"
+              class="btn btn-outline-warning rounded-circle btn-icon"
+              (click)="reInsertSupplier(supplier)"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <i class="bi bi-person-plus-fill"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+  </table>
+
+  <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="suppliers.length === 0">
+      <h2 class="text-center mb-4">No se encontraron proveedores</h2>
+      <img src="/assets/userVectorImg.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+  </div>
   
 </div>

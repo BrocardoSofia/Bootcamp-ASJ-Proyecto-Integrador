@@ -46,7 +46,7 @@ export class SuppliersComponent implements OnInit{
     return (supplier.deletedAt !== null)?'Inactivo':'Activo';
   }
 
-  deleteUser(supplier: Supplier){
+  deleteSupplier(supplier: Supplier){
     Swal.fire({
       title: "Eliminando al proveedor: " + supplier.businessName,
       text: "¿Esta seguro que desea eliminar al proveedor?",
@@ -72,7 +72,7 @@ export class SuppliersComponent implements OnInit{
     });
   }
 
-  reInsertUser(supplier: Supplier){
+  reInsertSupplier(supplier: Supplier){
     Swal.fire({
       title: "Reingresando al proveedor: " + supplier.businessName,
       text: "¿Esta seguro que desea reingresar al proveedor?",

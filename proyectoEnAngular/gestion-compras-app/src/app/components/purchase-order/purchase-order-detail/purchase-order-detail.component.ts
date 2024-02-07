@@ -9,7 +9,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './purchase-order-detail.component.css'
 })
 export class PurchaseOrderDetailComponent implements OnInit{
-  purchaseOrder!: PurchaseOrder | null;
 
   constructor(
     private purchaseOrdersService: PurchaseOrdersService,
@@ -17,36 +16,9 @@ export class PurchaseOrderDetailComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    let codeParam;
-    this.activeRoute.queryParamMap.subscribe((params) => {
-      codeParam = params.get('detailPurchaseOrder') || null;
-
-      if (codeParam !== null) {
-        this.purchaseOrder = this.purchaseOrdersService.getPurchaseOrderByCode(parseInt(codeParam));
-      }
-
-    });
+    
   }
 
-  getStatus(){
-    let status;
-
-    if(this.purchaseOrder?.cancelled){
-      status = 'Cancelado';
-    }else{
-      status = 'Aprobado';
-    }
-
-    return status;
-  }
-
-  calculateProductPrice(amount: number ,price: number | undefined){
-    let total = 0;
-
-    if(price !==  undefined){
-      total = (amount * price);
-    }
-    return total;
-  }
+  
 
 }
