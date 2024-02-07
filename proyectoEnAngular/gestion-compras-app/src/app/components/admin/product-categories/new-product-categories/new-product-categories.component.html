@@ -89,6 +89,10 @@
                 </tr>
               </thead>
               <tbody>
+                <!-- <tr>
+                  <td>{{ oldCategory }}</td>
+                  <td>{{ oldCreatedAt | date}}</td>
+                </tr> -->
                 <tr *ngFor="let suplierCategory of suplierCategories" 
                     (click)="selectSupplierCategory(suplierCategory)"
                     [ngClass]="(suplierCategory.id === supplierCategorySavedId)?'table-success':''">

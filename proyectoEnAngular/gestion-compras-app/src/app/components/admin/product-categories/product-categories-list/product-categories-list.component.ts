@@ -13,7 +13,7 @@ type SortOrder = 'None' | 'asc' | 'desc';
 })
 export class ProductCategoriesListComponent implements OnInit{
 
-  suplierCategories:ProductCategory[] = [];
+  productCategories:ProductCategory[] = [];
   currentPage: number = 0;
   pages:number = 1;
   maxPages: number = 5;
@@ -24,6 +24,7 @@ export class ProductCategoriesListComponent implements OnInit{
   state: State = 'All';
   selectedOption: string = '1';
   categorySort:SortOrder = 'None';
+  supplierCategorySort:SortOrder = 'None';
   createdAtSort:SortOrder = 'None';
 
   constructor(private productCategoryService: ProductCategoriesService){}
@@ -31,7 +32,7 @@ export class ProductCategoriesListComponent implements OnInit{
   ngOnInit(): void {
     this.productCategoryService.getProductCategories().subscribe(data=>{
       this.pages = data.totalPages;
-      this.suplierCategories = data.content;
+      this.productCategories = data.content;
 
       if(this.pages > 5){
         this.nextFive = true;
@@ -116,7 +117,7 @@ export class ProductCategoriesListComponent implements OnInit{
           ///VER ESTE SORT PARA EL RESTO
           this.productCategoryService.getAllCategories(page,this.getSort(),this.searchCategory).subscribe(
             data=>{
-              this.suplierCategories = data.content;
+              this.productCategories = data.content;
               this.pages = data.totalPages;
             }
             );
@@ -124,7 +125,7 @@ export class ProductCategoriesListComponent implements OnInit{
         case 'Active':
           this.productCategoryService.getAllActiveCategories(page,this.getSort(),this.searchCategory).subscribe(
             data=>{
-              this.suplierCategories = data.content;
+              this.productCategories = data.content;
               this.pages = data.totalPages;
             }
             );
@@ -132,7 +133,7 @@ export class ProductCategoriesListComponent implements OnInit{
         case 'Deleted':
           this.productCategoryService.getAllDeletedCategories(page,this.getSort(),this.searchCategory).subscribe(
             data=>{
-              this.suplierCategories = data.content;
+              this.productCategories = data.content;
               this.pages = data.totalPages;
             }
             );
@@ -196,6 +197,15 @@ export class ProductCategoriesListComponent implements OnInit{
           this.createdAtSort = 'None';
         }
         break;
+      case 'supplierCategory': 
+        if(this.supplierCategorySort === 'None'){
+          this.createdAtSort = 'desc';
+        }else if(this.supplierCategorySort === 'desc'){
+          this.createdAtSort = 'asc';
+        }else{
+          this.supplierCategorySort = 'None';
+        }
+        break;
     }
     this.selectPage(0);
   }
@@ -209,6 +219,10 @@ export class ProductCategoriesListComponent implements OnInit{
 
     if(this.createdAtSort !== 'None'){
       sort += '&sort=createdAt,'+this.createdAtSort;
+    }
+
+    if(this.supplierCategorySort !== 'None'){
+      sort += '&sort=supplierCategory,'+this.createdAtSort;
     }
 
     return sort;

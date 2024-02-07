@@ -20,6 +20,7 @@ export class NewProductCategoriesComponent implements OnInit{
   submitForm!: FormGroup;
   productCategory!: ProductCategory;
   oldCategory: string = '';
+  oldCreatedAt: Date|null = null;
   idParam: number = 0;
 
   suplierCategories:SupplierCategory[] = [];
@@ -75,6 +76,7 @@ export class NewProductCategoriesComponent implements OnInit{
             this.productCategory = response;
             this.edit = true;
             this.oldCategory = this.productCategory.category;
+            this.oldCreatedAt = this.productCategory.createdAt;
           }else{
             //lo redirijo a la pagina anterior
             this.router.navigate(['/product-categories']);

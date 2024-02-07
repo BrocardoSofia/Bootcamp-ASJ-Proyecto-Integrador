@@ -49,8 +49,8 @@ public class ProductCategoryModel {
     private LocalDateTime deletedAt;
 
     @JsonBackReference
-    @ManyToOne
-    @JoinColumn(name = "supplier_category_id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "supplier_category_id", referencedColumnName = "id", nullable = false)
     private SupplierCategoryModel supplierCategory;
 
     public ProductCategoryModel(String category, SupplierCategoryModel supplierCategory) {
