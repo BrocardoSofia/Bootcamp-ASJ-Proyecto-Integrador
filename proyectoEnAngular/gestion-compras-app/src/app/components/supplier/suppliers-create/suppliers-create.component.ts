@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Supplier } from '../../../models/suppliers';
 import { SuppliersService } from '../../../services/suppliers.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { auto } from '@popperjs/core';
 import { SupplierCategory } from '../../../models/supplier-category';
 import { SupplierCategoriesService } from '../../../services/supplier-categories.service';
+import { IvaCondition } from '../../../models/ivaCondition';
+import { LoginService } from '../../../services/login.service';
 
 type SortOrder = 'None' | 'asc' | 'desc';
 
@@ -52,16 +54,21 @@ export class SuppliersCreateComponent implements OnInit {
   supplierCategorySavedId:number = -1;
   continueSupplierCategory: boolean = false;
 
+  ivaConditions: IvaCondition[] = [];
+  ivaConditionSelected!: number;
+
   constructor(
     private suppliersService: SuppliersService,
     private router: Router,
     private activeRoute: ActivatedRoute,
     private fb: FormBuilder,
-    private supplierCategoryService: SupplierCategoriesService
+    private supplierCategoryService: SupplierCategoriesService,
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
     this.supplier = this.suppliersService.inicSupplier();
+    this.supplier.createdBy.id = this.loginService.getUserId();
 
     this.supplierCategoryService.getAllActiveCategories(0,this.getSort(),this.searchCategory).subscribe(
       data=>{
@@ -80,8 +87,15 @@ export class SuppliersCreateComponent implements OnInit {
 
     this.taxDataForm = this.fb.group({
       ivaCondition: ['', [Validators.required]],
-      cuit: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]]
+      cuit: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13),
+                  Validators.pattern(/^\d{2}-\d{8}-\d{1}$/)]],
     });
+
+    this.suppliersService.getIvaConditions().subscribe(
+      response=>{
+        this.ivaConditions = response;
+      }
+    )
   }
 
   submitSupplierCodeAndBusinessName(){
@@ -238,4 +252,13 @@ export class SuppliersCreateComponent implements OnInit {
   continueForm(){
     this.supplierCategoryValid = true;
   }
+}
+
+function cuitValidator(): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const cuitPattern = /^(\d{2})-(\d{8})-(\d{1})$/;
+    const isValid = cuitPattern.test(control.value);
+
+    return isValid ? null : { invalidCuitFormat: true };
+  };
 }

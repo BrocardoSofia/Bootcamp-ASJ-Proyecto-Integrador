@@ -12,6 +12,7 @@ export class LoginService {
 
   private loggedIn: boolean = false;
   private url: string = 'http://localhost:8080/users';
+  private userId:number = -1;
 
   constructor(private http: HttpClient,
               private navBarService: NavBarService) { }
@@ -24,11 +25,16 @@ export class LoginService {
     return userAlias === 'admin_asjcompras_01';
   }
 
+  public getUserId(){
+    return this.userId;
+  }
+
   public validLogin(userAlias: string, password: string): Observable<User>{
 
     return this.http.get<User>(this.url+"/login/"+userAlias+"/"+password).pipe(
       map(user => {
         if (user !== null) {
+          this.userId = user.id;
           localStorage.setItem('token', ''+user.id); // Guardar token para guards
         }
 
