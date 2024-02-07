@@ -1,3 +1,32 @@
 <article class="container">
-  
+    <!-- ingreso codigo de proveedor y razon social -->
+    <section *ngIf="!supplierCodeValid">
+        <p>codigo de proveedor y razon social</p>
+    </section>
+
+    <!-- rubro, condicion de iva y cuit -->
+    <section *ngIf="supplierCodeValid && !taxDadaValid">
+        <p>rubro, condicion de iva y cuit</p>
+    </section>
+
+    <!-- logo -->
+    <section *ngIf="taxDadaValid && !logoValid">
+        <p>logo</p>
+    </section>
+
+    <!-- pais, provincia, ciudad, cp, calle, numero -->
+    <section *ngIf="logoValid && !locationValid">
+        <p>pais, provincia, ciudad, cp, calle, numero</p>
+    </section>
+
+    <!-- email, telefono, pagina web -->
+    <section *ngIf="locationValid && !businessInfoValid">
+        <p>email, telefono, pagina web</p>
+    </section>
+
+    <!-- contactos -->
+    <section *ngIf="businessInfoValid">
+        <p>contacto</p>
+    </section>
+
 </article>

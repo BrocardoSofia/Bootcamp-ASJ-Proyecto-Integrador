@@ -12,7 +12,11 @@ import { auto } from '@popperjs/core';
   styleUrl: './suppliers-create.component.css',
 })
 export class SuppliersCreateComponent implements OnInit {
-  
+  supplierCodeValid:boolean = false;
+  taxDadaValid:boolean = false;
+  logoValid:boolean = false;
+  locationValid:boolean = false;
+  businessInfoValid:boolean = false;
 
   constructor(
     private suppliersService: SuppliersService,
