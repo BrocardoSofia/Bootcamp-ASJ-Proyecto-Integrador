@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.SupplierModel;
+import com.bootcamp.integrador.models.UserModel;
 import com.bootcamp.integrador.repositories.SupplierRepository;
 
 import jakarta.transaction.Transactional;
@@ -228,5 +229,13 @@ public class SupplierService {
 		}
 		
 		return changes;
+	}
+	
+	public SupplierModel getSupplierByBusinessName(String businessName) {
+		return supplierRepository.findAllByBusinessName(businessName);
+	}
+	
+	public SupplierModel getSupplierBySupplierCode(String supplierCode) {
+		return supplierRepository.findAllBySupplierCode(supplierCode);
 	}
 }

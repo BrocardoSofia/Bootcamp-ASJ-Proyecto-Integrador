@@ -80,7 +80,14 @@ export class SuppliersService {
 
   public businessNameExists(businessName: string): Observable<boolean> {
     let exist = false;
-    const url = this.url + "/exist/" + businessName;
+    const url = this.url + "/businessNameExists/" + businessName;
+
+    return this.http.get<boolean>(url);
+  }
+
+  public supplierCodeExists(supplierCode: string): Observable<boolean> {
+    let exist = false;
+    const url = this.url + "/supplierCodeExists/" + supplierCode;
 
     return this.http.get<boolean>(url);
   }

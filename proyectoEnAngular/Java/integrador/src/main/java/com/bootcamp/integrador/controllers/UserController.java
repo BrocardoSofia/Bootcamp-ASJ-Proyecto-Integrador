@@ -56,8 +56,7 @@ public class UserController {
     
     //obtener si un usuario existe por alias
     @GetMapping("/exist/{userAlias}")
-	public boolean getUserByAlias(Pageable pageable, 
-									@PathVariable String userAlias) {	
+	public boolean getUserByAlias(@PathVariable String userAlias) {	
     	if(userService.getUserByAlias(userAlias) != null) {
     		return true;
     	}else{

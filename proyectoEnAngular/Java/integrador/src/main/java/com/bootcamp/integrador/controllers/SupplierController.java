@@ -115,4 +115,22 @@ public class SupplierController {
     }
     
     //businessNameExists
+    @GetMapping("/businessNameExists/{businessName}")
+	public boolean getSupplierByBusinessName(@PathVariable String businessName) {	
+    	if(supplierService.getSupplierByBusinessName(businessName) != null) {
+    		return true;
+    	}else{
+    		return false;
+    	}
+	}
+    
+    //supplierCodeExists
+    @GetMapping("/supplierCodeExists/{supplierCode}")
+	public boolean getSupplierBySupplierCode(@PathVariable String supplierCode) {	
+    	if(supplierService.getSupplierBySupplierCode(supplierCode) != null) {
+    		return true;
+    	}else{
+    		return false;
+    	}
+	}
 }
