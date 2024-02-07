@@ -193,7 +193,14 @@
 
     <!-- pais, provincia, ciudad, cp, calle, numero -->
     <section *ngIf="logoValid && !locationValid">
-        <p>pais, provincia, ciudad, cp, calle, numero</p>
+        <form [formGroup]="locationForm" (ngSubmit)="submitLocation()">
+            <p>pais</p> 
+            <p>provincia</p> 
+            <p>ciudad</p>
+            <p>cp</p>
+            <p>calle</p>
+            <p>numero</p>            
+        </form>
     </section>
 
     <!-- email, telefono, pagina web -->

@@ -9,6 +9,8 @@ import { SupplierCategory } from '../../../models/supplier-category';
 import { SupplierCategoriesService } from '../../../services/supplier-categories.service';
 import { IvaCondition } from '../../../models/ivaCondition';
 import { LoginService } from '../../../services/login.service';
+import { Country } from '../../../models/country';
+import { Province } from '../../../models/province';
 
 type SortOrder = 'None' | 'asc' | 'desc';
 
@@ -57,6 +59,9 @@ export class SuppliersCreateComponent implements OnInit {
   ivaConditions: IvaCondition[] = [];
   ivaConditionSelected!: number;
 
+  countries: Country[] = [];
+  provinces: Province[] = [];
+
   constructor(
     private suppliersService: SuppliersService,
     private router: Router,
@@ -97,6 +102,14 @@ export class SuppliersCreateComponent implements OnInit {
                       Validators.pattern(imagePattern)]]
     });
 
+    this.locationForm = this.fb.group({
+      province: ['', [Validators.required]],
+      city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      cp: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      streetName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      streetNumber: ['', [Validators.required]]
+    });
+
     this.suppliersService.getIvaConditions().subscribe(
       response=>{
         this.ivaConditions = response;
@@ -118,6 +131,10 @@ export class SuppliersCreateComponent implements OnInit {
 
   submitImageUrl(){
     this.logoValid = true;
+  }
+
+  submitLocation(){
+    this.locationValid = true;
   }
 
   createSupplierCode(){
