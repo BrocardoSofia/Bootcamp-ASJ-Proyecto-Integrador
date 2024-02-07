@@ -27,7 +27,7 @@ public class SupplierContactModel {
     private int id;
 	
 	@JsonBackReference
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "supplier_id", nullable = false)
     private SupplierModel supplier;
 	

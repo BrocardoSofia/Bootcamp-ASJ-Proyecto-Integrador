@@ -1,40 +1,28 @@
-import { DatesInfo } from "./dates-info";
+import { IvaCondition } from "./ivaCondition";
+import { Province } from "./province";
+import { SupplierCategory } from "./supplier-category";
+import { SupplierContact } from "./supplierContact";
+import { User } from "./user";
 
 export interface Supplier{
-    code: number,
+    id: number,
+    supplierCategory: SupplierCategory,
+    createdBy: User,
+    province: Province,
+    ivaCondition: IvaCondition,
+    supplierCode: string,
     businessName: string,
-    category: string,
-    businessContact: BusinessContact,
-    address: Address,
-    taxData: TaxData,
-    contactData: ContactData,
-    datesInfo: DatesInfo
-}
-
-export interface BusinessContact{
-    webPage: string,
-    email: string,
-    phone: string,
-}
-
-export interface Address{
+    imageUrl: string,
+    businessWebpage: string,
+    businessEmail: string,
+    businessPhone:string,
     streetName: string,
-    number: string,
-    cp: string,
+    streetNumber: number,
     city: string,
-    province: string,
-    country: string,
-}
-
-export interface TaxData{
+    cp: string,
     cuit: string,
-    ivaCondition: string,
-}
-
-export interface ContactData{
-    name: string,
-    lastName: string,
-    phone: string,
-    email: string,
-    rol: string,
+    supplierContacts: Array<SupplierContact>,
+    createdAt: Date,
+    updatedAt: Date | null,
+    deletedAt: Date | null
 }

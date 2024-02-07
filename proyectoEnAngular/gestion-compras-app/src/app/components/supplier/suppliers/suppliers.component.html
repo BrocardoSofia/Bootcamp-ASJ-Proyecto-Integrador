@@ -31,26 +31,26 @@
     </thead>
     <tbody>
       <tr *ngFor="let supplier of suppliers; index as i">
-        <td>{{ supplier.code }}</td>
+        <td>{{ supplier.supplierCode }}</td>
         <td>{{ supplier.businessName }}</td>
-        <td>{{ supplier.category }}</td>
+        <td>{{ supplier.supplierCategory.category }}</td>
         <td>
-          <p><strong>Web:</strong> {{ supplier.businessContact.webPage }}</p>
-          <p><strong>Email:</strong> {{ supplier.businessContact.email }}</p>
-          <p><strong>Telefono:</strong> {{ supplier.businessContact.phone }}</p>
+          <p><strong>Web:</strong> {{ supplier.businessWebpage }}</p>
+          <p><strong>Email:</strong> {{ supplier.businessEmail}}</p>
+          <p><strong>Telefono:</strong> {{ supplier.businessPhone }}</p>
         </td>
         <td>
-          <p>{{ supplier.contactData.name }}</p>
+          <p>{{ supplier.supplierContacts[0].contactName  }}</p>
         </td>
         <td>
-          <p>{{ supplier.contactData.lastName }}</p>
+          <p>{{ supplier.supplierContacts[0].contactName }}</p>
         </td>
         <td>
           <button
             type="button"
             class="btn btn-primary rounded-circle btn-icon me-3"
             [routerLink]="['./edit']"
-            [queryParams]="{ editSupplier: supplier.code }"
+            [queryParams]="{ supplier: supplier.id }"
           >
             <i class="bi bi-pencil-fill"></i>
           </button>

@@ -103,7 +103,7 @@ public class SupplierModel {
     
     @JsonManagedReference
     @OneToMany(mappedBy = "supplier", cascade = CascadeType.ALL)
-    private List<SupplierContactModel> SupplierContacts = new ArrayList<>();
+    private List<SupplierContactModel> supplierContacts = new ArrayList<>();
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)

@@ -92,7 +92,7 @@ public class SupplierController {
     }
     
     //reinsertar proveedor
-    @PutMapping("/{supplierId}/reInsert")
+    @DeleteMapping("/{supplierId}/reInsert")
     public ResponseEntity<Boolean> reInsertSupplier(@PathVariable int supplierId) {
     	boolean reInsert = supplierService.reInsertSupplier(supplierId);
         if (reInsert) {
@@ -113,4 +113,6 @@ public class SupplierController {
     		return new ResponseEntity<>(updatedSupplier, HttpStatus.OK);
     	}
     }
+    
+    //businessNameExists
 }
