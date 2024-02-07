@@ -189,7 +189,6 @@ export class ProductsService {
     while(deleted===false && i<products.length){
       if(products[i].id === id){
         products[i].deleted = true;
-        console.log("eliminado");
         deleted = true;
       }
       i++;

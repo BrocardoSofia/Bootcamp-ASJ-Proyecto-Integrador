@@ -1,9 +1,21 @@
 <div class="container">
-  <h1 class="pt-4 text-center">Proveedores</h1>
-
-  <button type="button" class="btn btn-primary mt-2" routerLink="./new">
-    Agregar nuevo proveedor
-  </button>
+  <section class="m-0 d-flex title">
+    <div class="col-md-10 ps-0 ">
+      <div style="display: flex; align-content: center;">
+        <h1 class="pt-4 pb-2 text-center " style="margin-left: 10px; color:#2f2f2f;">
+          <img src="/assets/person-badge-fill.svg" alt="icono user" class="icono">
+          Proveedores</h1>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="input-group justify-content-end input-group-append pt-2 ">
+        <button type="button" class="btn btn-outline-primary ml-auto" routerLink="./new">
+          <i class="bi bi-person-fill-add"></i>
+          Nuevo proveedor
+        </button>
+      </div>
+    </div>
+  </section>
 
   <table class="table mt-3 mb-0 pb-4 table-radius">
     <thead>

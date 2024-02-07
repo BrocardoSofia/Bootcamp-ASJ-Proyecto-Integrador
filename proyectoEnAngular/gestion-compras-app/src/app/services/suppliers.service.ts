@@ -178,7 +178,6 @@ export class SuppliersService {
     while(deleted===false && i<suppliers.length){
       if(suppliers[i].code === code){
         suppliers[i].datesInfo.deletedAt = new Date();
-        console.log("eliminado");
         deleted = true;
       }
       i++;
@@ -302,12 +301,9 @@ export class SuppliersService {
       if(suppliers[i].code === supplier.code){
         suppliers[i] = supplier;
         modified = true;
-        console.log(suppliers[i]);
       }
       i++;
     }
-
-    console.log(suppliers);
 
     //guardo el arreglo en el localStorage
     window.localStorage.setItem('suppliers', JSON.stringify(suppliers));
