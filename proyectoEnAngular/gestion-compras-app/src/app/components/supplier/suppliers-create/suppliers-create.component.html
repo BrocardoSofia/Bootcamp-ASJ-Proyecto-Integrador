@@ -193,15 +193,27 @@
 
     <!-- pais, provincia, ciudad, cp, calle, numero -->
     <section *ngIf="logoValid && !locationValid">
-        <form [formGroup]="locationForm" (ngSubmit)="submitLocation()">
-            <label for="countryInput" class="form-label mt-4">Pais*</label>
+        
+        <label for="countryInput" class="form-label mt-4">Pais*</label>
             <select class="form-select" aria-label="Default select example" id="countryInput"
-                class="form-control" formControlName="ivaCondition">
+                [(ngModel)]="idCountry" (ngModelChange)="selectCountry()">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option *ngFor="let country of countries" [value]="country.id">
                     {{ country.country }}
                 </option>
-            </select>
+        </select>
+        <form [formGroup]="locationForm" (ngSubmit)="submitLocation()">
+            <div *ngIf="showProvinces">
+                <label for="provinceInput" class="form-label mt-4">Provincia*</label>
+                <select class="form-select" aria-label="Default select example" id="provinceInput"
+                    formControlName="province">
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option *ngFor="let province of provinces" [value]="province.id">
+                        {{ province.province }}
+                    </option>
+                </select>
+            </div>
+
             <p>provincia</p> 
             <p>ciudad</p>
             <p>cp</p>

@@ -61,6 +61,8 @@ export class SuppliersCreateComponent implements OnInit {
 
   countries: Country[] = [];
   provinces: Province[] = [];
+  idCountry: number = 0;
+  showProvinces: boolean = false;
 
   constructor(
     private suppliersService: SuppliersService,
@@ -103,12 +105,12 @@ export class SuppliersCreateComponent implements OnInit {
     });
 
     this.locationForm = this.fb.group({
-      province: ['', [Validators.required]],
-      city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      cp: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      streetName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      streetNumber: ['', [Validators.required]]
+      province: ['', [Validators.required]]
     });
+    // city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    // cp: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    // streetName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+    // streetNumber: ['', [Validators.required]]
 
     this.suppliersService.getAllIvaConditions().subscribe(
       response=>{
@@ -121,6 +123,16 @@ export class SuppliersCreateComponent implements OnInit {
         this.countries = response;
       }
     )
+  }
+
+  selectCountry(){
+    const countryEncontrado = this.countries.find(country => country.id == this.idCountry);
+    if (countryEncontrado) {
+        this.provinces = countryEncontrado.provinces;
+        this.showProvinces = true;
+    } else {
+        console.error(`No se encontró un país con id ${this.idCountry}`);
+    }
   }
 
   submitSupplierCodeAndBusinessName(){
