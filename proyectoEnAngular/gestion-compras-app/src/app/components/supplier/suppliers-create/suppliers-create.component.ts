@@ -47,10 +47,59 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   submitSupplierCodeAndBusinessName(){
-    //verifico que la razon social sea valida
-
-    //verifico que el codigo de proveedor sea valido
+    if(this.edit){
+      this.modifySupplierCode();
+    }else{
+      this.createSupplierCode();
+    }
   }
 
-  
+  createSupplierCode(){
+    //verifico que la razon social sea valida
+    this.suppliersService.businessNameExists(this.supplier.businessName).subscribe(
+      response=>{
+        if(!response){
+          //verifico que el codigo de proveedor sea valido
+          this.suppliersService.supplierCodeExists(this.supplier.supplierCode).subscribe(
+            codeResponse=>{
+              if(!codeResponse){
+                this.supplierCodeValid = true;
+              }else{
+                //informo que la razon social ya esta en el sistema
+                this.alertFieldExist('Ya existe el codigo ' + this.supplier.supplierCode + ' en el sistema');
+                if(this.edit){
+                  this.supplier.supplierCode = this.oldSupplierCode;
+                }else{
+                  this.submitForm.reset();
+                }
+              }
+            }
+          )
+        }else{
+          //informo que la razon social ya esta en el sistema
+          this.alertFieldExist('Ya existe el proveedor ' + this.supplier.businessName + ' en el sistema');
+          if(this.edit){
+            this.supplier.businessName = this.oldBusinessName;
+          }else{
+            this.submitForm.reset();
+          }
+        }
+      }
+    )
+    
+    
+  }
+
+  modifySupplierCode(){
+
+  }
+
+  private alertFieldExist(infoText: string){
+    //si existe informo con un alert que el usuario ya esta registrado
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: infoText,
+    });    
+  }
 }
