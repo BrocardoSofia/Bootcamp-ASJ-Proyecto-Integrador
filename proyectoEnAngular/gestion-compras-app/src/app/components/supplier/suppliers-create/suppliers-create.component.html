@@ -169,7 +169,26 @@
 
     <!-- logo -->
     <section *ngIf="taxDadaValid && !logoValid">
-        <p>logo</p>
+        <form [formGroup]="logoForm" (ngSubmit)="submitImageUrl()">
+            <label for="imageUrlInput" class="form-label mt-4">Logo*</label>
+            <input type="text" required id="imageUrlInput" class="form-control" formControlName="imageUrl"
+                placeholder="Ejemplo" name="imageUrl" [(ngModel)]="supplier.imageUrl"
+                oninvalid="this.setCustomValidity('El campo debe tener 11 digitos')"
+                type="text"
+                />
+            <div *ngIf="logoForm.get('imageUrl')?.invalid && logoForm.get('imageUrl')?.touched"
+                class="fw-lighter text-danger">
+                La URL de la imagen tener mas de 5 caracteres.
+            </div>
+            <div *ngIf="logoForm.get('imageUrl')?.invalid && logoForm.get('imageUrl')?.touched && logoForm.get('imageUrl')?.errors?.['pattern']"
+                class="fw-lighter text-danger">
+                La URL de la imagen debe terminar con .jpg o .png
+            </div>
+
+            <button type="submit" [disabled]="logoForm.invalid" class="btn btn-primary mt-4">
+                Continuar
+            </button>
+        </form>
     </section>
 
     <!-- pais, provincia, ciudad, cp, calle, numero -->

@@ -67,6 +67,7 @@ export class SuppliersCreateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const imagePattern = /\.(jpg|png)$/i;
     this.supplier = this.suppliersService.inicSupplier();
     this.supplier.createdBy.id = this.loginService.getUserId();
 
@@ -91,6 +92,11 @@ export class SuppliersCreateComponent implements OnInit {
                   Validators.pattern(/^\d{2}-\d{8}-\d{1}$/)]],
     });
 
+    this.logoForm = this.fb.group({
+      imageUrl: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(1500),
+                      Validators.pattern(imagePattern)]]
+    });
+
     this.suppliersService.getIvaConditions().subscribe(
       response=>{
         this.ivaConditions = response;
@@ -108,6 +114,10 @@ export class SuppliersCreateComponent implements OnInit {
 
   submitTaxData(){
     this.taxDadaValid = true;
+  }
+
+  submitImageUrl(){
+    this.logoValid = true;
   }
 
   createSupplierCode(){
