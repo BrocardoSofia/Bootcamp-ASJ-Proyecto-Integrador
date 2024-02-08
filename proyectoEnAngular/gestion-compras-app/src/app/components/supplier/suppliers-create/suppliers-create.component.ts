@@ -137,6 +137,28 @@ export class SuppliersCreateComponent implements OnInit {
     this.supplierContactForm = this.fb.group({
       contacts: this.fb.array([]) // Crea un FormArray para los contactos
     });
+
+    this.activeRoute.queryParamMap.subscribe((params) => {
+      let param = params.get('supplier') || null;
+
+      if (param !== null) {
+        this.idParam = parseInt(param);
+
+        this.suppliersService.getSupplierById(this.idParam).subscribe(response => {
+
+          if(response !== null){
+            this.supplier = response;
+            this.edit = true;
+            this.oldBusinessName = this.supplier.businessName;
+            this.oldSupplierCode = this.supplier.supplierCode;
+          }else{
+            //lo redirijo a la pagina anterior
+            this.router.navigate(['/users']);
+          }
+          
+        });
+      }
+    });
   }
 
   get contacts(): FormArray {
@@ -261,21 +283,7 @@ export class SuppliersCreateComponent implements OnInit {
       response=>{
         if(!response){
           //verifico que el codigo de proveedor sea valido
-          this.suppliersService.supplierCodeExists(this.supplier.supplierCode).subscribe(
-            codeResponse=>{
-              if(!codeResponse){
-                this.supplierCodeValid = true;
-              }else{
-                //informo que la razon social ya esta en el sistema
-                this.alertFieldExist('Ya existe el codigo ' + this.supplier.supplierCode + ' en el sistema');
-                if(this.edit){
-                  this.supplier.supplierCode = this.oldSupplierCode;
-                }else{
-                  this.codeForm.reset();
-                }
-              }
-            }
-          )
+          this.validSupplierCode();
         }else{
           //informo que la razon social ya esta en el sistema
           this.alertFieldExist('Ya existe el proveedor ' + this.supplier.businessName + ' en el sistema');
@@ -288,11 +296,53 @@ export class SuppliersCreateComponent implements OnInit {
       }
     )
     
-    
+  }
+
+  validSupplierCode(){
+    //verifico que el codigo de proveedor sea valido
+    this.suppliersService.supplierCodeExists(this.supplier.supplierCode).subscribe(
+      codeResponse=>{
+        if(!codeResponse){
+          this.supplierCodeValid = true;
+        }else{
+          //informo que la razon social ya esta en el sistema
+          this.alertFieldExist('Ya existe el codigo ' + this.supplier.supplierCode + ' en el sistema');
+          if(this.edit){
+            this.supplier.supplierCode = this.oldSupplierCode;
+          }else{
+            this.codeForm.reset();
+          }
+        }
+      }
+    )
   }
 
   modifySupplierCode(){
-
+    if(this.oldBusinessName !== this.supplier.businessName){
+      //si la razon social es diferente la verifico
+      this.suppliersService.businessNameExists(this.supplier.businessName).subscribe(
+        response=>{
+          if(!response){
+            //verifico que el codigo de proveedor sea valido
+            if(this.oldSupplierCode !== this.supplier.supplierCode){
+              this.validSupplierCode();
+            }else{
+              this.supplierCodeValid = true;
+            }
+            
+          }else{
+            //informo que la razon social ya esta en el sistema
+            this.alertFieldExist('Ya existe el proveedor ' + this.supplier.businessName + ' en el sistema');
+            this.supplier.businessName = this.oldBusinessName;
+          }
+        }
+      )
+    }else if(this.oldSupplierCode !== this.supplier.supplierCode){
+      //si el codigo es diferente lo valido
+      this.validSupplierCode();
+    }else{
+      this.supplierCodeValid = true;
+    }
   }
 
   private alertFieldExist(infoText: string){
