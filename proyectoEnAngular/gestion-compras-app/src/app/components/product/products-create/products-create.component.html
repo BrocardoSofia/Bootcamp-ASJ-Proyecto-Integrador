@@ -77,6 +77,32 @@
             
             </article>
         </section>
+        <table class="table table-hover selectTable m-0 p-4" *ngIf="suppliers.length !== 0">
+            <thead>
+                <tr class="table">
+                    <th scope="col" class="text-center">Logo</th>
+                    <th scope="col" class="text-center">Código</th>
+                    <th scope="col" class="columnSort text-center" (click)="changeSort('businessName')">Razón social 
+                      <i *ngIf="businessNameSort === 'None'" class="bi bi-arrow-down-up"></i>
+                      <i *ngIf="businessNameSort === 'desc'" class="bi bi-arrow-down"></i>
+                      <i *ngIf="businessNameSort === 'asc'" class="bi bi-arrow-up"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr *ngIf="edit" class="table-warning">
+                    <td >Categoria actual: {{ oldCategory }}</td>
+                    <td></td>
+                </tr> -->
+                <!-- <tr *ngFor="let supplier of suppliers" 
+                    (click)="selectSupplierCategory(suplierCategory)"
+                    [ngClass]="(suplierCategory.id === supplierCategorySavedId
+                                || suplierCategory.id === supplier.supplierCategory.id)?'table-success':''">
+                    <td>{{ suplierCategory.category}}</td>
+                    <td>{{ suplierCategory.createdAt | date}}</td>
+                </tr> -->
+            </tbody>
+        </table>
     </section>
 
     <!-- ingresar categoria - sku - nombre - descripcion - precio -->
