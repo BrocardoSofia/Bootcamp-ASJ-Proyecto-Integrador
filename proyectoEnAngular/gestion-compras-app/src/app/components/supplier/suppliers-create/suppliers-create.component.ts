@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Supplier } from '../../../models/suppliers';
 import { SuppliersService } from '../../../services/suppliers.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { auto } from '@popperjs/core';
 import { SupplierCategory } from '../../../models/supplier-category';
@@ -11,6 +11,7 @@ import { IvaCondition } from '../../../models/ivaCondition';
 import { LoginService } from '../../../services/login.service';
 import { Country } from '../../../models/country';
 import { Province } from '../../../models/province';
+import { SupplierContact } from '../../../models/supplierContact';
 
 type SortOrder = 'None' | 'asc' | 'desc';
 
@@ -37,7 +38,8 @@ export class SuppliersCreateComponent implements OnInit {
   taxDataForm!: FormGroup;
   logoForm!: FormGroup;
   locationForm!: FormGroup;
-  submitForm!: FormGroup;
+  supplierInfoForm!: FormGroup;
+  supplierContactForm!: FormGroup;
 
   supplierCategories!:SupplierCategory[];
 
@@ -64,6 +66,8 @@ export class SuppliersCreateComponent implements OnInit {
   idCountry: number = 0;
   showProvinces: boolean = false;
 
+  contactsAmount:number = 0;
+
   constructor(
     private suppliersService: SuppliersService,
     private router: Router,
@@ -88,6 +92,12 @@ export class SuppliersCreateComponent implements OnInit {
         }
     });
 
+    this.suppliersService.getAllCountries().subscribe(
+      response=>{
+        this.countries = response;
+      }
+    )
+
     this.codeForm = this.fb.group({
       businessName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       supplierCode: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]]
@@ -105,25 +115,85 @@ export class SuppliersCreateComponent implements OnInit {
     });
 
     this.locationForm = this.fb.group({
-      province: ['', [Validators.required]]
+      province: ['', [Validators.required]],
+      city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      cp: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      streetName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      streetNumber: ['', [Validators.min(1),Validators.required]]
     });
-    // city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    // cp: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    // streetName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-    // streetNumber: ['', [Validators.required]]
+
+    this.supplierInfoForm = this.fb.group({
+      businessEmail: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      businessPhone: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      businessWebpage: [''],
+    });
 
     this.suppliersService.getAllIvaConditions().subscribe(
       response=>{
         this.ivaConditions = response;
       }
-    )
+    );
 
-    this.suppliersService.getAllCountries().subscribe(
+    this.supplierContactForm = this.fb.group({
+      contacts: this.fb.array([]) // Crea un FormArray para los contactos
+    });
+  }
+
+  get contacts(): FormArray {
+    return this.supplierContactForm.get('contacts') as FormArray;
+  }
+
+  addContact(): void {
+    if (this.contacts.length < 3) {
+      this.contacts.push(this.createContactGroup());
+      this.contactsAmount++;
+    }
+  }
+
+  createContactGroup(): FormGroup {
+    return this.fb.group({
+      contactName: ['', Validators.required],
+      contactLastname: ['', Validators.required],
+      phone: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      rol: [''],
+      createdAt: [new Date()],
+      updatedAt: [null],
+      deletedAt: [null]
+    });
+  }
+
+  removeContact(index: number): void {
+    this.contacts.removeAt(index);
+    this.contactsAmount--;
+  }
+
+  onSubmit(): void {
+    //Enviar proveedor al back
+    this.supplier.supplierContacts = this.supplierContactForm.value.contacts;
+    this.suppliersService.addSupplier(this.supplier).subscribe(
       response=>{
-        this.countries = response;
+        if(response != null){
+          //agrego cada contacto
+          this.callSupplierContactsSequentially();
+          this.router.navigate(['/suppliers']);
+        }
       }
     )
+
   }
+
+  async callSupplierContactsSequentially() {
+    const supplierContacts: SupplierContact[] = this.supplierContactForm.value.contacts; 
+
+    for (const contact of supplierContacts) {
+        try {
+            await this.suppliersService.addSupplierContact(contact).toPromise();
+        } catch (error) {
+            console.error('Error al agregar el contacto del proveedor:', error);
+        }
+    }
+}
 
   selectCountry(){
     const countryEncontrado = this.countries.find(country => country.id == this.idCountry);
@@ -155,6 +225,10 @@ export class SuppliersCreateComponent implements OnInit {
     this.locationValid = true;
   }
 
+  submitBusinessInfo(){
+    this.businessInfoValid = true;
+  }
+
   createSupplierCode(){
     //verifico que la razon social sea valida
     this.suppliersService.businessNameExists(this.supplier.businessName).subscribe(
@@ -171,7 +245,7 @@ export class SuppliersCreateComponent implements OnInit {
                 if(this.edit){
                   this.supplier.supplierCode = this.oldSupplierCode;
                 }else{
-                  this.submitForm.reset();
+                  this.codeForm.reset();
                 }
               }
             }
@@ -182,7 +256,7 @@ export class SuppliersCreateComponent implements OnInit {
           if(this.edit){
             this.supplier.businessName = this.oldBusinessName;
           }else{
-            this.submitForm.reset();
+            this.codeForm.reset();
           }
         }
       }

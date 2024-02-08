@@ -99,7 +99,7 @@ public class SupplierModel {
 
     @NotNull(message = "cuit cannot be null")
     @NotBlank(message = "cuit cannot be empty")
-    @Size(min = 11, max = 11, message = "cuit must have 11 characters")
+    @Size(min = 2, max = 50, message = "cuit must have 11 characters")
     private String cuit;
     
     @JsonManagedReference

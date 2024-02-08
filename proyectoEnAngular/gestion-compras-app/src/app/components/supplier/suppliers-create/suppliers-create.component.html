@@ -184,6 +184,12 @@
                 class="fw-lighter text-danger">
                 La URL de la imagen debe terminar con .jpg o .png
             </div>
+            
+            <div class="mt-3">
+                <img *ngIf="logoForm.valid" [src]="supplier.imageUrl" 
+                style="width: 25vh;"
+                alt="Logo previsualizado" class="mt-2">
+            </div>
 
             <button type="submit" [disabled]="logoForm.invalid" class="btn btn-primary mt-4">
                 Continuar
@@ -193,20 +199,21 @@
 
     <!-- pais, provincia, ciudad, cp, calle, numero -->
     <section *ngIf="logoValid && !locationValid">
-        
         <label for="countryInput" class="form-label mt-4">Pais*</label>
             <select class="form-select" aria-label="Default select example" id="countryInput"
-                [(ngModel)]="idCountry" (ngModelChange)="selectCountry()">
+            [(ngModel)]="idCountry" (ngModelChange)="selectCountry()">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option *ngFor="let country of countries" [value]="country.id">
                     {{ country.country }}
                 </option>
-        </select>
+            </select>
+            
         <form [formGroup]="locationForm" (ngSubmit)="submitLocation()">
             <div *ngIf="showProvinces">
                 <label for="provinceInput" class="form-label mt-4">Provincia*</label>
                 <select class="form-select" aria-label="Default select example" id="provinceInput"
-                    formControlName="province">
+                    formControlName="province" formControlName="province"
+                    [(ngModel)]="supplier.province.id">
                     <option value="" disabled selected>Seleccione una opción</option>
                     <option *ngFor="let province of provinces" [value]="province.id">
                         {{ province.province }}
@@ -214,22 +221,144 @@
                 </select>
             </div>
 
-            <p>provincia</p> 
-            <p>ciudad</p>
-            <p>cp</p>
-            <p>calle</p>
-            <p>numero</p>            
+            <div *ngIf="!showProvinces">
+                <label for="provinceInput" class="form-label mt-4">Provincia*</label>
+                <select class="form-select" aria-label="Default select example" id="provinceInput"
+                    [disabled]="true">
+                    <option value="" disabled selected>Seleccione una opción</option>
+                </select>
+                <div *ngIf="locationForm.get('province')?.invalid && locationForm.get('province')?.touched"
+                class="fw-lighter text-danger">
+                Debe seleccionar una provincia
+                </div>
+            </div>
+
+            <label for="cityInput" class="form-label mt-4">Ciudad*</label>
+            <input type="text" required id="cityInput" class="form-control" formControlName="city"
+                placeholder="Ejemplo" name="city" [(ngModel)]="supplier.city"
+                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
+            />
+            <div *ngIf="locationForm.get('city')?.invalid && locationForm.get('city')?.touched"
+                class="fw-lighter text-danger">
+                La ciudad debe tener entre 2 y 50 caracteres
+            </div>
+
+            <label for="cpInput" class="form-label mt-4">Código postal*</label>
+            <input type="text" required id="cpInput" class="form-control" formControlName="cp"
+                placeholder="Ejemplo" name="cp" [(ngModel)]="supplier.cp"
+                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
+            />
+            <div *ngIf="locationForm.get('cp')?.invalid && locationForm.get('cp')?.touched"
+                class="fw-lighter text-danger">
+                El código postal debe tener entre 2 y 50 caracteres
+            </div>
+
+            <label for="streetNameInput" class="form-label mt-4">Calle*</label>
+            <input type="text" required id="streetNameInput" class="form-control" formControlName="streetName"
+                placeholder="Ejemplo" name="streetName" [(ngModel)]="supplier.streetName"
+                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
+            />
+            <div *ngIf="locationForm.get('streetName')?.invalid && locationForm.get('streetName')?.touched"
+                class="fw-lighter text-danger">
+                La calle debe tener entre 2 y 50 caracteres
+            </div>
+            
+            <label for="streetNumberInput" class="form-label mt-4">Calle*</label>
+            <input type="number" required id="streetNumberInput" class="form-control" formControlName="streetNumber"
+                placeholder="Ejemplo" name="streetNumber" [(ngModel)]="supplier.streetNumber"
+                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
+            />
+            <div *ngIf="locationForm.get('streetNumber')?.invalid && locationForm.get('streetNumber')?.touched"
+                class="fw-lighter text-danger">
+                El número de calle debe ser mayor a 1
+            </div> 
+            
+            <button type="submit" [disabled]="locationForm.invalid" class="btn btn-primary mt-4">
+                Continuar
+            </button>
         </form>
     </section>
 
     <!-- email, telefono, pagina web -->
     <section *ngIf="locationValid && !businessInfoValid">
-        <p>email, telefono, pagina web</p>
+        <form [formGroup]="supplierInfoForm" (ngSubmit)="submitBusinessInfo()">
+            <label for="businessEmailInput" class="form-label mt-4">Email*</label>
+            <input type="text" required id="businessEmailInput" class="form-control" formControlName="businessEmail"
+                placeholder="Ejemplo" name="businessEmail" [(ngModel)]="supplier.businessEmail"
+                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
+            />
+            <div *ngIf="supplierInfoForm.get('businessEmail')?.invalid && supplierInfoForm.get('businessEmail')?.touched"
+                class="fw-lighter text-danger">
+                El email debe tener entre 2 y 50 caracteres
+            </div>
+
+            <label for="businessPhoneInput" class="form-label mt-4">Telefono*</label>
+            <input type="text" required id="businessPhoneInput" class="form-control" formControlName="businessPhone"
+                placeholder="Ejemplo" name="businessPhone" [(ngModel)]="supplier.businessPhone"
+                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
+            />
+            <div *ngIf="supplierInfoForm.get('businessPhone')?.invalid && supplierInfoForm.get('businessPhone')?.touched"
+                class="fw-lighter text-danger">
+                El telefono debe tener entre 2 y 50 caracteres
+            </div>
+
+            <label for="businessWebpageInput" class="form-label mt-4">Sitio web</label>
+            <input type="text" required id="businessWebpageInput" class="form-control" 
+                formControlName="businessWebpage"
+                placeholder="Ejemplo" name="businessWebpage" [(ngModel)]="supplier.businessWebpage"
+                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
+            />
+
+            <button type="submit" [disabled]="supplierInfoForm.invalid" class="btn btn-primary mt-4">
+                Continuar
+            </button>
+        </form>
     </section>
 
     <!-- contactos -->
     <section *ngIf="businessInfoValid">
-        <p>contacto</p>
+        <form [formGroup]="supplierContactForm" (ngSubmit)="onSubmit()">
+            <div formArrayName="contacts">
+              <div *ngFor="let contact of contacts.controls; let i = index" [formGroupName]="i">
+                <h4>Contacto {{ i + 1 }}</h4>
+
+                <label for="contactName" class="form-label mt-2">Nombre*</label>
+                <input type="text" required id="contactName" class="form-control" 
+                    formControlName="contactName" placeholder="Ejemplo" required
+                />
+
+                <label for="contactLastname" class="form-label mt-2">Apellido*</label>
+                <input type="text" required id="contactLastname" class="form-control" 
+                    formControlName="contactLastname" placeholder="Ejemplo" required
+                />
+
+                <label for="phone" class="form-label mt-2">Telefono*</label>
+                <input type="text" required id="phone" class="form-control" 
+                    formControlName="phone" placeholder="Ejemplo" required
+                />
+
+                <label for="email" class="form-label mt-2">Email*</label>
+                <input type="text" required id="email" class="form-control" 
+                    formControlName="email" placeholder="Ejemplo" required
+                />
+
+                <label for="rol" class="form-label mt-2">Rol*</label>
+                <input type="text" required id="rol" class="form-control" 
+                    formControlName="rol" placeholder="Ejemplo" required
+                />
+          
+                <button type="button" (click)="removeContact(i)"
+                class="btn btn-danger mt-4 me-3 mb-3 ">Eliminar</button>
+              </div>
+            </div>
+          
+            <button type="button" (click)="addContact()" class="btn btn-primary mt-4 me-3"
+            [disabled]="!(contacts.length < 3)">
+                Agregar Contacto
+            </button>
+            <button type="submit" class="btn btn-primary mt-4" 
+            [disabled]="(contactsAmount === 0) || supplierContactForm.invalid" >Guardar</button>
+          </form>
     </section>
 
 </article>
