@@ -69,6 +69,7 @@ export class SuppliersCreateComponent implements OnInit {
   contactsAmount:number = 0;
 
   oldCategory: string = '';
+  oldContacts: SupplierContact[] = [];
 
   constructor(
     private suppliersService: SuppliersService,
@@ -158,6 +159,8 @@ export class SuppliersCreateComponent implements OnInit {
             this.idCountry = this.getCountry(this.supplier.province.id);
             this.selectCountry();
             this.showProvinces = true;
+            this.oldContacts = this.supplier.supplierContacts;
+            this.contactsAmount = this.oldContacts.length;
           }else{
             //lo redirijo a la pagina anterior
             this.router.navigate(['/users']);

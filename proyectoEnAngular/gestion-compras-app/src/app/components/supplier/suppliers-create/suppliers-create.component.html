@@ -318,6 +318,8 @@
 
     <!-- contactos -->
     <section *ngIf="businessInfoValid">
+        <!-- mostrar contactos anteriores -opcion de eliminar -->
+        
         <form [formGroup]="supplierContactForm" (ngSubmit)="onSubmit()">
             <div formArrayName="contacts">
               <div *ngFor="let contact of contacts.controls; let i = index" [formGroupName]="i">
