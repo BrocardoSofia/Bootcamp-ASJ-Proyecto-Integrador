@@ -312,7 +312,6 @@
             <input type="text" required id="businessWebpageInput" class="form-control" 
                 formControlName="businessWebpage"
                 placeholder="Ejemplo" name="businessWebpage" [(ngModel)]="supplier.businessWebpage"
-                oninvalid="this.setCustomValidity('El campo debe tener al menos 5 caracteres')"
             />
 
             <button type="submit" [disabled]="supplierInfoForm.invalid" class="btn btn-primary mt-4">

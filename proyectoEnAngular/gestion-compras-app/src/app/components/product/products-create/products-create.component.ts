@@ -43,6 +43,8 @@ export class ProductsCreateComponent implements OnInit{
   supplierSavedId:number = -1;
   continueSupplier: boolean = false;
 
+  productForm!: FormGroup;
+
   constructor(
     private productsService: ProductsService,
     private suppliersService: SuppliersService,
@@ -60,6 +62,14 @@ export class ProductsCreateComponent implements OnInit{
     )
 
     this.product = this.productsService.inicProduct();
+
+    this.productForm = this.fb.group({
+      productCategory: ['', [Validators.required]],
+      codeSKU: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(50)]],
+      productName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
+      productDescription: ['', [Validators.minLength(0), Validators.maxLength(150)]],
+      price: ['',[Validators.required,Validators.min(1)]]
+    });
   }
 
   nextPage(){
@@ -152,6 +162,10 @@ export class ProductsCreateComponent implements OnInit{
 
   supplierForm(){
     this.supplierValid = true;
+  }
+
+  submitProductForm(){
+    
   }
 
 }

@@ -113,11 +113,13 @@
 
     <!-- ingresar categoria - sku - nombre - descripcion - precio -->
     <section *ngIf="supplierValid && !productValid">
-        <p>categoria</p>
-        <p>sku</p>
-        <p>nombre</p>
-        <p>descripcion</p>
-        <p>precio</p>
+        <form [formGroup]="productForm" (ngSubmit)="submitProductForm()">
+            <p>categoria</p>
+            <p>sku</p>
+            <p>nombre</p>
+            <p>descripcion</p>
+            <p>precio</p>
+        </form>
     </section>
 
     <!-- imagenes -->

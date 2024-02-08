@@ -132,7 +132,7 @@ export class SuppliersCreateComponent implements OnInit {
     this.supplierInfoForm = this.fb.group({
       businessEmail: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       businessPhone: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      businessWebpage: [''],
+      businessWebpage: ['',[Validators.minLength(0)]],
     });
 
     this.suppliersService.getAllIvaConditions().subscribe(
