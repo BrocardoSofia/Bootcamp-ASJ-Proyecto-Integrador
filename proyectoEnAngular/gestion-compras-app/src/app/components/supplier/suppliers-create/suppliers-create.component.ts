@@ -171,6 +171,10 @@ export class SuppliersCreateComponent implements OnInit {
     });
   }
 
+  deleteOldContact(index: number){
+
+  }
+
   getCountry(provinceId: number){
     for (const country of this.countries) {
       const foundProvince = country.provinces.find((province) => province.id === provinceId);

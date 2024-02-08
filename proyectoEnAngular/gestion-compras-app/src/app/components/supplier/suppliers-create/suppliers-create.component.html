@@ -322,12 +322,38 @@
         <article *ngIf="oldContacts.length !== 0">
             <h4>Contactos anteriores: </h4>
             <!-- cards con datos anteriores -->
+            <div *ngFor="let contact of oldContacts; let i = index">
+                <label for="contactName" class="form-label mt-2">Nombre</label>
+                <input type="text" required id="contactName" class="form-control"
+                [(ngModel)]="contact.contactName" [disabled]="true"/>
+
+                <label for="contactLastname" class="form-label mt-2">Apellido</label>
+                <input type="text" required id="contactLastname" class="form-control"
+                [(ngModel)]="contact.contactLastname" [disabled]="true"/>
+
+                <label for="phone" class="form-label mt-2">Telefono</label>
+                <input type="text" required id="phone" class="form-control"
+                [(ngModel)]="contact.phone" [disabled]="true"/>
+                
+                <label for="email" class="form-label mt-2">Email</label>
+                <input type="text" required id="email" class="form-control"
+                [(ngModel)]="contact.email" [disabled]="true"/>
+
+                <label for="rol" class="form-label mt-2">Rol</label>
+                <input type="text" required id="rol" class="form-control"
+                [(ngModel)]="contact.rol" [disabled]="true"/>
+
+                <button type="button" (click)="deleteOldContact(i)" 
+                class="btn btn-danger mt-4 me-3"> Eliminar </button>
+            </div>
+
+            <hr>
         </article>
         
         <form [formGroup]="supplierContactForm" (ngSubmit)="onSubmit()">
             <div formArrayName="contacts">
               <div *ngFor="let contact of contacts.controls; let i = index" [formGroupName]="i">
-                <h4>Contacto {{ i + 1 }}</h4>
+                <h4>Nuevo Contacto {{ i + 1 }}</h4>
 
                 <label for="contactName" class="form-label mt-2">Nombre*</label>
                 <input type="text" required id="contactName" class="form-control" 
@@ -360,7 +386,7 @@
             </div>
           
             <button type="button" (click)="addContact()" class="btn btn-primary mt-4 me-3"
-            [disabled]="!(contacts.length < 3)">
+            [disabled]="!(contactsAmount < 3)">
                 Agregar Contacto
             </button>
             <button type="submit" class="btn btn-primary mt-4" 
