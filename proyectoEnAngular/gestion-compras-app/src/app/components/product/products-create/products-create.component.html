@@ -113,13 +113,32 @@
 
     <!-- ingresar categoria - sku - nombre - descripcion - precio -->
     <section *ngIf="supplierValid && !productValid">
-        <form [formGroup]="productForm" (ngSubmit)="submitProductForm()">
-            <p>categoria</p>
+        <form [formGroup]="productForm" (ngSubmit)="submitProductForm()" 
+        *ngIf="productCategories.length !== 0">
+            <label for="productCategoryInput" class="form-label mt-4">Categoria*</label>
+            <select class="form-select" aria-label="Default select example" id="productCategoryInput"
+                class="form-control" formControlName="productCategory" [(ngModel)]="product.productCategory.id">
+                <option value="" disabled selected>Seleccione una opción</option>
+                <option *ngFor="let category of productCategories" [value]="category.id">
+                    {{ category.category }}
+                </option>
+            </select>
+
             <p>sku</p>
+
             <p>nombre</p>
+
             <p>descripcion</p>
+
             <p>precio</p>
         </form>
+
+        <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="productCategories.length === 0">
+            <h2 class="text-center mb-4">
+                El rubro del proveedor seleccionado no posee categorias de productos
+            </h2>
+            <img src="/assets/clasificacion.png" alt="Imagen rubros" class="userImg mx-auto d-block">
+        </div>
     </section>
 
     <!-- imagenes -->

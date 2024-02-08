@@ -7,6 +7,7 @@ import { SuppliersService } from '../../../services/suppliers.service';
 import { Supplier } from '../../../models/suppliers';
 import Swal from 'sweetalert2';
 import { auto } from '@popperjs/core';
+import { ProductCategory } from '../../../models/product-category';
 
 type SortOrder = 'None' | 'asc' | 'desc';
 
@@ -44,6 +45,8 @@ export class ProductsCreateComponent implements OnInit{
   continueSupplier: boolean = false;
 
   productForm!: FormGroup;
+
+  productCategories: ProductCategory[] = [];
 
   constructor(
     private productsService: ProductsService,
@@ -158,6 +161,9 @@ export class ProductsCreateComponent implements OnInit{
     this.product.supplier = supplier;
     this.supplierSavedId = supplier.id;
     this.continueSupplier = true;
+
+    //cargo el arreglo de categorias en base a el id del rubro
+    this.productCategories = supplier.supplierCategory.products;
   }
 
   supplierForm(){
@@ -165,7 +171,7 @@ export class ProductsCreateComponent implements OnInit{
   }
 
   submitProductForm(){
-    
+
   }
 
 }

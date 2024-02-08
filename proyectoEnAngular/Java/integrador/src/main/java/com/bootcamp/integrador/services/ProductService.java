@@ -151,7 +151,6 @@ public class ProductService {
 			existingProduct.setProductName(product.getProductName());
 			existingProduct.setProductDescription(product.getProductDescription());
 			existingProduct.setPrice(product.getPrice());
-			existingProduct.setStock(product.getStock());
 			existingProduct.setUpdatedAt(LocalDateTime.now());
 			
 			productRepository.save(existingProduct);
@@ -191,9 +190,6 @@ public class ProductService {
 			changes += "Price: " + newProduct.getPrice()+"|";
 		}
 		
-		if(oldProduct.getStock() != newProduct.getStock()) {
-			changes += "Stock: " + newProduct.getStock()+"|";
-		}
 		
 		return changes;
 	}
