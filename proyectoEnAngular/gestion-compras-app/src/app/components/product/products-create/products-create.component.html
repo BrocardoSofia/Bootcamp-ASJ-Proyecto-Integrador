@@ -1,5 +1,91 @@
 <div class="container">
     <!-- seleccionar proveedor -->
+    <section *ngIf="!supplierValid">
+        <section class="m-0 p-2 table-header bg-primary-subtle d-flex">
+            <div class="col-md-9 ps-2">
+              <h2 class="text-left">Seleccione un proveedor</h2>
+            </div>
+        </section>
+        <section style="background-color: #fff; height: 9vh;" 
+        class="m-0 p-2 container-fluid filterItems border-bottom">
+            <article class="row"> 
+                <div class="col-md-4 d-flex justify-content-start">
+                    <div class="col-md-6 ps-2">
+                        <h2 class="text-left">Tabla de proveedores</h2>
+                      </div>
+                      <div class="col-md-3 p-2 ">
+                        <div class="input-group input-group-append">
+                          <input type="text" class="form-control" placeholder="Buscar Código" 
+                          name="SupplierCode" [(ngModel)]="searchSupplierCode">
+                          <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                          (click)="searchBySupplierCode()" *ngIf="!searchSupplierCodeOn" 
+                          [ngClass]="((searchSupplierCode !== '')?'':'disabled')">
+                            <i class="bi bi-search"></i>
+                          </button>
+                          <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                          (click)="clearSearchBySupplierCode()" *ngIf="searchSupplierCodeOn">
+                            <i class="bi bi-x-lg"></i>
+                          </button>
+                        </div>
+                      </div>
+                      <div class="col-md-3 p-2 ">
+                        <div class="input-group input-group-append">
+                          <input type="text" class="form-control" placeholder="Buscar Razon Social" 
+                          name="businessName" [(ngModel)]="searchBusinessName">
+                          <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                          (click)="searchByBusinessName()" *ngIf="!searchBusinessNameOn" 
+                          [ngClass]="((searchBusinessName !== '')?'':'disabled')">
+                            <i class="bi bi-search"></i>
+                          </button>
+                          <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                          (click)="clearSearchByBusinessName()" *ngIf="searchBusinessNameOn">
+                            <i class="bi bi-x-lg"></i>
+                          </button>
+                        </div>
+                      </div>
+                </div>     
+                <nav class="col-md-8 d-flex justify-content-end filterItems pe-3" 
+                aria-label="Page navigation example">
+                    <ul class="pagination">
+                    <li class="page-item" (click)="prevPage()">
+                        <a class="page-link" 
+                            aria-label="Previous" 
+                            style="cursor: pointer;"
+                            [ngClass]="(currentPage != 0)?'':'disabled'"
+                        >
+                        <span aria-hidden="true">Prev</span>
+                        </a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of getPages()">
+                        <a class="page-link" 
+                            [ngClass]="((currentPage+1) === page)?'active':''" 
+                            style="cursor: pointer;"
+                            (click)="selectPage(page-1)">{{page}}
+                    </a>
+                    </li>
+                    <li class="page-item" 
+                    (click)="nextPage()">
+                        <a class="page-link" 
+                        aria-label="Next"
+                        style="cursor: pointer;"
+                        [ngClass]="((pages !== 1) && (currentPage+1 !== pages)?'':'disabled')">
+                        <span aria-hidden="true">Next</span>
+                        </a>
+                    </li>
+                    </ul>
+                </nav>
+            
+            </article>
+        </section>
+    </section>
+
     <!-- ingresar categoria - sku - nombre - descripcion - precio -->
+    <section *ngIf="supplierValid && !productValid">
+        
+    </section>
+
     <!-- imagenes -->
+    <section *ngIf="productValid">
+        
+    </section>
 </div>
