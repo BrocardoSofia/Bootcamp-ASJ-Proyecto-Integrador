@@ -104,14 +104,24 @@ public class ProductController {
 	}
 	
 	//modificar producto
-	@PutMapping()
-	public ResponseEntity<ProductModel> updateProduct(@RequestBody ProductModel product){
-		ProductModel updatedDeleted = productService.updateProduct(product);
+	@PutMapping("/{userId}")
+	public ResponseEntity<ProductModel> updateProduct(@RequestBody ProductModel product, @PathVariable int userId){
+		ProductModel updatedDeleted = productService.updateProduct(product, userId);
 		
 		if(updatedDeleted == null) {
     		return new ResponseEntity<>(updatedDeleted, HttpStatus.CONFLICT);
     	}else {
     		return new ResponseEntity<>(updatedDeleted, HttpStatus.OK);
+    	}
+	}
+	
+	//businessNameExists
+    @GetMapping("/codeSkuExists/{codeSKU}")
+	public boolean getSupplierByBusinessName(@PathVariable String codeSKU) {	
+    	if(productService.getSupplierByCodeSKU(codeSKU) != null) {
+    		return true;
+    	}else{
+    		return false;
     	}
 	}
 

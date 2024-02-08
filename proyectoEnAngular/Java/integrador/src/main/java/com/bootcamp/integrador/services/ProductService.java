@@ -140,11 +140,11 @@ public class ProductService {
 	}
 	
 	//modificar producto
-	public ProductModel updateProduct(ProductModel product) {
+	public ProductModel updateProduct(ProductModel product, int userId) {
 		ProductModel existingProduct = productRepository.findById(product.getId()).get();
 		
 		if(existingProduct != null) {
-			productHistoryService.addProductHistory((existingProduct.getCreatedBy()).getId(), product.getId(), "updated", getChanges(existingProduct, product) , existingProduct.toString());
+			productHistoryService.addProductHistory(userId, product.getId(), "updated", getChanges(existingProduct, product) , existingProduct.toString());
 			existingProduct.setSupplier(product.getSupplier());
 			existingProduct.setProductCategory(product.getProductCategory());
 			existingProduct.setCodeSKU(product.getCodeSKU());
@@ -196,5 +196,9 @@ public class ProductService {
 		}
 		
 		return changes;
+	}
+	
+	public ProductModel getSupplierByCodeSKU(String codeSKU) {
+		return productRepository.findAllByCodeSKU(codeSKU);
 	}
 }
