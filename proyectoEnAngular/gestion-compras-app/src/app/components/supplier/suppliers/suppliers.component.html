@@ -18,8 +18,23 @@
   </section>
 
   <section class="m-0 p-2 table-header bg-primary-subtle d-flex">
-    <div class="col-md-9 ps-2">
+    <div class="col-md-6 ps-2">
       <h2 class="text-left">Tabla de proveedores</h2>
+    </div>
+    <div class="col-md-3 p-2 ">
+      <div class="input-group input-group-append">
+        <input type="text" class="form-control" placeholder="Buscar Código" 
+        name="SupplierCode" [(ngModel)]="searchSupplierCode">
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="searchBySupplierCode()" *ngIf="!searchSupplierCodeOn" 
+        [ngClass]="((searchSupplierCode !== '')?'':'disabled')">
+          <i class="bi bi-search"></i>
+        </button>
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="clearSearchBySupplierCode()" *ngIf="searchSupplierCodeOn">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
     </div>
     <div class="col-md-3 p-2 ">
       <div class="input-group input-group-append">
@@ -89,7 +104,7 @@
         <tr class="table">
           <th scope="col" class="text-center">Logo</th>
           <th scope="col" class="text-center">Código</th>
-          <th scope="col" class="columnSort text-center" (click)="changeSort('userAlias')">Razón social 
+          <th scope="col" class="columnSort text-center" (click)="changeSort('businessName')">Razón social 
             <i *ngIf="businessNameSort === 'None'" class="bi bi-arrow-down-up"></i>
             <i *ngIf="businessNameSort === 'desc'" class="bi bi-arrow-down"></i>
             <i *ngIf="businessNameSort === 'asc'" class="bi bi-arrow-up"></i>
