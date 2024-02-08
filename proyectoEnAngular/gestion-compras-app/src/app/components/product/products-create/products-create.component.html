@@ -9,42 +9,37 @@
         <section style="background-color: #fff; height: 9vh;" 
         class="m-0 p-2 container-fluid filterItems border-bottom">
             <article class="row"> 
-                <div class="col-md-4 d-flex justify-content-start">
-                    <div class="col-md-6 ps-2">
-                        <h2 class="text-left">Tabla de proveedores</h2>
-                      </div>
-                      <div class="col-md-3 p-2 ">
-                        <div class="input-group input-group-append">
-                          <input type="text" class="form-control" placeholder="Buscar Código" 
-                          name="SupplierCode" [(ngModel)]="searchSupplierCode">
-                          <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
-                          (click)="searchBySupplierCode()" *ngIf="!searchSupplierCodeOn" 
-                          [ngClass]="((searchSupplierCode !== '')?'':'disabled')">
-                            <i class="bi bi-search"></i>
-                          </button>
-                          <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
-                          (click)="clearSearchBySupplierCode()" *ngIf="searchSupplierCodeOn">
-                            <i class="bi bi-x-lg"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="col-md-3 p-2 ">
-                        <div class="input-group input-group-append">
-                          <input type="text" class="form-control" placeholder="Buscar Razon Social" 
-                          name="businessName" [(ngModel)]="searchBusinessName">
-                          <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
-                          (click)="searchByBusinessName()" *ngIf="!searchBusinessNameOn" 
-                          [ngClass]="((searchBusinessName !== '')?'':'disabled')">
-                            <i class="bi bi-search"></i>
-                          </button>
-                          <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
-                          (click)="clearSearchByBusinessName()" *ngIf="searchBusinessNameOn">
-                            <i class="bi bi-x-lg"></i>
-                          </button>
-                        </div>
-                      </div>
-                </div>     
-                <nav class="col-md-8 d-flex justify-content-end filterItems pe-3" 
+                <div class="col-md-3 p-2 ">
+                    <div class="input-group input-group-append">
+                        <input type="text" class="form-control" placeholder="Buscar Código" 
+                        name="SupplierCode" [(ngModel)]="searchSupplierCode">
+                        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                        (click)="searchBySupplierCode()" *ngIf="!searchSupplierCodeOn" 
+                        [ngClass]="((searchSupplierCode !== '')?'':'disabled')">
+                        <i class="bi bi-search"></i>
+                        </button>
+                        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                        (click)="clearSearchBySupplierCode()" *ngIf="searchSupplierCodeOn">
+                        <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-3 p-2 ">
+                    <div class="input-group input-group-append">
+                        <input type="text" class="form-control" placeholder="Buscar Razon Social" 
+                        name="businessName" [(ngModel)]="searchBusinessName">
+                        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                        (click)="searchByBusinessName()" *ngIf="!searchBusinessNameOn" 
+                        [ngClass]="((searchBusinessName !== '')?'':'disabled')">
+                        <i class="bi bi-search"></i>
+                        </button>
+                        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                        (click)="clearSearchByBusinessName()" *ngIf="searchBusinessNameOn">
+                        <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                </div>    
+                <nav class="col-md-6 d-flex justify-content-end filterItems pe-3" 
                 aria-label="Page navigation example">
                     <ul class="pagination">
                     <li class="page-item" (click)="prevPage()">
@@ -91,7 +86,7 @@
             </thead>
             <tbody>
                 <!-- <tr *ngIf="edit" class="table-warning">
-                    <td >Categoria actual: {{ oldCategory }}</td>
+                    <td>Proveedor actual: {{ oldSupplier }}</td>
                     <td></td>
                 </tr> -->
                 <!-- <tr *ngFor="let supplier of suppliers" 
