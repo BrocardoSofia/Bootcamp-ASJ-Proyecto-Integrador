@@ -49,6 +49,8 @@ export class ProductsCreateComponent implements OnInit{
   productCategories: ProductCategory[] = [];
   productCategorySelected: boolean = false;
 
+  oldProduct!: Product;
+
   constructor(
     private productsService: ProductsService,
     private suppliersService: SuppliersService,
@@ -173,7 +175,29 @@ export class ProductsCreateComponent implements OnInit{
 
   submitProductForm(){
     //validar que el sku no exista
-    this.productValid = true;
+    this.productsService.codeSkuExists(this.product.codeSKU).subscribe(
+      response=>{
+        if(!response){
+          this.productValid = true;
+        }else{
+          this.alertFieldExist('Ya existe el sku ' + this.product.codeSKU + ' en el sistema');
+          if(this.edit){
+            this.product.codeSKU = this.oldProduct.codeSKU;
+          }else{
+            this.product.codeSKU = '';
+          }
+        }
+      }
+    )
+  }
+
+  private alertFieldExist(infoText: string){
+    //si existe informo con un alert que el usuario ya esta registrado
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: infoText,
+    });    
   }
 
 }
