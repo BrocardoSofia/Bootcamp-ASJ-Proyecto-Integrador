@@ -80,9 +80,9 @@ public class SupplierController {
     }
     
     //eliminar proveedor
-    @DeleteMapping("/{supplierId}")
-    public ResponseEntity<SupplierModel> deleteSupplier(@PathVariable int supplierId) {
-    	SupplierModel deletedSupplier = supplierService.deleteSupplier(supplierId);
+    @DeleteMapping("/{supplierId}/{userId}")
+    public ResponseEntity<SupplierModel> deleteSupplier(@PathVariable int supplierId, @PathVariable int userId) {
+    	SupplierModel deletedSupplier = supplierService.deleteSupplier(supplierId, userId);
         
         if(deletedSupplier == null){
         	return new ResponseEntity<>(deletedSupplier, HttpStatus.NOT_FOUND);
@@ -92,9 +92,9 @@ public class SupplierController {
     }
     
     //reinsertar proveedor
-    @DeleteMapping("/{supplierId}/reInsert")
-    public ResponseEntity<Boolean> reInsertSupplier(@PathVariable int supplierId) {
-    	boolean reInsert = supplierService.reInsertSupplier(supplierId);
+    @DeleteMapping("/{supplierId}/reInsert/{userId}")
+    public ResponseEntity<Boolean> reInsertSupplier(@PathVariable int supplierId, @PathVariable int userId) {
+    	boolean reInsert = supplierService.reInsertSupplier(supplierId,userId);
         if (reInsert) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         } else {

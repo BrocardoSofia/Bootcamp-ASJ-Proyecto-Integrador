@@ -101,10 +101,10 @@ public class SupplierService {
 	}
 	
 	//eliminar proveedor
-	public SupplierModel deleteSupplier(int supplierId) {
+	public SupplierModel deleteSupplier(int supplierId, int userId) {
 		SupplierModel supplierDeleted = supplierRepository.findById(supplierId).get();
 		if(supplierDeleted != null) {			
-			supplierHistoryService.addSupplierHistory((supplierDeleted.getCreatedBy()).getId(), supplierId, "deleted", "supplier deleted" , supplierDeleted.toString());
+			supplierHistoryService.addSupplierHistory(userId, supplierId, "deleted", "supplier deleted" , supplierDeleted.toString());
 			
 			supplierDeleted.setDeletedAt(LocalDateTime.now());
 			System.out.println(supplierDeleted.toString());
@@ -115,12 +115,12 @@ public class SupplierService {
 	}
 	
 	//reingresar proveedor
-	public boolean reInsertSupplier(int supplierId) {
+	public boolean reInsertSupplier(int supplierId, int userId) {
 		Optional<SupplierModel> foundSupplier = supplierRepository.findById(supplierId);
 
         if (foundSupplier.isPresent()) {
         	SupplierModel undeletedSupplier = foundSupplier.get();
-        	supplierHistoryService.addSupplierHistory((undeletedSupplier.getCreatedBy()).getId(), supplierId, "re inserted", "supplier re inserted" , undeletedSupplier.toString());
+        	supplierHistoryService.addSupplierHistory(userId, supplierId, "re inserted", "supplier re inserted" , undeletedSupplier.toString());
         	
         	undeletedSupplier.setDeletedAt(null);
         	

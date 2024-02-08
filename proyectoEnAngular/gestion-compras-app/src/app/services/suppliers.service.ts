@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IvaCondition } from '../models/ivaCondition';
 import { Country } from '../models/country';
 import { SupplierContact } from '../models/supplierContact';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class SuppliersService {
   private urlCountries: string = 'http://localhost:8080/countries';
   private urlSupplierContact: string = 'http://localhost:8080/suppliers-contacts';
   
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private loginService: LoginService) { }
 
   /*Inicializa un proveedor con datos en vacio*/
   public inicSupplier(){
@@ -81,6 +83,7 @@ export class SuppliersService {
 
   public updateSupplier(supplier: Supplier): Observable<Supplier> {
     const headers = { 'Content-Type': 'application/json' };
+    const url = this.url + "/" + this.loginService.getUserId();
     return this.http.put<Supplier>(this.url, supplier, { headers });
   }
 
@@ -99,13 +102,13 @@ export class SuppliersService {
   }
 
   public deleteSupplier(supplier: Supplier): Observable<Supplier> {
-    const url = this.url + "/" + supplier.id;
+    const url = this.url + "/" + supplier.id + "/" + this.loginService.getUserId();
 
     return this.http.delete<Supplier>(url);
   }
 
   public reInsertSupplier(supplier: Supplier): Observable<boolean> {
-    const url = this.url + "/" + supplier.id + "/reInsert";
+    const url = this.url + "/" + supplier.id + "/reInsert"+ "/" + this.loginService.getUserId();;
 
     return this.http.delete<boolean>(url);
   }
