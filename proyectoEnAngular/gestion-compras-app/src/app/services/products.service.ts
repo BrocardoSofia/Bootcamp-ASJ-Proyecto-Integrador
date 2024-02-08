@@ -74,4 +74,16 @@ export class ProductsService {
 
     return this.http.get<boolean>(url);
   }
+
+  public deleteProduct(product: Product): Observable<Product> {
+    const url = this.url + "/" + product.id + "/" + this.loginService.getUserId();
+
+    return this.http.delete<Product>(url);
+  }
+
+  public reInsertProduct(product: Product): Observable<boolean> {
+    const url = this.url + "/" + product.id + "/reInsert"+ "/" + this.loginService.getUserId();;
+
+    return this.http.delete<boolean>(url);
+  }
 }

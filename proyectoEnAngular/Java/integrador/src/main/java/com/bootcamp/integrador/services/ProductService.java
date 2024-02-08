@@ -110,11 +110,11 @@ public class ProductService {
 	}
 	
 	//eliminar producto
-	public ProductModel deleteProduct(int productId) {
+	public ProductModel deleteProduct(int productId, int userId) {
 		ProductModel productDeleted = productRepository.findById(productId).get();
 		
 		if(productDeleted != null) {
-			productHistoryService.addProductHistory((productDeleted.getCreatedBy()).getId(), productId, "deleted", "product deleted" , productDeleted.toString());
+			productHistoryService.addProductHistory(userId, productId, "deleted", "product deleted" , productDeleted.toString());
 			productDeleted.setDeletedAt(LocalDateTime.now());
 			
 			productRepository.save(productDeleted);
@@ -124,11 +124,11 @@ public class ProductService {
 	}
 	
 	//reingresar producto
-	public boolean reInsertProduct(int productId) {
+	public boolean reInsertProduct(int productId, int userId) {
 		ProductModel productUndeleted = productRepository.findById(productId).get();
 		
 		if(productUndeleted != null) {
-			productHistoryService.addProductHistory((productUndeleted.getCreatedBy()).getId(), productId, "re inserted", "supplier re inserted" , productUndeleted.toString());
+			productHistoryService.addProductHistory(userId, productId, "re inserted", "supplier re inserted" , productUndeleted.toString());
 			productUndeleted.setDeletedAt(null);
 			
 			productRepository.save(productUndeleted);
