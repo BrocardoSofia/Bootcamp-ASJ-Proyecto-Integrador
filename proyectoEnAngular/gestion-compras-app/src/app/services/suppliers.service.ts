@@ -122,7 +122,7 @@ export class SuppliersService {
     return this.http.get(this.url, { params });
   }
 
-  //get all users filtered
+  //get all suppliers filtered
   getAllSuppliers(pageNumber:number, orderBy: string, businessName: string,
                   supplierCode: string, supplierCategoryId: number): Observable<any> {
     let urlGet = this.url+"?page="+pageNumber+"&size=10"+orderBy+"&businessName="+businessName
@@ -131,7 +131,7 @@ export class SuppliersService {
     return this.http.get(urlGet);
   }
 
-  //get active users filtered
+  //get active suppliers filtered
   getAllActiveSuppliers(pageNumber:number, orderBy: string, businessName: string,
                     supplierCode: string, supplierCategoryId: number): Observable<any> {
     let urlGet = this.url+"/active"+"?page="+pageNumber+"&size=10"+orderBy
@@ -141,7 +141,7 @@ export class SuppliersService {
     return this.http.get(urlGet);
   }
 
-  //get deketed users filtered
+  //get deketed suppliers filtered
   getAllDeletedSuppliers(pageNumber:number, orderBy: string, businessName: string,
                       supplierCode: string, supplierCategoryId: number): Observable<any> {
     let urlGet = this.url+"/deleted"+"?page="+pageNumber+"&size=10"+orderBy

@@ -86,4 +86,46 @@ export class ProductsService {
 
     return this.http.delete<boolean>(url);
   }
+
+  //get all products filtered
+  getAllProducts(pageNumber:number, orderBy: string, productDescription: string,
+    productName: string, codeSKU: string, supplierId: number): Observable<any> {
+    let urlGet = this.url+"?page="+pageNumber+"&size=10"+orderBy+"&productDescription="+productDescription
+        +"&productName="+productName+"&codeSKU="+codeSKU+"&supplierId="+supplierId;
+
+    return this.http.get(urlGet);
+  }
+
+  //get all active products filtered
+  getAllActiveProducts(pageNumber:number, orderBy: string, productDescription: string,
+    productName: string, codeSKU: string, supplierId: number): Observable<any> {
+    let urlGet = this.url+"/active"+"?page="+pageNumber+"&size=10"+orderBy+"&productDescription="+productDescription
+        +"&productName="+productName+"&codeSKU="+codeSKU+"&supplierId="+supplierId;
+
+    return this.http.get(urlGet);
+  }
+
+  //get all deleted products filtered
+  getAllDeletedProducts(pageNumber:number, orderBy: string, productDescription: string,
+    productName: string, codeSKU: string, supplierId: number): Observable<any> {
+    let urlGet = this.url+"/deleted"+"?page="+pageNumber+"&size=10"+orderBy+"&productDescription="+productDescription
+        +"&productName="+productName+"&codeSKU="+codeSKU+"&supplierId="+supplierId;
+
+    return this.http.get(urlGet);
+  }
+
+  getProductById(id: number): Observable<Product>{
+    const url = this.url+'/'+id;
+
+    return new Observable<Product>(observer => {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const product: Product = data;
+          observer.next(product);
+          observer.complete();
+        })
+        .catch(error => observer.error(error));
+    });
+  }
 }
