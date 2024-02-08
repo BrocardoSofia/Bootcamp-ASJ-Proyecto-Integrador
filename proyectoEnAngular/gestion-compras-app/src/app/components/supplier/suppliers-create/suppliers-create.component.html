@@ -115,13 +115,14 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr>
-                <td>{{ oldCategory }}</td>
-                <td>{{ oldCreatedAt | date}}</td>
-                </tr> -->
+                <tr *ngIf="edit" class="table-warning">
+                    <td >Categoria actual: {{ oldCategory }}</td>
+                    <td></td>
+                </tr>
                 <tr *ngFor="let suplierCategory of suplierCategories" 
                     (click)="selectSupplierCategory(suplierCategory)"
-                    [ngClass]="(suplierCategory.id === supplierCategorySavedId)?'table-success':''">
+                    [ngClass]="(suplierCategory.id === supplierCategorySavedId
+                                || suplierCategory.id === supplier.supplierCategory.id)?'table-success':''">
                 <td>{{ suplierCategory.category}}</td>
                 <td>{{ suplierCategory.createdAt | date}}</td>
                 

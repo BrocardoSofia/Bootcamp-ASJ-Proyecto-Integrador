@@ -68,6 +68,8 @@ export class SuppliersCreateComponent implements OnInit {
 
   contactsAmount:number = 0;
 
+  oldCategory: string = '';
+
   constructor(
     private suppliersService: SuppliersService,
     private router: Router,
@@ -151,6 +153,8 @@ export class SuppliersCreateComponent implements OnInit {
             this.edit = true;
             this.oldBusinessName = this.supplier.businessName;
             this.oldSupplierCode = this.supplier.supplierCode;
+            this.oldCategory = this.supplier.supplierCategory.category;
+            this.continueSupplierCategory = true;
           }else{
             //lo redirijo a la pagina anterior
             this.router.navigate(['/users']);
