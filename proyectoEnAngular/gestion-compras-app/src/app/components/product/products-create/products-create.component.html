@@ -117,7 +117,8 @@
         *ngIf="productCategories.length !== 0">
             <label for="productCategoryInput" class="form-label mt-4">Categoria*</label>
             <select class="form-select" aria-label="Default select example" id="productCategoryInput"
-                class="form-control" formControlName="productCategory" [(ngModel)]="product.productCategory.id">
+                class="form-control" formControlName="productCategory" 
+                [(ngModel)]="product.productCategory.id">
                 <option value="" disabled selected>Seleccione una opción</option>
                 <option *ngFor="let category of productCategories" [value]="category.id">
                     {{ category.category }}
@@ -164,7 +165,10 @@
                 El precio no puede ser menor de $0
             </div>
 
-            
+            <button type="submit" [disabled]="productForm.invalid || product.productCategory.id == 0" 
+            class="btn btn-primary mt-4">
+                Continuar
+            </button>
             
         </form>
 
@@ -178,6 +182,6 @@
 
     <!-- imagenes -->
     <section *ngIf="productValid">
-        
+        <p>imagenes</p>
     </section>
 </div>

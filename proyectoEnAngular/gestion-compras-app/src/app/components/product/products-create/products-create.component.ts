@@ -47,6 +47,7 @@ export class ProductsCreateComponent implements OnInit{
   productForm!: FormGroup;
 
   productCategories: ProductCategory[] = [];
+  productCategorySelected: boolean = false;
 
   constructor(
     private productsService: ProductsService,
@@ -171,7 +172,8 @@ export class ProductsCreateComponent implements OnInit{
   }
 
   submitProductForm(){
-
+    //validar que el sku no exista
+    this.productValid = true;
   }
 
 }
