@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Supplier } from '../../../models/suppliers';
 import { SuppliersService } from '../../../services/suppliers.service';
 import Swal from 'sweetalert2';
+import { Country } from '../../../models/country';
+import bootstrap from 'bootstrap';
 
 type State = 'All' | 'Active' | 'Deleted';
 type SortOrder = 'None' | 'asc' | 'desc';
@@ -25,14 +27,17 @@ export class SuppliersComponent implements OnInit{
   searchSupplierCategoryIdOn: boolean = false;
   searchSupplierCode: string = '';
   searchSupplierCodeOn: boolean = false;
-  state: State = 'All';
-  selectedOption: string = '1';
+  state: State = 'Active';
+  selectedOption: string = '2';
   businessNameSort:SortOrder = 'None';
+
+  countries: Country[] = [];
 
   constructor(private suppliersService: SuppliersService){}
 
   ngOnInit() {
-    this.suppliersService.getSuppliers().subscribe(data=>{
+    this.suppliersService.getAllActiveSuppliers(0,this.getSort(),this.searchBusinessName,
+                    this.searchSupplierCode,this.searchSupplierCategoryId).subscribe(data=>{
       this.pages = data.totalPages;
       this.suppliers = data.content;
 
@@ -40,6 +45,13 @@ export class SuppliersComponent implements OnInit{
         this.nextFive = true;
       }
     })
+
+    this.suppliersService.getAllCountries().subscribe(
+      response=>{
+        this.countries = response;
+      }
+    )
+
   }
 
   getSupplierState(supplier: Supplier){
@@ -144,6 +156,16 @@ export class SuppliersComponent implements OnInit{
             );
           break;
      }  
+  }
+
+  getCountry(provinceId: number){
+    for (const country of this.countries) {
+      const foundProvince = country.provinces.find((province) => province.id === provinceId);
+      if (foundProvince) {
+        return country.country;
+      }
+    }
+    return '';
   }
 
   changeStatusFilter(){

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 import{ FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -54,6 +55,7 @@ import { ProductCategoriesListComponent } from './components/admin/product-categ
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,

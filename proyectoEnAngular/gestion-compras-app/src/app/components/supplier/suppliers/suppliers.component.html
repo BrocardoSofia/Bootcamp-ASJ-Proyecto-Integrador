@@ -26,7 +26,7 @@
         <input type="text" class="form-control" placeholder="Buscar Razon Social" 
         name="businessName" [(ngModel)]="searchBusinessName">
         <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
-        (click)="searchByBusinessName()" *ngIf="!searchBusinessName" 
+        (click)="searchByBusinessName()" *ngIf="!searchBusinessNameOn" 
         [ngClass]="((searchBusinessName !== '')?'':'disabled')">
           <i class="bi bi-search"></i>
         </button>
@@ -44,7 +44,7 @@
       <div class="col-md-9 d-flex justify-content-start filterItems">
         <select class="form-select select-filter" aria-label="Default select example" 
         [(ngModel)]="selectedOption" (ngModelChange)="changeStatusFilter()">
-          <option selected value="1">Todos</option>
+          <option value="1">Todos</option>
           <option value="2">Activos</option>
           <option value="3">Eliminados</option>
         </select>
@@ -89,7 +89,7 @@
         <tr class="table">
           <th scope="col" class="text-center">Logo</th>
           <th scope="col" class="text-center">Código</th>
-          <th scope="col" class="columnSort" (click)="changeSort('userAlias')">Razón social 
+          <th scope="col" class="columnSort text-center" (click)="changeSort('userAlias')">Razón social 
             <i *ngIf="businessNameSort === 'None'" class="bi bi-arrow-down-up"></i>
             <i *ngIf="businessNameSort === 'desc'" class="bi bi-arrow-down"></i>
             <i *ngIf="businessNameSort === 'asc'" class="bi bi-arrow-up"></i>
@@ -103,12 +103,25 @@
       </thead>
       <tbody>
         <tr *ngFor="let supplier of suppliers">
-          <td>imagen</td>
-          <td>codigo</td>
-          <td>razon social</td>
-          <td>pais</td>
-          <td>provincia</td>
-          <td>contacto</td>
+          <td class="text-center"><img [src]="supplier.imageUrl" style="width: 5vw;"
+            alt="Logo previsualizado" class="mt-2"></td>
+          <td class="text-center">{{supplier.supplierCode}}</td>
+          <td class="text-center">{{supplier.businessName}}</td>
+          <td class="text-center">{{getCountry(supplier.province.id)}}</td>
+          <td class="text-center">{{supplier.province.province}}</td>
+          <td class="text-center">
+            <div *ngFor="let contact of supplier.supplierContacts">
+              {{contact.contactName + " " + contact.contactLastname}}
+              <span
+                ngbTooltip='{{contact.email}} - {{contact.phone}} - {{contact.rol}}'
+                placement="right"
+                container="body"
+                class="ml-2"
+              >
+                <i class="bi bi-info-circle"></i> <!-- Icono de información -->
+              </span>
+            </div>
+          </td>
           <td class="text-center">
             <span
               class="badge rounded-pill"

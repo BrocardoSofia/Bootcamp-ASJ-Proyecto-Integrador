@@ -28,7 +28,7 @@ public class SupplierContactService {
 		
 		if(supplierContactDeleted != null) {
 			supplierContactDeleted.setDeletedAt(LocalDateTime.now());
-			supplierContactDeleted = supplierContactRepository.save(supplierContactDeleted);
+			supplierContactRepository.delete(supplierContactDeleted);
 		}
 		
 		return supplierContactDeleted;
