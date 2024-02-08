@@ -124,13 +124,48 @@
                 </option>
             </select>
 
-            <p>sku</p>
+            <label for="codeInput" class="form-label mt-4">SKU*</label>
+            <input type="text" required id="codeInput" class="form-control" formControlName="codeSKU"
+                placeholder="Ejemplo" name="cuit" [(ngModel)]="product.codeSKU"
+                type="text"
+                />
+            <div *ngIf="productForm.get('codeSKU')?.invalid && productForm.get('codeSKU')?.touched"
+                class="fw-lighter text-danger">
+                El SKU debe tener entre 5 y 50 caracteres.
+            </div>
 
-            <p>nombre</p>
+            <label for="productNameInput" class="form-label mt-4">Nombre del producto*</label>
+            <input type="text" required id="productNameInput" class="form-control" formControlName="productName"
+                placeholder="Ejemplo" name="cuit" [(ngModel)]="product.productName"
+                type="text"
+            />
+            <div *ngIf="productForm.get('productName')?.invalid && productForm.get('productName')?.touched"
+                class="fw-lighter text-danger">
+                El nombre del producto debe tener entre 5 y 50 caracteres.
+            </div>
 
-            <p>descripcion</p>
+            <label for="productDescriptionInput" class="form-label mt-4">Descripción*</label>
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Descripcion del producto aqui..." 
+                id="productDescriptionInput" style="height: 100px"
+                [(ngModel)]="product.productDescription" formControlName="productDescription"></textarea>
+                <label for="floatingTextarea2"></label>
+            </div>
 
-            <p>precio</p>
+            <label for="productNameInput" class="form-label mt-4">Precio*</label>
+            <div class="input-group mb-3">
+                <span class="input-group-text">$</span>
+                <input type="number" class="form-control" aria-label="price" [(ngModel)]="product.price" 
+                formControlName="price">
+                <span class="input-group-text">.00</span>
+            </div>
+            <div *ngIf="productForm.get('productName')?.invalid && productForm.get('productName')?.touched"
+                class="fw-lighter text-danger">
+                El precio no puede ser menor de $0
+            </div>
+
+            
+            
         </form>
 
         <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="productCategories.length === 0">
