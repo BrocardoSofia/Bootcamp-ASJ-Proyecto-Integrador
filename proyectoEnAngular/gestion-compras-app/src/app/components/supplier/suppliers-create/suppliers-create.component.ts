@@ -169,6 +169,19 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if(!this.edit){
+      this.createSupplier();
+    }else{
+      this.modifySupplier();
+    }
+
+  }
+
+  modifySupplier(){
+
+  }
+
+  createSupplier(){
     //Enviar proveedor al back
     this.supplier.supplierContacts = this.supplierContactForm.value.contacts;
     this.suppliersService.addSupplier(this.supplier).subscribe(
@@ -176,11 +189,24 @@ export class SuppliersCreateComponent implements OnInit {
         if(response != null){
           //agrego cada contacto
           this.callSupplierContactsSequentially();
-          this.router.navigate(['/suppliers']);
+          this.supplierLoadedSuccessfully('Se agrego correctamente al proveedor: ' + this.supplier.businessName);
         }
       }
     )
+  }
 
+  private supplierLoadedSuccessfully(textInfo: string){
+    //muestro en un alert que se agrego correctamente el usuario
+    Swal.fire({
+      text: textInfo,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+  
+    //lo redirijo a la pagina anterior
+    this.router.navigate(['/suppliers']);
   }
 
   async callSupplierContactsSequentially() {
