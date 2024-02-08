@@ -150,4 +150,8 @@ export class ProductsCreateComponent implements OnInit{
     this.continueSupplier = true;
   }
 
+  supplierForm(){
+    this.supplierValid = true;
+  }
+
 }

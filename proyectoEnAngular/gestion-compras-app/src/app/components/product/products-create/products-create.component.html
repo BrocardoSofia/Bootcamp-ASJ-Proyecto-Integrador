@@ -104,11 +104,20 @@
             <h2 class="text-center mb-4">No se encontraron proveedores</h2>
             <img src="/assets/userVectorImg.png" alt="Imagen usuario" class="userImg mx-auto d-block">
         </div>
+
+        <button [disabled]="!continueSupplier" class="btn btn-primary mt-2" 
+                (click)="supplierForm()">
+            Continuar
+        </button>
     </section>
 
     <!-- ingresar categoria - sku - nombre - descripcion - precio -->
     <section *ngIf="supplierValid && !productValid">
-        
+        <p>categoria</p>
+        <p>sku</p>
+        <p>nombre</p>
+        <p>descripcion</p>
+        <p>precio</p>
     </section>
 
     <!-- imagenes -->
