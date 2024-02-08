@@ -155,6 +155,9 @@ export class SuppliersCreateComponent implements OnInit {
             this.oldSupplierCode = this.supplier.supplierCode;
             this.oldCategory = this.supplier.supplierCategory.category;
             this.continueSupplierCategory = true;
+            this.idCountry = this.getCountry(this.supplier.province.id);
+            this.selectCountry();
+            this.showProvinces = true;
           }else{
             //lo redirijo a la pagina anterior
             this.router.navigate(['/users']);
@@ -163,6 +166,16 @@ export class SuppliersCreateComponent implements OnInit {
         });
       }
     });
+  }
+
+  getCountry(provinceId: number){
+    for (const country of this.countries) {
+      const foundProvince = country.provinces.find((province) => province.id === provinceId);
+      if (foundProvince) {
+        return country.id;
+      }
+    }
+    return 0;
   }
 
   get contacts(): FormArray {
