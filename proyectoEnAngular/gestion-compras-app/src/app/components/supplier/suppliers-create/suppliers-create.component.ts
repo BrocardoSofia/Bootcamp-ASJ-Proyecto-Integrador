@@ -34,6 +34,8 @@ export class SuppliersCreateComponent implements OnInit {
   oldBusinessName!: string;
   oldSupplierCode!: string;
 
+  oldSupplier!: Supplier;
+
   codeForm!: FormGroup;
   taxDataForm!: FormGroup;
   logoForm!: FormGroup;
@@ -70,6 +72,8 @@ export class SuppliersCreateComponent implements OnInit {
 
   oldCategory: string = '';
   oldContacts: SupplierContact[] = [];
+
+  newContact: number = 0;
 
   constructor(
     private suppliersService: SuppliersService,
@@ -161,6 +165,7 @@ export class SuppliersCreateComponent implements OnInit {
             this.showProvinces = true;
             this.oldContacts = this.supplier.supplierContacts;
             this.contactsAmount = this.oldContacts.length;
+            this.oldSupplier = this.supplier;
           }else{
             //lo redirijo a la pagina anterior
             this.router.navigate(['/users']);
@@ -172,7 +177,33 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   deleteOldContact(index: number){
-
+    Swal.fire({
+      title: "¿Esta seguro de que desea eliminar al contacto "+ 
+              this.oldContacts[index].contactName + " " + 
+              this.oldContacts[index].contactLastname +"?",
+      text: "Se eliminara permanentemente el contacto",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.suppliersService.deleteSupplierContact(this.oldContacts[index].id).subscribe(
+          response=>{
+            this.contactsAmount--;
+            this.oldContacts.splice(index, 1); 
+            this.supplier.supplierContacts = this.oldContacts;
+            Swal.fire({
+              title: "¡Eliminado!",
+              text: "El contacto fue eliminado correctamente",
+              icon: "success"
+            });
+          }
+        )
+        
+      }
+    });
   }
 
   getCountry(provinceId: number){
@@ -193,6 +224,7 @@ export class SuppliersCreateComponent implements OnInit {
     if (this.contacts.length < 3) {
       this.contacts.push(this.createContactGroup());
       this.contactsAmount++;
+      this.newContact++;
     }
   }
 
@@ -212,6 +244,7 @@ export class SuppliersCreateComponent implements OnInit {
   removeContact(index: number): void {
     this.contacts.removeAt(index);
     this.contactsAmount--;
+    this.newContact--;
   }
 
   onSubmit(): void {
@@ -224,7 +257,40 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   modifySupplier(){
+    if(this.supplier == this.oldSupplier && (this.newContact === 0)){
+      Swal.fire({
+        title: "No se realizo ningun cambio en el proveedor",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
+    }else if(this.supplier == this.oldSupplier && (this.newContact !== 0)){
+      this.callSupplierContactsSequentially();
+      this.supplierLoadedSuccessfully('Se modifico correctamente al proveedor: ' + this.supplier.businessName);
+    }else{
+      this.suppliersService.updateSupplier(this.supplier).subscribe(
+        response=>{
+          if(response != null){
+            this.callSupplierContactsSequentially();
+            this.supplierLoadedSuccessfully('Se modifico correctamente al proveedor: ' + this.supplier.businessName);
+          }
+        }
+      )
+      
 
+    }
+    
   }
 
   createSupplier(){
@@ -259,11 +325,12 @@ export class SuppliersCreateComponent implements OnInit {
     const supplierContacts: SupplierContact[] = this.supplierContactForm.value.contacts; 
 
     for (const contact of supplierContacts) {
-        try {
-            await this.suppliersService.addSupplierContact(contact).toPromise();
-        } catch (error) {
-            console.error('Error al agregar el contacto del proveedor:', error);
-        }
+      contact.supplier = this.supplier;
+      try {
+          await this.suppliersService.addSupplierContact(contact).toPromise();
+      } catch (error) {
+          console.error('Error al agregar el contacto del proveedor:', error);
+      }
     }
 }
 

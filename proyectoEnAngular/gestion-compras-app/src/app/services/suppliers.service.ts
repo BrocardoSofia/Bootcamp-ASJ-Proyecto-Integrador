@@ -178,4 +178,8 @@ export class SuppliersService {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post<SupplierContact>(this.urlSupplierContact, supplierContact, { headers });
   }
+
+  public deleteSupplierContact(supplierContactId: number): Observable<SupplierContact> {
+    return this.http.delete<SupplierContact>(this.urlSupplierContact+"/"+supplierContactId);
+  }
 }

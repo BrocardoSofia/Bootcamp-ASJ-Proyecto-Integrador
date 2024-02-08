@@ -389,8 +389,13 @@
             [disabled]="!(contactsAmount < 3)">
                 Agregar Contacto
             </button>
-            <button type="submit" class="btn btn-primary mt-4" 
-            [disabled]="(contactsAmount === 0) || supplierContactForm.invalid" >Guardar</button>
+            <button type="submit" class="btn btn-primary mt-4" *ngIf="edit"
+            [disabled]="(contactsAmount === 0) || supplierContactForm.invalid" >Guardar Cambios
+            </button>
+
+            <button type="submit" class="btn btn-primary mt-4" *ngIf="!edit"
+            [disabled]="(contactsAmount === 0) || supplierContactForm.invalid" >Agregar proveedor
+            </button>
           </form>
     </section>
 
