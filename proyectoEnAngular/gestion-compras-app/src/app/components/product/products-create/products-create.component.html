@@ -85,17 +85,19 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr *ngIf="edit" class="table-warning">
-                    <td>Proveedor actual: {{ oldSupplier }}</td>
+                <tr *ngIf="edit" class="table-warning">
+                    <td>Proveedor actual: {{ oldSupplier.businessName }}</td>
                     <td></td>
-                </tr> -->
-                <!-- <tr *ngFor="let supplier of suppliers" 
-                    (click)="selectSupplierCategory(suplierCategory)"
-                    [ngClass]="(suplierCategory.id === supplierCategorySavedId
-                                || suplierCategory.id === supplier.supplierCategory.id)?'table-success':''">
-                    <td>{{ suplierCategory.category}}</td>
-                    <td>{{ suplierCategory.createdAt | date}}</td>
-                </tr> -->
+                </tr>
+                <tr *ngFor="let supplier of suppliers" (click)="selectSupplier(supplier)"
+                    [ngClass]="(supplier.id === supplierSavedId
+                    || supplier.id === supplier.supplierCategory.id)?'table-success':''"
+                >
+                    <td class="text-center"><img [src]="supplier.imageUrl" style="width: 5vw;"
+                        alt="Logo previsualizado" class="mt-2"></td>
+                    <td class="text-center">{{supplier.supplierCode}}</td>
+                    <td class="text-center">{{supplier.businessName}}</td>
+                </tr>
             </tbody>
         </table>
     </section>

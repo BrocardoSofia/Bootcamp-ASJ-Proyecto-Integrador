@@ -37,6 +37,12 @@ export class ProductsCreateComponent implements OnInit{
   productValid:boolean = false;
   imagesValid:boolean = false;
 
+  oldSupplier!:Supplier;
+
+  product!:Product;
+  supplierSavedId:number = -1;
+  continueSupplier: boolean = false;
+
   constructor(
     private productsService: ProductsService,
     private suppliersService: SuppliersService,
@@ -46,11 +52,14 @@ export class ProductsCreateComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-    this.suppliersService.getAllActiveSuppliers(0,'','','',-1).subscribe(
+    this.suppliersService.getAllActiveSuppliers(0,this.getSort(),this.searchBusinessName,
+    this.searchSupplierCode,this.searchSupplierCategoryId).subscribe(
       response=>{
-        this.suppliers = response;
+        this.suppliers = response.content;
       }
     )
+
+    this.product = this.productsService.inicProduct();
   }
 
   nextPage(){
@@ -133,6 +142,12 @@ export class ProductsCreateComponent implements OnInit{
               this.pages = data.totalPages;
             }
             );  
+  }
+
+  selectSupplier(supplier: Supplier){
+    this.product.supplier = supplier;
+    this.supplierSavedId = supplier.id;
+    this.continueSupplier = true;
   }
 
 }
