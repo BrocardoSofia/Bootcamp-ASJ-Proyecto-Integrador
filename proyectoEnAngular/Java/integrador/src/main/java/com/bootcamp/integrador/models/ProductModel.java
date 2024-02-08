@@ -59,11 +59,6 @@ public class ProductModel {
     @Size(min = 0, message = "Price must be greater than 0")
     double price;
     
-    @NotNull(message = "Stock cannot be null")
-    @NotBlank(message = "Stock cannot be empty")
-    @Size(min = 0, message = "Stock must be greater than 0")
-    int stock;
-    
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
@@ -82,7 +77,7 @@ public class ProductModel {
     }
 
 	public ProductModel(SupplierModel supplier, ProductCategoryModel productCategory, UserModel createdBy,
-						String codeSKU, String productName, String productDescription, double price, int stock) {
+						String codeSKU, String productName, String productDescription, double price) {
 		this.supplier = supplier;
 		this.productCategory = productCategory;
 		this.createdBy = createdBy;
@@ -90,7 +85,6 @@ public class ProductModel {
 		this.productName = productName;
 		this.productDescription = productDescription;
 		this.price = price;
-		this.stock = stock;
 		this.createdAt = LocalDateTime.now();
 		this.updatedAt = null;
 		this.deletedAt = null; 
@@ -152,14 +146,6 @@ public class ProductModel {
 		this.price = price;
 	}
 
-	public int getStock() {
-		return stock;
-	}
-
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
@@ -188,7 +174,7 @@ public class ProductModel {
 	public String toString() {
 		return "ProductModel [id=" + id + ", supplier=" + supplier.toString() + ", productCategory=" + productCategory.toString()
 				+ ", createdBy=" + createdBy.toString() + ", codeSKU=" + codeSKU + ", productName=" + productName
-				+ ", productDescription=" + productDescription + ", price=" + price + ", stock=" + stock
+				+ ", productDescription=" + productDescription + ", price=" + price 
 				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
 	}
     

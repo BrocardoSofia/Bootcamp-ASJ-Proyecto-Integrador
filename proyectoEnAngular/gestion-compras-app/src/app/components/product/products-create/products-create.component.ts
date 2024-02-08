@@ -14,7 +14,8 @@ import { auto } from '@popperjs/core';
   styleUrl: './products-create.component.css'
 })
 export class ProductsCreateComponent implements OnInit{
-
+  edit: boolean = false;
+  
 
   constructor(
     private productsService: ProductsService,
