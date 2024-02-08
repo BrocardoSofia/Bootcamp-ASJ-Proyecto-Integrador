@@ -319,6 +319,10 @@
     <!-- contactos -->
     <section *ngIf="businessInfoValid">
         <!-- mostrar contactos anteriores -opcion de eliminar -->
+        <article *ngIf="oldContacts.length !== 0">
+            <h4>Contactos anteriores: </h4>
+            <!-- cards con datos anteriores -->
+        </article>
         
         <form [formGroup]="supplierContactForm" (ngSubmit)="onSubmit()">
             <div formArrayName="contacts">
