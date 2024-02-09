@@ -37,6 +37,7 @@ export class ProductsComponent implements OnInit{
   productNameSort:SortOrder = 'None';
 
   supplierCategories: SupplierCategory[] = [];
+  selectedsupplierCategory: number = 0;
   productCategories: ProductCategory[] = [];
 
   constructor(private productsService: ProductsService,
@@ -230,6 +231,10 @@ export class ProductsComponent implements OnInit{
     this.searchSKU = '';
     this.searchSKUOn = false;
     this.selectPage(this.currentPage);
+  }
+
+  searchSupplierCategory(){
+    this.productCategories = this.supplierCategories[this.selectedsupplierCategory].products;
   }
 
   searchByProductCategory(){

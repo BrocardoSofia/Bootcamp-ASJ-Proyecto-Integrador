@@ -71,12 +71,29 @@
   <section style="background-color: #fff; height: 9vh;" 
   class="m-0 p-2 container-fluid filterItems border-bottom">
     <article class="row">
-      <div class="col-md-9 d-flex justify-content-start filterItems">
+      <div class="col-md-3 d-flex justify-content-start filterItems">
         <select class="form-select select-filter" aria-label="Default select example" 
         [(ngModel)]="selectedOption" (ngModelChange)="changeStatusFilter()">
           <option value="1">Todos</option>
           <option value="2">Activos</option>
           <option value="3">Eliminados</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 d-flex justify-content-start filterItems">
+        <select class="form-select select-filter" aria-label="Default select example" 
+        [(ngModel)]="selectedsupplierCategory" (ngModelChange)="changeStatusFilter()">
+          <option value = 0 disabled selected >Rubros</option>
+          <option *ngFor="let supplierCategory of supplierCategories; index as i" value=i>
+            {{supplierCategory.category}}
+          </option>
+        </select>
+      </div>
+
+      <div class="col-md-3 d-flex justify-content-start filterItems">
+        <select class="form-select select-filter" aria-label="Default select example" 
+        [(ngModel)]="selectedOption" (ngModelChange)="changeStatusFilter()">
+          <option value = 0 disabled selected >Categorias</option>
         </select>
       </div>
   
