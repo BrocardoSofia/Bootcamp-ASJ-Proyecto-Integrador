@@ -207,7 +207,7 @@
 
         <article class="row mt-3 ">
             <section *ngFor="let image of images" class="col-md-4">
-                <img [src]="image" alt="Imagen" style="width: 100%;">
+                <img [src]="image" alt="Imagen" style="width: 100%;" (error)="changeImage($event)">
                 <button (click)="removeImage(image)" class="btn btn-danger mt-2">
                     Eliminar
                 </button>

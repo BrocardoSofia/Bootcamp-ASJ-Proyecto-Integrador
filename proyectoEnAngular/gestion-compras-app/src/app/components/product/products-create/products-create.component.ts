@@ -201,6 +201,11 @@ export class ProductsCreateComponent implements OnInit{
     )
   }
 
+  changeImage(event: Event): void {
+    const imagen = event.target as HTMLImageElement;
+    imagen.src = '/assets/imageNotFound.jpg';
+  }
+
   private productLoadedSuccessfully(textInfo: string){
     //muestro en un alert que se agrego correctamente el usuario
     Swal.fire({
