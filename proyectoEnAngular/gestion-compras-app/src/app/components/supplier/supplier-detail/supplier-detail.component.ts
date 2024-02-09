@@ -36,7 +36,7 @@ export class SupplierDetailComponent implements OnInit{
             
           }else{
             //lo redirijo a la pagina anterior
-            this.router.navigate(['/users']);
+            this.router.navigate(['/suppliers']);
           }
 
           this.productsService.getAllProductsBySupplierId(this.supplier.id).subscribe(

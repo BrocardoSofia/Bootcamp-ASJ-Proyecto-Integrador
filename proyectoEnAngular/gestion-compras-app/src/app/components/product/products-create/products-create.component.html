@@ -192,9 +192,6 @@
 
     <!-- imagenes -->
     <section *ngIf="productValid">
-        <article *ngIf="oldProductImages.length !== 0">
-            aca muestro las imagenes ya cargadas
-        </article>
 
         <form (ngSubmit)="addImage()">
             <label for="newImageInput" class="form-label mt-4">Nueva imagen*</label>

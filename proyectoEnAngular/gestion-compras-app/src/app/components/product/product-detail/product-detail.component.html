@@ -1,1 +1,54 @@
-<p>product-detail works!</p>
+<section class="bg-light ">
+    <div class="container" >
+        <div style="display: flex; align-content: center;">
+            <h1 class="pt-3 pb-2 text-center " style="margin-left: 10px;">
+              <img src="/assets/box-seam-fill.svg" alt="icono user"
+               class="icono">
+              Detalle del producto '{{product.productName}}'</h1>
+        </div>
+
+        <ul class="list-group mt-2 mb-2 ">
+            <li class="list-group-item">
+                <strong>SKU</strong> 
+                <article>
+                    {{product.codeSKU}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Categoría</strong> 
+                <article>
+                    {{product.productCategory.category}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Proveedor</strong> 
+                <article>
+                    {{product.supplier.businessName}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Descripción</strong> 
+                <article>
+                    {{product.productDescription}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Precio</strong> 
+                <article>
+                    {{product.price | currency}}
+                </article>
+            </li>
+        </ul>
+
+        <h4 class="pt-5 pb-2 " style="margin-left: 10px;" *ngIf=" product.productImages.length !== 0">
+            Imagenes
+        </h4>
+        <article class="row mt-3 ">
+            <section *ngFor="let image of product.productImages" class="col-md-4">
+                <img [src]="image.imageURL" alt="Imagen" style="width: 100%;">
+            </section>
+        </article>
+
+        
+    </div>
+</section>
