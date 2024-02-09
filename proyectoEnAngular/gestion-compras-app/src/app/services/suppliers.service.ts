@@ -84,7 +84,7 @@ export class SuppliersService {
   public updateSupplier(supplier: Supplier): Observable<Supplier> {
     const headers = { 'Content-Type': 'application/json' };
     const url = this.url + "/" + this.loginService.getUserId();
-    return this.http.put<Supplier>(this.url, supplier, { headers });
+    return this.http.put<Supplier>(url, supplier, { headers });
   }
 
   public businessNameExists(businessName: string): Observable<boolean> {

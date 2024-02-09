@@ -95,11 +95,12 @@
             </thead>
             <tbody>
                 <tr *ngIf="edit" class="table-warning">
-                    <td>Proveedor actual: {{ oldSupplier.businessName }}</td>
+                    <td>Proveedor actual: {{ oldProduct.supplier.businessName }}</td>
+                    <td></td>
                     <td></td>
                 </tr>
                 <tr *ngFor="let supplier of suppliers" (click)="selectSupplier(supplier)"
-                    [ngClass]="(supplier.id === supplierSavedId
+                    [ngClass]="(supplier.id === oldProduct.supplier.id
                     || supplier.id === supplier.supplierCategory.id)?'table-success':''"
                 >
                     <td class="text-center"><img [src]="supplier.imageUrl" style="width: 5vw;"
@@ -216,8 +217,12 @@
             </section>
         </article>
 
-        <button class="btn btn-primary mt-4" (click)="onSubmit()">
+        <button class="btn btn-primary mt-4" (click)="onSubmit()" *ngIf="!edit">
             Agregar nuevo producto
+        </button>
+
+        <button class="btn btn-primary mt-4" (click)="onSubmit()" *ngIf="edit">
+            Modificar producto
         </button>
     </section>
 </div>

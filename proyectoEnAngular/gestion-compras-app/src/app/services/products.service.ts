@@ -69,10 +69,16 @@ export class ProductsService {
     return this.http.post<ProductImage>(this.urlImages, productImage, { headers });
   }
 
+  public deleteProductImage(productImage: ProductImage): Observable<Product> {
+    const url = this.urlImages + "/" + productImage.id;
+
+    return this.http.delete<Product>(url);
+  }
+
   public updateProduct(product: Product): Observable<Product> {
     const headers = { 'Content-Type': 'application/json' };
     const url = this.url + "/" + this.loginService.getUserId();
-    return this.http.put<Product>(this.url, product, { headers });
+    return this.http.put<Product>(url, product, { headers });
   }
 
   public codeSkuExists(codeSku: string): Observable<boolean> {
