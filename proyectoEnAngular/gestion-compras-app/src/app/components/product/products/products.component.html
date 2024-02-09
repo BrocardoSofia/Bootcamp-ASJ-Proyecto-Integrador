@@ -1,19 +1,111 @@
 <div class="container">
-    <section class="m-0 d-flex title">
-        <div class="col-md-10 ps-0 ">
-          <div style="display: flex; align-content: center;">
-            <h1 class="pt-4 pb-2 text-center " style="margin-left: 10px; color:#2f2f2f;">
-              <img src="/assets/box-seam-fill.svg" alt="icono user" class="icono">
-              Productos</h1>
-          </div>
-        </div>
-        <div class="col-md-2">
-          <div class="input-group justify-content-end input-group-append pt-2 ">
-            <button type="button" class="btn btn-outline-primary ml-auto" routerLink="./new">
-              <i class="bi bi-person-fill-add"></i>
-              Nuevo producto
-            </button>
-          </div>
-        </div>
-      </section>
+  <section class="m-0 d-flex title">
+    <div class="col-md-10 ps-0 ">
+      <div style="display: flex; align-content: center;">
+        <h1 class="pt-4 pb-2 text-center " style="margin-left: 10px; color:#2f2f2f;">
+          <img src="/assets/box-seam-fill.svg" alt="icono user" class="icono">
+          Productos</h1>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="input-group justify-content-end input-group-append pt-2 ">
+        <button type="button" class="btn btn-outline-primary ml-auto" routerLink="./new">
+          <i class="bi bi-person-fill-add"></i>
+          Nuevo producto
+        </button>
+      </div>
+    </div>
+  </section>
+  <table class="table m-0 p-4" *ngIf="products.length !== 0">
+    <thead>
+      <tr class="table">
+        <th scope="col" class="text-center">Imagen</th>
+        <th scope="col" class="text-center">SKU</th>
+        <th scope="col" class="columnSort text-center" (click)="changeSort('productName')">Nombre del producto 
+          <i *ngIf="productNameSort === 'None'" class="bi bi-arrow-down-up"></i>
+          <i *ngIf="productNameSort === 'desc'" class="bi bi-arrow-down"></i>
+          <i *ngIf="productNameSort === 'asc'" class="bi bi-arrow-up"></i>
+        </th>
+        <th scope="col" class="text-center">Categoria</th>
+        <th scope="col" class="columnSort text-center" (click)="changeSort('price')">Precio 
+          <i *ngIf="priceSort === 'None'" class="bi bi-arrow-down-up"></i>
+          <i *ngIf="priceSort === 'desc'" class="bi bi-arrow-down"></i>
+          <i *ngIf="priceSort === 'asc'" class="bi bi-arrow-up"></i>
+        </th>
+        <th scope="col" class="text-center">Proveedor</th>
+        <th scope="col" class="text-center">Estado</th>
+        <th scope="col" class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td class="text-center">
+          <img *ngIf="product.productImages.length !== 0" [src]="product.productImages[0].imageURL" 
+          (error)="changeImage($event)"
+          style="width: 5vw;" alt="Logo previsualizado" class="mt-2">
+          <img *ngIf="product.productImages.length === 0" src = '/assets/imageNotFound.jpg'
+          style="width: 5vw;" alt="Logo previsualizado" class="mt-2"></td>
+        <td class="text-center">{{product.codeSKU}}</td>
+        <td class="text-center">{{product.productName}}</td>
+        <td class="text-center">{{product.productCategory.category}}</td>
+        <td class="text-center">{{product.price | currency}}</td>
+        <td class="text-center">{{product.supplier.businessName}}</td>
+        <td class="text-center">
+          <span
+            class="badge rounded-pill"
+            [ngClass]="(product.deletedAt !== null) ? 'bg-danger' : 'bg-success'"
+          >
+            {{getProductState(product)}}
+          </span>
+        </td>
+        <td class="text-center">
+          <button
+            type="button"
+            class="btn btn-outline-primary rounded-circle btn-icon me-3"
+            routerLink="./detail"
+            [queryParams]="{ product: product.id}"
+          >
+            <i class="bi bi-search"></i>
+          </button>
+
+          <button
+            type="button"
+            class="btn btn-outline-success rounded-circle btn-icon me-3"
+            routerLink="./edit"
+            [queryParams]="{ product: product.id}"
+          >
+            <i class="bi bi-pencil-fill"></i>
+          </button>
+
+          <button
+          *ngIf="product.deletedAt === null"
+            type="button"
+            class="btn btn-outline-danger rounded-circle btn-icon"
+            (click)="deleteProduct(product)"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <i class="bi bi-person-dash-fill"></i>
+          </button>
+
+          <button
+          *ngIf="product.deletedAt !== null"
+            type="button"
+            class="btn btn-outline-warning rounded-circle btn-icon"
+            (click)="reInsertProduct(product)"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            <i class="bi bi-person-plus-fill"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table> 
+
+  <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="products.length === 0">
+      <h2 class="text-center mb-4">No se encontraron productos</h2>
+      <img src="/assets/userVectorImg.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+  </div>
+
 </div>

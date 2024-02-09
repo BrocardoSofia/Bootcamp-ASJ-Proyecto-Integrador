@@ -65,6 +65,11 @@ export class ProductsComponent implements OnInit{
     )
   }
 
+  changeImage(event: Event): void {
+    const imagen = event.target as HTMLImageElement;
+    imagen.src = '/assets/imageNotFound.jpg';
+  }
+
   getProductState(product: Product){
     return (product.deletedAt !== null)?'Inactivo':'Activo';
   }
@@ -95,7 +100,7 @@ export class ProductsComponent implements OnInit{
     });
   }  
 
-  reInsertSupplier(product: Product){
+  reInsertProduct(product: Product){
     Swal.fire({
       title: "Reingresando el producto: " + product.productName,
       text: "¿Esta seguro que desea reingresar el producto?",
@@ -233,7 +238,7 @@ export class ProductsComponent implements OnInit{
   
   changeSort(columnName: string){
     switch(columnName){
-      case 'businessName':
+      case 'price':
         if(this.priceSort === 'None'){
           this.priceSort = 'desc';
         }else if(this.priceSort === 'desc'){
