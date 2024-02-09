@@ -44,6 +44,8 @@ public class PurchaseOrderService {
 			purchaseOrderFound.setUpdatedAt(LocalDateTime.now());
 			
 			purchaseOrderFound = purchaseOrderRepository.save(purchaseOrderFound);
+			
+			return purchaseOrderFound;
 		}
 		
 		return null;

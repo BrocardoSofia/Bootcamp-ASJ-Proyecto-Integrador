@@ -239,8 +239,11 @@
               class="form-control"></textarea>
             </div>
           
-            <button type="submit" class="btn btn-primary mt-3" 
-            [disabled]="detailForm.invalid">Enviar</button>
+            <button type="submit" class="btn btn-primary mt-3" *ngIf="!edit"
+            [disabled]="detailForm.invalid">Crear Orden de Compra</button>
+
+            <button type="submit" class="btn btn-primary mt-3" *ngIf="edit"
+            >Modificar Orden de Compra</button>
           </form>
 
     </section>

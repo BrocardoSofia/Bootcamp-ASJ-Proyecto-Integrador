@@ -183,7 +183,21 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   }
 
   modifyPurchaseOrder(){
-
+    //guardar estado
+    this.purchaseOrder.purchaseState.id = this.purchaseStateId;
+    //guardar informacion de recepcion y guardar fecha de recepcion
+    let deliveryDate: any = this.detailForm.get('deliveryDate');
+    let receptionInfo: any = this.detailForm.get('receptionInfo');
+    if (this.detailForm.valid && deliveryDate !== null && receptionInfo!==null) {
+      this.purchaseOrder.deliveryDate = deliveryDate.value;
+      this.purchaseOrder.receptionInfo = receptionInfo.value;
+    }
+    
+    this.purchaseOrdersService.updatePurchaseOrder(this.purchaseOrder).subscribe(
+      data=>{
+        this.productLoadedSuccessfully('Se modifico correctamente la orden de compra: ' + data.purchaseOrderNumber);
+      }
+    )
   }
 
   getCurrentDateTime(): string {
