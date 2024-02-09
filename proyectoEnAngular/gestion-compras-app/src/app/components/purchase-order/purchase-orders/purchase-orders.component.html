@@ -16,4 +16,90 @@
           </div>
         </div>
       </section>
+      <section class="m-0 p-2 table-header bg-primary-subtle d-flex">
+        <div class="col-md-6 ps-2">
+          <h2 class="text-left">Tabla de proveedores</h2>
+        </div>
+        <nav class="col-md-6 d-flex justify-content-end filterItems pe-3" 
+          aria-label="Page navigation example">
+            <ul class="pagination">
+              <li class="page-item" (click)="prevPage()">
+                <a class="page-link" 
+                    aria-label="Previous" 
+                    style="cursor: pointer;"
+                    [ngClass]="(currentPage != 0)?'':'disabled'"
+                >
+                  <span aria-hidden="true">Prev</span>
+                </a>
+              </li>
+              <li class="page-item" *ngFor="let page of getPages()">
+                <a class="page-link" 
+                    [ngClass]="((currentPage+1) === page)?'active':''" 
+                    style="cursor: pointer;"
+                    (click)="selectPage(page-1)">{{page}}
+              </a>
+              </li>
+              <li class="page-item" 
+              (click)="nextPage()">
+                <a class="page-link" 
+                  aria-label="Next"
+                  style="cursor: pointer;"
+                  [ngClass]="((pages !== 1) && (currentPage+1 !== pages)?'':'disabled')">
+                  <span aria-hidden="true">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+      </section>
+    
+      
+      
+      <table class="table m-0 p-4" *ngIf="purchaseOrder.length !== 0">
+          <thead>
+            <tr class="table">
+              <th scope="col" class="text-center">Nº de orden</th>
+              <th scope="col" class="text-center">Fecha de emisión de la orden</th>
+              <th scope="col" class="text-center">Fecha de entrega esperada</th>
+              <th scope="col" class="text-center">Proveedor</th>
+              <th scope="col" class="text-center">Estado</th>
+              <th scope="col" class="text-center">Total</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let purchase of purchaseOrder">
+              <td class="text-center">{{purchase.purchaseOrderNumber}}</td>
+              <td class="text-center">{{purchase.createdAt | date}}</td>
+              <td class="text-center">{{purchase.deliveryDate | date}}</td>
+              <td class="text-center">{{purchase.supplier.businessName}}</td>
+              <td class="text-center">{{purchase.purchaseState.purchaseState}}</td>
+              <td class="text-center">{{getTotal(purchase)|currency}}</td>
+              <td class="text-center">
+                <button
+                  type="button"
+                  class="btn btn-outline-primary rounded-circle btn-icon me-3"
+                  routerLink="./detail"
+                  [queryParams]="{ purchaseOrder: purchase.id}"
+                >
+                  <i class="bi bi-search"></i>
+                </button>
+    
+                <button
+                  type="button"
+                  class="btn btn-outline-success rounded-circle btn-icon me-3"
+                  routerLink="./edit"
+                  [queryParams]="{ purchaseOrder: purchase.id}"
+                >
+                  <i class="bi bi-pencil-fill"></i>
+                </button>
+      
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    
+      <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="purchaseOrder.length === 0">
+          <h2 class="text-center mb-4">No se encontraron ordenes de compra</h2>
+          <img src="/assets/producto.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+      </div>
 </div>

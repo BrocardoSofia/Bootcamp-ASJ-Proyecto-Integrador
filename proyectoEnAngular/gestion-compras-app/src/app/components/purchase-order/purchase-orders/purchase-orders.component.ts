@@ -66,5 +66,14 @@ export class PurchaseOrdersComponent implements OnInit{
     this.currentPage--;
     this.selectPage(this.currentPage);
   }
+
+  getTotal(purchaseOrder:PurchaseOrder){
+    let total: number = 0;
+
+    for(let product of purchaseOrder.purchaseOrdersProducts){
+      total += (product.amount * product.price);
+    }
+    return total;
+  }
   
 }
