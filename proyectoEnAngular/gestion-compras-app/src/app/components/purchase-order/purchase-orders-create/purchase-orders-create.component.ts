@@ -96,14 +96,42 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   }
 
   submitForm() {
+    if(!this.edit){
+      this.createPurchaseOrder();
+    }else{
+      this.modifyPurchaseOrder();
+    }
+  }
+
+  createPurchaseOrder(){
     let deliveryDate: any = this.detailForm.get('deliveryDate');
     if (this.detailForm.valid && deliveryDate !== null) {
       this.purchaseOrder.deliveryDate = deliveryDate.value;
       this.purchaseOrder.receptionInfo = this.receptionInfo;
 
       //agregar a la base de datos
-      console.log(this.purchaseOrder);
+      this.purchaseOrdersService.addPurchaseOrder(this.purchaseOrder).subscribe(
+        response=>{
+
+        }
+      )
     }
+  }
+
+  async callProductImagesSequentially(purchaseOrderAdded: PurchaseOrder) {
+    for (const product of this.productPurchase) {
+      product.purchaseOrder = purchaseOrderAdded;
+
+      try {
+          await this.purchaseOrdersService.addPurchaseOrderProduct(product).toPromise();
+      } catch (error) {
+          console.error('Error al agregar el producto:', error);
+      }
+    }
+  }
+
+  modifyPurchaseOrder(){
+
   }
 
   getCurrentDateTime(): string {
@@ -238,7 +266,7 @@ export class PurchaseOrdersCreateComponent implements OnInit {
     let pos:number = -1;
 
     while(i<this.productPurchase.length && pos === -1){
-      if(this.productPurchase[i].code == productPurchase.code){
+      if(this.productPurchase[i].product.id == productPurchase.product.id){
         pos = i;
       }
       i++;
@@ -255,18 +283,33 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   private productToProductPurchase(){
     let productPurchase: ProductPurchase = {
-      code: '',
-      category: '',
-      name: '',
+      id: 0,
+      purchaseOrder: this.purchaseOrdersService.inicPurchaseOrder(),
+      product: this.productsService.inicProduct(),
+      productCategory: {
+        id: 0,
+        category: '',
+        supplierCategory: {
+          id: 0,
+          category: '',
+          createdAt: new Date,
+          updatedAt: null,
+          deletedAt: null,
+          products: []
+        },
+        createdAt: new Date,
+        updatedAt: null,
+        deletedAt: null
+      },
       price: 0,
-      amount: 0
+      amount: 0,
+      createdAt: new Date
     }
 
-    productPurchase.code = this.products[this.indexProductSelected].codeSKU
-    productPurchase.category = this.products[this.indexProductSelected].productCategory.category;
-    productPurchase.name = this.products[this.indexProductSelected].productName;
-    productPurchase.amount = this.productAmount;
+    productPurchase.product = this.products[this.indexProductSelected];
+    productPurchase.productCategory = this.products[this.indexProductSelected].productCategory;
     productPurchase.price = this.products[this.indexProductSelected].price;
+    productPurchase.amount = this.productAmount;
 
     return productPurchase;
 

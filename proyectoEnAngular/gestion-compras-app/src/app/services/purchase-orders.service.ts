@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class PurchaseOrdersService {
   private url: string = 'http://localhost:8080/purchase-orders';
+  private urlPurchaseOrderProduct: string = 'http://localhost:8080/purchase-order-product';
   private urlPurchaseState: string = 'http://localhost:8080/purchase-states';
 
   constructor(private http: HttpClient,
@@ -47,6 +48,11 @@ export class PurchaseOrdersService {
     const headers = { 'Content-Type': 'application/json' };
     purchaseOrder.createdBy.id = this.loginService.getUserId();
     return this.http.post<PurchaseOrder>(this.url, purchaseOrder, { headers });
+  }
+
+  public addPurchaseOrderProduct(productPurchase: ProductPurchase): Observable<PurchaseOrder> {
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.post<PurchaseOrder>(this.urlPurchaseOrderProduct, productPurchase, { headers });
   }
 
   public updatePurchaseOrder(purchaseOrder: PurchaseOrder): Observable<PurchaseOrder> {

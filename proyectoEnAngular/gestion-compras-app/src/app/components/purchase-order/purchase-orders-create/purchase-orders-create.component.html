@@ -174,8 +174,8 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let product of productPurchase; index as i">
-                                <td class="text-center">{{product.code}}</td>
-                                <td class="text-center">{{product.name}}</td>
+                                <td class="text-center">{{product.product.codeSKU}}</td>
+                                <td class="text-center">{{product.product.productName}}</td>
                                 <td class="text-center">{{product.price | currency}}</td>
                                 <td class="text-center">{{product.amount}}</td>
                                 <td class="text-center">{{getTotal(product) | currency}}</td>

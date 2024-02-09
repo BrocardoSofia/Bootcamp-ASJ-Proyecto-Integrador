@@ -1,7 +1,13 @@
+import { Product } from "./product";
+import { ProductCategory } from "./product-category";
+import { PurchaseOrder } from "./purchase-order";
+
 export interface ProductPurchase{
-    code: string,
-    category: string,
-    name: string,
+    id: number,
+    purchaseOrder: PurchaseOrder,
+    product: Product,
+    productCategory: ProductCategory,
     price: number,
-    amount: number
+    amount: number,
+    createdAt: Date
 }
