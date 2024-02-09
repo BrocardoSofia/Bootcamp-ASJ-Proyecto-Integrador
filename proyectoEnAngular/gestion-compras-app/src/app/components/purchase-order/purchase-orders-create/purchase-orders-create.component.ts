@@ -247,6 +247,6 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   }
 
   continueProducts(){
-
+    this.productsValid = true;
   }
 }
