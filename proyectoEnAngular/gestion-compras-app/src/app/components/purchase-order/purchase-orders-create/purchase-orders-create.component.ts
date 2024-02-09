@@ -65,6 +65,10 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   purchaseStateId: number = 0;
 
+  editReceptionInfo: string = '';
+  receptionDate: Date = new Date;
+  dateNow: Date = new Date;
+
   constructor(
     private suppliersService: SuppliersService,
     private productsService: ProductsService,
@@ -110,6 +114,8 @@ export class PurchaseOrdersCreateComponent implements OnInit {
               this.purchaseOrder = response;
               this.edit = true;
               this.purchaseStateId = response.purchaseState.id;
+              this.receptionDate = response.deliveryDate;
+              this.editReceptionInfo = response.receptionInfo;
             }else{
               //lo redirijo a la pagina anterior
               this.router.navigate(['/purchase-orders']);
@@ -186,12 +192,10 @@ export class PurchaseOrdersCreateComponent implements OnInit {
     //guardar estado
     this.purchaseOrder.purchaseState.id = this.purchaseStateId;
     //guardar informacion de recepcion y guardar fecha de recepcion
-    let deliveryDate: any = this.detailForm.get('deliveryDate');
-    let receptionInfo: any = this.detailForm.get('receptionInfo');
-    if (this.detailForm.valid && deliveryDate !== null && receptionInfo!==null) {
-      this.purchaseOrder.deliveryDate = deliveryDate.value;
-      this.purchaseOrder.receptionInfo = receptionInfo.value;
-    }
+    this.purchaseOrder.deliveryDate = this.receptionDate;
+    this.purchaseOrder.receptionInfo = this.editReceptionInfo;
+
+    console.log(this.editReceptionInfo);
     
     this.purchaseOrdersService.updatePurchaseOrder(this.purchaseOrder).subscribe(
       data=>{

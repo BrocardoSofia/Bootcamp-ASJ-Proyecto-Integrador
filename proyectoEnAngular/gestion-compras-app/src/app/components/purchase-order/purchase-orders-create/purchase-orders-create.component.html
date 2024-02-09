@@ -219,7 +219,32 @@
                 
         </div>
 
-        <form [formGroup]="detailForm" (ngSubmit)="submitForm()">
+        <form (ngSubmit)="submitForm()" *ngIf="edit">
+
+            <div class="form-group">
+                <label for="fecha">Fecha de entrega esperada:</label>
+                <input type="datetime-local"
+                  id="deliveryDate"
+                  class="form-control"
+                  [min]="getCurrentDateTime()"
+                  name="deliveryDate" [(ngModel)]="receptionDate">
+                <div *ngIf="receptionDate > dateNow" class="text-danger">
+                  La fecha debe ser posterior a la actual.
+                </div>
+              </div>
+            
+              <div class="form-group mt-3">
+                <label for="comentario">Información de recepción</label>
+                <textarea id="receptionInfoEdit" [(ngModel)]="editReceptionInfo"
+                class="form-control"></textarea>
+              </div>
+  
+              <button type="submit" class="btn btn-primary mt-3"
+              >Modificar Orden de Compra</button>
+        </form>
+
+
+        <form [formGroup]="detailForm" (ngSubmit)="submitForm()" *ngIf="!edit">
             <div class="form-group">
               <label for="fecha">Fecha de entrega esperada:</label>
               <input type="datetime-local"
@@ -241,9 +266,6 @@
           
             <button type="submit" class="btn btn-primary mt-3" *ngIf="!edit"
             [disabled]="detailForm.invalid">Crear Orden de Compra</button>
-
-            <button type="submit" class="btn btn-primary mt-3" *ngIf="edit"
-            >Modificar Orden de Compra</button>
           </form>
 
     </section>
