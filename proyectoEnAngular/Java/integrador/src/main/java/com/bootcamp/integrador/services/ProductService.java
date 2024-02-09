@@ -45,6 +45,10 @@ public class ProductService {
 		return page;
 	}
 	
+	public int countProducts() {
+	    return (int) productRepository.count();
+	}
+	
 	//obtener productos activos
 	public Page<ProductModel> getActiveProducts(Pageable pageable, int productCategoryId, String codeSKU, String productName, String productDescription){
 		Page<ProductModel> page;

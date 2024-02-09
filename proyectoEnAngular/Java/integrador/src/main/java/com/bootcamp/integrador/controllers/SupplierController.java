@@ -37,6 +37,12 @@ public class SupplierController {
     	return supplierService.getSuppliers(pageable, businessName, supplierCode, supplierCategoryId);
     }
     
+    //cantidad
+    @GetMapping("/count")
+    public int countSuppliers() {
+        return supplierService.countSuppliers();
+    }
+    
     //obtener proveedores activos
     @GetMapping("/active")
     public Page<SupplierModel> getActiveSuppliers(Pageable pageable, 

@@ -61,6 +61,10 @@ public class PurchaseOrderService {
 	    return (int) purchaseOrderRepository.count() + 1;
 	}
 	
+	public int countPurchaseOrderNumber() {
+	    return (int) purchaseOrderRepository.count();
+	}
+	
 	//obtener un proveedor segun su id
 	public Optional<PurchaseOrderModel> getPurchaseOrderById(int id){
 		return purchaseOrderRepository.findById(id);

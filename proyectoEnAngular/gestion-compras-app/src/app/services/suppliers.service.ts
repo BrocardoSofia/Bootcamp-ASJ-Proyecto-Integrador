@@ -91,6 +91,13 @@ export class SuppliersService {
 
     return this.http.get(urlGet);
   }
+
+  //get last number
+  countSuppliers(): Observable<number> {
+    let urlGet = this.url+"/count";
+
+    return this.http.get<number>(urlGet);
+  }
   
   public addSupplier(supplier: Supplier): Observable<Supplier> {
     const headers = { 'Content-Type': 'application/json' };

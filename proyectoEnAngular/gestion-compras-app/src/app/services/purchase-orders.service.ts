@@ -74,6 +74,13 @@ export class PurchaseOrdersService {
     return this.http.get<number>(urlGet);
   }
 
+  //get last number
+  countPurchaseOrderNumber(): Observable<number> {
+    let urlGet = this.url+"/count";
+
+    return this.http.get<number>(urlGet);
+  }
+
   //get by user
   getPurchaseOrdersByUserId(pageNumber:number, orderBy: string, userId:number): Observable<any> {
     let urlGet = this.url+"/byUser/"+userId+"?page="+pageNumber+"&size=10"+orderBy;

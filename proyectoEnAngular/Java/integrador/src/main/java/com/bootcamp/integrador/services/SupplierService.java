@@ -42,6 +42,10 @@ public class SupplierService {
 		return page;
 	}
 	
+	public int countSuppliers() {
+	    return (int) supplierRepository.count();
+	}
+	
 	//obtener proveedores activos
 	public Page<SupplierModel> getActiveSuppliers(Pageable pageable, String businessName, String supplierCode,
 			    									int supplierCategoryId){

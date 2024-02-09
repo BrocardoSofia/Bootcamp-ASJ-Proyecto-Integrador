@@ -88,4 +88,10 @@ public class PurchaseOrderController {
     public int getLastPurchaseOrderNumber() {
         return purchaseOrderService.getLastPurchaseOrderNumber();
     }
+    
+    //cantidad
+    @GetMapping("/count")
+    public int countPurchaseOrderNumber() {
+        return purchaseOrderService.countPurchaseOrderNumber();
+    }
 }

@@ -40,6 +40,12 @@ public class ProductController {
 		return productService.getProducts(pageable, productCategoryId, codeSKU, productName, productDescription);
 	}
 	
+	//cantidad
+    @GetMapping("/count")
+    public int countProducts() {
+        return productService.countProducts();
+    }
+	
 	//obtener productos activos
 	@GetMapping("/active")
 	public Page<ProductModel> getActiveProducts(Pageable pageable, 

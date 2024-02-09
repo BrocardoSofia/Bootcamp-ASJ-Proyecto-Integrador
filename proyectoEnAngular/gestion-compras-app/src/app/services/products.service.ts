@@ -69,6 +69,13 @@ export class ProductsService {
     return this.http.post<ProductImage>(this.urlImages, productImage, { headers });
   }
 
+  //get last number
+  countProducts(): Observable<number> {
+    let urlGet = this.url+"/count";
+
+    return this.http.get<number>(urlGet);
+  }
+
   public deleteProductImage(productImage: ProductImage): Observable<Product> {
     const url = this.urlImages + "/" + productImage.id;
 
