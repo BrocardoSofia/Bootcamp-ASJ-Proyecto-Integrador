@@ -82,18 +82,28 @@
 
       <div class="col-md-3 d-flex justify-content-start filterItems">
         <select class="form-select select-filter" aria-label="Default select example" 
-        [(ngModel)]="selectedsupplierCategory" (ngModelChange)="changeStatusFilter()">
+        [(ngModel)]="selectedsupplierCategory" (ngModelChange)="searchSupplierCategory()">
           <option value = 0 disabled selected >Rubros</option>
-          <option *ngFor="let supplierCategory of supplierCategories; index as i" value=i>
+          <option *ngFor="let supplierCategory of supplierCategories; index as i" value={{i}}>
             {{supplierCategory.category}}
           </option>
         </select>
       </div>
 
-      <div class="col-md-3 d-flex justify-content-start filterItems">
+      <div class="col-md-3 d-flex justify-content-start filterItems" *ngIf="productCategories.length === 0">
         <select class="form-select select-filter" aria-label="Default select example" 
-        [(ngModel)]="selectedOption" (ngModelChange)="changeStatusFilter()">
+        [(ngModel)]="searchProductCategory" (ngModelChange)="changeStatusFilter()" [disabled]="true">
           <option value = 0 disabled selected >Categorias</option>
+        </select>
+      </div>
+
+      <div class="col-md-3 d-flex justify-content-start filterItems" *ngIf="productCategories.length !== 0">
+        <select class="form-select select-filter" aria-label="Default select example" 
+        [(ngModel)]="searchProductCategory" (ngModelChange)="searchByProductCategory()">
+          <option value = 0 disabled selected >Categorias</option>
+          <option *ngFor="let productCategory of productCategories; index as i" value={{productCategory.id}}>
+            {{productCategory.category}}
+          </option>
         </select>
       </div>
   
