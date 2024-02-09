@@ -113,7 +113,7 @@ export class PurchaseOrdersCreateComponent implements OnInit {
       //agregar a la base de datos
       this.purchaseOrdersService.addPurchaseOrder(this.purchaseOrder).subscribe(
         response=>{
-          //luego de agregar el nuevo producto agrego las imagenes
+          //luego de agregar la orden de compra agregar los productos
           this.callProductPurchaseSequentially(response);
 
           //mensaje de que se agrego todo correctamente y lo envio a la pagina anterior

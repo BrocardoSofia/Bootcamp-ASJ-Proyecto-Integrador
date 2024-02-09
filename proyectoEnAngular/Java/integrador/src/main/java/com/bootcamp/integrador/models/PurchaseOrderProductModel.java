@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -38,14 +39,10 @@ public class PurchaseOrderProductModel {
     @JoinColumn(name = "product_category_id", nullable = false)
     private ProductCategoryModel productCategory;
 	
-	@NotNull(message = "Price cannot be null")
-    @NotBlank(message = "Price Name cannot be empty")
-    @Size(min = 0, message = "Price must be greater than 0")
+	@Min(value = 0, message = "Price must be greater than 0")
     double price;
 	
-	@NotNull(message = "Amount cannot be null")
-    @NotBlank(message = "Amount cannot be empty")
-    @Size(min = 0, message = "Amount must be greater than 0")
+	@Min(value = 0, message = "Amount must be greater than 0")
     int amount;
 	
 	@Temporal(TemporalType.TIMESTAMP)
