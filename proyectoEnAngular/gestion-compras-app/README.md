@@ -337,3 +337,15 @@ Pasos necesarios para correr el proyecto localmente
 			'W3400','30714896047','2023-11-04','farmalife_9674');
 ```
 
+- Insertar **Suppliers_contacts**
+
+```sql
+  INSERT INTO Suppliers_contacts(supplier_id,contact_name,contact_lastname,phone,
+								email,rol,created_at)
+	VALUES	(1,'Juan','Lopes','011-415869','juanLopez@gmail.com','Gerente','2020-08-10'),
+			(2,'Marta','Perez','0223-425865','martaPerez@gmail.com','Administrador','2020-10-10'),
+			(3,'Lucia','Garcia','011-412536','luciaGarcia@gmail.com','Director de operaciones','2020-12-10'),
+			(4,'Maria','Martinez','0223-402536','mariaMartinez@gmail.com','Director de operaciones','2021-05-07'),
+			(5,'Carlos','Gavilan','0223-432568','carlosGavilan@gmail.com','Gerente','2022-11-04'),
+			(6,'Pepe','Arce','0379-425869','pepeArce@gmail.com','Administrador','2023-11-04');
+```
