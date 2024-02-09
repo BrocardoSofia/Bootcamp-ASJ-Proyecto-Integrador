@@ -7,12 +7,10 @@ export const loginGuard = () => {
   const router = inject(Router);
   const loginService: LoginService = inject(LoginService);
 
-  // if (loginService.getUserId() === -1) {
-  //   router.navigate(['/index']);
-  //   return false;
-  // } else {
-  //   return true;
-  // }
-
-  return true;
+  if (loginService.getUserId() === -1) {
+    router.navigate(['/index']);
+    return false;
+  } else {
+    return true;
+  }
 }
