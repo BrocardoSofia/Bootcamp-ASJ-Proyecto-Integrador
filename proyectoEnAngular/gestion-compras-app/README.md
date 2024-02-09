@@ -311,3 +311,29 @@ Pasos necesarios para correr el proyecto localmente
 			('Daniela_Silva_25', 'fd84W15', '2023-12-08'); 
 ```
 
+- Insertar **Suppliers**
+
+```sql
+  INSERT INTO Suppliers(supplier_category_id,created_by_id,province_id,
+						iva_condition_id,business_name,image_url,business_webpage, business_email,
+						business_phone,street_name,street_number,city,cp,cuit,created_at, supplier_code)
+	VALUES  (3,2,1,1,'47 street','https://pbs.twimg.com/profile_images/1050391324690698241/kEw0plll_400x400.jpg',
+			'https://www.47street.com.ar/','ventas@47-street.com.ar','0800-555-9174','Sarmiento',2153,'Buenos Aires',
+			'B1200','30707528458','2020-08-10', '47s_026'),
+			(3,2,1,1,'Levi’s','https://static.vecteezy.com/system/resources/previews/023/871/601/original/levis-brand-logo-symbol-white-design-clothes-fashion-illustration-with-red-background-free-vector.jpg',
+			'www.levi.com.ar','ventas@levi.com.ar','11 70780855','Guemes',1823,'Mar del Plata',
+			'B7600','30-68310835-5','2020-10-10','levis_6736'),
+			(8,3,1,1,'Infinit','https://quieroynecesito.files.wordpress.com/2013/07/infinit-logo.jpg',
+			'https://infinit.la/','ventas@infinit.com','0800-596-9174','Hidalgo',1743,'Buenos Aires',
+			'B1230','30708857722','2020-12-10','infinit_0147'),
+			(5,1,1,1,'Samsung ','https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/2560px-Samsung_Logo.svg.png',
+			'https://www.samsung.com/ar/','ventas@samsung.com.ar','0800-695-7864','Sarmiento',2056,'Mar del Plata',
+			'B7600','30-68412579-2','2021-05-07','samsung_9635'),
+			(7,1,1,1,'Libreria Palito','https://libreriapalito.com.ar/media/mageworx/locations//l/o/logo-palito_1.png',
+			'https://www.47street.com.ar/','libreriapalito@gmail.com.ar','2266-451684','Av. Luro',3454,'Mar del Plata',
+			'B7600','33715559299','2022-11-04','palito_2019'),
+			(4,1,6,1,'farmalife','https://farmalife.vteximg.com.br/arquivos/logo-farmalife-checkout.png',
+			'https://www.farmalife.com.ar/','farmalife@gmail.com.ar','379-451684','Pellegrini',645,'Corrientes',
+			'W3400','30714896047','2023-11-04','farmalife_9674');
+```
+
