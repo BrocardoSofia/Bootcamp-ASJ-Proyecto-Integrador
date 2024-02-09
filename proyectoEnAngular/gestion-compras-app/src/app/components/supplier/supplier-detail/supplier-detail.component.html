@@ -1,1 +1,172 @@
-<p>supplier-detail works!</p>
+<section class="bg-light ">
+    <div class="container" >
+        <div style="display: flex; align-content: center;">
+            <h1 class="pt-3 pb-2 text-center " style="margin-left: 10px;">
+              <img src="{{supplier.imageUrl}}" alt="icono user"
+              style="height: 10vh;" class="icono" (error)="changeImage($event)">
+              Detalle del proveedor '{{supplier.businessName}}'</h1>
+          </div>
+    
+        <ul class="list-group mt-2 mb-2 ">
+            <li class="list-group-item">
+                <strong>Código</strong> 
+                <article>
+                    {{supplier.supplierCode}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Razón social</strong> 
+                <article>
+                    {{supplier.businessName}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Rubro</strong> 
+                <article>
+                    {{supplier.supplierCategory.category}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Creado por el usuario</strong> 
+                <article>
+                    {{supplier.createdBy.userAlias}}
+                </article>
+            </li>
+        </ul>
+        <h4 class="pt-5 pb-2 " style="margin-left: 10px;">
+            Información de contacto de la empresa
+        </h4>
+        <ul class="list-group mt-2 mb-2 ">
+            <li class="list-group-item">
+                <strong>Sitio web</strong> 
+                <article>
+                    <a href="{{supplier.businessWebpage}}" target="_blank">{{supplier.businessWebpage}}</a>
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Email</strong> 
+                <article>
+                    {{supplier.businessEmail}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Teléfono</strong> 
+                <article>
+                    {{supplier.businessPhone}}
+                </article>
+            </li>            
+        </ul>
+        <h4 class="pt-5 pb-2 " style="margin-left: 10px;">
+            Dirección 
+        </h4>
+        <ul class="list-group mt-2 mb-2 ">
+            
+            <li class="list-group-item">
+                <strong>Provincia</strong> 
+                <article>
+                    {{supplier.province.province}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Localidad</strong> 
+                <article>
+                    {{supplier.city}}
+                </article>
+            </li> 
+            <li class="list-group-item">
+                <strong>CP</strong> 
+                <article>
+                    {{supplier.cp}}
+                </article>
+            </li> 
+            <li class="list-group-item">
+                <strong>Calle</strong> 
+                <article>
+                    {{supplier.streetName}}
+                </article>
+            </li>   
+            <li class="list-group-item">
+                <strong>N°</strong> 
+                <article>
+                    {{supplier.streetNumber}}
+                </article>
+            </li>         
+        </ul>
+
+        <h4 class="pt-5 pb-2 " style="margin-left: 10px;">
+            Datos fiscales 
+        </h4>
+        <ul class="list-group mt-2 mb-2 ">
+            <li class="list-group-item">
+                <strong>CUIT</strong> 
+                <article>
+                    {{supplier.cuit}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Condicion iva</strong> 
+                <article>
+                    {{supplier.ivaCondition.ivaCondition}}
+                </article>
+            </li>
+        </ul>
+
+        <h4 class="pt-5 pb-2 " style="margin-left: 10px;">
+            Datos de contacto
+        </h4>
+        <table class="table table-hover">
+            <thead class="table-primary">
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Apellido</th>
+                  <th scope="col">Telefono</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Rol</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contact of supplier.supplierContacts">
+                  <td>{{contact.contactName}}</td>
+                  <td>{{contact.contactLastname}}</td>
+                  <td>{{contact.phone}}</td>
+                  <td>{{contact.email}}</td>
+                  <td>{{contact.rol}}</td>
+                </tr>
+              </tbody>
+        </table>
+
+        <h4 class="pt-5 pb-2 " style="margin-left: 10px;">
+            Productos
+        </h4>
+        <div class="alert alert-info mt-4 abs-center" role="alert" 
+                *ngIf="products.length === 0">
+                    <h2 class="text-center mb-4">El proveedor no posee productos cargados</h2>
+                    <img src="/assets/producto.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+                </div>
+        <table class="table table-hover" *ngIf="products.length !== 0">
+            <thead class="table-primary">
+                <tr>
+                  <th class="text-center" scope="col">Imagen</th>
+                  <th class="text-center" scope="col">SKU</th>
+                  <th class="text-center" scope="col">Nombre del producto</th>
+                  <th class="text-center" scope="col">Categoria</th>
+                  <th class="text-center" scope="col">Precio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let product of products">
+                    <td class="text-center">
+                        <img *ngIf="product.productImages.length !== 0" [src]="product.productImages[0].imageURL" 
+                        (error)="changeImage($event)"
+                        style="width: 5vw;" alt="Logo previsualizado" class="mt-2">
+                        <img *ngIf="product.productImages.length === 0" src = '/assets/imageNotFound.jpg'
+                        style="width: 5vw;" alt="Logo previsualizado" class="mt-2"></td>
+                      <td class="text-center">{{product.codeSKU}}</td>
+                      <td class="text-center">{{product.productName}}</td>
+                      <td class="text-center">{{product.productCategory.category}}</td>
+                      <td class="text-center">{{product.price | currency}}</td>
+                </tr>
+              </tbody>
+        </table>
+    </div>
+</section>
