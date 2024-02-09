@@ -18,6 +18,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -54,10 +55,9 @@ public class ProductModel {
     
     private String productDescription = "";
     
-    @NotNull(message = "Price cannot be null")
-    @NotBlank(message = "Price Name cannot be empty")
-    @Size(min = 0, message = "Price must be greater than 0")
-    double price;
+    @NotNull
+    @DecimalMin(value = "0", inclusive = false, message = "Price must be greater than 0")
+    float price;
     
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
@@ -77,7 +77,7 @@ public class ProductModel {
     }
 
 	public ProductModel(SupplierModel supplier, ProductCategoryModel productCategory, UserModel createdBy,
-						String codeSKU, String productName, String productDescription, double price) {
+						String codeSKU, String productName, String productDescription, float price) {
 		this.supplier = supplier;
 		this.productCategory = productCategory;
 		this.createdBy = createdBy;
@@ -138,11 +138,11 @@ public class ProductModel {
 		this.productDescription = productDescription;
 	}
 
-	public double getPrice() {
+	public float getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(float price) {
 		this.price = price;
 	}
 

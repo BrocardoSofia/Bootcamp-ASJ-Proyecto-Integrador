@@ -332,7 +332,7 @@ export class SuppliersCreateComponent implements OnInit {
           console.error('Error al agregar el contacto del proveedor:', error);
       }
     }
-}
+  }
 
   selectCountry(){
     const countryEncontrado = this.countries.find(country => country.id == this.idCountry);

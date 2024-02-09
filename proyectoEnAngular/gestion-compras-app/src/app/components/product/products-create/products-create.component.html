@@ -182,6 +182,33 @@
 
     <!-- imagenes -->
     <section *ngIf="productValid">
-        <p>imagenes</p>
+        <article *ngIf="oldProductImages.length !== 0">
+            aca muestro las imagenes ya cargadas
+        </article>
+
+        <form (ngSubmit)="addImage()">
+            <label for="newImageInput" class="form-label mt-4">Nueva imagen*</label>
+            <input type="text" id="newImageInput" class="form-control"
+                placeholder="URL de la imagen" name="newImage" [(ngModel)]="newImage"
+                type="text"
+            />
+            <button type="submit" [disabled]="newImage.length === 0" 
+            class="btn btn-primary mt-4">
+                Agregar
+            </button>
+        </form>
+
+        <article class="row mt-3 ">
+            <section *ngFor="let image of images" class="col-md-4">
+                <img [src]="image" alt="Imagen" style="width: 100%;">
+                <button (click)="removeImage(image)" class="btn btn-danger mt-2">
+                    Eliminar
+                </button>
+            </section>
+        </article>
+
+        <button class="btn btn-primary mt-4" (click)="onSubmit()">
+            Agregar nuevo producto
+        </button>
     </section>
 </div>

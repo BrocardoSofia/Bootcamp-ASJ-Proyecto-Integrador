@@ -4,12 +4,14 @@ import { SuppliersService } from './suppliers.service';
 import { LoginService } from './login.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ProductImage } from '../models/product-image';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
   private url: string = 'http://localhost:8080/products';
+  private urlImages: string = 'http://localhost:8080/product-images';
 
   constructor(private suppliersService: SuppliersService,
               private loginService: LoginService,
@@ -60,6 +62,11 @@ export class ProductsService {
   public addProduct(product: Product): Observable<Product> {
     const headers = { 'Content-Type': 'application/json' };
     return this.http.post<Product>(this.url, product, { headers });
+  }
+
+  public addProductImage(productImage: ProductImage): Observable<ProductImage> {
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.post<ProductImage>(this.urlImages, productImage, { headers });
   }
 
   public updateProduct(product: Product): Observable<Product> {

@@ -8,6 +8,8 @@ import { Supplier } from '../../../models/suppliers';
 import Swal from 'sweetalert2';
 import { auto } from '@popperjs/core';
 import { ProductCategory } from '../../../models/product-category';
+import { ProductImage } from '../../../models/product-image';
+import { LoginService } from '../../../services/login.service';
 
 type SortOrder = 'None' | 'asc' | 'desc';
 
@@ -51,12 +53,18 @@ export class ProductsCreateComponent implements OnInit{
 
   oldProduct!: Product;
 
+  oldProductImages: ProductImage[] = [];
+  imageForm!: FormGroup;
+  images: string[] = []
+  newImage: string = '';
+
   constructor(
     private productsService: ProductsService,
     private suppliersService: SuppliersService,
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private loginService: LoginService
   ){}
 
   ngOnInit(): void {
@@ -68,6 +76,7 @@ export class ProductsCreateComponent implements OnInit{
     )
 
     this.product = this.productsService.inicProduct();
+    this.product.createdBy.id = this.loginService.getUserId();
 
     this.productForm = this.fb.group({
       productCategory: ['', [Validators.required]],
@@ -76,7 +85,84 @@ export class ProductsCreateComponent implements OnInit{
       productDescription: ['', [Validators.minLength(0), Validators.maxLength(150)]],
       price: ['',[Validators.required,Validators.min(1)]]
     });
+
+    this.imageForm = this.fb.group({
+      imageUrl: this.fb.array([]) // Crea un FormArray para las imagenes
+    });
   }
+
+  addImage() {
+    if (this.newImage && (this.newImage.endsWith('.png') || this.newImage.endsWith('.jpg'))) {
+      this.images.push(this.newImage);
+      this.newImage = ''; // Limpiar el campo de entrada
+    }
+  }
+
+  removeImage(image: string) {
+    const index = this.images.indexOf(image);
+    if (index !== -1) {
+      this.images.splice(index, 1);
+    }
+  }
+
+  onSubmit(): void {
+    if(!this.edit){
+      this.createProduct();
+      //console.log(this.product)
+    }else{
+      this.modifyProduct();
+    }
+
+  }
+
+  createProduct(){
+    this.productsService.addProduct(this.product).subscribe(
+      response=>{
+        if(response !== null){
+          //luego de agregar el nuevo producto agrego las imagenes
+          this.callProductImagesSequentially(response);
+
+          //mensaje de que se agrego todo correctamente y lo envio a la pagina anterior
+          this.productLoadedSuccessfully('Se agrego correctamente el producto: ' + this.product.productName);
+        }
+      }
+    )
+  }
+
+  private productLoadedSuccessfully(textInfo: string){
+    //muestro en un alert que se agrego correctamente el usuario
+    Swal.fire({
+      text: textInfo,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+  
+    //lo redirijo a la pagina anterior
+    this.router.navigate(['/products']);
+  }
+
+  async callProductImagesSequentially(productAdded: Product) {
+    for (const image of this.images) {
+      let productImage: ProductImage = {
+        id: 0,
+        imageURL: image,
+        product: productAdded
+      }
+
+      try {
+          await this.productsService.addProductImage(productImage).toPromise();
+      } catch (error) {
+          console.error('Error al agregar la imagen:', error);
+      }
+    }
+  }
+
+  modifyProduct(){
+
+  }
+
 
   nextPage(){
     this.currentPage++;

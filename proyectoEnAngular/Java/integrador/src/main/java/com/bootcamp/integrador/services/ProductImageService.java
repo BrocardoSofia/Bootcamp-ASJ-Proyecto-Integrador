@@ -31,8 +31,7 @@ public class ProductImageService {
 		ProductImageModel productImageDeleted = productImageRepository.findById(id).get();
 		
 		if(productImageDeleted != null) {
-			productImageDeleted.setDeletedAt(LocalDateTime.now());
-			productImageDeleted = productImageRepository.save(productImageDeleted);
+			productImageRepository.delete(productImageDeleted);
 		}
 		
 		return productImageDeleted;
@@ -43,7 +42,6 @@ public class ProductImageService {
 		
 		if(productImageUpdated != null) {
 			productImageUpdated.setImageURL(productImage.getImageURL());
-			productImageUpdated.setUpdatedAt(LocalDateTime.now());
 			productImageUpdated = productImageRepository.save(productImageUpdated);
 		}
 		

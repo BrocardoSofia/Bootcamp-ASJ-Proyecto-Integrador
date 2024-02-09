@@ -35,25 +35,12 @@ public class ProductImageModel {
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private ProductModel product;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-	
-	@Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime updatedAt;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private LocalDateTime deletedAt;
     
     public ProductImageModel() {
     }
 
 	public ProductImageModel(String imageURL) {
 		this.imageURL = imageURL;
-		this.deletedAt = null;
-		this.updatedAt = null;
-		this.createdAt = LocalDateTime.now();
 	}
 
 	public String getImageURL() {
@@ -72,29 +59,9 @@ public class ProductImageModel {
 		this.product = product;
 	}
 
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
-	public LocalDateTime getDeletedAt() {
-		return deletedAt;
-	}
-
-	public void setDeletedAt(LocalDateTime deletedAt) {
-		this.deletedAt = deletedAt;
-	}
 
 	public int getId() {
 		return id;
-	}
-
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-    
+	}    
     
 }
