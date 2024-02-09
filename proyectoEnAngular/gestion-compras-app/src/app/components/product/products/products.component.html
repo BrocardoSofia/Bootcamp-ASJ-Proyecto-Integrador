@@ -16,6 +16,104 @@
       </div>
     </div>
   </section>
+
+  <section class="m-0 p-2 table-header bg-primary-subtle d-flex">
+    <div class="col-md-3 ps-2">
+      <h2 class="text-left">Tabla de productos</h2>
+    </div>
+    <div class="col-md-3 p-2 ">
+      <div class="input-group input-group-append">
+        <input type="text" class="form-control" placeholder="Buscar por SKU" 
+        name="SKU" [(ngModel)]="searchSKU">
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="searchBySKU()" *ngIf="!searchSKUOn" 
+        [ngClass]="((searchSKU !== '')?'':'disabled')">
+          <i class="bi bi-search"></i>
+        </button>
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="clearSearchBySKU()" *ngIf="searchSKUOn">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-3 p-2 ">
+      <div class="input-group input-group-append">
+        <input type="text" class="form-control" placeholder="Buscar por nombre de producto" 
+        name="ProductName" [(ngModel)]="searchProductName">
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="searchByProductName()" *ngIf="!searchProductNameOn" 
+        [ngClass]="((searchProductName !== '')?'':'disabled')">
+          <i class="bi bi-search"></i>
+        </button>
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="clearSearchByProductName()" *ngIf="searchProductNameOn">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-3 p-2 ">
+      <div class="input-group input-group-append">
+        <input type="text" class="form-control" placeholder="Buscar por Descripción" 
+        name="ProductDescription" [(ngModel)]="searchProductDescription">
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="searchByProductDescription()" *ngIf="!searchProductDescriptionOn" 
+        [ngClass]="((searchProductDescription !== '')?'':'disabled')">
+          <i class="bi bi-search"></i>
+        </button>
+        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+        (click)="clearSearchByProductDescription()" *ngIf="searchProductDescriptionOn">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <section style="background-color: #fff; height: 9vh;" 
+  class="m-0 p-2 container-fluid filterItems border-bottom">
+    <article class="row">
+      <div class="col-md-9 d-flex justify-content-start filterItems">
+        <select class="form-select select-filter" aria-label="Default select example" 
+        [(ngModel)]="selectedOption" (ngModelChange)="changeStatusFilter()">
+          <option value="1">Todos</option>
+          <option value="2">Activos</option>
+          <option value="3">Eliminados</option>
+        </select>
+      </div>
+  
+      <nav class="col-md-3 d-flex justify-content-end filterItems pe-3" 
+      aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" (click)="prevPage()">
+            <a class="page-link" 
+                aria-label="Previous" 
+                style="cursor: pointer;"
+                [ngClass]="(currentPage != 0)?'':'disabled'"
+            >
+              <span aria-hidden="true">Prev</span>
+            </a>
+          </li>
+          <li class="page-item" *ngFor="let page of getPages()">
+            <a class="page-link" 
+                [ngClass]="((currentPage+1) === page)?'active':''" 
+                style="cursor: pointer;"
+                (click)="selectPage(page-1)">{{page}}
+          </a>
+          </li>
+          <li class="page-item" 
+          (click)="nextPage()">
+            <a class="page-link" 
+              aria-label="Next"
+              style="cursor: pointer;"
+              [ngClass]="((pages !== 1) && (currentPage+1 !== pages)?'':'disabled')">
+              <span aria-hidden="true">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+  
+    </article>
+  </section>
+
   <table class="table m-0 p-4" *ngIf="products.length !== 0">
     <thead>
       <tr class="table">

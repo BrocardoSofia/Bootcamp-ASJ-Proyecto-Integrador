@@ -47,7 +47,7 @@ public class ProductHistoryModel {
 	
 	@NotNull(message = "Old Product cannot be null")
     @NotBlank(message = "Old Product cannot be empty")
-    @Size(min = 2, max = 1500, message = "Old Product must be greater than 2 characters")
+    @Size(min = 2, max = 5000, message = "Old Product must be greater than 2 characters")
     private String oldProduct;
 	
 	public ProductHistoryModel() {

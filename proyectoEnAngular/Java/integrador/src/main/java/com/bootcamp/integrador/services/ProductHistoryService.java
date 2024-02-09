@@ -42,6 +42,7 @@ public class ProductHistoryService {
 	
 	//agregar historial
 	public void addProductHistory(int userId, int productId, String action, String changes, String oldProduct) {
+		System.out.println(oldProduct);
 		UserModel user = userRepository.findById(userId).get();
 		ProductModel product = productRepository.findById(productId).get();
 		
