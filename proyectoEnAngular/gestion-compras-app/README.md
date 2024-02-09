@@ -349,3 +349,27 @@ Pasos necesarios para correr el proyecto localmente
 			(5,'Carlos','Gavilan','0223-432568','carlosGavilan@gmail.com','Gerente','2022-11-04'),
 			(6,'Pepe','Arce','0379-425869','pepeArce@gmail.com','Administrador','2023-11-04');
 ```
+
+- Insertar **Products**
+
+```sql
+  INSERT INTO Products(supplier_id,
+						product_category_id,
+						created_by_id,
+						codesku,
+						product_name,
+						product_description,
+						price,
+						created_at)
+	VALUES  (1,18,2,'47SR23','The child','',20899,'2020-08-10'),
+			(1,18,2,'47SR65','Buzz lightyear','',23299,'2020-08-10'),
+			(1,18,3,'47SR63','Hello kitty','',19399,'2020-08-10'),
+			(4,32,4,'SC67','Galaxy A014','',249999,'2023-12-10'),
+			(4,32,2,'SC57','Galaxy A04 Sm','',267649,'2023-12-10'),
+			(4,32,6,'SC12','Galaxy A13','',185000,'2023-12-10'),
+			(4,32,3,'SC1203','Galaxy Z Flip4','',755999,'2024-01-05'),
+			(5,53,5,'LPF21','Los juegos del hambre','',31000,'2022-11-04'),
+			(5,53,4,'LPF458','2001. UNA ODISEA ESPACIAL','',18000,'2022-11-04'),
+			(5,53,7,'LPF7841','La Naranja Mecanica','',11500,'2022-11-04'),
+			(1,18,2,'47SR698','STARWARS RESISTANCE','',15560,'2023-12-10'); 
+```
