@@ -35,8 +35,8 @@ public class ProductController {
 									@RequestParam(required = false, defaultValue = "") String productDescription,
 									@RequestParam(required = false, defaultValue = "") String productName,
 									@RequestParam(required = false, defaultValue = "") String codeSKU,
-									@RequestParam(required = false, defaultValue = "-1") int supplierId){
-		return productService.getProducts(pageable, supplierId, codeSKU, productName, productDescription);
+									@RequestParam(required = false, defaultValue = "-1") int productCategoryId){
+		return productService.getProducts(pageable, productCategoryId, codeSKU, productName, productDescription);
 	}
 	
 	//obtener productos activos
@@ -45,8 +45,8 @@ public class ProductController {
 									@RequestParam(required = false, defaultValue = "") String productDescription,
 									@RequestParam(required = false, defaultValue = "") String productName,
 									@RequestParam(required = false, defaultValue = "") String codeSKU,
-									@RequestParam(required = false, defaultValue = "-1") int supplierId){
-		return productService.getActiveProducts(pageable, supplierId, codeSKU, productName, productDescription);
+									@RequestParam(required = false, defaultValue = "-1") int productCategoryId){
+		return productService.getActiveProducts(pageable, productCategoryId, codeSKU, productName, productDescription);
 	}
 	
 	//obtener productos eliminados
@@ -55,8 +55,8 @@ public class ProductController {
 									@RequestParam(required = false, defaultValue = "") String productDescription,
 									@RequestParam(required = false, defaultValue = "") String productName,
 									@RequestParam(required = false, defaultValue = "") String codeSKU,
-									@RequestParam(required = false, defaultValue = "-1") int supplierId){
-		return productService.getDeletedProducts(pageable, supplierId, codeSKU, productName, productDescription);
+									@RequestParam(required = false, defaultValue = "-1") int productCategoryId){
+		return productService.getDeletedProducts(pageable, productCategoryId, codeSKU, productName, productDescription);
 	}
 	
 	//get por Id

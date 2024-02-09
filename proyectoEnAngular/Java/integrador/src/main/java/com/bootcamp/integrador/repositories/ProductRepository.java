@@ -13,8 +13,8 @@ public interface ProductRepository extends JpaRepository<ProductModel, Integer>{
 																								String productName, 
 																								String productDescription, 
 																								Pageable pageable);
-	Page<ProductModel> findAllBySupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
-																								int supplierId,
+	Page<ProductModel> findAllByProductCategoryIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
+																								int productCategoryId,
 																								String codeSKU,
 																								String productName, 
 																								String productDescription, 
@@ -24,8 +24,8 @@ public interface ProductRepository extends JpaRepository<ProductModel, Integer>{
 																								String productName, 
 																								String productDescription, 
 																								Pageable pageable);
-	Page<ProductModel> findAllByDeletedAtIsNullAndSupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
-																								int supplierId,
+	Page<ProductModel> findAllByDeletedAtIsNullAndProductCategoryIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
+																								int productCategoryId,
 																								String codeSKU,
 																								String productName, 
 																								String productDescription, 
@@ -35,8 +35,8 @@ public interface ProductRepository extends JpaRepository<ProductModel, Integer>{
 																								String productName, 
 																								String productDescription, 
 																								Pageable pageable);
-	Page<ProductModel> findAllByDeletedAtIsNotNullAndSupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
-																								int supplierId,
+	Page<ProductModel> findAllByDeletedAtIsNotNullAndProductCategoryIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
+																								int productCategoryId,
 																								String codeSKU,
 																								String productName, 
 																								String productDescription, 

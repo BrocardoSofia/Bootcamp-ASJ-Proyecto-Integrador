@@ -96,27 +96,27 @@ export class ProductsService {
 
   //get all products filtered
   getAllProducts(pageNumber:number, orderBy: string, productDescription: string,
-    productName: string, codeSKU: string, supplierId: number): Observable<any> {
+    productName: string, codeSKU: string, productCategoryId: number): Observable<any> {
     let urlGet = this.url+"?page="+pageNumber+"&size=10"+orderBy+"&productDescription="+productDescription
-        +"&productName="+productName+"&codeSKU="+codeSKU+"&supplierId="+supplierId;
+        +"&productName="+productName+"&codeSKU="+codeSKU+"&productCategoryId="+productCategoryId;
 
     return this.http.get(urlGet);
   }
 
   //get all active products filtered
   getAllActiveProducts(pageNumber:number, orderBy: string, productDescription: string,
-    productName: string, codeSKU: string, supplierId: number): Observable<any> {
+    productName: string, codeSKU: string, productCategoryId: number): Observable<any> {
     let urlGet = this.url+"/active"+"?page="+pageNumber+"&size=10"+orderBy+"&productDescription="+productDescription
-        +"&productName="+productName+"&codeSKU="+codeSKU+"&supplierId="+supplierId;
+        +"&productName="+productName+"&codeSKU="+codeSKU+"&productCategoryId="+productCategoryId;
 
     return this.http.get(urlGet);
   }
 
   //get all deleted products filtered
   getAllDeletedProducts(pageNumber:number, orderBy: string, productDescription: string,
-    productName: string, codeSKU: string, supplierId: number): Observable<any> {
+    productName: string, codeSKU: string, productCategoryId: number): Observable<any> {
     let urlGet = this.url+"/deleted"+"?page="+pageNumber+"&size=10"+orderBy+"&productDescription="+productDescription
-        +"&productName="+productName+"&codeSKU="+codeSKU+"&supplierId="+supplierId;
+        +"&productName="+productName+"&codeSKU="+codeSKU+"&productCategoryId="+productCategoryId;
 
     return this.http.get(urlGet);
   }

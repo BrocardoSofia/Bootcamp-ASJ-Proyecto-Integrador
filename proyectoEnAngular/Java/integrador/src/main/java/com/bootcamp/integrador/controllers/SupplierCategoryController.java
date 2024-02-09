@@ -32,9 +32,8 @@ public class SupplierCategoryController {
     SupplierCategoryService supplierCategoryService;
 
     @GetMapping()
-    public Page<SupplierCategoryModel> getSupplierCategories(Pageable pageable, 
-											@RequestParam(required = false, defaultValue = "") String category) {
-        return supplierCategoryService.getSupplierCategories(pageable, category);
+    public List<SupplierCategoryModel> getSupplierCategories() {
+        return supplierCategoryService.getSupplierCategories();
     }
     
     //obtener rubros activos

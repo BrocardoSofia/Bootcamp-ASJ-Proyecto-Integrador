@@ -29,13 +29,14 @@ export class ConfigSupplierCategoriesComponent implements OnInit{
   constructor(private supplierCategoryService: SupplierCategoriesService){}
 
   ngOnInit(): void {
-    this.supplierCategoryService.getSupplierCategories().subscribe(data=>{
-      this.pages = data.totalPages;
-      this.suplierCategories = data.content;
+    this.supplierCategoryService.getAllCategories(0,this.getSort(),this.searchCategory).subscribe(
+      data=>{
+        this.pages = data.totalPages;
+        this.suplierCategories = data.content;
 
-      if(this.pages > 5){
-        this.nextFive = true;
-      }
+        if(this.pages > 5){
+          this.nextFive = true;
+        }
     })
   }
 

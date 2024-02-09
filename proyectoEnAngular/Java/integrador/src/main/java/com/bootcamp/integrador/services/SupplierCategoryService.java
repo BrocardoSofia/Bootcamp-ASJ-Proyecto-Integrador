@@ -21,15 +21,9 @@ public class SupplierCategoryService {
     @Autowired
     SupplierCategoryRepository supplierCategoryRepository;
 
-    public Page<SupplierCategoryModel> getSupplierCategories(Pageable pageable, String category) {
-        Page<SupplierCategoryModel> page;
-  		if(category == "") {
-  			//no envio userAlias
-  			page = supplierCategoryRepository.findAll(pageable);
-  		}else {
-  			page = supplierCategoryRepository.findAllByCategoryContainingIgnoreCase(category, pageable);	
-  		}
-  		return page;
+    public List<SupplierCategoryModel> getSupplierCategories() {
+        
+  		return supplierCategoryRepository.findAll();
     }
     
     //obtener rubros activos

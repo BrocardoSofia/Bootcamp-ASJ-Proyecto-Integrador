@@ -23,18 +23,18 @@ public class ProductService {
 	ProductHistoryService productHistoryService;
 	
 	//obtener productos
-	public Page<ProductModel> getProducts(Pageable pageable, int supplierId, String codeSKU, String productName, String productDescription){
+	public Page<ProductModel> getProducts(Pageable pageable, int productCategoryId, String codeSKU, String productName, String productDescription){
 		Page<ProductModel> page;
 		
-		if(supplierId <= 0) {
+		if(productCategoryId <= 0) {
 			page = productRepository.findAllByCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
 																											codeSKU,
 					 																						productName,
 					 																						productDescription,
 					 																						pageable);
 		}else {
-			page = productRepository.findAllBySupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
-					 																						supplierId,
+			page = productRepository.findAllByProductCategoryIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
+																											productCategoryId,
 					 																						codeSKU,
 					 																						productName, 
 					 																						productDescription,
@@ -45,18 +45,18 @@ public class ProductService {
 	}
 	
 	//obtener productos activos
-	public Page<ProductModel> getActiveProducts(Pageable pageable, int supplierId, String codeSKU, String productName, String productDescription){
+	public Page<ProductModel> getActiveProducts(Pageable pageable, int productCategoryId, String codeSKU, String productName, String productDescription){
 		Page<ProductModel> page;
 		
-		if(supplierId <= 0) {
+		if(productCategoryId <= 0) {
 			page = productRepository.findAllByDeletedAtIsNullAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
 																											codeSKU,
 					 																						productName, 
 					 																						productDescription,
 					 																						pageable);
 		}else {
-			page = productRepository.findAllByDeletedAtIsNullAndSupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
-					 																						supplierId,
+			page = productRepository.findAllByDeletedAtIsNullAndProductCategoryIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
+																											productCategoryId,
 					 																						codeSKU,
 					 																						productName, 
 					 																						productDescription,
@@ -67,18 +67,18 @@ public class ProductService {
 	}
 	
 	//obtener productos eliminados
-	public Page<ProductModel> getDeletedProducts(Pageable pageable, int supplierId, String codeSKU, String productName, String productDescription){
+	public Page<ProductModel> getDeletedProducts(Pageable pageable, int productCategoryId, String codeSKU, String productName, String productDescription){
 		Page<ProductModel> page;
 		
-		if(supplierId <= 0) {
+		if(productCategoryId <= 0) {
 			page = productRepository.findAllByDeletedAtIsNotNullAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
 																											codeSKU,
 					 																						productName, 
 					 																						productDescription,
 					 																						pageable);
 		}else {
-			page = productRepository.findAllByDeletedAtIsNotNullAndSupplierIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
-					 																						supplierId,
+			page = productRepository.findAllByDeletedAtIsNotNullAndProductCategoryIdAndCodeSKUContainingIgnoreCaseAndProductNameContainingIgnoreCaseAndProductDescriptionContainingIgnoreCase(
+																											productCategoryId,
 					 																						codeSKU,
 					 																						productName, 
 					 																						productDescription,
