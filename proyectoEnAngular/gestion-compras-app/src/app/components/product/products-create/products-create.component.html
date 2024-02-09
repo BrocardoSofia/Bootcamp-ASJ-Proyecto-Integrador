@@ -1,4 +1,13 @@
 <div class="container">
+    <h1 class="pt-3 mb-4" *ngIf="!edit">
+        <img src="/assets/plus-square-fill.svg" alt="icono user" class="icono">
+        Creando nuevo Producto
+    </h1>
+
+    <h1 class="pt-3 mb-4" *ngIf="edit">
+        <img src="/assets/gear-fill.svg" alt="icono user" class="icono">
+        Editando Producto
+    </h1>
     <!-- seleccionar proveedor -->
     <section *ngIf="!supplierValid">
         <section class="m-0 p-2 table-header bg-primary-subtle d-flex">

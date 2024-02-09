@@ -89,6 +89,9 @@ export class ProductsCreateComponent implements OnInit{
     this.imageForm = this.fb.group({
       imageUrl: this.fb.array([]) // Crea un FormArray para las imagenes
     });
+
+    //veo si estoy en modo edicion
+    
   }
 
   addImage() {
