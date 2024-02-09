@@ -39,14 +39,48 @@
         <!-- <section class="mt-5">
             <h3>Historial</h3>
             <div class="btn-group" role="group" aria-label="user history">
-                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked>
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio1" autocomplete="off" checked
+                (click)="historySelected = 'suppliers'">
                 <label class="btn btn-outline-primary" for="vbtn-radio1">Proveedores</label>
-                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off">
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio2" autocomplete="off"
+                (click)="historySelected = 'products'">
                 <label class="btn btn-outline-primary" for="vbtn-radio2">Productos</label>
-                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off">
+                <input type="radio" class="btn-check" name="vbtn-radio" id="vbtn-radio3" autocomplete="off"
+                (click)="historySelected = 'purchaseOrders'">
                 <label class="btn btn-outline-primary" for="vbtn-radio3">Ordenes de compra</label>
-              </div>
-            <div class="row">
+            </div>
+            
+            <div class="row" *ngIf="historySelected === 'suppliers'">
+                <nav class="col-md-5 d-flex justify-content-start filterItems pe-3 mt-2 " 
+                aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item" (click)="prevPageSupplier()">
+                    <a class="page-link" 
+                        aria-label="Previous" 
+                        style="cursor: pointer;"
+                        [ngClass]="(currentPageSupplier != 0)?'':'disabled'"
+                    >
+                        <span aria-hidden="true">Prev</span>
+                    </a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of getPagesSupplier()">
+                    <a class="page-link" 
+                        [ngClass]="((currentPageSupplier+1) === page)?'active':''" 
+                        style="cursor: pointer;"
+                        (click)="selectPageSupplier(page-1)">{{page}}
+                    </a>
+                    </li>
+                    <li class="page-item" 
+                    (click)="nextPageSupplier()">
+                    <a class="page-link" 
+                        aria-label="Next"
+                        style="cursor: pointer;"
+                        [ngClass]="((pagesSupplier !== 1) && (currentPageSupplier+1 !== pagesSupplier)?'':'disabled')">
+                        <span aria-hidden="true">Next</span>
+                    </a>
+                    </li>
+                </ul>
+                </nav>
                 <div class="col-md-8">
                     <table class="table m-0 p-4 mt-2 mb-2">
                         <thead>
@@ -57,10 +91,10 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td class="text-start">fecha</td>
-                            <td class="text-center">accion</td>
-                            <td class="text-center">cambios</td>
+                          <tr *ngFor="let item of supplierHistory">
+                            <td class="text-start">{{item.createdAt | date}}</td>
+                            <td class="text-center">{{item.action}}</td>
+                            <td class="text-center">{{item.changes}}</td>
                           </tr>
                         </tbody>
                     </table>
@@ -73,7 +107,9 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                         Creados</div>
-                                    <div class="h5 mb-0 font-weight-bold text-success">0</div>
+                                    <div class="h5 mb-0 font-weight-bold text-success">
+                                        {{supplierActions.created}}
+                                    </div>
                                 </div>
                                 <div class="col-auto text-success">
                                     <i class="fa fa-plus-square fa-2x text-gray-300"></i>
@@ -87,7 +123,9 @@
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
                                         Eliminados</div>
-                                    <div class="h5 mb-0 font-weight-bold text-danger text-gray-800">0</div>
+                                    <div class="h5 mb-0 font-weight-bold text-danger text-gray-800">
+                                        {{supplierActions.deleted}}
+                                    </div>
                                 </div>
                                 <div class="col-auto text-danger">
                                     <i class="fa fa-trash fa-2x text-gray-300"></i>
@@ -100,7 +138,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                        Modificados</div>
+                                        {{supplierActions.updated}}</div>
                                     <div class="h5 mb-0 font-weight-bold text-warning text-gray-800">0</div>
                                 </div>
                                 <div class="col-auto text-warning">

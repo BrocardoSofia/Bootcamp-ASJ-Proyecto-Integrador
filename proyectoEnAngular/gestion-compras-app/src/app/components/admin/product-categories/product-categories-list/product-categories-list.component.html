@@ -47,9 +47,12 @@
             <option value="2">Activos</option>
             <option value="3">Eliminados</option>
           </select>
-        </div>
+        </div>    
+      </article>
+    </section>
     
-        <nav class="col-md-3 d-flex justify-content-end filterItems pe-3" 
+    <table class="table m-0 p-4" *ngIf="productCategories.length !== 0">
+      <nav class="col-md-3 d-flex justify-content-end filterItems pe-3" 
         aria-label="Page navigation example">
           <ul class="pagination">
             <li class="page-item" (click)="prevPage()">
@@ -79,11 +82,6 @@
             </li>
           </ul>
         </nav>
-    
-      </article>
-    </section>
-    
-    <table class="table m-0 p-4" *ngIf="productCategories.length !== 0">
         <thead>
           <tr class="table">
             <th scope="col" class="columnSort" (click)="changeSort('category')">Rubro

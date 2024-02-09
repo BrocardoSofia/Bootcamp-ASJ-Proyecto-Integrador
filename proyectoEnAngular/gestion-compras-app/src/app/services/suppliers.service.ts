@@ -16,6 +16,7 @@ export class SuppliersService {
   private urlIvaContitions: string = 'http://localhost:8080/iva-conditions';
   private urlCountries: string = 'http://localhost:8080/countries';
   private urlSupplierContact: string = 'http://localhost:8080/suppliers-contacts';
+  private urlSupplierHistory: string = 'http://localhost:8080/supplier-history';
   
   constructor(private http: HttpClient,
               private loginService: LoginService) { }
@@ -74,6 +75,21 @@ export class SuppliersService {
     }
 
     return supplier;
+  }
+
+  //get all suppliers filtered
+  getAllSupplierHistory(pageNumber:number, orderBy: string, userId: number): Observable<any> {
+    let urlGet = this.urlSupplierHistory + '/user/' + userId +
+                  "?page="+pageNumber+"&size=10"+orderBy;
+
+    return this.http.get(urlGet);
+  }
+
+  getAllSupplierActions(pageNumber:number, orderBy: string, userId: number): Observable<any> {
+    let urlGet = this.urlSupplierHistory + '/user/' + userId + '/actions'+
+                  "?page="+pageNumber+"&size=10"+orderBy;
+
+    return this.http.get(urlGet);
   }
   
   public addSupplier(supplier: Supplier): Observable<Supplier> {

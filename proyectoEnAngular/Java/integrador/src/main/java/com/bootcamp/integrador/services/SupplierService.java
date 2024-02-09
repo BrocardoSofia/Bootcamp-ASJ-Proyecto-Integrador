@@ -120,7 +120,7 @@ public class SupplierService {
 
         if (foundSupplier.isPresent()) {
         	SupplierModel undeletedSupplier = foundSupplier.get();
-        	supplierHistoryService.addSupplierHistory(userId, supplierId, "re inserted", "supplier re inserted" , undeletedSupplier.toString());
+        	supplierHistoryService.addSupplierHistory(userId, supplierId, "reInserted", "supplier re inserted" , undeletedSupplier.toString());
         	
         	undeletedSupplier.setDeletedAt(null);
         	
@@ -138,7 +138,7 @@ public class SupplierService {
 		SupplierModel existBusinessName	= supplierRepository.findAllByBusinessName(supplier.getBusinessName());
 		
 		if(existingSupplier != null && ((existBusinessName == null)||(oldBusinessName.equals(supplier.getBusinessName())))) {
-			supplierHistoryService.addSupplierHistory((existingSupplier.getCreatedBy()).getId(), supplier.getId(), "updated", getChanges(existingSupplier, supplier) , existingSupplier.toString());
+			supplierHistoryService.addSupplierHistory(userId, supplier.getId(), "updated", getChanges(existingSupplier, supplier) , existingSupplier.toString());
 			existingSupplier.setSupplierCode(supplier.getSupplierCode());
 			existingSupplier.setSupplierCategory(supplier.getSupplierCategory());
 			existingSupplier.setUpdatedAt(LocalDateTime.now());

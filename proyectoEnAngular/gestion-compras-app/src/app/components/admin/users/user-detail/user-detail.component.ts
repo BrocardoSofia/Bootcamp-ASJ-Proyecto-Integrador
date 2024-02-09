@@ -3,6 +3,8 @@ import { UsersService } from '../../../../services/users.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../../../../models/user';
 import { Chart, ChartType} from 'chart.js/auto';
+import { SupplierHistory } from '../../../../models/supplier-history';
+import { SuppliersService } from '../../../../services/suppliers.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -14,10 +16,21 @@ export class UserDetailComponent implements OnInit{
   user!:User;
   seePassword: boolean = true;
   public chart: any;
+  historySelected:string = 'suppliers';
+
+  currentPageSupplier: number = 0;
+  pagesSupplier:number = 1;
+  maxPagesSupplier: number = 5;
+  nextFiveSupplier: boolean = false;
+  previousSupplier: boolean = false;
+  supplierActions = {'deleted': 0, 'created': 0, 'updated': 0};
+
+  supplierHistory: SupplierHistory[] = [];
 
   constructor(
     private usersService: UsersService,
     private activeRoute: ActivatedRoute,
+    private supplierService: SuppliersService,
     private router: Router
   ){}
 
@@ -39,6 +52,19 @@ export class UserDetailComponent implements OnInit{
         });
       }
     });
+
+    this.supplierService.getAllSupplierActions(0,'', this.idParam).subscribe(
+      actions=>{
+        this.supplierActions = actions;
+        console.log(actions);
+      }
+    )
+
+    this.supplierService.getAllSupplierHistory(0,'', this.idParam).subscribe(
+      data=>{
+        this.supplierHistory = data.content;
+      }
+    )
 
     // datos
     const data = {
@@ -64,6 +90,42 @@ export class UserDetailComponent implements OnInit{
       data: data, // datos 
     });
   
+  }
+
+  getPagesSupplier(): number[] {
+    this.pagesSupplier;
+    let startPage = Math.max(1, this.currentPageSupplier - Math.floor(this.maxPagesSupplier / 2));
+    let endPage = Math.min(this.pagesSupplier, startPage + this.maxPagesSupplier - 1);
+  
+    if(this.pagesSupplier > 5){
+      if(endPage-startPage != 4){
+        startPage = endPage-4;
+      }
+    }
+    let returnPages = Array.from(Array(Math.min(5, endPage - startPage + 1)), (_, i) => startPage + i);
+  
+    return returnPages;
+  }
+
+  selectPageSupplier(page: number){
+    this.supplierService.getAllSupplierHistory(page,'', this.idParam).subscribe(data=>{
+      this.pagesSupplier = data.totalPages;
+      this.supplierHistory = data.content;
+
+      if(this.pagesSupplier > 5){
+        this.nextFiveSupplier = true;
+      }
+    })
+  }
+
+  nextPageSupplier(){
+    this.currentPageSupplier++;
+    this.selectPageSupplier(this.currentPageSupplier);
+  }
+
+  prevPageSupplier(){
+    this.currentPageSupplier--;
+    this.selectPageSupplier(this.currentPageSupplier);
   }
 
   togglePassword() {
