@@ -42,8 +42,6 @@ public class PurchaseOrderModel {
 	private SupplierModel supplier;
 	
 	@NotNull(message = "Purchase Order Number cannot be null")
-    @NotBlank(message = "Purchase Order Number Name cannot be empty")
-    @Size(min = 0, message = "Purchase Order Number must be greater than 0")
 	@Column(unique = true)
     int purchaseOrderNumber;
 	
@@ -53,7 +51,7 @@ public class PurchaseOrderModel {
 	
 	@NotNull(message = "reception Info cannot be null")
     @NotBlank(message = "reception Info cannot be empty")
-    @Size(min = 3, max = 1250, message = "reception Info must be between 3 and 50 characters")
+    @Size(min = 0, max = 1250, message = "reception Info must be between 0 and 1250 characters")
     private String receptionInfo;
 	
 	@Temporal(TemporalType.TIMESTAMP)

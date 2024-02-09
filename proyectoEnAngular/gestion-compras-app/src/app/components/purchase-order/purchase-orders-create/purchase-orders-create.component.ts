@@ -105,9 +105,10 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   createPurchaseOrder(){
     let deliveryDate: any = this.detailForm.get('deliveryDate');
-    if (this.detailForm.valid && deliveryDate !== null) {
+    let receptionInfo: any = this.detailForm.get('receptionInfo');
+    if (this.detailForm.valid && deliveryDate !== null && receptionInfo!==null) {
       this.purchaseOrder.deliveryDate = deliveryDate.value;
-      this.purchaseOrder.receptionInfo = this.receptionInfo;
+      this.purchaseOrder.receptionInfo = receptionInfo.value;
 
       //agregar a la base de datos
       this.purchaseOrdersService.addPurchaseOrder(this.purchaseOrder).subscribe(
