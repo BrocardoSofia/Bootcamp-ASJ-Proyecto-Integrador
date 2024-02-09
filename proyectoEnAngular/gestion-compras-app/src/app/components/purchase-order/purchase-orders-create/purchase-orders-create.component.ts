@@ -112,13 +112,17 @@ export class PurchaseOrdersCreateComponent implements OnInit {
       //agregar a la base de datos
       this.purchaseOrdersService.addPurchaseOrder(this.purchaseOrder).subscribe(
         response=>{
+          //luego de agregar el nuevo producto agrego las imagenes
+          this.callProductPurchaseSequentially(response);
 
+          //mensaje de que se agrego todo correctamente y lo envio a la pagina anterior
+          this.productLoadedSuccessfully('Se agrego correctamente la orden de compra: ' + response.purchaseOrderNumber);
         }
       )
     }
   }
 
-  async callProductImagesSequentially(purchaseOrderAdded: PurchaseOrder) {
+  async callProductPurchaseSequentially(purchaseOrderAdded: PurchaseOrder) {
     for (const product of this.productPurchase) {
       product.purchaseOrder = purchaseOrderAdded;
 
@@ -128,6 +132,20 @@ export class PurchaseOrdersCreateComponent implements OnInit {
           console.error('Error al agregar el producto:', error);
       }
     }
+  }
+
+  private productLoadedSuccessfully(textInfo: string){
+    //muestro en un alert que se agrego correctamente el usuario
+    Swal.fire({
+      text: textInfo,
+      imageUrl: "./assets/succesImg.jpg",
+      imageWidth: 400,
+      imageHeight: auto,
+      imageAlt: "Custom image"
+    });
+  
+    //lo redirijo a la pagina anterior
+    this.router.navigate(['/purchase-orders']);
   }
 
   modifyPurchaseOrder(){
