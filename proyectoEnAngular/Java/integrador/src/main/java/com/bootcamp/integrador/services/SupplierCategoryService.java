@@ -27,6 +27,18 @@ public class SupplierCategoryService {
     }
     
     //obtener rubros activos
+  	public Page<SupplierCategoryModel> getAllCategories(Pageable pageable, String category){
+  		Page<SupplierCategoryModel> page;
+  		if(category == "") {
+  			//no envio category
+  			page = supplierCategoryRepository.findAll(pageable);
+  		}else {
+  			page = supplierCategoryRepository.findAllByCategoryContainingIgnoreCase(category, pageable);	
+  		}
+  		return page;
+  	}
+    
+    //obtener rubros activos
   	public Page<SupplierCategoryModel> getActiveCategories(Pageable pageable, String category){
   		Page<SupplierCategoryModel> page;
   		if(category == "") {

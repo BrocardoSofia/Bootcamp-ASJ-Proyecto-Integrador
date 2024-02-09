@@ -57,7 +57,7 @@ export class SupplierCategoriesService {
 
   //get all categories filtered
   getAllCategories(pageNumber:number, orderBy: string, category: string): Observable<any> {
-    let urlGet = this.url+"?page="+pageNumber+"&size=10"+orderBy+"&category="+category;
+    let urlGet = this.url+"/all"+"?page="+pageNumber+"&size=10"+orderBy+"&category="+category;
 
     return this.http.get(urlGet);
   }
