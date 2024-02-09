@@ -373,3 +373,20 @@ Pasos necesarios para correr el proyecto localmente
 			(5,53,7,'LPF7841','La Naranja Mecanica','',11500,'2022-11-04'),
 			(1,18,2,'47SR698','STARWARS RESISTANCE','',15560,'2023-12-10'); 
 ```
+
+- Insertar **Products_images**
+
+```sql
+  INSERT INTO Products_images(product_id,
+							imageurl)
+	VALUES  (1,'https://acdn.mitiendanube.com/stores/001/245/791/products/cbd5231b-441b-4bf3-9efe-3f427b2e45f1-be476dc50481749c0e16978679420956-1024-1024.jpg'),
+			(2,'https://acdn.mitiendanube.com/stores/001/245/791/products/e38de252-1d7e-427e-b483-5519115c945f-d807bc487ce283aec516978435939073-1024-1024.jpg'),
+			(3,'https://acdn.mitiendanube.com/stores/001/245/791/products/0ee1b83b-b50c-4e14-9697-421321742944-ce6c43fe97f9d91da816978435450800-1024-1024.jpg'),
+			(4,'https://www.sistemasjunin.com.ar/pub/media/catalog/product/cache/37541c0bbf24e7dc2db63933a4a3a5a2/c/e/celular_samsung_galaxy_a014_a145mzsearo_128gb.jpg'),
+			(5,'https://static.hendel.com/media/catalog/product/cache/0c3e9ac8430b5a3e77d1544ae1698a10/4/8/48229-min.jpg'),
+			(6,'https://www.sevenelectronics.com.ar/images/000880609415204383084D-NQ-NP-647009-MLA50801736027-072022-V.jpg'),
+			(7,'https://images.samsung.com/ar/smartphones/galaxy-z-flip4/images/galaxy-z-flip4_highlights_kv.jpg'),
+			(8,'https://www.penguinlibros.com/ar/1604980/los-juegos-del-hambre-1-los-juegos-del-hambre.jpg'),
+			(9,'https://quelibroleo.com/images/libros/libro_1365433263.jpg'),
+			(10,'https://images.cdn1.buscalibre.com/fit-in/360x360/ae/3a/ae3ab1e4a532f06d1849f736835f514f.jpg');
+```
