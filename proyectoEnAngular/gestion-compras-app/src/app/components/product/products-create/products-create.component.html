@@ -101,7 +101,7 @@
                 </tr>
                 <tr *ngFor="let supplier of suppliers" (click)="selectSupplier(supplier)"
                     [ngClass]="(supplier.id === oldProduct.supplier.id
-                    || supplier.id === supplier.supplierCategory.id)?'table-success':''"
+                    || supplier.id === supplierSavedId)?'table-success':''"
                 >
                     <td class="text-center"><img [src]="supplier.imageUrl" style="width: 5vw;"
                         alt="Logo previsualizado" class="mt-2"></td>

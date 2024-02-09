@@ -200,11 +200,7 @@ export class ProductsCreateComponent implements OnInit{
       }
     )
   }
-
-  changeImage(event: Event): void {
-    const imagen = event.target as HTMLImageElement;
-    imagen.src = '/assets/imageNotFound.jpg';
-  }
+  
 
   private productLoadedSuccessfully(textInfo: string){
     //muestro en un alert que se agrego correctamente el usuario
@@ -337,6 +333,11 @@ export class ProductsCreateComponent implements OnInit{
 
     //cargo el arreglo de categorias en base a el id del rubro
     this.productCategories = supplier.supplierCategory.products;
+  }
+
+  changeImage(event: Event): void {
+    const imagen = event.target as HTMLImageElement;
+    imagen.src = '/assets/imageNotFound.jpg';
   }
 
   supplierForm(){
