@@ -179,7 +179,39 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   addProduct(){
     let productPurchase: ProductPurchase = this.productToProductPurchase();
-    console.log(productPurchase);
+
+    //veo si existe el producto en el array
+    let pos = this.posProduct(productPurchase);
+    if(pos !== -1){
+      //si existe le modifico la cantidad
+      this.productPurchase[pos].amount += productPurchase.amount;
+    }else{
+      //si no existe lo agrego
+      this.productPurchase.push(productPurchase);
+    }
+
+    this.productAmount = 0;
+    this.indexProductSelected = -1;
+  }
+
+  private posProduct(productPurchase: ProductPurchase){
+    let i: number = 0;
+    let pos:number = -1;
+
+    while(i<this.productPurchase.length && pos === -1){
+      if(this.productPurchase[i].code == productPurchase.code){
+        pos = i;
+      }
+      i++;
+    }
+
+    return pos;
+  }
+
+  deleteProduct(i: number){
+    if (i >= 0 && i < this.productPurchase.length) {
+      this.productPurchase.splice(i, 1);
+    }
   }
 
   private productToProductPurchase(){
@@ -198,6 +230,23 @@ export class PurchaseOrdersCreateComponent implements OnInit {
     productPurchase.price = this.products[this.indexProductSelected].price;
 
     return productPurchase;
+
+  }
+
+  getTotal(product: ProductPurchase){
+    return (product.price * product.amount);
+  }
+
+  getFinal(){
+    let final: number = 0;
+
+    for(let product of this.productPurchase){
+      final += (product.amount * product.price);
+    }
+    return final;
+  }
+
+  continueProducts(){
 
   }
 }
