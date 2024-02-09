@@ -45,6 +45,7 @@ export class PurchaseOrdersService {
 
   public addPurchaseOrder(purchaseOrder: PurchaseOrder): Observable<PurchaseOrder> {
     const headers = { 'Content-Type': 'application/json' };
+    purchaseOrder.createdBy.id = this.loginService.getUserId();
     return this.http.post<PurchaseOrder>(this.url, purchaseOrder, { headers });
   }
 

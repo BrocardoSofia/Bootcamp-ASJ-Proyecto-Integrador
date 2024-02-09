@@ -248,5 +248,8 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   continueProducts(){
     this.productsValid = true;
+
+    //set purchase state
+    this.purchaseOrder.purchaseState.id = 1;
   }
 }
