@@ -39,6 +39,7 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   supplierValid:boolean = false;
   productsValid:boolean = false;
+  currentDate = new Date();
 
   oldPurchaseOrder!:PurchaseOrder;
 
@@ -56,7 +57,8 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   detailForm!: FormGroup;
 
-  date:Date = new Date;
+  deliveryDate:Date | null = null;
+  receptionInfo: string = ''; 
 
   constructor(
     private suppliersService: SuppliersService,
@@ -94,9 +96,13 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   }
 
   submitForm() {
-    if (this.detailForm.valid) {
-      // Aquí puedes enviar los datos a tu base de datos (por ejemplo, H2)
-      console.log("valores validos");
+    let deliveryDate: any = this.detailForm.get('deliveryDate');
+    if (this.detailForm.valid && deliveryDate !== null) {
+      this.purchaseOrder.deliveryDate = deliveryDate.value;
+      this.purchaseOrder.receptionInfo = this.receptionInfo;
+
+      //agregar a la base de datos
+      console.log(this.purchaseOrder);
     }
   }
 

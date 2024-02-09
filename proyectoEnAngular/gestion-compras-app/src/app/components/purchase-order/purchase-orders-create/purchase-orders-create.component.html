@@ -210,11 +210,11 @@
             <div class="form-group">
               <label for="fecha">Fecha de entrega esperada:</label>
               <input type="datetime-local"
-                id="date"
+                id="deliveryDate"
                 formControlName="deliveryDate"
                 class="form-control"
                 [min]="getCurrentDateTime()"
-                name="deliveryDate">
+                name="deliveryDate" [ngModel]="deliveryDate">
               <div *ngIf="detailForm.get('deliveryDate')?.invalid && detailForm.get('deliveryDate')?.touched" class="text-danger">
                 La fecha debe ser posterior a la actual.
               </div>
@@ -222,10 +222,12 @@
           
             <div class="form-group">
               <label for="comentario">Información de recepción</label>
-              <textarea id="comentario" formControlName="receptionInfo" class="form-control"></textarea>
+              <textarea id="receptionInfo" formControlName="receptionInfo" 
+              class="form-control"></textarea>
             </div>
           
-            <button type="submit" class="btn btn-primary">Enviar</button>
+            <button type="submit" class="btn btn-primary" 
+            [disabled]="detailForm.invalid">Enviar</button>
           </form>
 
     </section>
