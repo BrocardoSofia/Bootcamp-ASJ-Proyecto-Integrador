@@ -26,7 +26,7 @@ public class PurchaseOrderController {
 	
 	//obtener todas las ordenes de compra
 	@GetMapping()
-    public Page<PurchaseOrderModel> getCountries(Pageable pageable) {
+    public Page<PurchaseOrderModel> getPurchaseOrders(Pageable pageable) {
         return purchaseOrderService.getPurchaseOrders(pageable);
     }
 	

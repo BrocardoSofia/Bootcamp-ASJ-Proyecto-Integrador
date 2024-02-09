@@ -6,16 +6,73 @@ import { ProductPurchase } from '../models/product-po';
 import { HttpClient } from '@angular/common/http';
 import { LoginService } from './login.service';
 import { ProductsService } from './products.service';
+import { UsersService } from './users.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PurchaseOrdersService {
   private url: string = 'http://localhost:8080/purchase-orders';
+  private urlPurchaseState: string = 'http://localhost:8080/purchase-states';
 
   constructor(private http: HttpClient,
               private loginService: LoginService,
-              private productService: ProductsService) {}
+              private productService: ProductsService,
+              private userService: UsersService,
+              private supplierService: SuppliersService) {}
 
-  
+  inicPurchaseOrder(){
+    let purchaseOrder: PurchaseOrder = {
+      id: 0,
+      purchaseState: {
+        id: 0,
+        purchaseState: '',
+        createdAt: new Date
+      },
+      createdBy: this.userService.inicUser(),
+      supplier: this.supplierService.inicSupplier(),
+      purchaseOrderNumber: 0,
+      deliveryDate: new Date,
+      receptionInfo: '',
+      createdAt: new Date,
+      updatedAt: null,
+      purchaseOrdersProducts: []
+    }
+  }
+
+  public addPurchaseOrder(purchaseOrder: PurchaseOrder): Observable<PurchaseOrder> {
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.post<PurchaseOrder>(this.url, purchaseOrder, { headers });
+  }
+
+  public updatePurchaseOrder(purchaseOrder: PurchaseOrder): Observable<PurchaseOrder> {
+    const headers = { 'Content-Type': 'application/json' };
+    return this.http.put<PurchaseOrder>(this.url, purchaseOrder, { headers });
+  }
+
+  //get normal
+  getPurchaseOrders(pageNumber:number, orderBy: string): Observable<any> {
+    let urlGet = this.url+"?page="+pageNumber+"&size=10"+orderBy;
+
+    return this.http.get(urlGet);
+  }
+
+  //get by user
+  getPurchaseOrdersByUserId(pageNumber:number, orderBy: string, userId:number): Observable<any> {
+    let urlGet = this.url+"/byUser/"+userId+"?page="+pageNumber+"&size=10"+orderBy;
+
+    return this.http.get(urlGet);
+  }
+
+  //get by supplier
+  getPurchaseOrdersBySupplierId(pageNumber:number, orderBy: string, supplierId:number): Observable<any> {
+    let urlGet = this.url+"/bySupplier/"+supplierId+"?page="+pageNumber+"&size=10"+orderBy;
+
+    return this.http.get(urlGet);
+  }
+    
+  getPurchaseStates(): Observable<any>{
+    return this.http.get(this.urlPurchaseState);
+  }
 }
