@@ -1,3 +1,72 @@
-<section class="container">
-    
+<section class="bg-light ">
+    <div class="container" >
+        <div style="display: flex; align-content: center;">
+            <h1 class="pt-3 pb-2 text-center " style="margin-left: 10px;">
+              <img src="/assets/cart-fill.svg" alt="icono user" class="icono">
+              Detalle de la orden de compra '{{purchaseOrder.purchaseOrderNumber}}'</h1>
+        </div>
+
+        <ul class="list-group mt-2 mb-2 ">
+            <li class="list-group-item">
+                <strong>Número orden compra</strong> 
+                <article>
+                    {{purchaseOrder.purchaseOrderNumber}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Fecha emisión</strong> 
+                <article>
+                    {{purchaseOrder.createdAt | date}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Fecha entrega esperada</strong> 
+                <article>
+                    {{purchaseOrder.deliveryDate | date}}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Información de recepción</strong> 
+                <article>
+                    {{purchaseOrder.receptionInfo }}
+                </article>
+            </li>
+            <li class="list-group-item">
+                <strong>Proveedor</strong> 
+                <article>
+                    {{purchaseOrder.supplier.businessName }}
+                </article>
+            </li>            
+        </ul>
+        <h4 class="pt-5 pb-2 " style="margin-left: 10px;">
+            Productos
+        </h4>
+        <table class="table table-hover m-0 p-4">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col" class="text-center">SKU</th>
+                    <th scope="col" class="text-center">Producto</th>
+                    <th scope="col" class="text-center">Precio</th>
+                    <th scope="col" class="text-center">Cantidad</th>
+                    <th scope="col" class="text-center">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of purchaseOrder.purchaseOrdersProducts; index as i">
+                    <td class="text-center">{{product.product.codeSKU}}</td>
+                    <td class="text-center">{{product.product.productName}}</td>
+                    <td class="text-center">{{product.price | currency}}</td>
+                    <td class="text-center">{{product.amount}}</td>
+                    <td class="text-center">{{getTotal(product) | currency}}</td>
+                </tr>
+                <tr class="table-success">
+                    <td class="text-center">Final</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-center">{{getFinal() | currency}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </section>

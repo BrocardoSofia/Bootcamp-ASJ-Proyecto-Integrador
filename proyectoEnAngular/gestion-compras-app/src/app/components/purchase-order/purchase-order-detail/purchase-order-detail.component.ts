@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PurchaseOrder } from '../../../models/purchase-order';
 import { PurchaseOrdersService } from '../../../services/purchase-orders.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductPurchase } from '../../../models/product-po';
 
 @Component({
   selector: 'app-purchase-order-detail',
@@ -9,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './purchase-order-detail.component.css'
 })
 export class PurchaseOrderDetailComponent implements OnInit{
-  purchaseOrders!: PurchaseOrder;
+  purchaseOrder!: PurchaseOrder;
   idParam: number = 0;
 
   constructor(
@@ -28,7 +29,7 @@ export class PurchaseOrderDetailComponent implements OnInit{
         this.purchaseOrdersService.getPurchaseOrderById(this.idParam).subscribe(response => {
 
           if(response !== null){
-            this.purchaseOrders = response;
+            this.purchaseOrder = response;
             
           }else{
             //lo redirijo a la pagina anterior
@@ -40,6 +41,16 @@ export class PurchaseOrderDetailComponent implements OnInit{
     });
   }
 
+  getTotal(product: ProductPurchase){
+    return (product.price * product.amount);
+  }
   
+  getFinal(){
+    let final: number = 0;
 
+    for(let product of this.purchaseOrder.purchaseOrdersProducts){
+      final += (product.amount * product.price);
+    }
+    return final;
+  }
 }
