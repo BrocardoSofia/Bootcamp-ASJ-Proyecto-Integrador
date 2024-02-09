@@ -1,5 +1,7 @@
 package com.bootcamp.integrador.controllers;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bootcamp.integrador.models.PurchaseOrderModel;
+import com.bootcamp.integrador.models.SupplierModel;
 import com.bootcamp.integrador.services.PurchaseOrderService;
 
 @RestController
@@ -28,6 +31,18 @@ public class PurchaseOrderController {
 	@GetMapping()
     public Page<PurchaseOrderModel> getPurchaseOrders(Pageable pageable) {
         return purchaseOrderService.getPurchaseOrders(pageable);
+    }
+	
+	//get por Id
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<PurchaseOrderModel>> getPurchaseOrderById(@PathVariable int id){
+    	Optional<PurchaseOrderModel> foundPurchaseOrder= purchaseOrderService.getPurchaseOrderById(id);
+    	
+    	if(foundPurchaseOrder.isEmpty()) {
+    		return new ResponseEntity<>(foundPurchaseOrder, HttpStatus.NOT_FOUND);
+    	}else {
+    		return new ResponseEntity<>(foundPurchaseOrder, HttpStatus.FOUND);
+    	}
     }
 	
 	//obtener ordenes de compra por proveedor

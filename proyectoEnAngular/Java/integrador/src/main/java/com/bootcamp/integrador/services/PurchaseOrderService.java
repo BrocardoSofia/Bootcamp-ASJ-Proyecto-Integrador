@@ -4,9 +4,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.bootcamp.integrador.models.PurchaseOrderModel;
+import com.bootcamp.integrador.models.SupplierModel;
 import com.bootcamp.integrador.repositories.PurchaseOrderRepository;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -55,5 +57,10 @@ public class PurchaseOrderService {
 	//encontrar la ultima orden de compra de un proveedor
 	public int getLastPurchaseOrderNumber() {
 	    return (int) purchaseOrderRepository.count() + 1;
+	}
+	
+	//obtener un proveedor segun su id
+	public Optional<PurchaseOrderModel> getPurchaseOrderById(int id){
+		return purchaseOrderRepository.findById(id);
 	}
 }

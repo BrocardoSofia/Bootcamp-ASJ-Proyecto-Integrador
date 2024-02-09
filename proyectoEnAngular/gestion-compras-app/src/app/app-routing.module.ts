@@ -65,6 +65,7 @@ const routes: Routes = [
     children: [
       { path: '', component: PurchaseOrdersComponent, canActivate : [loginGuard]},
       { path: 'new', component: PurchaseOrdersCreateComponent, canActivate : [loginGuard]},
+      { path: 'edit', component: PurchaseOrdersCreateComponent, canActivate : [loginGuard]},
       { path: 'detail', component: PurchaseOrderDetailComponent, canActivate : [loginGuard]},
     ],
   },

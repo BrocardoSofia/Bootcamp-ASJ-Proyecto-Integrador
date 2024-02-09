@@ -91,4 +91,19 @@ export class PurchaseOrdersService {
   getPurchaseStates(): Observable<any>{
     return this.http.get(this.urlPurchaseState);
   }
+
+  getPurchaseOrderById(id: number): Observable<PurchaseOrder>{
+    const url = this.url+'/'+id;
+
+    return new Observable<PurchaseOrder>(observer => {
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          const purchaseOrder: PurchaseOrder = data;
+          observer.next(purchaseOrder);
+          observer.complete();
+        })
+        .catch(error => observer.error(error));
+    });
+  }
 }

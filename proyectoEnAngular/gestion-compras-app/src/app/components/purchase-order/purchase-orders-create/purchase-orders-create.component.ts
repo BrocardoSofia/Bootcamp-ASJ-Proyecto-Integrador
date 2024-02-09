@@ -10,6 +10,7 @@ import { ProductPurchase } from '../../../models/product-po';
 import { Product } from '../../../models/product';
 import Swal from 'sweetalert2';
 import { auto } from '@popperjs/core';
+import { PurchaseState } from '../../../models/purchase-state';
 
 type SortOrder = 'None' | 'asc' | 'desc';
 
@@ -58,7 +59,11 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   detailForm!: FormGroup;
 
   deliveryDate:Date | null = null;
-  receptionInfo: string = ''; 
+  receptionInfo: string = '';
+  
+  purchaseOrderStates: PurchaseState[] = [];
+
+  purchaseStateId: number = 0;
 
   constructor(
     private suppliersService: SuppliersService,
@@ -70,9 +75,15 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.purchaseOrdersService.getPurchaseStates().subscribe(
+      states=>{
+        this.purchaseOrderStates = states;
+      }
+    )
+
     this.detailForm = this.fb.group({
       deliveryDate: ['', [Validators.required, this.validateDate]],
-      receptionInfo: ['']
+      receptionInfo: ['', [Validators.required]]
     });
 
     this.oldPurchaseOrder = this.purchaseOrdersService.inicPurchaseOrder();
@@ -85,6 +96,28 @@ export class PurchaseOrdersCreateComponent implements OnInit {
       }
     )
 
+    //veo si estoy en modo edicion
+    this.activeRoute.queryParamMap.subscribe((params) => {
+      let param = params.get('purchaseOrderId') || null;
+
+      if (param !== null) {
+        this.idParam = parseInt(param);
+
+        this.purchaseOrdersService.getPurchaseOrderById(this.idParam).subscribe(
+          response => {
+            if(response !== null){
+              this.oldPurchaseOrder = response;
+              this.purchaseOrder = response;
+              this.edit = true;
+              this.purchaseStateId = response.purchaseState.id;
+            }else{
+              //lo redirijo a la pagina anterior
+              this.router.navigate(['/purchase-orders']);
+            }
+          
+        });
+      }
+    });
   }
 
   validateDate(control:any) {

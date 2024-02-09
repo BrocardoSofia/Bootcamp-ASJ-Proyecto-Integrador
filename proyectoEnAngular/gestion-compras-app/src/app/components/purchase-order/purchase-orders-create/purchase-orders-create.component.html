@@ -206,6 +206,19 @@
     <!-- ingresar informacion de entrega - esta es la unica parte que se puede editar -->
     <section *ngIf="productsValid || edit">
 
+        <!-- si estoy en modo edicion puedo cambiar el estado -->
+        <div *ngIf="edit" class="mb-3 ">
+            <label for="productInput" class="form-label mt-4">Estado</label>
+                <select class="form-select" aria-label="Default select example" id="productInput"
+                    class="form-control" [(ngModel)]="purchaseStateId">
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option *ngFor="let state of purchaseOrderStates; index as i" [value]="state.id">
+                        {{ state.purchaseState }}
+                    </option>
+                </select>
+                
+        </div>
+
         <form [formGroup]="detailForm" (ngSubmit)="submitForm()">
             <div class="form-group">
               <label for="fecha">Fecha de entrega esperada:</label>
@@ -220,13 +233,13 @@
               </div>
             </div>
           
-            <div class="form-group">
+            <div class="form-group mt-3">
               <label for="comentario">Información de recepción</label>
               <textarea id="receptionInfo" formControlName="receptionInfo" 
               class="form-control"></textarea>
             </div>
           
-            <button type="submit" class="btn btn-primary" 
+            <button type="submit" class="btn btn-primary mt-3" 
             [disabled]="detailForm.invalid">Enviar</button>
           </form>
 
