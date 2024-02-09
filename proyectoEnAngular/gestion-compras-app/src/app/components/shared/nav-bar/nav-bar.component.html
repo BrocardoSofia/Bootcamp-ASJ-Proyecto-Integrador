@@ -64,7 +64,7 @@
                         (click)="getPaths()">
                             <div class=" d-flex align-items-center overflow-hidden changeWidth mx-auto">
                                 <i *ngIf="!selectedPath('/purchase-orders')" class="bi bi-cart-dash iconHeight mx-2"></i>
-                                <i class="bi bi-cart-dash-fill iconHeight mx-2" [ngClass]="(selectedPath('/purchase-orders')?'Blue':'')"></i>
+                                <i class="bi bi-cart-fill iconHeight mx-2" [ngClass]="(selectedPath('/purchase-orders')?'Blue':'')"></i>
                             </div>
                             <div class="smallFont textColor" [ngClass]="(selectedPath('/purchase-orders')?'Blue':'')">Ordenes de compra</div>
                         </a>
