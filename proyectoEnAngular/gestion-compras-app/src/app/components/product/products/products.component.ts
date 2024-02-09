@@ -48,8 +48,14 @@ export class ProductsComponent implements OnInit{
         this.supplierCategories = supplierCategoriesResponse.filter(category=> category.products.length !== 0);
       }
     )
-    
+
     //obtengo los primeros productos activos
+    this.productsService.getAllActiveProducts(0, '', '','','',0).subscribe(
+      response=>{
+        this.products = response.content;
+        console.log(this.products);
+      }
+    )
   }
 
   
