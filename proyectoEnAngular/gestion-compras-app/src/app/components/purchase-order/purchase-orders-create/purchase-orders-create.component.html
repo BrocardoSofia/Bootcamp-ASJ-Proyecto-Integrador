@@ -10,7 +10,7 @@
     </h1>
 
     <!-- elegir proveedor -->
-    <section *ngIf="!supplierValid">
+    <section *ngIf="!supplierValid && !edit">
         <section class="m-0 p-2 table-header bg-primary-subtle d-flex">
             <div class="col-md-9 ps-2">
               <h2 class="text-left">Seleccione un proveedor</h2>
@@ -102,7 +102,7 @@
                 </tr>
                 <tr *ngFor="let supplier of suppliers" (click)="selectSupplier(supplier)"
                     [ngClass]="(supplier.id === oldPurchaseOrder.supplier.id
-                    || supplier.id === supplier.supplierCategory.id)?'table-success':''"
+                    || supplier.id === supplierSavedId)?'table-success':''"
                 >
                     <td class="text-center"><img [src]="supplier.imageUrl" style="width: 5vw;"
                         alt="Logo previsualizado" class="mt-2"></td>
@@ -123,8 +123,48 @@
     </section>
 
     <!-- elegir productos y cantidad -->
-    <section *ngIf="supplierValid && !productsValid">
-        <p>seleccionar productos</p>
+    <section *ngIf="supplierValid && !productsValid && !edit">
+        <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="products.length === 0">
+            <h2 class="text-center mb-4">El proveedor seleccionado no posee productos</h2>
+            <img src="/assets/userVectorImg.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+            <button class="btn btn-primary mt-2"  routerLink="/products/new">Ir a agregar productos</button>
+        </div>
+        
+        <article class="row" *ngIf="products.length !== 0">
+            <div class="col-md-6"> 
+                <label for="productInput" class="form-label mt-4">Producto*</label>
+                <select class="form-select" aria-label="Default select example" id="productInput"
+                    class="form-control" [(ngModel)]="indexProductSelected">
+                    <option value="" disabled selected>Seleccione una opción</option>
+                    <option *ngFor="let product of products; index as i" [value]="i">
+                        {{ product.productName }}
+                    </option>
+                </select>
+                <label for="amountInput" class="form-label mt-4">Cantidad*</label>
+                <input type="number" required id="amountInput" class="form-control" 
+                    placeholder="Ejemplo" name="amount" [(ngModel)]="productAmount"
+                    min="0"
+                    oninvalid="this.setCustomValidity('La cantidad debe ser mayor a 0')"
+                />
+                
+                <button [disabled]="productAmount <= 0 || indexProductSelected == -1" 
+                class="btn btn-primary mt-3" 
+                (click)="addProduct()">
+                    Continuar
+                </button>
+            </div>
+            <div class="col-md-6"> 
+                <div class="alert alert-info mt-4 abs-center" role="alert" 
+                *ngIf="productPurchase.length === 0">
+                    <h2 class="text-center mb-4">Cargue productos para continuar</h2>
+                    <img src="/assets/producto.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+                </div>
+                
+                <div *ngIf="productPurchase.length !== 0">
+                    
+                </div>
+            </div>
+        </article>
     </section>
 
     <!-- ingresar informacion de entrega - esta es la unica parte que se puede editar -->

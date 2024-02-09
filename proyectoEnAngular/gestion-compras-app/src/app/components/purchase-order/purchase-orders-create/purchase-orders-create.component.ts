@@ -48,6 +48,12 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   products:Product[] = [];
 
+  indexProductSelected:number = -1;
+  productAmount: number = 0;
+  alertAmountMin: boolean = false;
+
+  productPurchase: ProductPurchase[] = [];
+
   constructor(
     private suppliersService: SuppliersService,
     private productsService: ProductsService,
@@ -66,7 +72,6 @@ export class PurchaseOrdersCreateComponent implements OnInit {
     this.searchSupplierCode,this.searchSupplierCategoryId).subscribe(
       response=>{
         this.suppliers = response.content;
-        console.log(this.suppliers);
       }
     )
 
@@ -172,5 +177,27 @@ export class PurchaseOrdersCreateComponent implements OnInit {
     this.supplierValid = true;
   }
 
-  
+  addProduct(){
+    let productPurchase: ProductPurchase = this.productToProductPurchase();
+    console.log(productPurchase);
+  }
+
+  private productToProductPurchase(){
+    let productPurchase: ProductPurchase = {
+      code: '',
+      category: '',
+      name: '',
+      price: 0,
+      amount: 0
+    }
+
+    productPurchase.code = this.products[this.indexProductSelected].codeSKU
+    productPurchase.category = this.products[this.indexProductSelected].productCategory.category;
+    productPurchase.name = this.products[this.indexProductSelected].productName;
+    productPurchase.amount = this.productAmount;
+    productPurchase.price = this.products[this.indexProductSelected].price;
+
+    return productPurchase;
+
+  }
 }
