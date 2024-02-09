@@ -39,6 +39,8 @@ export class PurchaseOrdersService {
       updatedAt: null,
       purchaseOrdersProducts: []
     }
+
+    return purchaseOrder;
   }
 
   public addPurchaseOrder(purchaseOrder: PurchaseOrder): Observable<PurchaseOrder> {

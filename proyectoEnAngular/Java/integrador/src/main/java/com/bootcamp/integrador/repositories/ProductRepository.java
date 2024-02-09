@@ -1,6 +1,9 @@
 package com.bootcamp.integrador.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -43,6 +46,6 @@ public interface ProductRepository extends JpaRepository<ProductModel, Integer>{
 																								Pageable pageable);
 	ProductModel findAllByCodeSKU(String codeSKU);
 	ProductModel findAllByProductName(String productName);
-	
+	List<ProductModel> findAllBySupplierId(int supplierId);
 	
 }

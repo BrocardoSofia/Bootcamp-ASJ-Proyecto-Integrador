@@ -1,7 +1,134 @@
 <div class="container">
-    
-    <!-- elegir proveedor -->
-    <!-- elegir productos y cantidad -->
-    <!-- ingresar informacion de entrega - esta es la unica parte que se puede editar -->
+    <h1 class="pt-3 mb-4" *ngIf="!edit">
+        <img src="/assets/plus-square-fill.svg" alt="icono user" class="icono">
+        Creando nueva Orden de Compra
+    </h1>
 
+    <h1 class="pt-3 mb-4" *ngIf="edit">
+        <img src="/assets/gear-fill.svg" alt="icono user" class="icono">
+        Editando Orden de Compra
+    </h1>
+
+    <!-- elegir proveedor -->
+    <section *ngIf="!supplierValid">
+        <section class="m-0 p-2 table-header bg-primary-subtle d-flex">
+            <div class="col-md-9 ps-2">
+              <h2 class="text-left">Seleccione un proveedor</h2>
+            </div>
+        </section>
+        <section style="background-color: #fff; height: 9vh;" 
+        class="m-0 p-2 container-fluid filterItems border-bottom">
+            <article class="row"> 
+                <div class="col-md-3 p-2 ">
+                    <div class="input-group input-group-append">
+                        <input type="text" class="form-control" placeholder="Buscar Código" 
+                        name="SupplierCode" [(ngModel)]="searchSupplierCode">
+                        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                        (click)="searchBySupplierCode()" *ngIf="!searchSupplierCodeOn" 
+                        [ngClass]="((searchSupplierCode !== '')?'':'disabled')">
+                        <i class="bi bi-search"></i>
+                        </button>
+                        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                        (click)="clearSearchBySupplierCode()" *ngIf="searchSupplierCodeOn">
+                        <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-3 p-2 ">
+                    <div class="input-group input-group-append">
+                        <input type="text" class="form-control" placeholder="Buscar Razon Social" 
+                        name="businessName" [(ngModel)]="searchBusinessName">
+                        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                        (click)="searchByBusinessName()" *ngIf="!searchBusinessNameOn" 
+                        [ngClass]="((searchBusinessName !== '')?'':'disabled')">
+                        <i class="bi bi-search"></i>
+                        </button>
+                        <button class="btn btn-primary btn-icon" type="button" id="button-addon2"
+                        (click)="clearSearchByBusinessName()" *ngIf="searchBusinessNameOn">
+                        <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                </div>    
+                <nav class="col-md-6 d-flex justify-content-end filterItems pe-3" 
+                aria-label="Page navigation example">
+                    <ul class="pagination">
+                    <li class="page-item" (click)="prevPage()">
+                        <a class="page-link" 
+                            aria-label="Previous" 
+                            style="cursor: pointer;"
+                            [ngClass]="(currentPage != 0)?'':'disabled'"
+                        >
+                        <span aria-hidden="true">Prev</span>
+                        </a>
+                    </li>
+                    <li class="page-item" *ngFor="let page of getPages()">
+                        <a class="page-link" 
+                            [ngClass]="((currentPage+1) === page)?'active':''" 
+                            style="cursor: pointer;"
+                            (click)="selectPage(page-1)">{{page}}
+                    </a>
+                    </li>
+                    <li class="page-item" 
+                    (click)="nextPage()">
+                        <a class="page-link" 
+                        aria-label="Next"
+                        style="cursor: pointer;"
+                        [ngClass]="((pages !== 1) && (currentPage+1 !== pages)?'':'disabled')">
+                        <span aria-hidden="true">Next</span>
+                        </a>
+                    </li>
+                    </ul>
+                </nav>
+            
+            </article>
+        </section>
+        <table class="table table-hover selectTable m-0 p-4" *ngIf="suppliers.length !== 0">
+            <thead>
+                <tr class="table">
+                    <th scope="col" class="text-center">Logo</th>
+                    <th scope="col" class="text-center">Código</th>
+                    <th scope="col" class="columnSort text-center" (click)="changeSort('businessName')">Razón social 
+                      <i *ngIf="businessNameSort === 'None'" class="bi bi-arrow-down-up"></i>
+                      <i *ngIf="businessNameSort === 'desc'" class="bi bi-arrow-down"></i>
+                      <i *ngIf="businessNameSort === 'asc'" class="bi bi-arrow-up"></i>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngIf="edit" class="table-warning">
+                    <td>Proveedor actual: {{ oldPurchaseOrder.supplier.businessName }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr *ngFor="let supplier of suppliers" (click)="selectSupplier(supplier)"
+                    [ngClass]="(supplier.id === oldPurchaseOrder.supplier.id
+                    || supplier.id === supplier.supplierCategory.id)?'table-success':''"
+                >
+                    <td class="text-center"><img [src]="supplier.imageUrl" style="width: 5vw;"
+                        alt="Logo previsualizado" class="mt-2"></td>
+                    <td class="text-center">{{supplier.supplierCode}}</td>
+                    <td class="text-center">{{supplier.businessName}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="suppliers.length === 0">
+            <h2 class="text-center mb-4">No se encontraron proveedores</h2>
+            <img src="/assets/userVectorImg.png" alt="Imagen usuario" class="userImg mx-auto d-block">
+        </div>
+
+        <button [disabled]="!continueSupplier" class="btn btn-primary mt-2" 
+                (click)="supplierForm()">
+            Continuar
+        </button>
+    </section>
+
+    <!-- elegir productos y cantidad -->
+    <section *ngIf="supplierValid && !productsValid">
+        <p>seleccionar productos</p>
+    </section>
+
+    <!-- ingresar informacion de entrega - esta es la unica parte que se puede editar -->
+    <section *ngIf="productsValid">
+        
+    </section>
 </div>

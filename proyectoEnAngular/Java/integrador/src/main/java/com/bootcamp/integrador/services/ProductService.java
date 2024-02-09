@@ -1,6 +1,7 @@
 package com.bootcamp.integrador.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,6 +92,10 @@ public class ProductService {
 	//obtener un producto segun su id
 	public Optional<ProductModel> getProductById(int id){
 		return productRepository.findById(id);
+	}
+	
+	public List<ProductModel> getAllProductsBySupplierId(int supplierId){
+		return productRepository.findAllBySupplierId(supplierId);
 	}
 	
 	//insertar producto

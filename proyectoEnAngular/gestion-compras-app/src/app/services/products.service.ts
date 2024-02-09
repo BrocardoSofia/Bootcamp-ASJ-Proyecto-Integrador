@@ -141,4 +141,11 @@ export class ProductsService {
         .catch(error => observer.error(error));
     });
   }
+
+  //get all products filtered by supplier
+  getAllProductsBySupplierId(supplierId: number): Observable<Product[]> {
+    let urlGet = this.url+"/bySupplierId/"+supplierId;
+
+    return this.http.get<Product[]>(urlGet);
+  }
 }

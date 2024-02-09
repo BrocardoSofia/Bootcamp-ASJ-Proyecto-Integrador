@@ -77,6 +77,7 @@ export class ProductsCreateComponent implements OnInit{
     )
 
     this.product = this.productsService.inicProduct();
+    this.oldProduct = this.productsService.inicProduct();
     this.product.createdBy.id = this.loginService.getUserId();
 
     this.productForm = this.fb.group({

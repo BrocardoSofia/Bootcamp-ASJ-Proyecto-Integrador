@@ -1,5 +1,6 @@
 package com.bootcamp.integrador.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,12 @@ public class ProductController {
 									@RequestParam(required = false, defaultValue = "") String codeSKU,
 									@RequestParam(required = false, defaultValue = "-1") int productCategoryId){
 		return productService.getDeletedProducts(pageable, productCategoryId, codeSKU, productName, productDescription);
+	}
+	
+	//obtener productos eliminados
+	@GetMapping("/bySupplierId/{supplierId}")
+	public List<ProductModel> getAllProductsBySupplierId(@PathVariable int supplierId){
+		return productService.getAllProductsBySupplierId(supplierId);
 	}
 	
 	//get por Id
