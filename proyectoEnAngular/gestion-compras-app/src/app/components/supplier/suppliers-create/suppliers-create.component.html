@@ -131,7 +131,8 @@
         </table>
         <div class="alert alert-info mt-4 abs-center" role="alert" *ngIf="suplierCategories.length === 0">
             <h2 class="text-center mb-4">No se encontraron rubros</h2>
-            <img src="/assets/clasificacion.png" alt="Imagen rubros" class="userImg mx-auto d-block">
+            <img src="/assets/clasificacion.png" alt="Imagen rubros" class="userImg mx-auto d-block"
+            (error)="changeImage($event)">
         </div>
         
         <button [disabled]="!continueSupplierCategory" class="btn btn-primary mt-2" 

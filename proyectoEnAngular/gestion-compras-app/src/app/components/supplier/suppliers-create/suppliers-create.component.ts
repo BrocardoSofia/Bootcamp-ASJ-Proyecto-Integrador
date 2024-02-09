@@ -206,6 +206,11 @@ export class SuppliersCreateComponent implements OnInit {
     });
   }
 
+  changeImage(event: Event): void {
+    const imagen = event.target as HTMLImageElement;
+    imagen.src = '/assets/imageNotFound.jpg';
+  }
+
   getCountry(provinceId: number){
     for (const country of this.countries) {
       const foundProvince = country.provinces.find((province) => province.id === provinceId);
