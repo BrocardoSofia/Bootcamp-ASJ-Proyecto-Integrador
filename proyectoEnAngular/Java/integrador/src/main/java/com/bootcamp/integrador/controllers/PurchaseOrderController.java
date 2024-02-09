@@ -69,8 +69,8 @@ public class PurchaseOrderController {
     }
     
     //encontrar la ultima orden de compra de un proveedor
-    @GetMapping("/last-by-supplier/{supplierId}")
-    public PurchaseOrderModel getLastPurchaseOrderBySupplierId(@PathVariable int supplierId) {
-        return purchaseOrderService.getLastPurchaseOrderBySupplierId(supplierId);
+    @GetMapping("/last-purchaseOrderNumber")
+    public int getLastPurchaseOrderNumber() {
+        return purchaseOrderService.getLastPurchaseOrderNumber();
     }
 }

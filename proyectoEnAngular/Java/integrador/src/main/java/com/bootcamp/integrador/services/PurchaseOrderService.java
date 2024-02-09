@@ -53,7 +53,7 @@ public class PurchaseOrderService {
 	}
 	
 	//encontrar la ultima orden de compra de un proveedor
-	public PurchaseOrderModel getLastPurchaseOrderBySupplierId(int supplierId) {
-	    return purchaseOrderRepository.findFirstBySupplierIdOrderByCreatedAtDesc(supplierId);
+	public int getLastPurchaseOrderNumber() {
+	    return (int) purchaseOrderRepository.count() + 1;
 	}
 }

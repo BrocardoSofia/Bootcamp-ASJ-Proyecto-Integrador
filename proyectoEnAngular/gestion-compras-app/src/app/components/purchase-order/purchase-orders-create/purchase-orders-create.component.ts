@@ -54,6 +54,10 @@ export class PurchaseOrdersCreateComponent implements OnInit {
 
   productPurchase: ProductPurchase[] = [];
 
+  detailForm!: FormGroup;
+
+  date:Date = new Date;
+
   constructor(
     private suppliersService: SuppliersService,
     private productsService: ProductsService,
@@ -64,6 +68,10 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.detailForm = this.fb.group({
+      deliveryDate: ['', [Validators.required, this.validateDate]],
+      receptionInfo: ['']
+    });
 
     this.oldPurchaseOrder = this.purchaseOrdersService.inicPurchaseOrder();
     this.purchaseOrder = this.purchaseOrdersService.inicPurchaseOrder();
@@ -75,6 +83,32 @@ export class PurchaseOrdersCreateComponent implements OnInit {
       }
     )
 
+  }
+
+  validateDate(control:any) {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0); // Set time to the beginning of the day
+
+    return selectedDate > currentDate ? null : { fechaInvalida: true };
+  }
+
+  submitForm() {
+    if (this.detailForm.valid) {
+      // Aquí puedes enviar los datos a tu base de datos (por ejemplo, H2)
+      console.log("valores validos");
+    }
+  }
+
+  getCurrentDateTime(): string {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+  
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
   }
 
   nextPage(){
@@ -168,7 +202,6 @@ export class PurchaseOrdersCreateComponent implements OnInit {
     this.productsService.getAllProductsBySupplierId(supplier.id).subscribe(
       response=>{
         this.products = response;
-        console.log(this.products);
       }
     )
   }
@@ -247,9 +280,15 @@ export class PurchaseOrdersCreateComponent implements OnInit {
   }
 
   continueProducts(){
-    this.productsValid = true;
-
     //set purchase state
     this.purchaseOrder.purchaseState.id = 1;
+    this.purchaseOrdersService.getLastPurchaseOrderNumber().subscribe(
+      data=>{
+        this.purchaseOrder.purchaseOrderNumber = data;
+        this.productsValid = true;
+      }
+    )
   }
+
+
 }
