@@ -109,7 +109,7 @@ public class ProductCategoryModel {
 	@Override
 	public String toString() {
 		return "ProductCategoryModel [id=" + id + ", category=" + category + ", createdAt=" + createdAt + ", updatedAt="
-				+ updatedAt + ", deletedAt=" + deletedAt + ", supplierCategory=" + supplierCategory.toString() + "]";
+				+ updatedAt + ", deletedAt=" + deletedAt + ", supplierCategory=" + supplierCategory.getCategory() + "]";
 	}
     
     

@@ -172,8 +172,8 @@ public class ProductModel {
 
 	@Override
 	public String toString() {
-		return "ProductModel [id=" + id + ", supplier=" + supplier.toString() + ", productCategory=" + productCategory.toString()
-				+ ", createdBy=" + createdBy.toString() + ", codeSKU=" + codeSKU + ", productName=" + productName
+		return "ProductModel [id=" + id + ", supplier=" + supplier.getBusinessName() + ", productCategory=" + productCategory.getCategory()
+				+ ", createdBy=" + createdBy.getUserAlias() + ", codeSKU=" + codeSKU + ", productName=" + productName
 				+ ", productDescription=" + productDescription + ", price=" + price 
 				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", deletedAt=" + deletedAt + "]";
 	}

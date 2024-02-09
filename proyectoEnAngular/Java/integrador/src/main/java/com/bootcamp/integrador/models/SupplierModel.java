@@ -291,8 +291,8 @@ public class SupplierModel {
 
 	@Override
 	public String toString() {
-		return "SupplierModel [id=" + id + ", supplierCategory=" + supplierCategory.toString() + ", createdBy=" + createdBy.toString()
-				+ ", province=" + province.toString() + ", ivaCondition=" + ivaCondition.toString() + ", supplierCode=" + supplierCode
+		return "SupplierModel [id=" + id + ", supplierCategory=" + supplierCategory.getCategory() + ", createdBy=" + createdBy.getUserAlias()
+				+ ", province=" + province.getProvince() + ", ivaCondition=" + ivaCondition.getIvaCondition() + ", supplierCode=" + supplierCode
 				+ ", businessName=" + businessName + ", imageUrl=" + imageUrl + ", businessWebpage=" + businessWebpage
 				+ ", businessEmail=" + businessEmail + ", businessPhone=" + businessPhone + ", streetName=" + streetName
 				+ ", streetNumber=" + streetNumber + ", city=" + city + ", cp=" + cp + ", cuit=" + cuit + ", createdAt="
