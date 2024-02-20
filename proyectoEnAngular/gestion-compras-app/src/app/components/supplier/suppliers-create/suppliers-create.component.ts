@@ -262,25 +262,7 @@ export class SuppliersCreateComponent implements OnInit {
   }
 
   modifySupplier(){
-    if(this.supplier == this.oldSupplier && (this.newContact === 0)){
-      Swal.fire({
-        title: "No se realizo ningun cambio en el proveedor",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__fadeInUp
-            animate__faster
-          `
-        },
-        hideClass: {
-          popup: `
-            animate__animated
-            animate__fadeOutDown
-            animate__faster
-          `
-        }
-      });
-    }else if(this.supplier == this.oldSupplier && (this.newContact !== 0)){
+    if(this.newContact !== 0){
       this.callSupplierContactsSequentially();
       this.supplierLoadedSuccessfully('Se modifico correctamente al proveedor: ' + this.supplier.businessName);
     }else{

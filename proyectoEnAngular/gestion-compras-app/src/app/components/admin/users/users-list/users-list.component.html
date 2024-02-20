@@ -134,7 +134,7 @@
             </button>
   
             <button
-            *ngIf="user.deletedAt === null"
+            *ngIf="user.deletedAt === null && user.id != 1"
               type="button"
               class="btn btn-outline-danger rounded-circle btn-icon"
               (click)="deleteUser(user)"

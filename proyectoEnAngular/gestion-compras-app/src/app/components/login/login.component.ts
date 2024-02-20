@@ -3,7 +3,6 @@ import { LoginService } from '../../services/login.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { NavBarService } from '../../services/nav-bar.service';
 import { User } from '../../models/user';
 
 @Component({
